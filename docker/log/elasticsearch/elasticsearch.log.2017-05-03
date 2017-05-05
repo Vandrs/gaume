@@ -1,0 +1,60 @@
+[2017-05-03 01:26:58,139][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-03 01:26:58,773][INFO ][node                     ] [Hellion] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-03 01:26:58,773][INFO ][node                     ] [Hellion] initializing ...
+[2017-05-03 01:27:00,100][INFO ][plugins                  ] [Hellion] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-03 01:27:00,255][INFO ][env                      ] [Hellion] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [776gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-03 01:27:00,256][INFO ][env                      ] [Hellion] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-03 01:27:00,256][WARN ][env                      ] [Hellion] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-03 01:27:04,470][INFO ][node                     ] [Hellion] initialized
+[2017-05-03 01:27:04,470][INFO ][node                     ] [Hellion] starting ...
+[2017-05-03 01:27:04,749][INFO ][transport                ] [Hellion] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
+[2017-05-03 01:27:04,773][INFO ][discovery                ] [Hellion] elasticsearch/EX5wbg4xQe2y0VonVr6Rig
+[2017-05-03 01:27:07,855][INFO ][cluster.service          ] [Hellion] new_master {Hellion}{EX5wbg4xQe2y0VonVr6Rig}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-03 01:27:07,872][INFO ][http                     ] [Hellion] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
+[2017-05-03 01:27:07,872][INFO ][node                     ] [Hellion] started
+[2017-05-03 01:27:08,167][INFO ][gateway                  ] [Hellion] recovered [1] indices into cluster_state
+[2017-05-03 01:27:09,385][INFO ][cluster.routing.allocation] [Hellion] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-03 01:35:39,885][INFO ][node                     ] [Hellion] stopping ...
+[2017-05-03 01:35:39,915][INFO ][node                     ] [Hellion] stopped
+[2017-05-03 01:35:39,916][INFO ][node                     ] [Hellion] closing ...
+[2017-05-03 01:35:39,923][INFO ][node                     ] [Hellion] closed
+[2017-05-03 01:45:17,391][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-03 01:45:18,204][INFO ][node                     ] [Hindsight Lad] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-03 01:45:18,205][INFO ][node                     ] [Hindsight Lad] initializing ...
+[2017-05-03 01:45:18,796][INFO ][plugins                  ] [Hindsight Lad] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-03 01:45:18,818][INFO ][env                      ] [Hindsight Lad] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [775.9gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-03 01:45:18,818][INFO ][env                      ] [Hindsight Lad] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-03 01:45:18,819][WARN ][env                      ] [Hindsight Lad] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-03 01:45:22,079][INFO ][node                     ] [Hindsight Lad] initialized
+[2017-05-03 01:45:22,080][INFO ][node                     ] [Hindsight Lad] starting ...
+[2017-05-03 01:45:22,246][INFO ][transport                ] [Hindsight Lad] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
+[2017-05-03 01:45:22,257][INFO ][discovery                ] [Hindsight Lad] elasticsearch/tNyxwVzfSsOgf880ybthrQ
+[2017-05-03 01:45:25,321][INFO ][cluster.service          ] [Hindsight Lad] new_master {Hindsight Lad}{tNyxwVzfSsOgf880ybthrQ}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-03 01:45:25,347][INFO ][http                     ] [Hindsight Lad] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
+[2017-05-03 01:45:25,348][INFO ][node                     ] [Hindsight Lad] started
+[2017-05-03 01:45:25,813][INFO ][gateway                  ] [Hindsight Lad] recovered [1] indices into cluster_state
+[2017-05-03 01:45:26,736][INFO ][cluster.routing.allocation] [Hindsight Lad] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-03 02:17:30,564][INFO ][node                     ] [Hindsight Lad] stopping ...
+[2017-05-03 02:17:36,368][INFO ][node                     ] [Hindsight Lad] stopped
+[2017-05-03 02:17:36,369][INFO ][node                     ] [Hindsight Lad] closing ...
+[2017-05-03 02:17:36,725][INFO ][node                     ] [Hindsight Lad] closed
+[2017-05-03 02:17:46,601][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-03 02:17:46,882][INFO ][node                     ] [Penance] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-03 02:17:46,883][INFO ][node                     ] [Penance] initializing ...
+[2017-05-03 02:17:47,636][INFO ][plugins                  ] [Penance] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-03 02:17:47,666][INFO ][env                      ] [Penance] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [775gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-03 02:17:47,666][INFO ][env                      ] [Penance] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-03 02:17:47,667][WARN ][env                      ] [Penance] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-03 02:17:50,662][INFO ][node                     ] [Penance] initialized
+[2017-05-03 02:17:50,662][INFO ][node                     ] [Penance] starting ...
+[2017-05-03 02:17:50,769][INFO ][transport                ] [Penance] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
+[2017-05-03 02:17:50,776][INFO ][discovery                ] [Penance] elasticsearch/-MpqYr45Qo-9Dl4VUB8T7Q
+[2017-05-03 02:17:53,850][INFO ][cluster.service          ] [Penance] new_master {Penance}{-MpqYr45Qo-9Dl4VUB8T7Q}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-03 02:17:53,875][INFO ][http                     ] [Penance] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
+[2017-05-03 02:17:53,875][INFO ][node                     ] [Penance] started
+[2017-05-03 02:17:54,043][INFO ][gateway                  ] [Penance] recovered [1] indices into cluster_state
+[2017-05-03 02:17:54,663][INFO ][cluster.routing.allocation] [Penance] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-03 03:15:56,037][INFO ][node                     ] [Penance] stopping ...
+[2017-05-03 03:15:56,294][INFO ][node                     ] [Penance] stopped
+[2017-05-03 03:15:56,295][INFO ][node                     ] [Penance] closing ...
+[2017-05-03 03:15:56,376][INFO ][node                     ] [Penance] closed

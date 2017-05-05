@@ -1,0 +1,16 @@
+[2017-05-05 01:37:15,163][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-05 01:37:15,411][INFO ][node                     ] [Antonio] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-05 01:37:15,411][INFO ][node                     ] [Antonio] initializing ...
+[2017-05-05 01:37:16,049][INFO ][plugins                  ] [Antonio] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-05 01:37:16,483][INFO ][env                      ] [Antonio] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [774.3gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-05 01:37:16,544][INFO ][env                      ] [Antonio] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-05 01:37:16,546][WARN ][env                      ] [Antonio] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-05 01:37:36,262][INFO ][node                     ] [Antonio] initialized
+[2017-05-05 01:37:36,262][INFO ][node                     ] [Antonio] starting ...
+[2017-05-05 01:37:36,878][INFO ][transport                ] [Antonio] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
+[2017-05-05 01:37:36,920][INFO ][discovery                ] [Antonio] elasticsearch/PbUGemLsT9OdJRTc2jzXxA
+[2017-05-05 01:37:40,016][INFO ][cluster.service          ] [Antonio] new_master {Antonio}{PbUGemLsT9OdJRTc2jzXxA}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-05 01:37:40,026][INFO ][http                     ] [Antonio] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
+[2017-05-05 01:37:40,026][INFO ][node                     ] [Antonio] started
+[2017-05-05 01:37:40,691][INFO ][gateway                  ] [Antonio] recovered [1] indices into cluster_state
+[2017-05-05 01:37:42,088][INFO ][cluster.routing.allocation] [Antonio] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).

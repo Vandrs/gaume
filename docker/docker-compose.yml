@@ -1,0 +1,61 @@
+version: '2'
+
+#############
+# Services
+#############
+services:
+
+    game-gym-elk:
+        build: ./elasticsearch
+        container_name: game-gym-elk
+        volumes:
+            - ./data:/var/lib/elasticsearch
+            - ./log/elasticsearch:/var/log/elasticsearch
+        ports:
+            - "5601:5601"
+            - "9200:9200"
+            - "9300:9300"
+            - "5044:5044"
+            - "5000:5000"
+
+    game-gym-mysql:
+        container_name: game-gym-mysql
+        build: ./mysql
+        expose:
+            - "3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=gamegym123
+            - MYSQL_DATABASE=gamegym
+            - MYSQL_USER=gamegym
+            - MYSQL_PASSWORD=gamegym123
+
+    game-gym-redis:
+        container_name: game-gym-redis
+        build: ./redis
+        expose:
+            - "6379"
+
+    game-gym-php:
+        container_name: game-gym-php
+        build: ./php
+        volumes:
+            - ../:/var/www/gaume
+        expose: 
+            - "9000"
+        links:
+            - "game-gym-redis"
+            - "game-gym-mysql"
+            - "game-gym-elk"
+
+    game-gym-nginx:
+        container_name: game-gym-nginx
+        build: ./nginx
+        volumes:
+            - ../:/var/www/gaume
+        expose: 
+            - "80"
+            - "443"
+        ports:
+            - "80:80"
+        links: 
+            - "game-gym-php"

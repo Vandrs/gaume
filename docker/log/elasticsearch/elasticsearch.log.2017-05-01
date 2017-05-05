@@ -1,0 +1,37 @@
+[2017-05-01 19:44:14,156][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-01 19:44:15,788][INFO ][node                     ] [Tethlam] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-01 19:44:15,788][INFO ][node                     ] [Tethlam] initializing ...
+[2017-05-01 19:44:17,338][INFO ][plugins                  ] [Tethlam] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-01 19:44:17,514][INFO ][env                      ] [Tethlam] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [776gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-01 19:44:17,514][INFO ][env                      ] [Tethlam] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-01 19:44:17,514][WARN ][env                      ] [Tethlam] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-01 19:44:22,260][INFO ][node                     ] [Tethlam] initialized
+[2017-05-01 19:44:22,260][INFO ][node                     ] [Tethlam] starting ...
+[2017-05-01 19:44:22,547][INFO ][transport                ] [Tethlam] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
+[2017-05-01 19:44:22,574][INFO ][discovery                ] [Tethlam] elasticsearch/Rr-JCv7ZQKuobCcGlBxWaA
+[2017-05-01 19:44:25,675][INFO ][cluster.service          ] [Tethlam] new_master {Tethlam}{Rr-JCv7ZQKuobCcGlBxWaA}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-01 19:44:25,692][INFO ][http                     ] [Tethlam] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
+[2017-05-01 19:44:25,692][INFO ][node                     ] [Tethlam] started
+[2017-05-01 19:44:25,832][INFO ][gateway                  ] [Tethlam] recovered [0] indices into cluster_state
+[2017-05-01 19:44:52,174][INFO ][cluster.metadata         ] [Tethlam] [.kibana] creating index, cause [api], templates [], shards [1]/[1], mappings [config]
+[2017-05-01 19:44:52,913][INFO ][cluster.routing.allocation] [Tethlam] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-01 20:46:12,653][INFO ][node                     ] [Tethlam] stopping ...
+[2017-05-01 20:46:12,937][INFO ][node                     ] [Tethlam] stopped
+[2017-05-01 20:46:12,937][INFO ][node                     ] [Tethlam] closing ...
+[2017-05-01 20:46:12,971][INFO ][node                     ] [Tethlam] closed
+[2017-05-01 20:47:21,449][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-01 20:47:22,619][INFO ][node                     ] [Aunt May Parker] version[2.3.4], pid[49], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-01 20:47:22,619][INFO ][node                     ] [Aunt May Parker] initializing ...
+[2017-05-01 20:47:25,387][INFO ][plugins                  ] [Aunt May Parker] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-01 20:47:25,503][INFO ][env                      ] [Aunt May Parker] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [776gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-01 20:47:25,504][INFO ][env                      ] [Aunt May Parker] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-01 20:47:25,505][WARN ][env                      ] [Aunt May Parker] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-01 20:47:35,809][INFO ][node                     ] [Aunt May Parker] initialized
+[2017-05-01 20:47:35,810][INFO ][node                     ] [Aunt May Parker] starting ...
+[2017-05-01 20:47:36,227][INFO ][transport                ] [Aunt May Parker] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
+[2017-05-01 20:47:36,265][INFO ][discovery                ] [Aunt May Parker] elasticsearch/dC7Oyg6BQY-r_B4E8hoWmw
+[2017-05-01 20:47:39,518][INFO ][cluster.service          ] [Aunt May Parker] new_master {Aunt May Parker}{dC7Oyg6BQY-r_B4E8hoWmw}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-01 20:47:39,582][INFO ][http                     ] [Aunt May Parker] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
+[2017-05-01 20:47:39,583][INFO ][node                     ] [Aunt May Parker] started
+[2017-05-01 20:47:40,257][INFO ][gateway                  ] [Aunt May Parker] recovered [1] indices into cluster_state
+[2017-05-01 20:47:43,219][INFO ][cluster.routing.allocation] [Aunt May Parker] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
