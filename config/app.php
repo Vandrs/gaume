@@ -228,4 +228,6 @@ return [
 
     ],
 
+    'salt' => env('PASS_SALT')
+
 ];

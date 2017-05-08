@@ -17,6 +17,9 @@ services:
             - "9300:9300"
             - "5044:5044"
             - "5000:5000"
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.2
 
     game-gym-mysql:
         container_name: game-gym-mysql
@@ -28,30 +31,44 @@ services:
             - MYSQL_DATABASE=gamegym
             - MYSQL_USER=gamegym
             - MYSQL_PASSWORD=gamegym123
+        volumes:
+            - ./data/mysql/mysql:/var/lib/mysql
+            - ./data/mysql/data:/var/data
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.3
 
     game-gym-redis:
         container_name: game-gym-redis
         build: ./redis
         expose:
             - "6379"
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.4
 
     game-gym-php:
         container_name: game-gym-php
         build: ./php
-        volumes:
-            - ../:/var/www/gaume
+        volumes_from: 
+            - volume_www
         expose: 
             - "9000"
         links:
             - "game-gym-redis"
             - "game-gym-mysql"
             - "game-gym-elk"
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.5
 
     game-gym-nginx:
         container_name: game-gym-nginx
         build: ./nginx
+        volumes_from: 
+            - volume_www
         volumes:
-            - ../:/var/www/gaume
+            - ./log/nginx:/var/log/nginx
         expose: 
             - "80"
             - "443"
@@ -59,3 +76,18 @@ services:
             - "80:80"
         links: 
             - "game-gym-php"
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.6
+
+    volume_www:
+        build: ./volume
+        volumes: 
+            - ../:/var/www/gaume
+
+networks:
+    gamegym_net:
+        driver: bridge
+        ipam:
+          config:
+          - subnet: 172.25.0.0/24

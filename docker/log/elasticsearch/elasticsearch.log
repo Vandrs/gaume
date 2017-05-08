@@ -1,16 +1,292 @@
-[2017-05-05 01:37:15,163][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
-[2017-05-05 01:37:15,411][INFO ][node                     ] [Antonio] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
-[2017-05-05 01:37:15,411][INFO ][node                     ] [Antonio] initializing ...
-[2017-05-05 01:37:16,049][INFO ][plugins                  ] [Antonio] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
-[2017-05-05 01:37:16,483][INFO ][env                      ] [Antonio] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [774.3gb], net total_space [910.5gb], spins? [possibly], types [ext4]
-[2017-05-05 01:37:16,544][INFO ][env                      ] [Antonio] heap size [990.7mb], compressed ordinary object pointers [true]
-[2017-05-05 01:37:16,546][WARN ][env                      ] [Antonio] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
-[2017-05-05 01:37:36,262][INFO ][node                     ] [Antonio] initialized
-[2017-05-05 01:37:36,262][INFO ][node                     ] [Antonio] starting ...
-[2017-05-05 01:37:36,878][INFO ][transport                ] [Antonio] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
-[2017-05-05 01:37:36,920][INFO ][discovery                ] [Antonio] elasticsearch/PbUGemLsT9OdJRTc2jzXxA
-[2017-05-05 01:37:40,016][INFO ][cluster.service          ] [Antonio] new_master {Antonio}{PbUGemLsT9OdJRTc2jzXxA}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
-[2017-05-05 01:37:40,026][INFO ][http                     ] [Antonio] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
-[2017-05-05 01:37:40,026][INFO ][node                     ] [Antonio] started
-[2017-05-05 01:37:40,691][INFO ][gateway                  ] [Antonio] recovered [1] indices into cluster_state
-[2017-05-05 01:37:42,088][INFO ][cluster.routing.allocation] [Antonio] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 17:39:38,038][INFO ][node                     ] [Fontanelle] stopping ...
+[2017-05-07 17:39:43,012][INFO ][node                     ] [Fontanelle] stopped
+[2017-05-07 17:39:43,015][INFO ][node                     ] [Fontanelle] closing ...
+[2017-05-07 17:39:43,542][INFO ][node                     ] [Fontanelle] closed
+[2017-05-07 18:24:53,735][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 18:24:56,683][INFO ][node                     ] [Hardcase] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 18:24:56,683][INFO ][node                     ] [Hardcase] initializing ...
+[2017-05-07 18:25:03,896][INFO ][plugins                  ] [Hardcase] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 18:25:05,309][INFO ][env                      ] [Hardcase] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [772.4gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 18:25:05,310][INFO ][env                      ] [Hardcase] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 18:25:05,310][WARN ][env                      ] [Hardcase] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 18:25:35,069][INFO ][node                     ] [Hardcase] initialized
+[2017-05-07 18:25:35,069][INFO ][node                     ] [Hardcase] starting ...
+[2017-05-07 18:25:36,260][INFO ][transport                ] [Hardcase] publish_address {172.21.0.5:9300}, bound_addresses {[::]:9300}
+[2017-05-07 18:25:36,297][INFO ][discovery                ] [Hardcase] elasticsearch/TTpjZtEaQd2fJm02FGKuUw
+[2017-05-07 18:25:39,398][INFO ][cluster.service          ] [Hardcase] new_master {Hardcase}{TTpjZtEaQd2fJm02FGKuUw}{172.21.0.5}{172.21.0.5:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 18:25:39,411][INFO ][http                     ] [Hardcase] publish_address {172.21.0.5:9200}, bound_addresses {[::]:9200}
+[2017-05-07 18:25:39,411][INFO ][node                     ] [Hardcase] started
+[2017-05-07 18:25:40,235][INFO ][gateway                  ] [Hardcase] recovered [1] indices into cluster_state
+[2017-05-07 18:25:42,105][INFO ][cluster.routing.allocation] [Hardcase] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 18:33:19,004][INFO ][node                     ] [Hardcase] stopping ...
+[2017-05-07 18:33:19,054][INFO ][node                     ] [Hardcase] stopped
+[2017-05-07 18:33:19,055][INFO ][node                     ] [Hardcase] closing ...
+[2017-05-07 18:33:19,066][INFO ][node                     ] [Hardcase] closed
+[2017-05-07 18:33:31,040][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 18:33:31,242][INFO ][node                     ] [Lyja] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 18:33:31,242][INFO ][node                     ] [Lyja] initializing ...
+[2017-05-07 18:33:31,887][INFO ][plugins                  ] [Lyja] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 18:33:31,907][INFO ][env                      ] [Lyja] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [772.2gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 18:33:31,907][INFO ][env                      ] [Lyja] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 18:33:31,908][WARN ][env                      ] [Lyja] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 18:33:33,958][INFO ][node                     ] [Lyja] initialized
+[2017-05-07 18:33:33,959][INFO ][node                     ] [Lyja] starting ...
+[2017-05-07 18:33:34,044][INFO ][transport                ] [Lyja] publish_address {172.21.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-07 18:33:34,049][INFO ][discovery                ] [Lyja] elasticsearch/OUU12hCZSQiZV5XCIaZzSA
+[2017-05-07 18:33:37,091][INFO ][cluster.service          ] [Lyja] new_master {Lyja}{OUU12hCZSQiZV5XCIaZzSA}{172.21.0.2}{172.21.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 18:33:37,116][INFO ][http                     ] [Lyja] publish_address {172.21.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-07 18:33:37,117][INFO ][node                     ] [Lyja] started
+[2017-05-07 18:33:37,750][INFO ][gateway                  ] [Lyja] recovered [1] indices into cluster_state
+[2017-05-07 18:33:38,832][INFO ][cluster.routing.allocation] [Lyja] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 18:35:12,101][INFO ][node                     ] [Lyja] stopping ...
+[2017-05-07 18:35:12,133][INFO ][node                     ] [Lyja] stopped
+[2017-05-07 18:35:12,133][INFO ][node                     ] [Lyja] closing ...
+[2017-05-07 18:35:12,140][INFO ][node                     ] [Lyja] closed
+[2017-05-07 18:36:22,304][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 18:36:22,587][INFO ][node                     ] [Midgard Serpent] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 18:36:22,587][INFO ][node                     ] [Midgard Serpent] initializing ...
+[2017-05-07 18:36:23,276][INFO ][plugins                  ] [Midgard Serpent] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 18:36:23,301][INFO ][env                      ] [Midgard Serpent] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [772.1gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 18:36:23,301][INFO ][env                      ] [Midgard Serpent] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 18:36:23,301][WARN ][env                      ] [Midgard Serpent] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 18:36:25,475][INFO ][node                     ] [Midgard Serpent] initialized
+[2017-05-07 18:36:25,475][INFO ][node                     ] [Midgard Serpent] starting ...
+[2017-05-07 18:36:25,561][INFO ][transport                ] [Midgard Serpent] publish_address {172.21.0.5:9300}, bound_addresses {[::]:9300}
+[2017-05-07 18:36:25,567][INFO ][discovery                ] [Midgard Serpent] elasticsearch/Nb2kxIuQSKuKp_xGbexyAg
+[2017-05-07 18:36:28,612][INFO ][cluster.service          ] [Midgard Serpent] new_master {Midgard Serpent}{Nb2kxIuQSKuKp_xGbexyAg}{172.21.0.5}{172.21.0.5:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 18:36:28,622][INFO ][http                     ] [Midgard Serpent] publish_address {172.21.0.5:9200}, bound_addresses {[::]:9200}
+[2017-05-07 18:36:28,622][INFO ][node                     ] [Midgard Serpent] started
+[2017-05-07 18:36:28,780][INFO ][gateway                  ] [Midgard Serpent] recovered [1] indices into cluster_state
+[2017-05-07 18:36:29,386][INFO ][cluster.routing.allocation] [Midgard Serpent] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 18:37:46,312][INFO ][node                     ] [Midgard Serpent] stopping ...
+[2017-05-07 18:37:46,361][INFO ][node                     ] [Midgard Serpent] stopped
+[2017-05-07 18:37:46,361][INFO ][node                     ] [Midgard Serpent] closing ...
+[2017-05-07 18:37:46,367][INFO ][node                     ] [Midgard Serpent] closed
+[2017-05-07 18:38:02,978][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 18:38:03,186][INFO ][node                     ] [Werewolf by Night] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 18:38:03,186][INFO ][node                     ] [Werewolf by Night] initializing ...
+[2017-05-07 18:38:03,786][INFO ][plugins                  ] [Werewolf by Night] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 18:38:03,814][INFO ][env                      ] [Werewolf by Night] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [772gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 18:38:03,814][INFO ][env                      ] [Werewolf by Night] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 18:38:03,814][WARN ][env                      ] [Werewolf by Night] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 18:38:05,940][INFO ][node                     ] [Werewolf by Night] initialized
+[2017-05-07 18:38:05,941][INFO ][node                     ] [Werewolf by Night] starting ...
+[2017-05-07 18:38:06,049][INFO ][transport                ] [Werewolf by Night] publish_address {172.21.0.3:9300}, bound_addresses {[::]:9300}
+[2017-05-07 18:38:06,057][INFO ][discovery                ] [Werewolf by Night] elasticsearch/RyLvYuqERtKocwjjO-Vq0g
+[2017-05-07 18:38:09,120][INFO ][cluster.service          ] [Werewolf by Night] new_master {Werewolf by Night}{RyLvYuqERtKocwjjO-Vq0g}{172.21.0.3}{172.21.0.3:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 18:38:09,133][INFO ][http                     ] [Werewolf by Night] publish_address {172.21.0.3:9200}, bound_addresses {[::]:9200}
+[2017-05-07 18:38:09,134][INFO ][node                     ] [Werewolf by Night] started
+[2017-05-07 18:38:09,721][INFO ][gateway                  ] [Werewolf by Night] recovered [1] indices into cluster_state
+[2017-05-07 18:38:10,605][INFO ][cluster.routing.allocation] [Werewolf by Night] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 19:33:28,072][INFO ][node                     ] [Werewolf by Night] stopping ...
+[2017-05-07 19:33:29,182][INFO ][node                     ] [Werewolf by Night] stopped
+[2017-05-07 19:33:29,182][INFO ][node                     ] [Werewolf by Night] closing ...
+[2017-05-07 19:33:29,440][INFO ][node                     ] [Werewolf by Night] closed
+[2017-05-07 19:34:29,123][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 19:34:31,774][INFO ][node                     ] [Carlos Lobo] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 19:34:31,774][INFO ][node                     ] [Carlos Lobo] initializing ...
+[2017-05-07 19:34:39,814][INFO ][plugins                  ] [Carlos Lobo] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 19:34:41,150][INFO ][env                      ] [Carlos Lobo] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [771.8gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 19:34:41,151][INFO ][env                      ] [Carlos Lobo] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 19:34:41,151][WARN ][env                      ] [Carlos Lobo] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 19:35:03,179][INFO ][node                     ] [Carlos Lobo] initialized
+[2017-05-07 19:35:03,181][INFO ][node                     ] [Carlos Lobo] starting ...
+[2017-05-07 19:35:03,336][INFO ][transport                ] [Carlos Lobo] publish_address {172.21.0.5:9300}, bound_addresses {[::]:9300}
+[2017-05-07 19:35:03,342][INFO ][discovery                ] [Carlos Lobo] elasticsearch/x81cjjsdQUSXPjoeFFx8xg
+[2017-05-07 19:35:06,424][INFO ][cluster.service          ] [Carlos Lobo] new_master {Carlos Lobo}{x81cjjsdQUSXPjoeFFx8xg}{172.21.0.5}{172.21.0.5:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 19:35:06,455][INFO ][http                     ] [Carlos Lobo] publish_address {172.21.0.5:9200}, bound_addresses {[::]:9200}
+[2017-05-07 19:35:06,456][INFO ][node                     ] [Carlos Lobo] started
+[2017-05-07 19:35:06,670][INFO ][gateway                  ] [Carlos Lobo] recovered [1] indices into cluster_state
+[2017-05-07 19:35:07,556][INFO ][cluster.routing.allocation] [Carlos Lobo] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 19:50:40,888][INFO ][node                     ] [Carlos Lobo] stopping ...
+[2017-05-07 19:50:41,106][INFO ][node                     ] [Carlos Lobo] stopped
+[2017-05-07 19:50:41,106][INFO ][node                     ] [Carlos Lobo] closing ...
+[2017-05-07 19:50:41,352][INFO ][node                     ] [Carlos Lobo] closed
+[2017-05-07 19:50:58,310][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 19:50:58,761][INFO ][node                     ] [Jaeger] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 19:50:58,762][INFO ][node                     ] [Jaeger] initializing ...
+[2017-05-07 19:51:00,151][INFO ][plugins                  ] [Jaeger] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 19:51:00,175][INFO ][env                      ] [Jaeger] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [771.6gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 19:51:00,175][INFO ][env                      ] [Jaeger] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 19:51:00,175][WARN ][env                      ] [Jaeger] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 19:51:04,781][INFO ][node                     ] [Jaeger] initialized
+[2017-05-07 19:51:04,782][INFO ][node                     ] [Jaeger] starting ...
+[2017-05-07 19:51:05,098][INFO ][transport                ] [Jaeger] publish_address {172.21.0.4:9300}, bound_addresses {[::]:9300}
+[2017-05-07 19:51:05,107][INFO ][discovery                ] [Jaeger] elasticsearch/e0YVil6xQ9yQNNqJHyEDpw
+[2017-05-07 19:51:08,186][INFO ][cluster.service          ] [Jaeger] new_master {Jaeger}{e0YVil6xQ9yQNNqJHyEDpw}{172.21.0.4}{172.21.0.4:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 19:51:08,376][INFO ][http                     ] [Jaeger] publish_address {172.21.0.4:9200}, bound_addresses {[::]:9200}
+[2017-05-07 19:51:08,376][INFO ][node                     ] [Jaeger] started
+[2017-05-07 19:51:09,228][INFO ][gateway                  ] [Jaeger] recovered [1] indices into cluster_state
+[2017-05-07 19:51:11,897][INFO ][cluster.routing.allocation] [Jaeger] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 19:53:20,092][INFO ][node                     ] [Jaeger] stopping ...
+[2017-05-07 19:53:20,942][INFO ][node                     ] [Jaeger] stopped
+[2017-05-07 19:53:20,943][INFO ][node                     ] [Jaeger] closing ...
+[2017-05-07 19:53:20,966][INFO ][node                     ] [Jaeger] closed
+[2017-05-07 20:24:42,849][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 20:24:43,179][INFO ][node                     ] [Nightwatch] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 20:24:43,180][INFO ][node                     ] [Nightwatch] initializing ...
+[2017-05-07 20:24:44,225][INFO ][plugins                  ] [Nightwatch] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 20:24:44,245][INFO ][env                      ] [Nightwatch] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.9gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 20:24:44,245][INFO ][env                      ] [Nightwatch] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 20:24:44,245][WARN ][env                      ] [Nightwatch] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 20:24:47,583][INFO ][node                     ] [Nightwatch] initialized
+[2017-05-07 20:24:47,584][INFO ][node                     ] [Nightwatch] starting ...
+[2017-05-07 20:24:47,704][INFO ][transport                ] [Nightwatch] publish_address {172.21.0.5:9300}, bound_addresses {[::]:9300}
+[2017-05-07 20:24:47,710][INFO ][discovery                ] [Nightwatch] elasticsearch/E15jIuOSRniuGW1gOzYC6w
+[2017-05-07 20:24:50,812][INFO ][cluster.service          ] [Nightwatch] new_master {Nightwatch}{E15jIuOSRniuGW1gOzYC6w}{172.21.0.5}{172.21.0.5:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 20:24:50,860][INFO ][http                     ] [Nightwatch] publish_address {172.21.0.5:9200}, bound_addresses {[::]:9200}
+[2017-05-07 20:24:50,861][INFO ][node                     ] [Nightwatch] started
+[2017-05-07 20:24:51,301][INFO ][gateway                  ] [Nightwatch] recovered [1] indices into cluster_state
+[2017-05-07 20:24:53,659][INFO ][cluster.routing.allocation] [Nightwatch] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 21:22:38,223][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 21:22:38,907][INFO ][node                     ] [Virginia "Pepper" Potts] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 21:22:38,907][INFO ][node                     ] [Virginia "Pepper" Potts] initializing ...
+[2017-05-07 21:22:40,373][INFO ][plugins                  ] [Virginia "Pepper" Potts] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 21:22:40,556][INFO ][env                      ] [Virginia "Pepper" Potts] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.6gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 21:22:40,557][INFO ][env                      ] [Virginia "Pepper" Potts] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 21:22:40,557][WARN ][env                      ] [Virginia "Pepper" Potts] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 21:22:44,892][INFO ][node                     ] [Virginia "Pepper" Potts] initialized
+[2017-05-07 21:22:44,892][INFO ][node                     ] [Virginia "Pepper" Potts] starting ...
+[2017-05-07 21:22:45,169][INFO ][transport                ] [Virginia "Pepper" Potts] publish_address {172.21.0.5:9300}, bound_addresses {[::]:9300}
+[2017-05-07 21:22:45,311][INFO ][discovery                ] [Virginia "Pepper" Potts] elasticsearch/Tf1sfmqRTYuswexetzpG-Q
+[2017-05-07 21:22:48,399][INFO ][cluster.service          ] [Virginia "Pepper" Potts] new_master {Virginia "Pepper" Potts}{Tf1sfmqRTYuswexetzpG-Q}{172.21.0.5}{172.21.0.5:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 21:22:48,420][INFO ][http                     ] [Virginia "Pepper" Potts] publish_address {172.21.0.5:9200}, bound_addresses {[::]:9200}
+[2017-05-07 21:22:48,420][INFO ][node                     ] [Virginia "Pepper" Potts] started
+[2017-05-07 21:22:48,755][INFO ][gateway                  ] [Virginia "Pepper" Potts] recovered [1] indices into cluster_state
+[2017-05-07 21:22:50,683][INFO ][cluster.routing.allocation] [Virginia "Pepper" Potts] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 22:01:44,649][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 22:01:45,250][INFO ][node                     ] [Spike Freeman] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 22:01:45,250][INFO ][node                     ] [Spike Freeman] initializing ...
+[2017-05-07 22:01:46,943][INFO ][plugins                  ] [Spike Freeman] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 22:01:47,100][INFO ][env                      ] [Spike Freeman] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.6gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 22:01:47,100][INFO ][env                      ] [Spike Freeman] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 22:01:47,100][WARN ][env                      ] [Spike Freeman] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 22:01:51,748][INFO ][node                     ] [Spike Freeman] initialized
+[2017-05-07 22:01:51,748][INFO ][node                     ] [Spike Freeman] starting ...
+[2017-05-07 22:01:52,028][INFO ][transport                ] [Spike Freeman] publish_address {172.21.0.5:9300}, bound_addresses {[::]:9300}
+[2017-05-07 22:01:52,046][INFO ][discovery                ] [Spike Freeman] elasticsearch/w8pywFTUSy-xAK66MsSy6A
+[2017-05-07 22:01:55,116][INFO ][cluster.service          ] [Spike Freeman] new_master {Spike Freeman}{w8pywFTUSy-xAK66MsSy6A}{172.21.0.5}{172.21.0.5:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 22:01:55,134][INFO ][http                     ] [Spike Freeman] publish_address {172.21.0.5:9200}, bound_addresses {[::]:9200}
+[2017-05-07 22:01:55,134][INFO ][node                     ] [Spike Freeman] started
+[2017-05-07 22:01:55,391][INFO ][gateway                  ] [Spike Freeman] recovered [1] indices into cluster_state
+[2017-05-07 22:01:56,376][INFO ][cluster.routing.allocation] [Spike Freeman] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 22:07:20,428][INFO ][node                     ] [Spike Freeman] stopping ...
+[2017-05-07 22:07:20,525][INFO ][node                     ] [Spike Freeman] stopped
+[2017-05-07 22:07:20,526][INFO ][node                     ] [Spike Freeman] closing ...
+[2017-05-07 22:07:20,535][INFO ][node                     ] [Spike Freeman] closed
+[2017-05-07 22:12:24,224][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 22:12:24,471][INFO ][node                     ] [Scourge of the Underworld] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 22:12:24,471][INFO ][node                     ] [Scourge of the Underworld] initializing ...
+[2017-05-07 22:12:25,162][INFO ][plugins                  ] [Scourge of the Underworld] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 22:12:25,191][INFO ][env                      ] [Scourge of the Underworld] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.6gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 22:12:25,191][INFO ][env                      ] [Scourge of the Underworld] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 22:12:25,191][WARN ][env                      ] [Scourge of the Underworld] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 22:12:27,274][INFO ][node                     ] [Scourge of the Underworld] initialized
+[2017-05-07 22:12:27,274][INFO ][node                     ] [Scourge of the Underworld] starting ...
+[2017-05-07 22:12:27,360][INFO ][transport                ] [Scourge of the Underworld] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-07 22:12:27,365][INFO ][discovery                ] [Scourge of the Underworld] elasticsearch/YoZQUSuQQD6uTeO9QuwWbQ
+[2017-05-07 22:12:30,422][INFO ][cluster.service          ] [Scourge of the Underworld] new_master {Scourge of the Underworld}{YoZQUSuQQD6uTeO9QuwWbQ}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 22:12:30,433][INFO ][http                     ] [Scourge of the Underworld] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-07 22:12:30,433][INFO ][node                     ] [Scourge of the Underworld] started
+[2017-05-07 22:12:30,904][INFO ][gateway                  ] [Scourge of the Underworld] recovered [1] indices into cluster_state
+[2017-05-07 22:12:31,648][INFO ][cluster.routing.allocation] [Scourge of the Underworld] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 22:16:35,268][INFO ][node                     ] [Scourge of the Underworld] stopping ...
+[2017-05-07 22:16:35,314][INFO ][node                     ] [Scourge of the Underworld] stopped
+[2017-05-07 22:16:35,314][INFO ][node                     ] [Scourge of the Underworld] closing ...
+[2017-05-07 22:16:35,322][INFO ][node                     ] [Scourge of the Underworld] closed
+[2017-05-07 22:16:52,851][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 22:16:53,051][INFO ][node                     ] [N'Gabthoth] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 22:16:53,051][INFO ][node                     ] [N'Gabthoth] initializing ...
+[2017-05-07 22:16:53,649][INFO ][plugins                  ] [N'Gabthoth] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 22:16:53,669][INFO ][env                      ] [N'Gabthoth] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.3gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 22:16:53,669][INFO ][env                      ] [N'Gabthoth] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 22:16:53,669][WARN ][env                      ] [N'Gabthoth] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 22:16:55,696][INFO ][node                     ] [N'Gabthoth] initialized
+[2017-05-07 22:16:55,696][INFO ][node                     ] [N'Gabthoth] starting ...
+[2017-05-07 22:16:55,804][INFO ][transport                ] [N'Gabthoth] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-07 22:16:55,809][INFO ][discovery                ] [N'Gabthoth] elasticsearch/92LX8KCSRg6PWuIC644jjQ
+[2017-05-07 22:16:58,869][INFO ][cluster.service          ] [N'Gabthoth] new_master {N'Gabthoth}{92LX8KCSRg6PWuIC644jjQ}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 22:16:58,884][INFO ][http                     ] [N'Gabthoth] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-07 22:16:58,885][INFO ][node                     ] [N'Gabthoth] started
+[2017-05-07 22:16:59,234][INFO ][gateway                  ] [N'Gabthoth] recovered [1] indices into cluster_state
+[2017-05-07 22:16:59,910][INFO ][cluster.routing.allocation] [N'Gabthoth] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 22:25:41,958][INFO ][node                     ] [N'Gabthoth] stopping ...
+[2017-05-07 22:25:41,989][INFO ][node                     ] [N'Gabthoth] stopped
+[2017-05-07 22:25:41,989][INFO ][node                     ] [N'Gabthoth] closing ...
+[2017-05-07 22:25:41,995][INFO ][node                     ] [N'Gabthoth] closed
+[2017-05-07 22:26:03,571][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 22:26:03,755][INFO ][node                     ] [Boom Boom] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 22:26:03,755][INFO ][node                     ] [Boom Boom] initializing ...
+[2017-05-07 22:26:04,349][INFO ][plugins                  ] [Boom Boom] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 22:26:04,371][INFO ][env                      ] [Boom Boom] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.1gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 22:26:04,371][INFO ][env                      ] [Boom Boom] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 22:26:04,371][WARN ][env                      ] [Boom Boom] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 22:26:06,727][INFO ][node                     ] [Boom Boom] initialized
+[2017-05-07 22:26:06,728][INFO ][node                     ] [Boom Boom] starting ...
+[2017-05-07 22:26:06,840][INFO ][transport                ] [Boom Boom] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-07 22:26:06,846][INFO ][discovery                ] [Boom Boom] elasticsearch/kPWxPthdTNiYghOtIcrTiw
+[2017-05-07 22:26:09,923][INFO ][cluster.service          ] [Boom Boom] new_master {Boom Boom}{kPWxPthdTNiYghOtIcrTiw}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 22:26:09,940][INFO ][http                     ] [Boom Boom] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-07 22:26:09,940][INFO ][node                     ] [Boom Boom] started
+[2017-05-07 22:26:10,286][INFO ][gateway                  ] [Boom Boom] recovered [1] indices into cluster_state
+[2017-05-07 22:26:11,178][INFO ][cluster.routing.allocation] [Boom Boom] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 22:27:42,312][INFO ][node                     ] [Boom Boom] stopping ...
+[2017-05-07 22:27:42,346][INFO ][node                     ] [Boom Boom] stopped
+[2017-05-07 22:27:42,346][INFO ][node                     ] [Boom Boom] closing ...
+[2017-05-07 22:27:42,354][INFO ][node                     ] [Boom Boom] closed
+[2017-05-07 22:28:51,425][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 22:28:51,625][INFO ][node                     ] [Amahl Farouk] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 22:28:51,625][INFO ][node                     ] [Amahl Farouk] initializing ...
+[2017-05-07 22:28:52,273][INFO ][plugins                  ] [Amahl Farouk] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 22:28:52,298][INFO ][env                      ] [Amahl Farouk] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.2gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 22:28:52,298][INFO ][env                      ] [Amahl Farouk] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 22:28:52,298][WARN ][env                      ] [Amahl Farouk] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 22:28:54,639][INFO ][node                     ] [Amahl Farouk] initialized
+[2017-05-07 22:28:54,640][INFO ][node                     ] [Amahl Farouk] starting ...
+[2017-05-07 22:28:54,724][INFO ][transport                ] [Amahl Farouk] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-07 22:28:54,729][INFO ][discovery                ] [Amahl Farouk] elasticsearch/zbrUShI1SkuWQQkHqf-Neg
+[2017-05-07 22:28:57,803][INFO ][cluster.service          ] [Amahl Farouk] new_master {Amahl Farouk}{zbrUShI1SkuWQQkHqf-Neg}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 22:28:57,832][INFO ][http                     ] [Amahl Farouk] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-07 22:28:57,832][INFO ][node                     ] [Amahl Farouk] started
+[2017-05-07 22:28:58,010][INFO ][gateway                  ] [Amahl Farouk] recovered [1] indices into cluster_state
+[2017-05-07 22:28:58,602][INFO ][cluster.routing.allocation] [Amahl Farouk] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 22:38:36,912][INFO ][node                     ] [Amahl Farouk] stopping ...
+[2017-05-07 22:38:36,946][INFO ][node                     ] [Amahl Farouk] stopped
+[2017-05-07 22:38:36,947][INFO ][node                     ] [Amahl Farouk] closing ...
+[2017-05-07 22:38:36,953][INFO ][node                     ] [Amahl Farouk] closed
+[2017-05-07 22:40:09,604][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 22:40:09,887][INFO ][node                     ] [Mad Jim Jaspers] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 22:40:09,887][INFO ][node                     ] [Mad Jim Jaspers] initializing ...
+[2017-05-07 22:40:10,475][INFO ][plugins                  ] [Mad Jim Jaspers] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 22:40:10,543][INFO ][env                      ] [Mad Jim Jaspers] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770.2gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 22:40:10,543][INFO ][env                      ] [Mad Jim Jaspers] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 22:40:10,543][WARN ][env                      ] [Mad Jim Jaspers] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 22:40:12,575][INFO ][node                     ] [Mad Jim Jaspers] initialized
+[2017-05-07 22:40:12,575][INFO ][node                     ] [Mad Jim Jaspers] starting ...
+[2017-05-07 22:40:12,672][INFO ][transport                ] [Mad Jim Jaspers] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-07 22:40:12,676][INFO ][discovery                ] [Mad Jim Jaspers] elasticsearch/jS-an-EDRva-i9EVQhO3mQ
+[2017-05-07 22:40:15,727][INFO ][cluster.service          ] [Mad Jim Jaspers] new_master {Mad Jim Jaspers}{jS-an-EDRva-i9EVQhO3mQ}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 22:40:15,738][INFO ][http                     ] [Mad Jim Jaspers] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-07 22:40:15,739][INFO ][node                     ] [Mad Jim Jaspers] started
+[2017-05-07 22:40:16,085][INFO ][gateway                  ] [Mad Jim Jaspers] recovered [1] indices into cluster_state
+[2017-05-07 22:40:16,799][INFO ][cluster.routing.allocation] [Mad Jim Jaspers] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-07 23:41:06,291][INFO ][node                     ] [Mad Jim Jaspers] stopping ...
+[2017-05-07 23:41:06,860][INFO ][node                     ] [Mad Jim Jaspers] stopped
+[2017-05-07 23:41:06,860][INFO ][node                     ] [Mad Jim Jaspers] closing ...
+[2017-05-07 23:41:07,215][INFO ][node                     ] [Mad Jim Jaspers] closed
+[2017-05-07 23:50:22,763][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-07 23:50:23,773][INFO ][node                     ] [Iron Lad] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-07 23:50:23,773][INFO ][node                     ] [Iron Lad] initializing ...
+[2017-05-07 23:50:26,995][INFO ][plugins                  ] [Iron Lad] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-07 23:50:27,107][INFO ][env                      ] [Iron Lad] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [770gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-07 23:50:27,108][INFO ][env                      ] [Iron Lad] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-07 23:50:27,112][WARN ][env                      ] [Iron Lad] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-07 23:50:37,729][INFO ][node                     ] [Iron Lad] initialized
+[2017-05-07 23:50:37,729][INFO ][node                     ] [Iron Lad] starting ...
+[2017-05-07 23:50:38,205][INFO ][transport                ] [Iron Lad] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-07 23:50:38,227][INFO ][discovery                ] [Iron Lad] elasticsearch/UzXhUqbvSc26dVRsp00JOA
+[2017-05-07 23:50:41,521][INFO ][cluster.service          ] [Iron Lad] new_master {Iron Lad}{UzXhUqbvSc26dVRsp00JOA}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-07 23:50:41,573][INFO ][http                     ] [Iron Lad] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-07 23:50:41,578][INFO ][node                     ] [Iron Lad] started
+[2017-05-07 23:50:41,998][INFO ][gateway                  ] [Iron Lad] recovered [1] indices into cluster_state
+[2017-05-07 23:50:44,445][INFO ][cluster.routing.allocation] [Iron Lad] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
