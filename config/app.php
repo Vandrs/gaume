@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt_BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Laravel\Passport\PassportServiceProvider::class
+
     ],
 
     /*
@@ -227,7 +229,4 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
-    'salt' => env('PASS_SALT')
-
 ];

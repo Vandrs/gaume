@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Config;
 
 class ResetPasswordController extends Controller
 {
@@ -35,5 +36,15 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    protected function resetPassword($user, $password)
+    {
+        $user->forceFill([
+            'password' => bcrypt($password.Config::get('app.salt')),
+            'remember_token' => Str::random(60),
+        ])->save();
+
+        $this->guard()->login($user);
     }
 }

@@ -42,7 +42,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
         ],
     ],
@@ -98,5 +98,10 @@ return [
             'expire' => 60,
         ],
     ],
+
+    'rest' => [
+        'client_id' => env('REST_CLIENT_ID'),
+        'client_secret' => env('REST_CLIENT_SECRET')
+    ]
 
 ];

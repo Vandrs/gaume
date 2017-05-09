@@ -38,11 +38,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    protected function credentials(Request $request)
-    {
-        $data = $request->only($this->username(), 'password');
-        $data["password"] .= Config::get('app.salt');
-        return $data;
-    }
 }
