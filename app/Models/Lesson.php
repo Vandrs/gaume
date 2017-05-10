@@ -12,6 +12,10 @@ class Lesson extends Model
 		'finished_at'
 	];
 
+	protected $fillable = [
+		'teacher_id', 'student_id', 'status'
+	];
+
 	protected $dates = [
 		'created_at', 'updated_at', 'finished_at'
 	];

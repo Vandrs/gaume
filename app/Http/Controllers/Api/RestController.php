@@ -62,7 +62,7 @@ class RestController extends Controller
 	public function badRequest($data = [])
 	{
 		$response = $this->getResponse(Response::HTTP_BAD_REQUEST);
-		$response->setData(['msg' => $data]);
+		$response->setData(['errors' => $data]);
 		return $response;
 	}
 
