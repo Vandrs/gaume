@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => ['auth:api']] ,function(){
-	Route::get('/lessons/{id}','LessonController@get');
+	#Lesson
+	Route::patch('/lessons/{id}','LessonController@confirm');
 	Route::post('/lessons','LessonController@create');
 });

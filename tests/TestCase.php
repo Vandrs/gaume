@@ -27,4 +27,10 @@ abstract class TestCase extends BaseTestCase
         return ['Authorization' => 'Bearer ' . $token];
         
     }
+
+    public function setUp()
+    {
+    	parent::setUp();
+    	$this->createUsers();
+    }
 }

@@ -89,6 +89,7 @@ return [
 
     'custom' => [
         'is_not_teacher' => 'O usuário selecionado não é um professor',
+        'class_confirmation_expired' => "Prazo para confirmação da aula expirado."
     ],
 
     'attributes' => [],

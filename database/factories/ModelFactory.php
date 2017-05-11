@@ -21,3 +21,12 @@ $factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(\App\Models\Lesson::class, function () {
+	return [
+		'teacher_id' => null,
+		'student_id' => null,
+		'status' 	 => null
+	];
+});

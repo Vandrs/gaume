@@ -1,20 +1,20 @@
-[2017-05-09 02:33:57,187][INFO ][node                     ] [Marduk Kurios] stopping ...
-[2017-05-09 02:33:58,298][INFO ][node                     ] [Marduk Kurios] stopped
-[2017-05-09 02:33:58,298][INFO ][node                     ] [Marduk Kurios] closing ...
-[2017-05-09 02:33:58,464][INFO ][node                     ] [Marduk Kurios] closed
-[2017-05-09 22:16:59,942][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
-[2017-05-09 22:17:00,682][INFO ][node                     ] [Sybil Dvorak] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
-[2017-05-09 22:17:00,682][INFO ][node                     ] [Sybil Dvorak] initializing ...
-[2017-05-09 22:17:02,325][INFO ][plugins                  ] [Sybil Dvorak] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
-[2017-05-09 22:17:02,450][INFO ][env                      ] [Sybil Dvorak] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [769.9gb], net total_space [910.5gb], spins? [possibly], types [ext4]
-[2017-05-09 22:17:02,450][INFO ][env                      ] [Sybil Dvorak] heap size [990.7mb], compressed ordinary object pointers [true]
-[2017-05-09 22:17:02,451][WARN ][env                      ] [Sybil Dvorak] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
-[2017-05-09 22:17:06,632][INFO ][node                     ] [Sybil Dvorak] initialized
-[2017-05-09 22:17:06,632][INFO ][node                     ] [Sybil Dvorak] starting ...
-[2017-05-09 22:17:06,991][INFO ][transport                ] [Sybil Dvorak] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
-[2017-05-09 22:17:07,024][INFO ][discovery                ] [Sybil Dvorak] elasticsearch/GYg8772-TqqIzUZmiHzphQ
-[2017-05-09 22:17:10,101][INFO ][cluster.service          ] [Sybil Dvorak] new_master {Sybil Dvorak}{GYg8772-TqqIzUZmiHzphQ}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
-[2017-05-09 22:17:10,118][INFO ][http                     ] [Sybil Dvorak] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
-[2017-05-09 22:17:10,119][INFO ][node                     ] [Sybil Dvorak] started
-[2017-05-09 22:17:10,395][INFO ][gateway                  ] [Sybil Dvorak] recovered [1] indices into cluster_state
-[2017-05-09 22:17:12,077][INFO ][cluster.routing.allocation] [Sybil Dvorak] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-10 03:38:08,574][INFO ][node                     ] [Sybil Dvorak] stopping ...
+[2017-05-10 03:38:09,024][INFO ][node                     ] [Sybil Dvorak] stopped
+[2017-05-10 03:38:09,024][INFO ][node                     ] [Sybil Dvorak] closing ...
+[2017-05-10 03:38:09,058][INFO ][node                     ] [Sybil Dvorak] closed
+[2017-05-10 23:18:31,958][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-10 23:18:39,535][INFO ][node                     ] [Wild Child] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-10 23:18:39,535][INFO ][node                     ] [Wild Child] initializing ...
+[2017-05-10 23:18:54,779][INFO ][plugins                  ] [Wild Child] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-10 23:18:56,743][INFO ][env                      ] [Wild Child] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [769.9gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-10 23:18:56,743][INFO ][env                      ] [Wild Child] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-10 23:18:56,744][WARN ][env                      ] [Wild Child] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-10 23:19:35,802][INFO ][node                     ] [Wild Child] initialized
+[2017-05-10 23:19:35,802][INFO ][node                     ] [Wild Child] starting ...
+[2017-05-10 23:19:37,081][INFO ][transport                ] [Wild Child] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-10 23:19:37,140][INFO ][discovery                ] [Wild Child] elasticsearch/f8l9GTR_QtSNxUaS82O0GQ
+[2017-05-10 23:19:40,270][INFO ][cluster.service          ] [Wild Child] new_master {Wild Child}{f8l9GTR_QtSNxUaS82O0GQ}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-10 23:19:40,293][INFO ][http                     ] [Wild Child] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-10 23:19:40,293][INFO ][node                     ] [Wild Child] started
+[2017-05-10 23:19:41,218][INFO ][gateway                  ] [Wild Child] recovered [1] indices into cluster_state
+[2017-05-10 23:19:42,694][INFO ][cluster.routing.allocation] [Wild Child] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).

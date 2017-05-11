@@ -11,8 +11,11 @@ use App\Models\User;
 use App\Services\Service;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
+use App\Enums\EnumLessonStatus;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
+use App\Models\Lesson;
+use Carbon\Carbon;
 
 class LessonService extends Service
 {
@@ -22,29 +25,68 @@ class LessonService extends Service
 		Gate::define(EnumPolicy::CREATE_LESSON, function(User $user) use ($service) {
 			return $service->createPolicy($user);
 		});
+		Gate::define(EnumPolicy::CONFIRM_LESSON, function(User $user, Lesson $lesson) use ($service) {
+			return $service->confirmPolicy($user, $lesson);
+		});
 	}
 
-	public function create(User $user, array $data)
+	public function create(User $student, array $data)
 	{
 		$this->validator = Validator::make(
 								$data, 
 								$this->createValidation(), 
 								$this->createValidationMessages()
 							);
-
 		if ($this->validator->fails()) {
-			throw new ValidationException;
+			throw new ValidationException('FALHA AO VALIDAR: '.json_encode($this->validator->errors()->all()));
 		}
-		// CRIA AULA E FICA AGUARDANDO CONFIRMAÇÃO 
-	}	
+		return Lesson::create([
+			'teacher_id' => $data['teacher_id'],
+			'student_id' => $student->id,
+			'status'	 => EnumLessonStatus::PENDING
+		]);
+	}
+
+	public function confirm(Lesson $lesson, array $data)
+	{
+
+		$validator = $this->validator = Validator::make(
+								$data, 
+								$this->confirmValidation(), 
+								$this->confirmValidationMessages()
+							);
+		if ($this->validator->fails()) {
+			throw new ValidationException('FALHA AO VALIDAR: '.json_encode($this->validator->errors()->all()));
+		}
+		
+		if ($data['confirmed']) {
+			$isPending = $lesson->status === EnumLessonStatus::PENDING;
+			$isConfirmPeriod = $this->isInConfirmationPeriod($lesson);
+			if (in_array(false, [$isPending, $isConfirmPeriod])) {
+				throw new AuthorizationException(__('validation.custom.class_confirmation_expired'));
+			} else {
+				return $lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
+			}
+		} else {
+			return $lesson->update(['status' => EnumLessonStatus::CANCELED]);
+		}
+	}
 
 	public function createPolicy(User $user)
 	{
-		Log::info('HAS ROLE '.EnumRole::STUDENT. " ".$user->hasRole(EnumRole::STUDENT));
-		Log::info('ID '.$user->id);
-		Log::info('ROLE '.$user->role->role);
-		Log::info('NAME '.$user->name);
 		return $user->hasRole(EnumRole::STUDENT);
+	}
+
+	public function confirmPolicy(User $user, Lesson $lesson)
+	{
+		return ($user->hasRole(EnumRole::TEACHER) && $user->id === $lesson->teacher_id);
+	}
+
+	public function isInConfirmationPeriod(Lesson $lesson)
+	{
+		$confirmLimit = Carbon::createFromTimestamp($lesson->created_at->getTimestamp())
+							  ->addMinutes(Config::get('lesson.confirm_time'));
+		return $confirmLimit->greaterThanOrEqualTo(Carbon::now());
 	}
 
 	private function createValidation()
@@ -53,8 +95,15 @@ class LessonService extends Service
 			'teacher_id' => [
 				'required',
 				'integer',
-				Rule::exists('users')->where('role_id', EnumRole::TEACHER)
+				Rule::exists('users','id')->where('role_id', EnumRole::TEACHER_ID)
 			]
+		];
+	}
+
+	private function confirmValidation()
+	{
+		return [
+			'confirmed' => "required|boolean"
 		];
 	}
 
@@ -65,5 +114,13 @@ class LessonService extends Service
 			'teacher_id.integer'  => __('validation.integer',['attribute' => 'teacher_id']),
 			'teacher_id.exists'   => __('validation.custom.is_not_teacher')
 		];	
+	}
+
+	private function confirmValidationMessages()
+	{
+		return [
+			'confirmed.required' => __('validation.required',['attribute' => 'confirmed']),
+			'confirmed.boolean'  => __('validation.boolean',['attribute' => 'confirmed'])
+		];
 	}
 }
