@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 use App\Services\Lesson\LessonService;
+use App\Services\Lesson\PeriodService;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         LessonService::registerPolicies();
-
+        PeriodService::registerPolicies();
         Passport::routes(function($router){
             $router->forAccessTokens();
         });

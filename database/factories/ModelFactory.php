@@ -30,3 +30,12 @@ $factory->define(\App\Models\Lesson::class, function () {
 		'status' 	 => null
 	];
 });
+
+$factory->define(\App\Model\Period::class, function() {
+    return [
+        'lesson_id' => null,
+        'hours' => 1,
+        'hour_value' => 20,
+        'status' => EnumLessonStatus::IN_PROGRESS
+    ];
+});

@@ -16,9 +16,14 @@ abstract class TestCase extends BaseTestCase
 
     protected function createUsers() 
     {
-        $this->teacher = factory(User::class, 1)->create(['role_id' => EnumRole::TEACHER_ID])->first();
-        $this->student = factory(User::class, 1)->create(['role_id' => EnumRole::STUDENT_ID])->first();
-        $this->admin   = factory(User::class, 1)->create(['role_id' => EnumRole::ADMIN_ID])->first();
+        $this->teacher = $this->createUserWithRole(EnumRole::TEACHER_ID);
+        $this->student = $this->createUserWithRole(EnumRole::STUDENT_ID);
+        $this->admin   = $this->createUserWithRole(EnumRole::ADMIN_ID);
+    }
+
+    protected function createUserWithRole($role)
+    {
+        return factory(User::class, 1)->create(['role_id' => $role])->first();
     }
 
     protected function getHeadersApiToken(User $user)

@@ -13,7 +13,14 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => ['auth:api']] ,function(){
+
 	#Lesson
 	Route::patch('/lessons/{id}','LessonController@confirm');
 	Route::post('/lessons','LessonController@create');
+
+	#Period
+	Route::post('/lessons/{lessonId}/periods','PeriodController@create');
+	Route::patch('/lessons/{lessonId}/periods/{id}','PeriodController@confirm');
+	Route::patch('/periods/{id}','PeriodController@confirm');
+	
 });

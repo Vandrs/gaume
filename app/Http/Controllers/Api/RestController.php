@@ -16,28 +16,28 @@ class RestController extends Controller
 	public function internalError()
 	{
 		$response = $this->getResponse(Response::HTTP_INTERNAL_SERVER_ERROR);
-		$response->setData(['msg' => Lang::get('rest.messages.internal_error')]);
+		$response->setData(['msg' => Lang::get('rest.responses.internal_error')]);
 		return $response;
 	}
 
-	public function unauthorized()
+	public function unauthorized($msg = null)
 	{
 		$response = $this->getResponse(Response::HTTP_UNAUTHORIZED);
-		$response->setData(['msg' => Lang::get('rest.messages.unauthorized')]);
+		$response->setData(['msg' => empty($msg) ? Lang::get('rest.responses.unauthorized') : $msg]);
 		return $response;
 	}
 
 	public function forbidden()
 	{
 		$response = $this->getResponse(Response::HTTP_FORBIDDEN);
-		$response->setData(['msg' => Lang::get('rest.messages.forbidden')]);
+		$response->setData(['msg' => Lang::get('rest.responses.forbidden')]);
 		return $response;
 	}
 
 	public function notFound()
 	{
-		$response = $this->getResponse(Response::HTTP_FOUND);
-		$response->setData(['msg' => Lang::get('rest.messages.not_found')]);
+		$response = $this->getResponse(Response::HTTP_NOT_FOUND);
+		$response->setData(['msg' => Lang::get('rest.responses.not_found')]);
 		return $response;
 	}
 

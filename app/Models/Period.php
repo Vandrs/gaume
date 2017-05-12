@@ -11,6 +11,10 @@ class Period extends Model
 		'finished_at'
 	];
 
+	protected $fillable = [
+		'lesson_id', 'hours', 'hour_value', 'status', 'billed'
+	];
+
 	protected $dates = [
 		'created_at', 'updated_at', 'finished_at'
 	];

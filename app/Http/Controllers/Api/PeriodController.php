@@ -7,23 +7,25 @@ use Gate;
 use Log;
 use App\Enums\EnumPolicy;
 use App\Models\Lesson;
-use App\Services\Lesson\LessonService;
+use App\Models\Period;
+use App\Services\Lesson\PeriodService;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
-class LessonController extends RestController 
+class PeriodController extends RestController 
 {
-	public function create(Request $request)
+	public function create(Request $request, $lessonId)
 	{
 		try {
-			if (Gate::denies(EnumPolicy::CREATE_LESSON)) {
+			$lesson = Lesson::findOrFail($lessonId);
+			if (Gate::denies(EnumPolicy::CREATE_PERIOD,$lesson)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
-			$lessonService = new LessonService();
-			$lesson = $lessonService->create($request->user(), $request->only(['teacher_id']));
-			return $this->created($lesson->id);
+			$periodService = new PeriodService();
+			$period = $periodService->createToRenewLesson($lesson);
+			return $this->created($period->id);
 		} catch (AuthorizationException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
@@ -32,6 +34,10 @@ class LessonController extends RestController
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
 			return $this->badRequest($lessonService->getValidator()->errors()->all());
+		} catch (ModelNotFoundException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->notFound();
 		} catch (Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
@@ -39,15 +45,19 @@ class LessonController extends RestController
 		}
 	}
 
-	public function confirm(Request $request, $id)
+	public function confirm(Request $request, $lessonId, $id)
 	{
 		try {
-			$lesson = Lesson::findOrFail($id);
-			if (Gate::denies(EnumPolicy::CONFIRM_LESSON, $lesson)) {
+			$lesson = Lesson::findOrFail($lessonId);
+			$period = Period::query()
+							->where('id',$id)
+							->where('lesson_id',$lesson->id)
+							->firstOrFail();
+			if (Gate::denies(EnumPolicy::CONFIRM_PERIOD, $lesson, $period)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
-			$lessonService = new LessonService();
-			$lesson = $lessonService->confirm($lesson, $request->only(['confirmed']));
+			$periodService = new PeriodService();
+			$period = $periodService->confirm($period, $request->only(['confirmed']));
 			return $this->success();
 		} catch (ModelNotFoundException $e) {
 			Log::info($e->getMessage());

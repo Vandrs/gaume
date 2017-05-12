@@ -6,9 +6,11 @@ use Gate;
 use Config;
 use Validator;
 use Log;
+use DB;
 use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Services\Service;
+use App\Services\Lesson\PeriodService;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
 use App\Enums\EnumLessonStatus;
@@ -49,7 +51,6 @@ class LessonService extends Service
 
 	public function confirm(Lesson $lesson, array $data)
 	{
-
 		$validator = $this->validator = Validator::make(
 								$data, 
 								$this->confirmValidation(), 
@@ -65,7 +66,17 @@ class LessonService extends Service
 			if (in_array(false, [$isPending, $isConfirmPeriod])) {
 				throw new AuthorizationException(__('validation.custom.class_confirmation_expired'));
 			} else {
-				return $lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
+				try {
+					DB::beginTransaction();
+					$periodService = new PeriodService();
+					$result = $lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
+					$periodService->createFromLesson($lesson);
+					DB::commit();
+					return $result;
+				} catch (\Exception $e) {
+					DB::rollback();
+					throw $e;
+				}
 			}
 		} else {
 			return $lesson->update(['status' => EnumLessonStatus::CANCELED]);
