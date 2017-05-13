@@ -31,11 +31,12 @@ $factory->define(\App\Models\Lesson::class, function () {
 	];
 });
 
-$factory->define(\App\Model\Period::class, function() {
+$factory->define(\App\Models\Period::class, function() {
     return [
         'lesson_id' => null,
         'hours' => 1,
         'hour_value' => 20,
-        'status' => EnumLessonStatus::IN_PROGRESS
+        'status' => \App\Enums\EnumLessonStatus::IN_PROGRESS
     ];
 });
+

@@ -54,8 +54,6 @@ class CreatePeriodService extends Service
 
 	public function createPolicy(User $user, Lesson $lesson)
 	{
-		Log::info('Has Hole: '.$user->hasRole(EnumRole::STUDENT));
-		Log::info('ID MATCHER: '.($user->id == $lesson->student_id));
 		return $user->hasRole(EnumRole::STUDENT) && $user->id == $lesson->student_id;
 	}
 }

@@ -9,6 +9,7 @@ use App\Enums\EnumPolicy;
 use App\Models\Lesson;
 use App\Models\Period;
 use App\Services\Lesson\CreatePeriodService;
+use App\Services\Lesson\ConfirmPeriodService;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -33,7 +34,7 @@ class PeriodController extends RestController
 		} catch (ValidationException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
-			return $this->badRequest($lessonService->getValidator()->errors()->all());
+			return $this->badRequest($periodService->getValidator()->errors()->all());
 		} catch (ModelNotFoundException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
@@ -48,15 +49,14 @@ class PeriodController extends RestController
 	public function confirm(Request $request, $lessonId, $id)
 	{
 		try {
-			$lesson = Lesson::findOrFail($lessonId);
-			$period = Period::query()
+			$period = Period::with('lesson')
 							->where('id',$id)
-							->where('lesson_id',$lesson->id)
+							->where('lesson_id',$lessonId)
 							->firstOrFail();
-			if (Gate::denies(EnumPolicy::CONFIRM_PERIOD, $lesson, $period)) {
+			if (Gate::denies(EnumPolicy::CONFIRM_PERIOD, $period)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
-			$periodService = new CreatePeriodService();
+			$periodService = new ConfirmPeriodService();
 			$period = $periodService->confirm($period, $request->only(['confirmed']));
 			return $this->success();
 		} catch (ModelNotFoundException $e) {
@@ -70,7 +70,7 @@ class PeriodController extends RestController
 		} catch (ValidationException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
-			return $this->badRequest($lessonService->getValidator()->errors()->all());
+			return $this->badRequest($periodService->getValidator()->errors()->all());
 		} catch (Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
