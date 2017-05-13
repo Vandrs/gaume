@@ -8,7 +8,7 @@ use Log;
 use App\Enums\EnumPolicy;
 use App\Models\Lesson;
 use App\Models\Period;
-use App\Services\Lesson\PeriodService;
+use App\Services\Lesson\CreatePeriodService;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -20,10 +20,10 @@ class PeriodController extends RestController
 	{
 		try {
 			$lesson = Lesson::findOrFail($lessonId);
-			if (Gate::denies(EnumPolicy::CREATE_PERIOD,$lesson)) {
+			if (Gate::denies(EnumPolicy::CREATE_PERIOD, $lesson)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
-			$periodService = new PeriodService();
+			$periodService = new CreatePeriodService();
 			$period = $periodService->createToRenewLesson($lesson);
 			return $this->created($period->id);
 		} catch (AuthorizationException $e) {
@@ -56,7 +56,7 @@ class PeriodController extends RestController
 			if (Gate::denies(EnumPolicy::CONFIRM_PERIOD, $lesson, $period)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
-			$periodService = new PeriodService();
+			$periodService = new CreatePeriodService();
 			$period = $periodService->confirm($period, $request->only(['confirmed']));
 			return $this->success();
 		} catch (ModelNotFoundException $e) {

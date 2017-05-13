@@ -4,6 +4,7 @@ namespace App\Services\Lesson;
 
 use Config;
 use Gate;
+use Log;
 use App\Enums\EnumLessonStatus;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
@@ -14,7 +15,7 @@ use App\Services\Service;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 
-class PeriodService extends Service
+class CreatePeriodService extends Service
 {
 
 	public static function registerPolicies()
@@ -22,10 +23,6 @@ class PeriodService extends Service
 		$service = new self();
 		Gate::define(EnumPolicy::CREATE_PERIOD, function(User $user, Lesson $lesson) use ($service) {
 			return $service->createPolicy($user, $lesson);
-
-		});
-		Gate::define(EnumPolicy::CONFIRM_PERIOD, function(User $user, Lesson $lesson, Period $period) use ($service) {
-			return $service->createPolicy($user, $lesson, $period);
 		});
 	}
 
@@ -55,22 +52,10 @@ class PeriodService extends Service
 		]);
 	}
 
-	public function confirm(Period $period, array $data)
-	{
-
-	}
-
-
 	public function createPolicy(User $user, Lesson $lesson)
 	{
-		return $user->hasRole(EnumRole::STUDENT) && $user->id === $lesson->student_id;
+		Log::info('Has Hole: '.$user->hasRole(EnumRole::STUDENT));
+		Log::info('ID MATCHER: '.($user->id == $lesson->student_id));
+		return $user->hasRole(EnumRole::STUDENT) && $user->id == $lesson->student_id;
 	}
-
-	public function confirmPolicy(User $user, Lesson $lesson, Period $period)
-	{
-		return ($user->hasRole(EnumRole::TEACHER) && 
-			    $user->id === $lesson->teacher_id) &&
-				$period->lesson_id === $lesson->id;
-	}
-
 }

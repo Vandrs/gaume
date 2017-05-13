@@ -7,7 +7,8 @@ use Gate;
 use Log;
 use App\Enums\EnumPolicy;
 use App\Models\Lesson;
-use App\Services\Lesson\LessonService;
+use App\Services\Lesson\CreateLessonService;
+use App\Services\Lesson\ConfirmLessonService;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -21,7 +22,7 @@ class LessonController extends RestController
 			if (Gate::denies(EnumPolicy::CREATE_LESSON)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
-			$lessonService = new LessonService();
+			$lessonService = new CreateLessonService();
 			$lesson = $lessonService->create($request->user(), $request->only(['teacher_id']));
 			return $this->created($lesson->id);
 		} catch (AuthorizationException $e) {
@@ -46,7 +47,7 @@ class LessonController extends RestController
 			if (Gate::denies(EnumPolicy::CONFIRM_LESSON, $lesson)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
-			$lessonService = new LessonService();
+			$lessonService = new ConfirmLessonService();
 			$lesson = $lessonService->confirm($lesson, $request->only(['confirmed']));
 			return $this->success();
 		} catch (ModelNotFoundException $e) {

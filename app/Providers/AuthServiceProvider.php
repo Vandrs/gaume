@@ -5,8 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
-use App\Services\Lesson\LessonService;
-use App\Services\Lesson\PeriodService;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,6 +17,13 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
+    protected $domainPolicies = [
+        \App\Services\Lesson\CreateLessonService::class,
+        \App\Services\Lesson\ConfirmLessonService::class,
+        \App\Services\Lesson\CreatePeriodService::class,
+        \App\Services\Lesson\ConfirmPeriodService::class
+    ];
+
     /**
      * Register any authentication / authorization services.
      *
@@ -27,10 +32,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        LessonService::registerPolicies();
-        PeriodService::registerPolicies();
         Passport::routes(function($router){
             $router->forAccessTokens();
         });
+        foreach ($this->domainPolicies as $policy) {
+            call_user_func("\\".$policy."::registerPolicies");
+        }
     }
 }
