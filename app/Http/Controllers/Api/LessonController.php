@@ -9,10 +9,14 @@ use App\Enums\EnumPolicy;
 use App\Models\Lesson;
 use App\Services\Lesson\CreateLessonService;
 use App\Services\Lesson\ConfirmLessonService;
+use App\Services\Lesson\GetLessonService;
+use App\Transformers\LessonTransformer;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
+use League\Fractal;
+use League\Fractal\Serializer\ArraySerializer;
 
 class LessonController extends RestController 
 {
@@ -50,6 +54,41 @@ class LessonController extends RestController
 			$lessonService = new ConfirmLessonService();
 			$lesson = $lessonService->confirm($lesson, $request->only(['confirmed']));
 			return $this->success();
+		} catch (ModelNotFoundException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->notFound();
+		} catch (AuthorizationException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->unauthorized();
+		} catch (ValidationException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->badRequest($lessonService->getValidator()->errors()->all());
+		} catch (Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function get(Request $request, $id)
+	{
+		try {
+			$lessonService = new GetLessonService();
+			$lesson = $lessonService->get($id, $request->includes);
+			if (Gate::denies(EnumPolicy::GET_LESSON, $lesson)) {
+				throw new AuthorizationException('Acesso Negado!!!');
+			}
+			$fractal = new Fractal\Manager();
+			if ($request->includes) {
+				$fractal->parseIncludes($request->includes);
+			}
+			$fractal->setSerializer(new ArraySerializer);
+			$item = new Fractal\Resource\Item($lesson, new LessonTransformer);
+			$data = $fractal->createData($item)->toArray(); 
+			return $this->success($data);
 		} catch (ModelNotFoundException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());

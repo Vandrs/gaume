@@ -22,12 +22,12 @@ class Lesson extends Model
 
 	public function teacher()
 	{
-		return $this->belongsTo(User::class, 'id', 'teacher_id');
+		return $this->belongsTo(User::class, 'teacher_id', 'id');
 	}
 
 	public function student()
 	{
-		return $this->belongsTo(User::class, 'id', 'student_id');	
+		return $this->belongsTo(User::class, 'student_id', 'id');	
 	}
 
 	public function periods()

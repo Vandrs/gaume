@@ -21,7 +21,8 @@ class AuthServiceProvider extends ServiceProvider
         \App\Services\Lesson\CreateLessonService::class,
         \App\Services\Lesson\ConfirmLessonService::class,
         \App\Services\Lesson\CreatePeriodService::class,
-        \App\Services\Lesson\ConfirmPeriodService::class
+        \App\Services\Lesson\ConfirmPeriodService::class,
+        \App\Services\Lesson\GetLessonService::class
     ];
 
     /**
