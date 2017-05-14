@@ -30,7 +30,7 @@ class ConfirmLessonService extends Service
 
 	public function confirm(Lesson $lesson, array $data)
 	{
-		$validator = $this->validator = Validator::make(
+		$this->validator = Validator::make(
 								$data, 
 								$this->confirmValidation(), 
 								$this->confirmValidationMessages()

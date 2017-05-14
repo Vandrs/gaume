@@ -86,7 +86,6 @@ return [
     'uploaded'             => 'O campo :attribute não foi possível fazer o upload.',
     'url'                  => 'O campo :attribute possui um formato inválido.',
 
-
     'custom' => [
         'is_not_teacher' => 'O usuário selecionado não é um professor',
         'class_confirmation_expired' => "Prazo para confirmação da aula expirado."

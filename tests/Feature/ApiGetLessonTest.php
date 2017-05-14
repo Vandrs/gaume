@@ -66,7 +66,7 @@ class ApiGetLessonTest extends TestCase
                                        ->first();
     }
 
-    private function createPeriods(Lesson $lesson, $qtd =5)
+    private function createPeriods(Lesson $lesson, $qtd = 5)
     {
         return factory(Period::class,$qtd)->create([
                                             'lesson_id' => $lesson->id,
