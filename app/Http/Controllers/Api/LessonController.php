@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 use League\Fractal;
 use League\Fractal\Serializer\ArraySerializer;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class LessonController extends RestController 
 {
@@ -89,6 +90,37 @@ class LessonController extends RestController
 			$item = new Fractal\Resource\Item($lesson, new LessonTransformer);
 			$data = $fractal->createData($item)->toArray(); 
 			return $this->success($data);
+		} catch (ModelNotFoundException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->notFound();
+		} catch (AuthorizationException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->unauthorized();
+		} catch (ValidationException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->badRequest($lessonService->getValidator()->errors()->all());
+		} catch (Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function getAll(Request $request)
+	{
+		try {
+			$lessonService = new GetLessonService();
+			$lessonsPaginator = $lessonService->getAll($request->user(), $request->all());
+			$paginatorAdapter = new IlluminatePaginatorAdapter($lessonsPaginator);
+			$fractal = new Fractal\Manager();
+			$fractal->parseIncludes('periods,teacher,student');
+			$items = new Fractal\Resource\Collection($lessonsPaginator->getCollection(), new LessonTransformer);
+			$items->setPaginator($paginatorAdapter);
+			$data = $fractal->createData($items)->toArray(); 
+			return $this->success($data);	
 		} catch (ModelNotFoundException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());

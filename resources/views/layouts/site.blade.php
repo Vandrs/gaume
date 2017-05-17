@@ -17,6 +17,9 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
+            'token' => Auth::guest() ? null : (Auth::user()->token() ? Auth::user()->token()->accessToken : Auth::user()->createToken('app')->accessToken),
+            'name' => Auth::guest() ? null : Auth::user()->name,
+            'id'  => Auth::guest() ? null : Auth::user()->id
         ]) !!};
     </script>
 </head>

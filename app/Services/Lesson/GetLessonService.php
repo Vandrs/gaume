@@ -8,6 +8,7 @@ use Validator;
 use App\Services\Service;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
+use App\Enums\EnumLessonStatus;
 use App\Models\User;
 use App\Models\Lesson;
 use Illuminate\Validation\Rule;
@@ -45,35 +46,14 @@ class GetLessonService extends Service
 
 	public function getAll(User $user, $data, $size = 20)
 	{
-
 		$this->validator = Validator::make($data, $this->getAllValidation(), $this->getAllValidationMessages());
 		if ($this->validator->fails()) {
 			throw new ValidationException('FALHA AO VALIDAR: '.json_encode($this->validator->errors()->all()));
 		}
 
-		$select = [
-			'lessons.id',
-			'lessons.created_at',
-			'lessons.status',
-			DB::raw('teacher.id AS teacher_id')
-			DB::raw('teacher.name AS teacher_name')
-			DB::raw('teacher.email AS teacher_email')
-			DB::raw('student.id AS student_id')
-			DB::raw('student.name AS student_name')
-			DB::raw('student.email AS student_email')
-			DB::raw('periods.id AS period_id'),
-			DB::raw('periods.lesson_id AS period_lesson_id'),
-			DB::raw('periods.hours AS period_hours'),
-			DB::raw('periods.hour_value AS period_hour_value'),
-			DB::raw('periods.status AS period_status'),
-			DB::raw('periods.created_at AS period_created_at'),
-		];
-
-		$query = DB::table('lessons')
-				   ->select($select)
-		  		   ->join(DB::raw('users AS teacher'), 'lessons.teacher_id', '=', 'teacher.id')
-		  		   ->join(DB::raw('users AS student'), 'lessons.sutendt_id', '=', 'student.id')
-		  		   ->join('periods', 'lessons.id', '=', 'periods.lesson_id');
+		$query = Lesson::with('periods')
+					   ->join(DB::raw('users AS teacher'), 'lessons.teacher_id', '=', 'teacher.id')
+		  		   	   ->join(DB::raw('users AS student'), 'lessons.student_id', '=', 'student.id');
 		
 		if (!$user->hasRole(EnumRole::ADMIN)) {
 			$query->where(function($query) use ($user) {
@@ -92,6 +72,8 @@ class GetLessonService extends Service
 
 		if (isset($data['status']) && !empty($data['status'])) {
 			$query->where('lessons.status', '=', $data['status']);
+		} else {
+			$query->where('lessons.status', '<>', EnumLessonStatus::CANCELED);
 		}
 
 		if (isset($data['start_date']) && !empty($data['start_date'])) {
@@ -102,7 +84,10 @@ class GetLessonService extends Service
 			$query->where('lessons.created_at', '<=', $data['end_date']);
 		}
 
-		return $query->paginate($size);
+		$paginator = $query->paginate($size);
+		$queryParams = array_diff_key($data, array_flip(['page']));
+		$paginator->appends($queryParams);
+		return $paginator;
 
 	}
 
@@ -127,12 +112,12 @@ class GetLessonService extends Service
 	{
 		return [
 			'teacher.alpha' => __('validation.alpha',['attribute' => __('app.labels.teacher')]),
-			'teacher.min' => __('validation.min',['attribute' => __('app.labels.teacher'), 'min' => 3]),
+			'teacher.min' => __('validation.min.string',['attribute' => __('app.labels.teacher'), 'min' => 3]),
 			'student.alpha' => __('validation.alpha',['attribute' => __('app.labels.student')]),
-			'student.min' => __('validation.min',['attribute' => __('app.labels.student'), 'min' => 3]),
+			'student.min' => __('validation.min.string',['attribute' => __('app.labels.student'), 'min' => 3]),
 			'status.in' =>  __('validation.in',['attribute' => 'Status']),
-			'start_date.date_format' => __('validation.date_format' => ['attribute' => __('app.labels.start'), 'format' => 'yyyy-mm-dd']),
-			'end_date.date_format' => __('validation.date_format' => ['attribute' => __('app.labels.start'), 'format' => 'yyyy-mm-dd'])
+			'start_date.date_format' => __('validation.date_format', ['attribute' => __('app.labels.start'), 'format' => 'yyyy-mm-dd']),
+			'end_date.date_format' => __('validation.date_format', ['attribute' => __('app.labels.start'), 'format' => 'yyyy-mm-dd'])
 		];
 	}
 }
