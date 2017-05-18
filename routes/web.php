@@ -14,8 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 Auth::routes();
 
-Route::group(['middleware' => ['auth']] ,function(){
+Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function(){
 	Route::get('/home', 'App\HomeController@index')->name('home');
+	Route::get('/professores','App\TeacherController@index')->name('teachers.list');
 });

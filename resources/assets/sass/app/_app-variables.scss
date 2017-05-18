@@ -1,0 +1,10 @@
+$default-color: #636b6f;
+$default-title-size: 24px;
+
+
+@mixin panel-title() {
+	font-size: $default-title-size;
+	font-weight: bold;
+	color: $default-color; 
+	margin: 5px 0px;
+}

@@ -19,6 +19,5 @@ return [
 		'users' => 'Usuários',
 		'teachers' => 'Professores',
 		'my_lessons' => 'Minhas aulas'
-	]
-
+	],
 ];
