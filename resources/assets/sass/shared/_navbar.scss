@@ -31,6 +31,18 @@
 	left: 0;
 }
 
+.navbar-right > .dropdown > a {
+    line-height: 45px;
+    margin-right: 10px;
+    color: $text-color;
+}
+
+.navbar-right > .dropdown > a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    background-color: none;
+}
+
 @media(min-width:992px) {
     .wrapper {
         padding-left: 50px;

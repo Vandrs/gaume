@@ -6,42 +6,42 @@
             </a>
             @if (!Auth::guest())
             <p class="navbar-text">
-                <a href="#" class="sidebar-toggle">
+                <a href="#" v-on:click="toggleMenu" class="sidebar-toggle">
                     <i class="glyphicon glyphicon-menu-hamburger"></i>
                 </a>
             </p>
             @endif
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapse-main">
-            <ul class="nav navbar-nav navbar-right">
+            <div class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
-                    <li><a href="{{ route('login') }}">@lang("app.navbar.login")</a></li>
+                <a href="{{ route('login') }}">@lang("app.navbar.login")</a>
                 @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                <dropdown>
+                  <a data-role="trigger" class="dropdown-toggle" type="button" aria-expanded="false">
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                  </a>
+                  <template slot="dropdown">
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-user"></i> @lang('app.navbar.profile')
                         </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="#">
-                                    <i class="glyphicon glyphicon-user"></i> @lang('app.navbar.profile')
-                                </a>
-                            </li>
-                            <li class="nav-divider"></li>
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    <i class="glyphicon glyphicon-log-out"></i> @lang('app.navbar.logout')
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        </ul>
                     </li>
+                    <li class="divider" role="separator"></li>
+                    <li>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                            <i class="glyphicon glyphicon-log-out"></i> @lang('app.navbar.logout')
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                  </template>
+                </dropdown>
                 @endif
-            </ul>
+            </div>
         </div>
     </div>
 </nav>

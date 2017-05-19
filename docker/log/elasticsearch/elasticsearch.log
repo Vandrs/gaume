@@ -1,20 +1,20 @@
-[2017-05-17 02:15:02,419][INFO ][node                     ] [Harrier] stopping ...
-[2017-05-17 02:15:02,833][INFO ][node                     ] [Harrier] stopped
-[2017-05-17 02:15:02,833][INFO ][node                     ] [Harrier] closing ...
-[2017-05-17 02:15:02,848][INFO ][node                     ] [Harrier] closed
-[2017-05-17 22:57:14,479][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
-[2017-05-17 22:57:20,021][INFO ][node                     ] [Canasta] version[2.3.4], pid[48], build[e455fd0/2016-06-30T11:24:31Z]
-[2017-05-17 22:57:20,021][INFO ][node                     ] [Canasta] initializing ...
-[2017-05-17 22:57:26,154][INFO ][plugins                  ] [Canasta] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
-[2017-05-17 22:57:26,903][INFO ][env                      ] [Canasta] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [769.7gb], net total_space [910.5gb], spins? [possibly], types [ext4]
-[2017-05-17 22:57:26,903][INFO ][env                      ] [Canasta] heap size [990.7mb], compressed ordinary object pointers [true]
-[2017-05-17 22:57:26,903][WARN ][env                      ] [Canasta] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
-[2017-05-17 22:57:47,852][INFO ][node                     ] [Canasta] initialized
-[2017-05-17 22:57:47,852][INFO ][node                     ] [Canasta] starting ...
-[2017-05-17 22:57:49,078][INFO ][transport                ] [Canasta] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
-[2017-05-17 22:57:49,113][INFO ][discovery                ] [Canasta] elasticsearch/PYmsA3sIRHevh7rpBG5K6g
-[2017-05-17 22:57:52,227][INFO ][cluster.service          ] [Canasta] new_master {Canasta}{PYmsA3sIRHevh7rpBG5K6g}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
-[2017-05-17 22:57:52,245][INFO ][http                     ] [Canasta] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
-[2017-05-17 22:57:52,246][INFO ][node                     ] [Canasta] started
-[2017-05-17 22:57:54,632][INFO ][gateway                  ] [Canasta] recovered [1] indices into cluster_state
-[2017-05-17 22:57:56,420][INFO ][cluster.routing.allocation] [Canasta] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-18 02:16:17,179][INFO ][node                     ] [Canasta] stopping ...
+[2017-05-18 02:16:17,992][INFO ][node                     ] [Canasta] stopped
+[2017-05-18 02:16:17,993][INFO ][node                     ] [Canasta] closing ...
+[2017-05-18 02:16:18,227][INFO ][node                     ] [Canasta] closed
+[2017-05-18 23:30:55,648][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
+[2017-05-18 23:30:56,202][INFO ][node                     ] [Senator Robert Kelly] version[2.3.4], pid[49], build[e455fd0/2016-06-30T11:24:31Z]
+[2017-05-18 23:30:56,203][INFO ][node                     ] [Senator Robert Kelly] initializing ...
+[2017-05-18 23:30:57,545][INFO ][plugins                  ] [Senator Robert Kelly] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2017-05-18 23:30:57,693][INFO ][env                      ] [Senator Robert Kelly] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [769.7gb], net total_space [910.5gb], spins? [possibly], types [ext4]
+[2017-05-18 23:30:57,694][INFO ][env                      ] [Senator Robert Kelly] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-05-18 23:30:57,694][WARN ][env                      ] [Senator Robert Kelly] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
+[2017-05-18 23:31:04,636][INFO ][node                     ] [Senator Robert Kelly] initialized
+[2017-05-18 23:31:04,636][INFO ][node                     ] [Senator Robert Kelly] starting ...
+[2017-05-18 23:31:06,361][INFO ][transport                ] [Senator Robert Kelly] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
+[2017-05-18 23:31:06,534][INFO ][discovery                ] [Senator Robert Kelly] elasticsearch/2g73HHLIQhG_XaSvLMNrLQ
+[2017-05-18 23:31:09,639][INFO ][cluster.service          ] [Senator Robert Kelly] new_master {Senator Robert Kelly}{2g73HHLIQhG_XaSvLMNrLQ}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-05-18 23:31:09,656][INFO ][http                     ] [Senator Robert Kelly] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
+[2017-05-18 23:31:09,656][INFO ][node                     ] [Senator Robert Kelly] started
+[2017-05-18 23:31:10,415][INFO ][gateway                  ] [Senator Robert Kelly] recovered [1] indices into cluster_state
+[2017-05-18 23:31:12,151][INFO ][cluster.routing.allocation] [Senator Robert Kelly] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).

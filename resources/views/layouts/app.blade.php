@@ -25,8 +25,10 @@
 </head>
 <body>
     <div id="app">
+        <confirmation-start-modal>
+        </confirmation-start-modal>
         @include('partials.nav-bar')
-        <article class="wrapper">
+        <article class="wrapper" v-bind:class="{toggled: menuToggled}">
             @include('partials.side-menu')
             <section class="main">
                 <section class="content">
