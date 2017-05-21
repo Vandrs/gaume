@@ -26,7 +26,9 @@ var Messages = {
 				status: 'Situação da aula',
 				start_date: 'Data de início',
 				duration: 'Duração',
-				confirm_class: 'Confirmar aula?'
+				confirm_class: 'Confirmar aula?',
+				remaining_time: 'Tempo restante',
+				renew_class: 'Deseja renovar as aula por mais 1 hora?'
 			},
 			status: {
 				1: "Aguardando confirmação do Professor",

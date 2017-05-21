@@ -3,6 +3,7 @@
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	import * as moment from 'moment';
 	Vue.component('lesson-accept-modal',require('../../components/lesson/ConfirmationAcceptModal'));
+	Vue.component('lesson-renew-modal',require('../../components/lesson/RenewLessonModal'));
 	export default {
 		props: {
 			id: Number
@@ -18,7 +19,16 @@
 					CANCELED:4
 				},
 				currentStatus: null,
-				duration: null
+				duration: null,
+				intervelId: null,
+				updateInterval: {
+					pendingLesson: 30000, // 3 Minutos
+					inProgressLesson: (5000*60) // 5 Minutos
+				},
+				totalHours: 0,
+				remainingTime: null,
+				remainingTimeInterval: null,
+				timeToRenewLesson: (1000*60*10) //10 Minutos
 			}
 		},
 		mounted() {
@@ -35,13 +45,14 @@
 			getLesson: function () {
 				LessonProvider.get(this.id)
 							  .then((response) => {
-							  	console.log(response.data);
 							  	this.lesson = response.data;
 							  	this.parseDates();
 							  	this.setLessonStatus();
 							  	this.setDuration();
+							  	this.setUpdateStatus();
+							  	this.setRemainingTimeInterval();
 							  })
-							  .catch((response) => {
+							  .catch((error) => {
 									var errors = AppErrorBag.parseErrors(
 									  				error.response.status,
 									  				error.response.data
@@ -52,11 +63,12 @@
 			setLessonStatus: function () {
 				if (this.lesson.status == this.status.PENDING) {
 					this.currentStatus = this.lesson.status; 
+					return;
 				}
-				for (var period in this.lesson.periods) {
-					console.log(period);
+				for (var period of this.lesson.periods) {
 					if (period.status == this.status.PENDING) {
 						this.currentStatus = period.status;
+						return;
 					}
 				}
 				this.currentStatus = this.lesson.status;
@@ -64,7 +76,7 @@
 			setDuration: function () {
 				var hour = 0;
 				var status = [this.status.PENDING, this.status.IN_PROGRESS, this.status.FINISHED];
-				for (var period in this.lesson.periods) {
+				for (var period of this.lesson.periods) {
 					if (status.indexOf(period.status) >= 0) {
 						hour += period.hours;
 					}
@@ -73,6 +85,41 @@
 			},
 			parseDates: function () {
 				this.lesson.created_at = moment(this.lesson.created_at);
+				for (var i in this.lesson.periods) {
+					this.lesson.periods[i].created_at = moment(this.lesson.periods[i].created_at);
+					this.lesson.periods[i].updated_at = moment(this.lesson.periods[i].updated_at);
+				}
+			},
+			setTotalHours: function () {
+				var validStatus = [this.status.IN_PROGRESS, this.status.FINISHED];
+				this.totalHours = 0;
+				for (var period of this.lesson.periods) {
+					if (validStatus.indexOf(period.status) >= 0) {
+						this.totalHours += 1;
+					}
+				}
+			},
+			setRemainingTimeInterval: function () {
+				this.cancelRemaininTimeInterval();
+				if (this.currentStatus == this.status.IN_PROGRESS) {
+					this.setRemainingTime();
+					this.remainingTimeInterval = setInterval(() => {
+													this.setRemainingTime();
+												}, (1000*60));
+				}
+			},
+			cancelRemaininTimeInterval: function () {
+				if (this.remainingTimeInterval) {
+					clearInterval(this.remainingTimeInterval);
+				}
+			},
+			setRemainingTime(){
+				this.setTotalHours();
+				var period = this.getInProgressPeriod();
+				var endTime = period.updated_at.clone().add(period.hours, 'h');
+				var now = moment();
+				var diff = endTime.diff(now);
+				this.remainingTime = moment.duration(diff);
 			},
 			isTeacher: function () {
 				return this.user.id == this.lesson.teacher.id;
@@ -83,9 +130,64 @@
 			isAdmin: function () {
 				return (!this.isStudent() && !this.isTeacher());
 			},
-			showConfirmationAccepModal: function (confirm) {
-				console.log('Emit');
-				window.app.$emit('app:start-accept-lesson-modal', this.lesson.id, confirm);
+			showConfirmationModal: function (confirm) {
+				var period = this.getPendingPeriod();
+				if (period) {
+					window.app.$emit('app:start-accept-period-modal', this.lesson.id, period.id, confirm);
+				} else {
+					window.app.$emit('app:start-accept-lesson-modal', this.lesson.id, confirm);
+				}
+			},
+			showRenewClassModal: function(){
+				window.app.$emit('app:renew-lesson-modal', this.lesson.id);
+			},
+			updateStatus: function (time) {
+				this.intervalId = setInterval(() => {
+									this.getLesson();
+								  }, time);
+			},
+			cancelUpdateStatus: function () {
+				clearInterval(this.intervalId);
+			},
+			setUpdateStatus: function () {
+				if (this.intervalId) {
+					this.cancelUpdateStatus();
+				}
+				if (this.currentStatus == this.status.PENDING) {
+					this.updateStatus(this.updateInterval.pendingLesson);
+				} else if (this.currentStatus == this.status.IN_PROGRESS) {
+					this.updateStatus(this.updateInterval.inProgressLesson);
+				}
+			},
+			getPendingPeriod: function () {
+				var pendindPeriod = null;
+				for (var period of this.lesson.periods) {
+					if (period.status == this.status.PENDING) {
+						if (pendindPeriod) {
+							if (period.id > pendindPeriod.id) {
+								pendindPeriod = period;
+							}
+						} else {
+							pendindPeriod = period;
+						}
+					}
+				}
+				return pendindPeriod;
+			},
+			getInProgressPeriod: function () {
+				var inProgressPeriod = null;
+				for (var period of this.lesson.periods) {
+					if (period.status == this.status.IN_PROGRESS) {
+						if (inProgressPeriod) {
+							if (period.id > inProgressPeriod.id) {
+								inProgressPeriod = period;
+							}
+						} else {
+							inProgressPeriod = period;
+						}
+					}
+				}
+				return inProgressPeriod;
 			}
 		} 
 	}
@@ -94,6 +196,33 @@
 	<div v-if="lesson" id="lesson">
 		<lesson-accept-modal>
 		</lesson-accept-modal>
+		<lesson-renew-modal>
+		</lesson-renew-modal>
+		<div class="row" v-if="currentStatus == status.PENDING && isTeacher()">
+			<div class="col-xs-12">
+				<div class="alert alert-warning">
+					<span class="text-label">{{$t('lesson.labels.confirm_class')}}</span> 
+					<button v-on:click="showConfirmationModal(true)" class="btn btn-success">
+						<i class="glyphicon glyphicon-thumbs-up"></i> {{$t('app.yes')}}
+					</button>
+					<button v-on:click="showConfirmationModal(false)" class="btn btn-danger">
+						<i class="glyphicon glyphicon-thumbs-down"></i> {{$t('app.no')}}
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" v-if="isStudent() && remainingTime && (remainingTime.asMilliseconds() > 0 && remainingTime.asMilliseconds() < timeToRenewLesson) ">
+			<div class="col-xs-12">
+				<div class="alert alert-warning">
+					<span class="text-label">{{$t('lesson.labels.renew_class')}}</span>
+					<button v-on:click="showRenewClassModal()" class="btn btn-success">
+						<i class="glyphicon glyphicon-thumbs-up"></i> {{$t('app.yes')}}
+					</button>
+				</div>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-xs-12 col-md-4">
 				<div class="row">
@@ -111,20 +240,14 @@
 						<span class="text-label">{{$t('lesson.labels.status')}}:</span>{{$t('lesson.status.'+currentStatus)}}
 					</div>
 				</div>
-				<div class="row" v-if="currentStatus == status.PENDING && isTeacher()">
-					<div class="col-xs-12">
-						<span class="text-label">{{$t('lesson.labels.confirm_class')}}</span> 
-						<button v-on:click="showConfirmationAccepModal(true)" class="btn btn-success">
-							<i class="glyphicon glyphicon-thumbs-up"></i> {{$t('app.yes')}}
-						</button>
-						<button v-on:click="showConfirmationAccepModal(false)" class="btn btn-danger">
-							<i class="glyphicon glyphicon-thumbs-down"></i> {{$t('app.no')}}
-						</button>
-					</div>
-				</div>
 				<div class="row" v-if="currentStatus != status.CANCELED">
 					<div class="col-xs-12">
-						<span class="text-label">{{$t('lesson.labels.duration')}}:</span> {{duration ? duration+" "+$t('app.duration', duration) : $t('app.unavailable') }}
+						<span class="text-label">{{$t('lesson.labels.duration')}}:</span> {{duration ? duration+" "+$tc('app.hour', duration) : $t('app.unavailable') }}
+					</div>
+				</div>
+				<div class="row" v-if="currentStatus == status.IN_PROGRESS && remainingTime">
+					<div class="col-xs-12">
+						<span class="text-label">{{$t('lesson.labels.remaining_time')}}:</span><span class="bold-blue"><i class="glyphicon glyphicon-hourglass"></i> {{ remainingTime.asMilliseconds() > 0 ? remainingTime.hours()+":"+remainingTime.minutes() : '00:00' }}</span>
 					</div>
 				</div>
 			</div>

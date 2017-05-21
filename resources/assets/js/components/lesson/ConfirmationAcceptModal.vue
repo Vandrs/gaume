@@ -1,6 +1,7 @@
 <script> 
 	import { Modal } from 'uiv';
 	import { LessonProvider } from '../../providers/lessonProvider';
+	import { PeriodProvider } from '../../providers/periodProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	export default {
 		components: { Modal },
@@ -34,6 +35,8 @@
 					LessonProvider.confirm(this.lessonId, this.confirm)
 								  .then((response) => {
 								  		window.app.$emit('app:lesson-updated', this.lessonId);
+								  		this.lessonId = null;
+										this.confirm = null;
 								  })
 								  .catch((error) => {
 								  		var errors = AppErrorBag.parseErrors(
@@ -42,13 +45,34 @@
 								  			);
 								  		window.app.$emit('app:show-alert', errors, "danger");
 								  		window.app.$emit('app:lesson-updated', this.lessonId);
+								  		this.lessonId = null;
+										this.confirm = null;
 								  });
 				}
-				this.lessonId = null;
-				this.confirm = null;
 			},
 			dismissPeriodCallback: function(msg) {
-				console.log('TODO');
+				if (msg == 'ok') {
+					console.log('Period Update',this.lessonId,this.periodId,this.confirm);
+					PeriodProvider.confirm(this.lessonId, this.periodId, this.confirm)
+								  .then((reponse) => {
+								  	window.app.$emit('app:lesson-updated', this.lessonId);
+								  	this.lessonId = null;
+									this.periodId = null;
+									this.confirm = null;
+
+								  })
+								  .catch((error) => {
+								  	var errors = AppErrorBag.parseErrors(
+								  				error.response.status,
+								  				error.response.data
+								  			);
+							  		window.app.$emit('app:show-alert', errors, "danger");
+							  		window.app.$emit('app:lesson-updated', this.lessonId);
+							  		this.lessonId = null;
+							  		this.periodId = null;
+									this.confirm = null;
+								  });
+				}
 			},
 			toggleLessonModal: function() {
 				this.showModalConfirmLesson = (!this.showModalConfirmLesson) ? true : false;

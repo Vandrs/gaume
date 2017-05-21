@@ -1694,7 +1694,9 @@ var Messages = {
 				status: 'Situação da aula',
 				start_date: 'Data de início',
 				duration: 'Duração',
-				confirm_class: 'Confirmar aula?'
+				confirm_class: 'Confirmar aula?',
+				remaining_time: 'Tempo restante',
+				renew_class: 'Deseja renovar as aula por mais 1 hora?'
 			},
 			status: {
 				1: "Aguardando confirmação do Professor",
@@ -29804,6 +29806,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.component('lesson-accept-modal', __webpack_require__(183));
+Vue.component('lesson-renew-modal', __webpack_require__(188));
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: {
 		id: Number
@@ -29819,7 +29822,16 @@ Vue.component('lesson-accept-modal', __webpack_require__(183));
 				CANCELED: 4
 			},
 			currentStatus: null,
-			duration: null
+			duration: null,
+			intervelId: null,
+			updateInterval: {
+				pendingLesson: 30000, // 3 Minutos
+				inProgressLesson: 5000 * 60 // 5 Minutos
+			},
+			totalHours: 0,
+			remainingTime: null,
+			remainingTimeInterval: null,
+			timeToRenewLesson: 1000 * 60 * 10 //10 Minutos
 		};
 	},
 	mounted: function mounted() {
@@ -29840,12 +29852,13 @@ Vue.component('lesson-accept-modal', __webpack_require__(183));
 			var _this2 = this;
 
 			__WEBPACK_IMPORTED_MODULE_0__providers_lessonProvider__["a" /* LessonProvider */].get(this.id).then(function (response) {
-				console.log(response.data);
 				_this2.lesson = response.data;
 				_this2.parseDates();
 				_this2.setLessonStatus();
 				_this2.setDuration();
-			}).catch(function (response) {
+				_this2.setUpdateStatus();
+				_this2.setRemainingTimeInterval();
+			}).catch(function (error) {
 				var errors = __WEBPACK_IMPORTED_MODULE_1__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
 				window.app.$emit('app:show-alert', errors, "danger");
 			});
@@ -29853,28 +29866,132 @@ Vue.component('lesson-accept-modal', __webpack_require__(183));
 		setLessonStatus: function setLessonStatus() {
 			if (this.lesson.status == this.status.PENDING) {
 				this.currentStatus = this.lesson.status;
+				return;
 			}
-			for (var period in this.lesson.periods) {
-				console.log(period);
-				if (period.status == this.status.PENDING) {
-					this.currentStatus = period.status;
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = this.lesson.periods[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var period = _step.value;
+
+					if (period.status == this.status.PENDING) {
+						this.currentStatus = period.status;
+						return;
+					}
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
 				}
 			}
+
 			this.currentStatus = this.lesson.status;
 		},
 		setDuration: function setDuration() {
 			var hour = 0;
 			var status = [this.status.PENDING, this.status.IN_PROGRESS, this.status.FINISHED];
-			for (var period in this.lesson.periods) {
-				if (status.indexOf(period.status) >= 0) {
-					hour += period.hours;
+			var _iteratorNormalCompletion2 = true;
+			var _didIteratorError2 = false;
+			var _iteratorError2 = undefined;
+
+			try {
+				for (var _iterator2 = this.lesson.periods[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+					var period = _step2.value;
+
+					if (status.indexOf(period.status) >= 0) {
+						hour += period.hours;
+					}
+				}
+			} catch (err) {
+				_didIteratorError2 = true;
+				_iteratorError2 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion2 && _iterator2.return) {
+						_iterator2.return();
+					}
+				} finally {
+					if (_didIteratorError2) {
+						throw _iteratorError2;
+					}
 				}
 			}
+
 			this.duration = hour;
 		},
 		parseDates: function parseDates() {
 			this.lesson.created_at = __WEBPACK_IMPORTED_MODULE_2_moment__(this.lesson.created_at);
+			for (var i in this.lesson.periods) {
+				this.lesson.periods[i].created_at = __WEBPACK_IMPORTED_MODULE_2_moment__(this.lesson.periods[i].created_at);
+				this.lesson.periods[i].updated_at = __WEBPACK_IMPORTED_MODULE_2_moment__(this.lesson.periods[i].updated_at);
+			}
 		},
+		setTotalHours: function setTotalHours() {
+			var validStatus = [this.status.IN_PROGRESS, this.status.FINISHED];
+			this.totalHours = 0;
+			var _iteratorNormalCompletion3 = true;
+			var _didIteratorError3 = false;
+			var _iteratorError3 = undefined;
+
+			try {
+				for (var _iterator3 = this.lesson.periods[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+					var period = _step3.value;
+
+					if (validStatus.indexOf(period.status) >= 0) {
+						this.totalHours += 1;
+					}
+				}
+			} catch (err) {
+				_didIteratorError3 = true;
+				_iteratorError3 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion3 && _iterator3.return) {
+						_iterator3.return();
+					}
+				} finally {
+					if (_didIteratorError3) {
+						throw _iteratorError3;
+					}
+				}
+			}
+		},
+		setRemainingTimeInterval: function setRemainingTimeInterval() {
+			var _this3 = this;
+
+			this.cancelRemaininTimeInterval();
+			if (this.currentStatus == this.status.IN_PROGRESS) {
+				this.setRemainingTime();
+				this.remainingTimeInterval = setInterval(function () {
+					_this3.setRemainingTime();
+				}, 1000 * 60);
+			}
+		},
+		cancelRemaininTimeInterval: function cancelRemaininTimeInterval() {
+			if (this.remainingTimeInterval) {
+				clearInterval(this.remainingTimeInterval);
+			}
+		},
+		setRemainingTime: function setRemainingTime() {
+			this.setTotalHours();
+			var period = this.getInProgressPeriod();
+			var endTime = period.updated_at.clone().add(period.hours, 'h');
+			var now = __WEBPACK_IMPORTED_MODULE_2_moment__();
+			var diff = endTime.diff(now);
+			this.remainingTime = __WEBPACK_IMPORTED_MODULE_2_moment__["duration"](diff);
+		},
+
 		isTeacher: function isTeacher() {
 			return this.user.id == this.lesson.teacher.id;
 		},
@@ -29884,9 +30001,110 @@ Vue.component('lesson-accept-modal', __webpack_require__(183));
 		isAdmin: function isAdmin() {
 			return !this.isStudent() && !this.isTeacher();
 		},
-		showConfirmationAccepModal: function showConfirmationAccepModal(confirm) {
-			console.log('Emit');
-			window.app.$emit('app:start-accept-lesson-modal', this.lesson.id, confirm);
+		showConfirmationModal: function showConfirmationModal(confirm) {
+			var period = this.getPendingPeriod();
+			if (period) {
+				window.app.$emit('app:start-accept-period-modal', this.lesson.id, period.id, confirm);
+			} else {
+				window.app.$emit('app:start-accept-lesson-modal', this.lesson.id, confirm);
+			}
+		},
+		showRenewClassModal: function showRenewClassModal() {
+			window.app.$emit('app:renew-lesson-modal', this.lesson.id);
+		},
+		updateStatus: function updateStatus(time) {
+			var _this4 = this;
+
+			this.intervalId = setInterval(function () {
+				_this4.getLesson();
+			}, time);
+		},
+		cancelUpdateStatus: function cancelUpdateStatus() {
+			clearInterval(this.intervalId);
+		},
+		setUpdateStatus: function setUpdateStatus() {
+			if (this.intervalId) {
+				this.cancelUpdateStatus();
+			}
+			if (this.currentStatus == this.status.PENDING) {
+				this.updateStatus(this.updateInterval.pendingLesson);
+			} else if (this.currentStatus == this.status.IN_PROGRESS) {
+				this.updateStatus(this.updateInterval.inProgressLesson);
+			}
+		},
+		getPendingPeriod: function getPendingPeriod() {
+			var pendindPeriod = null;
+			var _iteratorNormalCompletion4 = true;
+			var _didIteratorError4 = false;
+			var _iteratorError4 = undefined;
+
+			try {
+				for (var _iterator4 = this.lesson.periods[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+					var period = _step4.value;
+
+					if (period.status == this.status.PENDING) {
+						if (pendindPeriod) {
+							if (period.id > pendindPeriod.id) {
+								pendindPeriod = period;
+							}
+						} else {
+							pendindPeriod = period;
+						}
+					}
+				}
+			} catch (err) {
+				_didIteratorError4 = true;
+				_iteratorError4 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion4 && _iterator4.return) {
+						_iterator4.return();
+					}
+				} finally {
+					if (_didIteratorError4) {
+						throw _iteratorError4;
+					}
+				}
+			}
+
+			return pendindPeriod;
+		},
+		getInProgressPeriod: function getInProgressPeriod() {
+			var inProgressPeriod = null;
+			var _iteratorNormalCompletion5 = true;
+			var _didIteratorError5 = false;
+			var _iteratorError5 = undefined;
+
+			try {
+				for (var _iterator5 = this.lesson.periods[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+					var period = _step5.value;
+
+					if (period.status == this.status.IN_PROGRESS) {
+						if (inProgressPeriod) {
+							if (period.id > inProgressPeriod.id) {
+								inProgressPeriod = period;
+							}
+						} else {
+							inProgressPeriod = period;
+						}
+					}
+				}
+			} catch (err) {
+				_didIteratorError5 = true;
+				_iteratorError5 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion5 && _iterator5.return) {
+						_iterator5.return();
+					}
+				} finally {
+					if (_didIteratorError5) {
+						throw _iteratorError5;
+					}
+				}
+			}
+
+			return inProgressPeriod;
 		}
 	}
 });
@@ -30135,7 +30353,50 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "lesson"
     }
-  }, [_c('lesson-accept-modal'), _vm._v(" "), _c('div', {
+  }, [_c('lesson-accept-modal'), _vm._v(" "), _c('lesson-renew-modal'), _vm._v(" "), (_vm.currentStatus == _vm.status.PENDING && _vm.isTeacher()) ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xs-12"
+  }, [_c('div', {
+    staticClass: "alert alert-warning"
+  }, [_c('span', {
+    staticClass: "text-label"
+  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.confirm_class')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    on: {
+      "click": function($event) {
+        _vm.showConfirmationModal(true)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-thumbs-up"
+  }), _vm._v(" " + _vm._s(_vm.$t('app.yes')) + "\n\t\t\t\t")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-danger",
+    on: {
+      "click": function($event) {
+        _vm.showConfirmationModal(false)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-thumbs-down"
+  }), _vm._v(" " + _vm._s(_vm.$t('app.no')) + "\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), (_vm.isStudent() && _vm.remainingTime && (_vm.remainingTime.asMilliseconds() > 0 && _vm.remainingTime.asMilliseconds() < _vm.timeToRenewLesson)) ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xs-12"
+  }, [_c('div', {
+    staticClass: "alert alert-warning"
+  }, [_c('span', {
+    staticClass: "text-label"
+  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.renew_class')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    on: {
+      "click": function($event) {
+        _vm.showRenewClassModal()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-thumbs-up"
+  }), _vm._v(" " + _vm._s(_vm.$t('app.yes')) + "\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-12 col-md-4"
@@ -30155,37 +30416,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-xs-12"
   }, [_c('span', {
     staticClass: "text-label"
-  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.status')) + ":")]), _vm._v(_vm._s(_vm.$t('lesson.status.' + _vm.currentStatus)) + "\n\t\t\t\t")])]), _vm._v(" "), (_vm.currentStatus == _vm.status.PENDING && _vm.isTeacher()) ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.status')) + ":")]), _vm._v(_vm._s(_vm.$t('lesson.status.' + _vm.currentStatus)) + "\n\t\t\t\t")])]), _vm._v(" "), (_vm.currentStatus != _vm.status.CANCELED) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-12"
   }, [_c('span', {
     staticClass: "text-label"
-  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.confirm_class')))]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    on: {
-      "click": function($event) {
-        _vm.showConfirmationAccepModal(true)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-thumbs-up"
-  }), _vm._v(" " + _vm._s(_vm.$t('app.yes')) + "\n\t\t\t\t\t")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-danger",
-    on: {
-      "click": function($event) {
-        _vm.showConfirmationAccepModal(false)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-thumbs-down"
-  }), _vm._v(" " + _vm._s(_vm.$t('app.no')) + "\n\t\t\t\t\t")])])]) : _vm._e(), _vm._v(" "), (_vm.currentStatus != _vm.status.CANCELED) ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.duration')) + ":")]), _vm._v(" " + _vm._s(_vm.duration ? _vm.duration + " " + _vm.$tc('app.hour', _vm.duration) : _vm.$t('app.unavailable')) + "\n\t\t\t\t")])]) : _vm._e(), _vm._v(" "), (_vm.currentStatus == _vm.status.IN_PROGRESS && _vm.remainingTime) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-12"
   }, [_c('span', {
     staticClass: "text-label"
-  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.duration')) + ":")]), _vm._v(" " + _vm._s(_vm.duration ? _vm.duration + " " + _vm.$t('app.duration', _vm.duration) : _vm.$t('app.unavailable')) + "\n\t\t\t\t")])]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('lesson.labels.remaining_time')) + ":")]), _c('span', {
+    staticClass: "bold-blue"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-hourglass"
+  }), _vm._v(" " + _vm._s(_vm.remainingTime.asMilliseconds() > 0 ? _vm.remainingTime.hours() + ":" + _vm.remainingTime.minutes() : '00:00'))])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-xs-12 col-md-4"
   }, [_c('div', {
     staticClass: "row"
@@ -46332,7 +46579,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uiv__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uiv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_uiv__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_lessonProvider__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_app_AppErrorBag__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_periodProvider__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_app_AppErrorBag__ = __webpack_require__(35);
+
 
 
 
@@ -46373,17 +46622,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (msg == 'ok') {
 				__WEBPACK_IMPORTED_MODULE_1__providers_lessonProvider__["a" /* LessonProvider */].confirm(this.lessonId, this.confirm).then(function (response) {
 					window.app.$emit('app:lesson-updated', _this2.lessonId);
+					_this2.lessonId = null;
+					_this2.confirm = null;
 				}).catch(function (error) {
-					var errors = __WEBPACK_IMPORTED_MODULE_2__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
+					var errors = __WEBPACK_IMPORTED_MODULE_3__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
 					window.app.$emit('app:show-alert', errors, "danger");
 					window.app.$emit('app:lesson-updated', _this2.lessonId);
+					_this2.lessonId = null;
+					_this2.confirm = null;
 				});
 			}
-			this.lessonId = null;
-			this.confirm = null;
 		},
 		dismissPeriodCallback: function dismissPeriodCallback(msg) {
-			console.log('TODO');
+			var _this3 = this;
+
+			if (msg == 'ok') {
+				console.log('Period Update', this.lessonId, this.periodId, this.confirm);
+				__WEBPACK_IMPORTED_MODULE_2__providers_periodProvider__["a" /* PeriodProvider */].confirm(this.lessonId, this.periodId, this.confirm).then(function (reponse) {
+					window.app.$emit('app:lesson-updated', _this3.lessonId);
+					_this3.lessonId = null;
+					_this3.periodId = null;
+					_this3.confirm = null;
+				}).catch(function (error) {
+					var errors = __WEBPACK_IMPORTED_MODULE_3__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
+					window.app.$emit('app:show-alert', errors, "danger");
+					window.app.$emit('app:lesson-updated', _this3.lessonId);
+					_this3.lessonId = null;
+					_this3.periodId = null;
+					_this3.confirm = null;
+				});
+			}
 		},
 		toggleLessonModal: function toggleLessonModal() {
 			this.showModalConfirmLesson = !this.showModalConfirmLesson ? true : false;
@@ -46476,6 +46744,146 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-5df7f994", module.exports)
+  }
+}
+
+/***/ }),
+/* 185 */,
+/* 186 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PeriodProvider; });
+var PeriodProvider = {
+	confirm: function confirm(lessonId, periodId, _confirm) {
+		return axios.patch('/api/lessons/' + lessonId + '/periods/' + periodId, { 'confirmed': _confirm });
+	},
+	create: function create(lessonId) {
+		return axios.post('/api/lessons/' + lessonId + '/periods');
+	}
+};
+
+
+
+/***/ }),
+/* 187 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uiv__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uiv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_uiv__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_periodProvider__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_app_AppErrorBag__ = __webpack_require__(35);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	components: { Modal: __WEBPACK_IMPORTED_MODULE_0_uiv__["Modal"] },
+	data: function data() {
+		return {
+			showModal: false,
+			lessonId: null
+		};
+	},
+	created: function created() {
+		var self = this;
+		setTimeout(function () {
+			window.app.$on('app:renew-lesson-modal', function (lessonId) {
+				self.toggleModal();
+				self.lessonId = lessonId;
+			});
+		}, 1000);
+	},
+
+	methods: {
+		dismissCallback: function dismissCallback(msg) {
+			var _this = this;
+
+			if (msg == 'ok') {
+				__WEBPACK_IMPORTED_MODULE_1__providers_periodProvider__["a" /* PeriodProvider */].create(this.lessonId).then(function (response) {
+					console.log('Period Created and Lesson Updated');
+					window.app.$emit('app:lesson-updated', _this.lessonId);
+					_this.lessonId = null;
+				}).catch(function (error) {
+					var errors = __WEBPACK_IMPORTED_MODULE_2__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
+					window.app.$emit('app:show-alert', errors, "danger");
+					window.app.$emit('app:show-alert', errors, "danger");
+					_this.lessonId = null;
+				});
+			}
+		},
+		toggleModal: function toggleModal() {
+			this.showModal = !this.showModal ? true : false;
+		}
+	}
+});
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(32)(
+  /* script */
+  __webpack_require__(187),
+  /* template */
+  __webpack_require__(189),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/var/www/gaume/resources/assets/js/components/lesson/RenewLessonModal.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] RenewLessonModal.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8103d098", Component.options)
+  } else {
+    hotAPI.reload("data-v-8103d098", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('modal', {
+    attrs: {
+      "title": _vm.$t('modal.warning'),
+      "ok-text": _vm.$t('modal.okText'),
+      "cancel-text": _vm.$t('modal.cancelText')
+    },
+    on: {
+      "hide": _vm.dismissCallback
+    },
+    model: {
+      value: (_vm.showModal),
+      callback: function($$v) {
+        _vm.showModal = $$v
+      },
+      expression: "showModal"
+    }
+  }, [_c('div', {
+    slot: "default"
+  }, [_vm._v("\n\t\t\t" + _vm._s(_vm.$t('app.acceptExecuteAction')) + "\n\t\t")])])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-8103d098", module.exports)
   }
 }
 

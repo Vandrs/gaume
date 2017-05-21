@@ -15,7 +15,8 @@ class PeriodTransformer extends Fractal\TransformerAbstract
 			'hours'  => $period->hours,
 			'hour_value' => $period->hour_value,
 			'status' => $period->status,
-			'created_at' => $period->created_at->__toString()
+			'created_at' => $period->created_at->__toString(),
+			'updated_at' => $period->updated_at->__toString()
 		];
 	}
 }

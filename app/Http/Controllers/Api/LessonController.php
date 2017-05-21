@@ -11,12 +11,12 @@ use App\Services\Lesson\CreateLessonService;
 use App\Services\Lesson\ConfirmLessonService;
 use App\Services\Lesson\GetLessonService;
 use App\Transformers\LessonTransformer;
+use App\Transformers\ApiItemSerializer;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 use League\Fractal;
-use League\Fractal\Serializer\ArraySerializer;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class LessonController extends RestController 
@@ -86,7 +86,7 @@ class LessonController extends RestController
 			if ($request->includes) {
 				$fractal->parseIncludes($request->includes);
 			}
-			$fractal->setSerializer(new ArraySerializer);
+			$fractal->setSerializer(new ApiItemSerializer);
 			$item = new Fractal\Resource\Item($lesson, new LessonTransformer);
 			$data = $fractal->createData($item)->toArray(); 
 			return $this->success($data);
