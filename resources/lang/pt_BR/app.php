@@ -12,7 +12,8 @@ return [
 	'navbar' => [
 		'login' => 'Entrar',
 		'logout' => 'Sair',
-		'profile' => 'Perfil'
+		'profile' => 'Perfil',
+		'home' => 'Início'
 	],
 	'menu' => [
 		'dashboard' => 'Dashboard',

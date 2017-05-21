@@ -62,7 +62,7 @@ class LessonController extends RestController
 		} catch (AuthorizationException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
-			return $this->unauthorized();
+			return $this->unauthorized($e->getMessage());
 		} catch (ValidationException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());

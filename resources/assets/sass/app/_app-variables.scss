@@ -8,3 +8,8 @@ $default-title-size: 24px;
 	color: $default-color; 
 	margin: 5px 0px;
 }
+
+@mixin text-label() {
+	font-weight: bold;
+	margin-right: 5px;
+}

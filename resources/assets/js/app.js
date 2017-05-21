@@ -6,16 +6,26 @@
 
 require('./bootstrap');
 
+
 window.Vue = require('vue');
 
+import { Messages } from './lang/messages';
 import { Dropdown } from 'uiv';
+import VueI18n from 'vue-i18n';
 
+Vue.use(VueI18n);
+
+var i18n = new VueI18n({
+  locale: 'pt_BR',
+  messages: Messages
+})
 
 Vue.component('confirmation-start-modal', require('./components/lesson/ConfirmationStartModal'));
-
+Vue.component('app-alert', require('./components/app/AppAlert'));
+Vue.component('lesson', require('./components/lesson/Lesson'));
 
 window.app = new Vue({
-    el: '#app',
+    i18n,
     components: { Dropdown },
     data: {
     	menuToggled : false	
@@ -29,9 +39,8 @@ window.app = new Vue({
     			this.menuToggled = true;
     		}
     	},
-        showConfirmationClassModal: function () {
-            console.log('Vai Emitir');
-            this.$emit('app:start-confirmation-modal');
+        showConfirmationClassModal: function (teacherId) {
+            this.$emit('app:start-confirmation-modal', teacherId);
         }
     }
-});
+}).$mount("#app");

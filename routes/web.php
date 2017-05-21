@@ -20,4 +20,5 @@ Auth::routes();
 Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function(){
 	Route::get('/home', 'App\HomeController@index')->name('home');
 	Route::get('/professores','App\TeacherController@index')->name('teachers.list');
+	Route::get('/aula/{id}','App\LessonController@show')->name('lessons.show');
 });

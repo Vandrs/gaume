@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/app/home';
 
     /**
      * Create a new controller instance.
@@ -41,7 +41,7 @@ class ResetPasswordController extends Controller
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            'password' => bcrypt($password.Config::get('app.salt')),
+            'password' => bcrypt($password),
             'remember_token' => Str::random(60),
         ])->save();
 

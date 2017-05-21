@@ -1,32 +1,40 @@
 <script> 
 	import { Modal } from 'uiv';
+	import { LessonProvider } from '../../providers/lessonProvider';
+	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	export default  {
 		components: { Modal },
 		data () {
 			return {
 				showModal: false,
-				title: "Atenção",
-				message: "Deseja mesmo iniciar a aula?",
-				okText: "Sim",
-				cancelText: "Não"
+				teacherId: null
 			}
 		},
-
 		created () {
-			self = this;
+			var self = this;
 			setTimeout(function(){
-				window.app.$on('app:start-confirmation-modal',function () {
+				window.app.$on('app:start-confirmation-modal', function (teacherId) {
 					self.toggleModal();
+					self.teacherId = teacherId;
 				});
 			},1000);
 		},
 		methods: {
-			showCallback: function() {
-				console.log('ShowCallback');
-			},
-			dismissCallback: function(event) {
-				console.log('DismissCallback');
-				console.log(event);
+			dismissCallback: function(msg) {
+				if (msg == 'ok') {
+					LessonProvider.create(this.teacherId)
+								  .then((response) => {
+								  		window.location.href = window.Laravel.baseUrl+"/app/aula/"+response.data.id;
+								  })
+								  .catch((error) => {
+								  		var errors = AppErrorBag.parseErrors(
+								  				error.response.status,
+								  				error.response.data
+								  			);
+								  		window.app.$emit('app:show-alert', errors, "danger");
+								  });
+				}
+				this.teacherId = null;
 			},
 			toggleModal: function() {
 				this.showModal = (!this.showModal) ? true : false;
@@ -36,9 +44,9 @@
 </script>
 <template>
 	<div>
-		<modal  v-model="showModal" title="title" v-on:show="showCallback" v-on:hide="dismissCallback" ok-text="okText" cancel-text="cancelText">
+		<modal  v-model="showModal" :title="$t('modal.warning')" v-on:hide="dismissCallback" :ok-text="$t('modal.okText')" :cancel-text="$t('modal.cancelText')" >
 			<div slot="default">
-				{{message}}
+				{{$t('modal.classMessages.confirmStartClass')}}
 			</div>
 		</modal>
 	</div>

@@ -23,7 +23,7 @@
 									<td>{{$teacher->name}}</td>
 									<td>{{$teacher->email}}</td>
 									<td>
-										<button class="btn btn-default" v-on:click="showConfirmationClassModal">
+										<button class="btn btn-default" v-on:click="showConfirmationClassModal({{$teacher->id}})">
 											Iniciar Aula	
 										</button>
 									</td>

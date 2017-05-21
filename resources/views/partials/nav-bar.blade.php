@@ -23,6 +23,11 @@
                   </a>
                   <template slot="dropdown">
                     <li>
+                        <a href="{{url('/app/home')}}">
+                            <i class="glyphicon glyphicon-home"></i> @lang('app.navbar.home')
+                        </a>
+                    </li>
+                    <li>
                         <a href="#">
                             <i class="glyphicon glyphicon-user"></i> @lang('app.navbar.profile')
                         </a>
