@@ -30,11 +30,19 @@ class LessonTransformer extends Fractal\TransformerAbstract
 
 	public function includeStudent(Lesson $lesson)
 	{
+		if (empty($lesson->student)) {
+			$lesson->load('student');
+			print_r($lesson->student);
+			die;
+		}
 		return $this->item($lesson->student, new UserTransformer);
 	}
 
 	public function includePeriods(Lesson $lesson )
 	{
+		if ($lesson->periods->count() == 0) {
+			$lesson->load('periods');
+		}
 		return $this->collection($lesson->periods->all(), new PeriodTransformer);
 	}
 }

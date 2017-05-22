@@ -5,7 +5,7 @@ var LessonProvider = {
 	},
 
 	list: function (params) {
-
+		return axios.get('/api/lessons',{"params":params});
 	},
 
 	create: function (teacherId) {

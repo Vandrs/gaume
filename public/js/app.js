@@ -1678,7 +1678,10 @@ var Messages = {
 			unavailable: 'Indisponível',
 			yes: 'Sim',
 			no: 'Não',
-			acceptExecuteAction: 'Você confirma a ação selecionada?'
+			acceptExecuteAction: 'Você confirma a ação selecionada?',
+			noRegisterFound: 'Nenhum registro encontrado',
+			actions: 'Ações',
+			view: "Visualizar"
 		},
 		modal: {
 			warning: "Atenção",
@@ -1698,13 +1701,15 @@ var Messages = {
 				remaining_time: 'Tempo restante',
 				renew_class: 'Deseja renovar as aula por mais 1 hora?'
 			},
+			table: {
+				status: 'Situação'
+			},
 			status: {
 				1: "Aguardando confirmação do Professor",
 				2: "Em andamento ",
 				3: "Finalizada",
 				4: "Cancelada"
 			}
-
 		}
 	}
 };
@@ -29620,7 +29625,9 @@ var LessonProvider = {
 		return axios.get('/api/lessons/' + id + '?includes=teacher,student,periods');
 	},
 
-	list: function list(params) {},
+	list: function list(params) {
+		return axios.get('/api/lessons', { "params": params });
+	},
 
 	create: function create(teacherId) {
 		return axios.post('/api/lessons', { 'teacher_id': teacherId });
@@ -29668,6 +29675,7 @@ var i18n = new __WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]({
 Vue.component('confirmation-start-modal', __webpack_require__(47));
 Vue.component('app-alert', __webpack_require__(46));
 Vue.component('lesson', __webpack_require__(48));
+Vue.component('lesson-list', __webpack_require__(191));
 
 window.app = new Vue({
     i18n: i18n,
@@ -29801,6 +29809,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_app_AppErrorBag__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_lesson_LessonStatus__ = __webpack_require__(193);
+
 
 
 
@@ -29815,17 +29825,12 @@ Vue.component('lesson-renew-modal', __webpack_require__(188));
 		return {
 			lesson: null,
 			user: window.Laravel.user,
-			status: {
-				PENDING: 1,
-				IN_PROGRESS: 2,
-				FINISHED: 3,
-				CANCELED: 4
-			},
+			status: __WEBPACK_IMPORTED_MODULE_3__components_lesson_LessonStatus__["a" /* LessonStatus */],
 			currentStatus: null,
 			duration: null,
 			intervelId: null,
 			updateInterval: {
-				pendingLesson: 30000, // 3 Minutos
+				pendingLesson: 10000, // 3 Minutos
 				inProgressLesson: 5000 * 60 // 5 Minutos
 			},
 			totalHours: 0,
@@ -30379,7 +30384,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "glyphicon glyphicon-thumbs-down"
-  }), _vm._v(" " + _vm._s(_vm.$t('app.no')) + "\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), (_vm.isStudent() && _vm.remainingTime && (_vm.remainingTime.asMilliseconds() > 0 && _vm.remainingTime.asMilliseconds() < _vm.timeToRenewLesson)) ? _c('div', {
+  }), _vm._v(" " + _vm._s(_vm.$t('app.no')) + "\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), (_vm.isStudent() && _vm.remainingTime && (_vm.currentStatus != _vm.status.PENDING) && (_vm.remainingTime.asMilliseconds() > 0 && _vm.remainingTime.asMilliseconds() < _vm.timeToRenewLesson)) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-12"
@@ -46809,7 +46814,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}).catch(function (error) {
 					var errors = __WEBPACK_IMPORTED_MODULE_2__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
 					window.app.$emit('app:show-alert', errors, "danger");
-					window.app.$emit('app:show-alert', errors, "danger");
 					_this.lessonId = null;
 				});
 			}
@@ -46886,6 +46890,201 @@ if (false) {
      require("vue-hot-reload-api").rerender("data-v-8103d098", module.exports)
   }
 }
+
+/***/ }),
+/* 190 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_lessonProvider__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_app_AppErrorBag__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_lesson_LessonStatus__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_uiv__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_uiv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_uiv__);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	components: { Pagination: __WEBPACK_IMPORTED_MODULE_3_uiv__["Pagination"] },
+	data: function data() {
+		return {
+			lessons: [],
+			user: window.Laravel.user,
+			roles: {
+				admin: "ADMIN",
+				teacher: "TEACHER",
+				student: "STUDENT"
+			},
+			viewLessonLink: window.Laravel.baseUrl + '/app/aula/',
+			status: __WEBPACK_IMPORTED_MODULE_2__components_lesson_LessonStatus__["a" /* LessonStatus */],
+			pagination: {
+				currentPage: 1,
+				totalPages: 1,
+				linksRange: 5
+			}
+		};
+	},
+	mounted: function mounted() {
+		this.getLessons();
+	},
+
+	methods: {
+		getLessons: function getLessons(params) {
+			var _this = this;
+
+			__WEBPACK_IMPORTED_MODULE_0__providers_lessonProvider__["a" /* LessonProvider */].list(params).then(function (response) {
+				_this.lessons = response.data.data;
+				_this.pagination.currentPage = response.data.meta.pagination.current_page;
+				_this.pagination.totalPages = response.data.meta.pagination.total_pages;
+			}).catch(function (error) {
+				console.log(error.response);
+			});
+		},
+		getLessonDuration: function getLessonDuration(lesson) {
+			var totalHours = 0;
+			var acceptedStatus = [this.status.IN_PROGRESS, this.status.FINISHED];
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = lesson.periods[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var period = _step.value;
+
+					if (acceptedStatus.indexOf(period.status) >= 0) {
+						totalHours += period.hours;
+					}
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
+			}
+
+			return totalHours;
+		},
+		paginate: function paginate(page) {
+			this.getLessons({ "page": page });
+		},
+		seePage: function seePage(page) {
+			window.location.href = this.viewLessonLink + page;
+		}
+	}
+});
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(32)(
+  /* script */
+  __webpack_require__(190),
+  /* template */
+  __webpack_require__(192),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/var/www/gaume/resources/assets/js/components/lesson/ListLessons.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ListLessons.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d1ec447e", Component.options)
+  } else {
+    hotAPI.reload("data-v-d1ec447e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xs-12"
+  }, [_c('table', {
+    staticClass: "table table-bordered table-stripped table-blue-header"
+  }, [_c('thead', [_c('tr', [(_vm.user.role != _vm.roles.student) ? _c('th', [_vm._v(_vm._s(_vm.$t('app.student')))]) : _vm._e(), _vm._v(" "), (_vm.user.role != _vm.roles.teacher) ? _c('th', [_vm._v(_vm._s(_vm.$t('app.teacher')))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('lesson.table.status')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('lesson.labels.duration')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('app.actions')))])])]), _vm._v(" "), (_vm.lessons.length > 0) ? _c('tbody', _vm._l((_vm.lessons), function(lesson) {
+    return _c('tr', [(_vm.user.role != _vm.roles.student) ? _c('td', [_vm._v(_vm._s(lesson.student.name))]) : _vm._e(), _vm._v(" "), (_vm.user.role != _vm.roles.teacher) ? _c('td', [_vm._v(_vm._s(lesson.teacher.name))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.$t('lesson.status.' + lesson.status)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getLessonDuration(lesson) + " " + _vm.$tc('app.hour', _vm.getLessonDuration(lesson))))]), _vm._v(" "), _c('td', [_c('a', {
+      staticClass: "btn btn-default",
+      on: {
+        "click": function($event) {
+          _vm.seePage(lesson.id)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "glyphicon glyphicon-eye-open"
+    })])])])
+  })) : _c('tbody', [_c('tr', [_c('td', {
+    attrs: {
+      "colspan": "5"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('app.noRegisterFound')))])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 text-center"
+  }, [_c('pagination', {
+    attrs: {
+      "total-page": _vm.pagination.totalPages,
+      "max-size": _vm.pagination.linksRange,
+      "boundary-links": true
+    },
+    on: {
+      "change": _vm.paginate
+    },
+    model: {
+      value: (_vm.pagination.currentPage),
+      callback: function($$v) {
+        _vm.pagination.currentPage = $$v
+      },
+      expression: "pagination.currentPage"
+    }
+  })], 1)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d1ec447e", module.exports)
+  }
+}
+
+/***/ }),
+/* 193 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LessonStatus; });
+var LessonStatus = {
+		PENDING: 1,
+		IN_PROGRESS: 2,
+		FINISHED: 3,
+		CANCELED: 4
+};
+
 
 /***/ })
 /******/ ]);

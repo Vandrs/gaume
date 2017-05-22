@@ -12,6 +12,7 @@ use App\Services\Lesson\ConfirmLessonService;
 use App\Services\Lesson\GetLessonService;
 use App\Transformers\LessonTransformer;
 use App\Transformers\ApiItemSerializer;
+use App\Transformers\LessonListTransformer;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -116,8 +117,7 @@ class LessonController extends RestController
 			$lessonsPaginator = $lessonService->getAll($request->user(), $request->all());
 			$paginatorAdapter = new IlluminatePaginatorAdapter($lessonsPaginator);
 			$fractal = new Fractal\Manager();
-			$fractal->parseIncludes('periods,teacher,student');
-			$items = new Fractal\Resource\Collection($lessonsPaginator->getCollection(), new LessonTransformer);
+			$items = new Fractal\Resource\Collection($lessonsPaginator->getCollection(), new LessonListTransformer);
 			$items->setPaginator($paginatorAdapter);
 			$data = $fractal->createData($items)->toArray(); 
 			return $this->success($data);	

@@ -51,9 +51,24 @@ class GetLessonService extends Service
 			throw new ValidationException('FALHA AO VALIDAR: '.json_encode($this->validator->errors()->all()));
 		}
 
-		$query = Lesson::with('periods')
-					   ->join(DB::raw('users AS teacher'), 'lessons.teacher_id', '=', 'teacher.id')
-		  		   	   ->join(DB::raw('users AS student'), 'lessons.student_id', '=', 'student.id');
+
+
+		$selectData = [
+			'lessons.id',
+			'lessons.teacher_id',
+			'lessons.student_id',
+			'lessons.created_at',
+			'lessons.status',
+			DB::raw('teacher.name as teacher_name'),
+			DB::raw('teacher.email as teacher_email'),
+			DB::raw('student.name as student_name'),
+			DB::raw('student.email as student_email')
+		];
+
+		$query = DB::table('lessons')
+					->select($selectData)   	
+					->join(DB::raw('users AS teacher'), 'lessons.teacher_id', '=', 'teacher.id')
+		  		   	->join(DB::raw('users AS student'), 'lessons.student_id', '=', 'student.id');
 		
 		if (!$user->hasRole(EnumRole::ADMIN)) {
 			$query->where(function($query) use ($user) {
@@ -84,7 +99,14 @@ class GetLessonService extends Service
 			$query->where('lessons.created_at', '<=', $data['end_date']);
 		}
 
-		$paginator = $query->paginate($size);
+		$query->orderBy('lessons.created_at','DESC');
+
+		$paginator = $query->paginate(2);
+
+		$paginator->getCollection()->each(function ($data) {
+			$data->periods = DB::table('periods')->where('lesson_id', '=', $data->id)->get()->all();
+		});
+
 		$queryParams = array_diff_key($data, array_flip(['page']));
 		$paginator->appends($queryParams);
 		return $paginator;

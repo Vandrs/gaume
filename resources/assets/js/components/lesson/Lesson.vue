@@ -2,6 +2,7 @@
 	import { LessonProvider } from '../../providers/lessonProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	import * as moment from 'moment';
+	import { LessonStatus } from '../../components/lesson/LessonStatus';
 	Vue.component('lesson-accept-modal',require('../../components/lesson/ConfirmationAcceptModal'));
 	Vue.component('lesson-renew-modal',require('../../components/lesson/RenewLessonModal'));
 	export default {
@@ -12,17 +13,12 @@
 			return {
 				lesson: null,
 				user: window.Laravel.user,
-				status: {
-					PENDING:1,
-					IN_PROGRESS:2,
-					FINISHED:3,
-					CANCELED:4
-				},
+				status: LessonStatus,
 				currentStatus: null,
 				duration: null,
 				intervelId: null,
 				updateInterval: {
-					pendingLesson: 30000, // 3 Minutos
+					pendingLesson: 10000, // 3 Minutos
 					inProgressLesson: (5000*60) // 5 Minutos
 				},
 				totalHours: 0,
@@ -212,7 +208,7 @@
 			</div>
 		</div>
 
-		<div class="row" v-if="isStudent() && remainingTime && (remainingTime.asMilliseconds() > 0 && remainingTime.asMilliseconds() < timeToRenewLesson) ">
+		<div class="row" v-if="isStudent() && remainingTime && (currentStatus != status.PENDING) && (remainingTime.asMilliseconds() > 0 && remainingTime.asMilliseconds() < timeToRenewLesson) ">
 			<div class="col-xs-12">
 				<div class="alert alert-warning">
 					<span class="text-label">{{$t('lesson.labels.renew_class')}}</span>

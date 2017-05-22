@@ -10,7 +10,10 @@ var Messages = {
 			unavailable: 'Indisponível',
 			yes: 'Sim',
 			no: 'Não',
-			acceptExecuteAction: 'Você confirma a ação selecionada?'
+			acceptExecuteAction: 'Você confirma a ação selecionada?',
+			noRegisterFound: 'Nenhum registro encontrado',
+			actions: 'Ações',
+			view: "Visualizar"
 		},
 		modal : {
 			warning: "Atenção",
@@ -30,13 +33,15 @@ var Messages = {
 				remaining_time: 'Tempo restante',
 				renew_class: 'Deseja renovar as aula por mais 1 hora?'
 			},
+			table: {
+				status: 'Situação'
+			},
 			status: {
 				1: "Aguardando confirmação do Professor",
 				2: "Em andamento ",
 				3: "Finalizada",
 				4: "Cancelada"
 			},
-
 		}
 	}
 };

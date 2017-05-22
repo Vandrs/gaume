@@ -14,7 +14,7 @@ class LessonController extends Controller
      */
     public function index()
     {
-        die('Minhas Aulas');
+        return view('app.lesson.index');
     }
 
     public function show(Request $request, $id)

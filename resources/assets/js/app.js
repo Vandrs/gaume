@@ -23,6 +23,7 @@ var i18n = new VueI18n({
 Vue.component('confirmation-start-modal', require('./components/lesson/ConfirmationStartModal'));
 Vue.component('app-alert', require('./components/app/AppAlert'));
 Vue.component('lesson', require('./components/lesson/Lesson'));
+Vue.component('lesson-list', require('./components/lesson/ListLessons'));
 
 window.app = new Vue({
     i18n,

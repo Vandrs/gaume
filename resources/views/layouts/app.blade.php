@@ -19,8 +19,9 @@
             'csrfToken' => csrf_token(),
             'user' => [
                 'token' => Auth::guest() ? null : (Auth::user()->token() ? Auth::user()->token()->accessToken : Auth::user()->createToken('app')->accessToken),
-                'name' => Auth::guest() ? null : Auth::user()->name,
-                'id'  => Auth::guest() ? null : Auth::user()->id,
+                'name'  => Auth::guest() ? null : Auth::user()->name,
+                'id'    => Auth::guest() ? null : Auth::user()->id,
+                'role'  => Auth::guest() ? null : Auth::user()->role->role
             ],
             'baseUrl' => url('/')
         ]) !!};

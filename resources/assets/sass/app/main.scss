@@ -1,3 +1,8 @@
 .panel.panel-default > .panel-heading > h1 {
 	@include panel-title;
 } 
+
+.table-blue-header thead tr th {
+	background-color: #3097D1;
+	color: #FFFFFF;
+}

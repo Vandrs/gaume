@@ -34,7 +34,6 @@
 								  				error.response.data
 								  			);
 								  		window.app.$emit('app:show-alert', errors, "danger");
-								  		window.app.$emit('app:show-alert', errors, "danger");
 								  		this.lessonId = null;
 								  });
 				}
