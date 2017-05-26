@@ -3,7 +3,7 @@
 <div class="container content">
     <div class="row">
         <div class="col-xs-12 text-center">
-            <h1 class="welcome-title">Gaume</h1>
+            <h1 class="welcome-title">Monzy</h1>
             Em breve!
         </div>
     </div>

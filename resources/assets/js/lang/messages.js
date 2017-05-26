@@ -13,7 +13,8 @@ var Messages = {
 			acceptExecuteAction: 'Você confirma a ação selecionada?',
 			noRegisterFound: 'Nenhum registro encontrado',
 			actions: 'Ações',
-			view: "Visualizar"
+			view: "Visualizar",
+			search: "Pesquisar"
 		},
 		modal : {
 			warning: "Atenção",

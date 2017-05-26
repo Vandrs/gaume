@@ -9,6 +9,11 @@
 			return {
 				lessons: [],
 				user: window.Laravel.user,
+				filters: {
+					teacher: null,
+					student: null,
+					status: null
+				},
 				roles: {
 					admin: "ADMIN",
 					teacher: "TEACHER",
@@ -35,7 +40,13 @@
 							  	this.pagination.totalPages = response.data.meta.pagination.total_pages;
 							  })
 							  .catch((error) => {
-							  	console.log(error.response);
+							  	/*
+							  		var errors = AppErrorBag.parseErrors(
+									  				error.response.status,
+									  				error.response.data
+									  			);
+								  	window.app.$emit('app:show-alert', errors, "danger");	
+								  	*/
 							  });
 			},
 			getLessonDuration: function (lesson) {
@@ -49,10 +60,18 @@
 				return totalHours;
 			},
 			paginate: function (page) {
-				this.getLessons({"page":page});
+				var filters = this.getFilters();
+				filters.page = page;
+				this.getLessons(filters);
 			},
 			seePage: function (page) {
 				window.location.href = this.viewLessonLink+page;
+			},
+			search: function () {
+				this.getLessons(this.getFilters());
+			},
+			getFilters: function () {
+				return this.filters;
 			}
 		}
 	}
@@ -60,6 +79,27 @@
 <template>
 <div>
 	<div class="row">
+		<div v-if="user.role != roles.teacher" class="col-xs-12 col-md-4 control-group">
+			<label>{{$t('app.teacher')}}</label>
+			<input  type="text" v-model="filters.teacher" name="teacher" class="form-control">
+		</div>
+		<div v-if="user.role != roles.student" class="col-xs-12 col-md-4 control-group">
+			<label>{{$t('app.student')}}</label>
+			<input type="text" v-model="filters.student"  name="student" class="form-control">
+		</div>
+		<div class="col-xs-12 col-md-3 control-group">
+			<label>{{$t('lesson.labels.status')}}</label>
+			<select class="form-control" name="status" v-model="filters.status">
+				<option value=""></option>
+				<option v-for="id in status" v-bind:value="id">{{$t('lesson.status.'+id)}}</option>
+			</select>
+		</div>
+		<div class="col-xs-12 col-md-1">
+			<label>&nbsp;</label>
+			<button v-on:click="search" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> {{$t('app.search')}}</button>
+		</div>
+	</div>
+	<div class="row margin-top-20">
 		<div class="col-xs-12">
 			<table class="table table-bordered table-stripped table-blue-header">
 				<thead>
@@ -78,7 +118,7 @@
 						<td>{{$t('lesson.status.'+lesson.status)}}</td>
 						<td>{{getLessonDuration(lesson)+" "+$tc('app.hour',getLessonDuration(lesson))}}</td>
 						<td>
-							<a class="btn btn-default" v-on:click="seePage(lesson.id)"><i class="glyphicon glyphicon-eye-open"></i></a>
+							<a class="btn btn-default" v-bind:title="$t('app.view')" v-on:click="seePage(lesson.id)"><i class="glyphicon glyphicon-eye-open"></i></a>
 						</td>
 					</tr>
 				</tbody>
