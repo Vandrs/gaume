@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Gate;
 use Log;
+use DB;
 use App\Enums\EnumPolicy;
 use App\Models\Lesson;
 use App\Services\Lesson\CreateLessonService;
@@ -25,21 +26,26 @@ class LessonController extends RestController
 	public function create(Request $request)
 	{
 		try {
+			DB::beginTransaction();
 			if (Gate::denies(EnumPolicy::CREATE_LESSON)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
 			$lessonService = new CreateLessonService();
 			$lesson = $lessonService->create($request->user(), $request->only(['teacher_id']));
+			DB::commit();
 			return $this->created($lesson->id);
 		} catch (AuthorizationException $e) {
+			DB::rollback();
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
 			return $this->unauthorized($e->getMessage());
 		} catch (ValidationException $e) {
+			DB::rollback();
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
 			return $this->badRequest($lessonService->getValidator()->errors()->all());
 		} catch (Exception $e) {
+			DB::rollback();
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
 			return $this->internalError();
@@ -49,26 +55,32 @@ class LessonController extends RestController
 	public function confirm(Request $request, $id)
 	{
 		try {
+			DB::beginTransaction();
 			$lesson = Lesson::findOrFail($id);
 			if (Gate::denies(EnumPolicy::CONFIRM_LESSON, $lesson)) {
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
 			$lessonService = new ConfirmLessonService();
 			$lesson = $lessonService->confirm($lesson, $request->only(['confirmed']));
+			DB::commit();
 			return $this->success();
 		} catch (ModelNotFoundException $e) {
+			DB::rollback();
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
 			return $this->notFound();
 		} catch (AuthorizationException $e) {
+			DB::rollback();
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
 			return $this->unauthorized($e->getMessage());
 		} catch (ValidationException $e) {
+			DB::rollback();
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
 			return $this->badRequest($lessonService->getValidator()->errors()->all());
 		} catch (Exception $e) {
+			DB::rollback();
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
 			return $this->internalError();

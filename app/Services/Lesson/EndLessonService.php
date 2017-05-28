@@ -4,7 +4,7 @@ namespace App\Services\Lesson;
 
 use DB;
 use App\Models\Lesson;
-use App\Models\
+use App\Enums\EnumLessonStatus;
 use Carbon\Carbon;
 
 class EndLessonService

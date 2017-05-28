@@ -11,7 +11,7 @@ use App\Models\Period;
 use App\Services\Lesson\EndPeriodService;
 use App\Services\Lesson\EndLessonService;
 
-class CheckInProgressLesson implements ShouldQueue
+class CheckInProgressPeriod implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,9 +34,9 @@ class CheckInProgressLesson implements ShouldQueue
      */
     public function handle()
     {
-        $this->period->reload();
+        $this->period->fresh();
         $periodService = new EndPeriodService();
-        if ($periodService->canFinishPeriod()) {
+        if ($periodService->canFinishPeriod($this->period)) {
             $periodService->finishPeriod($this->period);
             $lessonService = new EndLessonService();
             if ($lessonService->mustEndLesson($this->period->lesson)) {

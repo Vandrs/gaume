@@ -45,17 +45,10 @@ class ConfirmLessonService extends Service
 			if (in_array(false, [$isPending, $isConfirmPeriod])) {
 				throw new AuthorizationException(__('validation.custom.class_confirmation_expired'));
 			} else {
-				try {
-					DB::beginTransaction();
-					$periodService = new CreatePeriodService();
-					$result = $lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
-					$periodService->createFromLesson($lesson);
-					DB::commit();
-					return $result;
-				} catch (\Exception $e) {
-					DB::rollback();
-					throw $e;
-				}
+				$periodService = new CreatePeriodService();
+				$result = $lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
+				$periodService->createFromLesson($lesson);
+				return $result;
 			}
 		} else {
 			return $lesson->update(['status' => EnumLessonStatus::CANCELED]);

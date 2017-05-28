@@ -13,7 +13,7 @@ class EndPeriodService
 	{
 		if ($period->status == EnumLessonStatus::IN_PROGRESS) {
 			$now = Carbon::now();
-			$date = Carbon::createFromTimestamp($period->updated_at()->getTimeStamp());
+			$date = Carbon::createFromTimestamp($period->updated_at->getTimeStamp());
 			$date->addHours($period->hours);
 			$date->addMinutes(Config::get('lesson.confirm_time'));
 			return $now->greaterThan($date);
@@ -34,10 +34,11 @@ class EndPeriodService
 	{
 		if ($period->status == EnumLessonStatus::PENDING) {
 			$now = Carbon::now();
-			$date = Carbon::createFromTimestamp($period->created_at()->getTimeStamp());
+			$date = Carbon::createFromTimestamp($period->created_at->getTimeStamp());
 			$date->addMinutes(Config::get('lesson.confirm_time'));
 			return $now->greaterThan($date);
 		}
+		return false;
 	}
 
 	public function cancelPeriod(Period $period)

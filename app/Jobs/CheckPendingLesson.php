@@ -8,6 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Services\Lesson\EndLessonService;
+use App\Models\Lesson;
 
 class CheckPendingLesson implements ShouldQueue
 {
@@ -32,6 +33,7 @@ class CheckPendingLesson implements ShouldQueue
      */
     public function handle()
     {
+        $this->lesson->fresh();
         $lessonService = new EndLessonService();
         if ($lessonService->mustEndLesson($this->lesson)) {
             $lessonService->endLesson($this->lesson);

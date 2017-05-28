@@ -34,6 +34,7 @@ class CheckPendingPeriod implements ShouldQueue
      */
     public function handle()
     {
+        $this->period->fresh();
         $periodService = new EndPeriodService();
         if ($periodService->canCancelPeriod($this->period)) {
             $periodService->cancelPeriod($this->period);

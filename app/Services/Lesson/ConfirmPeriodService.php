@@ -9,12 +9,16 @@ use Validator;
 use App\Enums\EnumLessonStatus;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
+use App\Enums\EnumQueue;
 use App\Models\User;
 use App\Models\Lesson;
 use App\Models\Period;
 use App\Services\Service;
+use App\Services\Lesson\EndLessonService;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
+use Carbon\Carbon;
+use App\Jobs\CheckInProgressPeriod;
 
 class ConfirmPeriodService extends Service
 {
@@ -33,19 +37,27 @@ class ConfirmPeriodService extends Service
 		if ($this->validator->fails()) {
 			throw new ValidationException();
 		}
-		DB::beginTransaction();
-		try {
-			if ($data['confirmed']) {
-				$period->update(['status' => EnumLessonStatus::IN_PROGRESS]);
-				$period->lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
-			} else {
-				$period->update(['status' => EnumLessonStatus::CANCELED]);
-			}
-			DB::commit();
-		} catch (\Exception $e) {
-			DB::rollback();
-			throw $e;
+		if ($data['confirmed']) {
+			$period->update(['status' => EnumLessonStatus::IN_PROGRESS]);
+			$period->lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
+			$this->dispatchJob($period);
+		} else {
+			$period->update(['status' => EnumLessonStatus::CANCELED]);
+			$endLessonService = new EndLessonService();
+			$endLessonService->endLesson($period->lesson);
 		}
+	}
+
+	private function dispatchJob(Period $period)
+	{
+		$job = new CheckInProgressPeriod($period);
+		$minutes = Config::get('lesson.confirm_time');
+		$minutes += 1;
+		$delayTime = Carbon::now()->addHours($period->hours)
+								  ->addMinutes($minutes);
+		$job->delay($delayTime)
+			->onQueue(EnumQueue::LESSON);
+		dispatch($job);
 	}
 
 	public function confirmPolicy(User $user, Period $period)
