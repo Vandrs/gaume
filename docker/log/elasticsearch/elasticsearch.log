@@ -1,16 +1,1 @@
-[2017-05-27 15:45:55,445][WARN ][bootstrap                ] unable to install syscall filter: seccomp unavailable: your kernel is buggy and you should upgrade
-[2017-05-27 15:45:56,233][INFO ][node                     ] [Magdalene] version[2.3.4], pid[47], build[e455fd0/2016-06-30T11:24:31Z]
-[2017-05-27 15:45:56,233][INFO ][node                     ] [Magdalene] initializing ...
-[2017-05-27 15:45:58,066][INFO ][plugins                  ] [Magdalene] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
-[2017-05-27 15:45:58,241][INFO ][env                      ] [Magdalene] using [1] data paths, mounts [[/var/lib/elasticsearch (/dev/sda2)]], net usable_space [759.5gb], net total_space [910.5gb], spins? [possibly], types [ext4]
-[2017-05-27 15:45:58,241][INFO ][env                      ] [Magdalene] heap size [990.7mb], compressed ordinary object pointers [true]
-[2017-05-27 15:45:58,241][WARN ][env                      ] [Magdalene] max file descriptors [65535] for elasticsearch process likely too low, consider increasing to at least [65536]
-[2017-05-27 15:46:02,834][INFO ][node                     ] [Magdalene] initialized
-[2017-05-27 15:46:02,834][INFO ][node                     ] [Magdalene] starting ...
-[2017-05-27 15:46:03,592][INFO ][transport                ] [Magdalene] publish_address {172.25.0.2:9300}, bound_addresses {[::]:9300}
-[2017-05-27 15:46:03,610][INFO ][discovery                ] [Magdalene] elasticsearch/lTTby65gQvebU9zIj2dpGQ
-[2017-05-27 15:46:06,663][INFO ][cluster.service          ] [Magdalene] new_master {Magdalene}{lTTby65gQvebU9zIj2dpGQ}{172.25.0.2}{172.25.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
-[2017-05-27 15:46:06,673][INFO ][http                     ] [Magdalene] publish_address {172.25.0.2:9200}, bound_addresses {[::]:9200}
-[2017-05-27 15:46:06,673][INFO ][node                     ] [Magdalene] started
-[2017-05-27 15:46:07,145][INFO ][gateway                  ] [Magdalene] recovered [1] indices into cluster_state
-[2017-05-27 15:46:08,955][INFO ][cluster.routing.allocation] [Magdalene] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
+[2017-05-28 19:28:16,053][INFO ][node                     ] [Magdalene] stopping ...
