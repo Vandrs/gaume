@@ -9,8 +9,9 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng12-dev \
-		libpq-dev \
-		libmemcached-dev \
+	libgmp-dev \
+	libpq-dev \
+	libmemcached-dev \
     	&& docker-php-ext-install -j$(nproc) iconv mcrypt \
     	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     	&& docker-php-ext-install -j$(nproc) gd
@@ -21,11 +22,15 @@ RUN docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2
 
+# configure gmp library
+RUN docker-php-ext-configure gmp
+
 # Install extensions using the helper script provided by the base image
 RUN docker-php-ext-install \
     pdo_mysql \
     pdo_pgsql \
-    mcrypt
+    mcrypt \
+    gmp
 
 # Redis, Mongo, Xdebug 
 RUN pecl install xdebug-2.5.0 \

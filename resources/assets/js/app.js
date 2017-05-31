@@ -12,6 +12,9 @@ window.Vue = require('vue');
 import { Messages } from './lang/messages';
 import { Dropdown } from 'uiv';
 import VueI18n from 'vue-i18n';
+import { AppPushNotifications }from './components/app/AppPushNotifications';
+
+AppPushNotifications.registerServiceWorker();
 
 Vue.use(VueI18n);
 
