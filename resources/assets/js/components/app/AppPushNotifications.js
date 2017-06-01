@@ -5,7 +5,9 @@ var AppPushNotifications = {
         console.log('Service workers aren\'t supported in this browser.')
         return
       }
-      navigator.serviceWorker.register('/sw.js').then(() => this.initialiseServiceWorker())
+      navigator.serviceWorker.register('/sw.js').then(() => {
+      	this.initialiseServiceWorker()	
+      })
     },
 
     initialiseServiceWorker () {
@@ -21,27 +23,15 @@ var AppPushNotifications = {
         console.log('Push messaging isn\'t supported.')
         return
       }
-      navigator.serviceWorker.ready.then(registration => {
-        registration.pushManager.getSubscription()
-          .then(subscription => {
-            this.pushButtonDisabled = false
-            if (!subscription) {
-              return
-            }
-            this.updateSubscription(subscription)
-            this.isPushEnabled = true
-          })
-          .catch(e => {
-            console.log('Error during getSubscription()', e)
-          })
-      })
+
+      this.subscribe();
     },
     /**
      * Subscribe for push notifications.
      */
     subscribe () {
       navigator.serviceWorker.ready.then(registration => {
-        const options = { userVisibleOnly: true }
+        const options = { userVisibleOnly: true };
         const vapidPublicKey = window.Laravel.vapidPublicKey
         if (vapidPublicKey) {
           options.applicationServerKey = this.urlBase64ToUint8Array(vapidPublicKey)
@@ -53,10 +43,8 @@ var AppPushNotifications = {
           .catch(e => {
             if (Notification.permission === 'denied') {
               console.log('Permission for Notifications was denied')
-              this.pushButtonDisabled = true
             } else {
               console.log('Unable to subscribe to push.', e)
-              this.pushButtonDisabled = false
             }
           })
       })
@@ -66,6 +54,7 @@ var AppPushNotifications = {
      */
     unsubscribe () {
       navigator.serviceWorker.ready.then(registration => {
+      	console.log(registration);
         registration.pushManager.getSubscription().then(subscription => {
           subscription.unsubscribe().then(() => {
             this.deleteSubscription(subscription);
@@ -85,15 +74,15 @@ var AppPushNotifications = {
      * @param {PushSubscription} subscription
      */
     updateSubscription (subscription) {
-      const key = subscription.getKey('p256dh')
-      const token = subscription.getKey('auth')
-      const data = {
-        endpoint: subscription.endpoint,
-        key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
-        token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null
-      }
-      axios.post('/subscriptions', data)
-        .then(() => { this.loading = false })
+    	console.log('Update Subscription');
+      	const key = subscription.getKey('p256dh')
+      	const token = subscription.getKey('auth')
+      	const data = {
+        	endpoint: subscription.endpoint,
+        	key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
+        	token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null
+      	}
+      	axios.post('/app/subscriptions', data).then(() => { this.loading = false })
     },
     /**
      * Send a requst to the server to delete user's subscription.
@@ -101,7 +90,7 @@ var AppPushNotifications = {
      * @param {PushSubscription} subscription
      */
     deleteSubscription (subscription) {
-      axios.post('/subscriptions/delete', { endpoint: subscription.endpoint })
+      axios.post('/app/subscriptions/delete', { endpoint: subscription.endpoint })
         .then(() => { this.loading = false })
     },
 
@@ -119,4 +108,4 @@ var AppPushNotifications = {
     }
 };
 
-export default AppPushNotifications;
+export { AppPushNotifications };

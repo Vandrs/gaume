@@ -28,7 +28,7 @@ class LessonStartNotification extends Notification
 		return WebPushMessage::create()
 							 ->id($notification->id)
             				 ->title(__('lesson.new_class_invitation'))
-            				 ->body(__('lesson.class_invitation_body',['name' => $this->lesson->user->name]))
+            				 ->body(__('lesson.class_invitation_body',['name' => $this->lesson->teacher->name]))
             				 ->action(__('lesson.see_class_now'), route('lessons.show',['id' => $this->lesson->id]));	
 	}
 }

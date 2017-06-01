@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 183);
+/******/ 	return __webpack_require__(__webpack_require__.s = 184);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(167)("./" + name);
+            __webpack_require__(168)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -45233,6 +45233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uiv__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uiv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_uiv__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_i18n__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_app_AppPushNotifications__ = __webpack_require__(165);
 /**
  * First we will load all of this project's JavaScript dependencies wheventich
  * includes Vue and other libraries. It is a great starting point when
@@ -45247,6 +45248,9 @@ window.Vue = __webpack_require__(37);
 
 
 
+
+__WEBPACK_IMPORTED_MODULE_3__components_app_AppPushNotifications__["a" /* AppPushNotifications */].registerServiceWorker();
+
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]);
 
 var i18n = new __WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]({
@@ -45254,10 +45258,10 @@ var i18n = new __WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]({
     messages: __WEBPACK_IMPORTED_MODULE_0__lang_messages__["a" /* Messages */]
 });
 
-Vue.component('confirmation-start-modal', __webpack_require__(170));
-Vue.component('app-alert', __webpack_require__(168));
-Vue.component('lesson', __webpack_require__(171));
-Vue.component('lesson-list', __webpack_require__(172));
+Vue.component('confirmation-start-modal', __webpack_require__(171));
+Vue.component('app-alert', __webpack_require__(169));
+Vue.component('lesson', __webpack_require__(172));
+Vue.component('lesson-list', __webpack_require__(173));
 
 window.app = new Vue({
     i18n: i18n,
@@ -45489,8 +45493,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-Vue.component('lesson-accept-modal', __webpack_require__(169));
-Vue.component('lesson-renew-modal', __webpack_require__(173));
+Vue.component('lesson-accept-modal', __webpack_require__(170));
+Vue.component('lesson-renew-modal', __webpack_require__(174));
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: {
 		id: Number
@@ -45956,13 +45960,141 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 165 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(166)();
-exports.push([module.i, "\nul.list-alert-messages[data-v-1dafb578] {\n\tlist-style: none;\n    padding-left: 0px;\n}\n", ""]);
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppPushNotifications; });
+var AppPushNotifications = {
+  registerServiceWorker: function registerServiceWorker() {
+    var _this = this;
+
+    if (!('serviceWorker' in navigator)) {
+      console.log('Service workers aren\'t supported in this browser.');
+      return;
+    }
+    navigator.serviceWorker.register('/sw.js').then(function () {
+      _this.initialiseServiceWorker();
+    });
+  },
+  initialiseServiceWorker: function initialiseServiceWorker() {
+    if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
+      console.log('Notifications aren\'t supported.');
+      return;
+    }
+    if (Notification.permission === 'denied') {
+      console.log('The user has blocked notifications.');
+      return;
+    }
+    if (!('PushManager' in window)) {
+      console.log('Push messaging isn\'t supported.');
+      return;
+    }
+
+    this.subscribe();
+  },
+
+  /**
+   * Subscribe for push notifications.
+   */
+  subscribe: function subscribe() {
+    var _this2 = this;
+
+    navigator.serviceWorker.ready.then(function (registration) {
+      var options = { userVisibleOnly: true };
+      var vapidPublicKey = window.Laravel.vapidPublicKey;
+      if (vapidPublicKey) {
+        options.applicationServerKey = _this2.urlBase64ToUint8Array(vapidPublicKey);
+      }
+      registration.pushManager.subscribe(options).then(function (subscription) {
+        _this2.updateSubscription(subscription);
+      }).catch(function (e) {
+        if (Notification.permission === 'denied') {
+          console.log('Permission for Notifications was denied');
+        } else {
+          console.log('Unable to subscribe to push.', e);
+        }
+      });
+    });
+  },
+
+  /**
+   * Unsubscribe from push notifications.
+   */
+  unsubscribe: function unsubscribe() {
+    var _this3 = this;
+
+    navigator.serviceWorker.ready.then(function (registration) {
+      console.log(registration);
+      registration.pushManager.getSubscription().then(function (subscription) {
+        subscription.unsubscribe().then(function () {
+          _this3.deleteSubscription(subscription);
+        }).catch(function (e) {
+          console.log('Unsubscription error: ', e);
+          _this3.pushButtonDisabled = false;
+        });
+      }).catch(function (e) {
+        console.log('Error thrown while unsubscribing.', e);
+      });
+    });
+  },
+
+
+  /**
+   * Send a request to the server to update user's subscription.
+   *
+   * @param {PushSubscription} subscription
+   */
+  updateSubscription: function updateSubscription(subscription) {
+    var _this4 = this;
+
+    console.log('Update Subscription');
+    var key = subscription.getKey('p256dh');
+    var token = subscription.getKey('auth');
+    var data = {
+      endpoint: subscription.endpoint,
+      key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
+      token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null
+    };
+    axios.post('/app/subscriptions', data).then(function () {
+      _this4.loading = false;
+    });
+  },
+
+  /**
+   * Send a requst to the server to delete user's subscription.
+   *
+   * @param {PushSubscription} subscription
+   */
+  deleteSubscription: function deleteSubscription(subscription) {
+    var _this5 = this;
+
+    axios.post('/app/subscriptions/delete', { endpoint: subscription.endpoint }).then(function () {
+      _this5.loading = false;
+    });
+  },
+  urlBase64ToUint8Array: function urlBase64ToUint8Array(base64String) {
+    var padding = '='.repeat((4 - base64String.length % 4) % 4);
+    var base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+    var rawData = window.atob(base64);
+    var outputArray = new Uint8Array(rawData.length);
+    for (var i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+};
+
+
 
 /***/ }),
 /* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(167)();
+exports.push([module.i, "\nul.list-alert-messages[data-v-1dafb578] {\n\tlist-style: none;\n    padding-left: 0px;\n}\n", ""]);
+
+/***/ }),
+/* 167 */
 /***/ (function(module, exports) {
 
 /*
@@ -46018,7 +46150,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -46267,21 +46399,21 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 167;
+webpackContext.id = 168;
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(180)
+__webpack_require__(181)
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(159),
   /* template */
-  __webpack_require__(174),
+  __webpack_require__(175),
   /* scopeId */
   "data-v-1dafb578",
   /* cssModules */
@@ -46308,14 +46440,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(160),
   /* template */
-  __webpack_require__(177),
+  __webpack_require__(178),
   /* scopeId */
   null,
   /* cssModules */
@@ -46342,14 +46474,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(161),
   /* template */
-  __webpack_require__(175),
+  __webpack_require__(176),
   /* scopeId */
   null,
   /* cssModules */
@@ -46376,14 +46508,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(162),
   /* template */
-  __webpack_require__(176),
+  __webpack_require__(177),
   /* scopeId */
   null,
   /* cssModules */
@@ -46410,14 +46542,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(163),
   /* template */
-  __webpack_require__(179),
+  __webpack_require__(180),
   /* scopeId */
   null,
   /* cssModules */
@@ -46444,14 +46576,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(164),
   /* template */
-  __webpack_require__(178),
+  __webpack_require__(179),
   /* scopeId */
   null,
   /* cssModules */
@@ -46478,7 +46610,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46511,7 +46643,7 @@ if (false) {
 }
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46544,7 +46676,7 @@ if (false) {
 }
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46670,7 +46802,7 @@ if (false) {
 }
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46721,7 +46853,7 @@ if (false) {
 }
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46754,7 +46886,7 @@ if (false) {
 }
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46902,17 +47034,17 @@ if (false) {
 }
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(165);
+var content = __webpack_require__(166);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(181)("edeb4f8e", content, false);
+var update = __webpack_require__(182)("edeb4f8e", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -46928,7 +47060,7 @@ if(false) {
 }
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -46947,7 +47079,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(182)
+var listToStyles = __webpack_require__(183)
 
 /*
 type StyleObject = {
@@ -47149,7 +47281,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports) {
 
 /**
@@ -47182,7 +47314,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(155);

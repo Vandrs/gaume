@@ -2,10 +2,13 @@
   'use strict'
 
   const WebPush = {
+
+    defaultUrl: 'http://localhost';
+
     init () {
       self.addEventListener('push', this.notificationPush.bind(this))
       self.addEventListener('notificationclick', this.notificationClick.bind(this))
-      self.addEventListener('notificationclose', this.notificationClose.bind(this))
+      /*self.addEventListener('notificationclose', this.notificationClose.bind(this))*/
     },
 
     /**
@@ -48,7 +51,31 @@
      * @param {NotificationEvent} event
      */
     notificationClick (event) {
-      self.clients.openWindow(event.action)
+      console.log(self.clients);
+      if (event.action) {
+        var navigationUrl = event.action;
+      } else {
+        var navigationUrl = event.notification.actions[0].action;
+      }
+      
+      var redirect = true;
+
+      self.clients.matchAll({type: 'window'})
+                  .then(clients => {
+                    if (clients.length) {
+                      redirect = false;
+                      return clients[0].navigate(navigationUrl)
+                                       .then(client => client.focus());
+                    }
+                  });
+                  
+      if (redirect) {
+        return self.clients.openWindow(navigationUrl);
+      }
+      
+    })
+
+
     },
 
     /**
@@ -124,6 +151,6 @@
     }
   }
 */
-
-  WebPush.init()
+  }
+  WebPush.init();
 })()
