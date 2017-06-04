@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,6 +18,7 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
+            'vapidPublicKey' => Config::get('webpush.vapid.public_key'),
             'user' => [
                 'token' => Auth::guest() ? null : (Auth::user()->token() ? Auth::user()->token()->accessToken : Auth::user()->createToken('app')->accessToken),
                 'name'  => Auth::guest() ? null : Auth::user()->name,
@@ -35,7 +37,7 @@
         <article class="wrapper" v-bind:class="{toggled: menuToggled}">
             @include('partials.side-menu')
             <section class="main">
-                <section class="content">
+                <section class="content" v-bind:class="{blur: isLoading}">
                 <app-alert>
                 </app-alert>
                 @yield('content')

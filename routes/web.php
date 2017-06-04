@@ -22,4 +22,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function(){
 	Route::get('/professores','App\TeacherController@index')->name('teachers.list');
 	Route::get('/aulas','App\LessonController@index')->name('lessons.list');
 	Route::get('/aula/{id}','App\LessonController@show')->name('lessons.show');
+	Route::post('/subscriptions', 'App\PushSubscriptionController@update');
+	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
 });

@@ -22,11 +22,14 @@
 		methods: {
 			dismissCallback: function(msg) {
 				if (msg == 'ok') {
+					window.app.isLoading = true;
 					LessonProvider.create(this.teacherId)
 								  .then((response) => {
+								  		window.app.isLoading = false;
 								  		window.location.href = window.Laravel.baseUrl+"/app/aula/"+response.data.id;
 								  })
 								  .catch((error) => {
+								  		window.app.isLoading = false;
 								  		var errors = AppErrorBag.parseErrors(
 								  				error.response.status,
 								  				error.response.data

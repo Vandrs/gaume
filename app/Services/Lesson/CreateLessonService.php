@@ -18,6 +18,7 @@ use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use App\Models\Lesson;
 use App\Jobs\CheckPendingLesson;
+use App\Notifications\LessonStartNotification;
 use Carbon\Carbon;
 
 class CreateLessonService extends Service
@@ -47,18 +48,32 @@ class CreateLessonService extends Service
 			'status'	 => EnumLessonStatus::PENDING
 		]);
 
-		$this->dispatchJob($lesson);		
+		$this->dispatchJobCheckPendingJob($lesson);		
+		$this->dispatchNotificationJob($lesson);
 
 		return $lesson;
 	}
 
-	private function dispatchJob(Lesson $lesson)
+	private function dispatchJobCheckPendingJob(Lesson $lesson)
 	{
 		$delayJobTime = Carbon::now()->addMinutes(Config::get('lesson.confirm_time'));
 		$job = new CheckPendingLesson($lesson);
 		$job->delay($delayJobTime)
 			->onQueue(EnumQueue::LESSON);
 		dispatch($job);
+	}
+
+	private function dispatchNotificationJob(Lesson $lesson)
+	{
+		try {
+			$user = $lesson->teacher;
+			$user->notify(new LessonStartNotification($lesson));
+			return true;
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return false;
+		}
 	}
 
 	
