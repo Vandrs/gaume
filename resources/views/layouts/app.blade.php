@@ -14,7 +14,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @if(isset($pageTitle))
+    <title>{{$pageTitle | config('app.name') }}</title>
+    @else
     <title>{{ config('app.name') }}</title>
+    @endif
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -51,6 +55,8 @@
         </article>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @foreach (AssetLoader::getAppScripts() as $script)
+        <script src="{{ asset('js/'.$script) }}"></script>
+    @endforeach
 </body>
 </html>

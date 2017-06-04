@@ -11,6 +11,7 @@ return [
 	],
 	'navbar' => [
 		'login' => 'Entrar',
+		'register' => 'Cadastrar',
 		'logout' => 'Sair',
 		'profile' => 'Perfil',
 		'home' => 'Início'

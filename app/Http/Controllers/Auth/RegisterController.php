@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Config;
+use Lang;
 
 class RegisterController extends Controller
 {
@@ -72,14 +73,13 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        // LIBERAR NO FUTURO
-        /*
-        return view('auth.register');
-        */
+        $pageTitle = Lang::get('site.registration.register');
+        return view('auth.register',['pageTitle' => $pageTitle]);
     }
 
     public function register(Request $request)
     {
+        die('OK');
         // LIBERAR NO FUTURO
         /*
         $this->validator($request->all())->validate();

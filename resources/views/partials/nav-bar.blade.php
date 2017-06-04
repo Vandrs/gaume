@@ -15,7 +15,7 @@
         <div class="navbar-collapse collapse" id="navbar-collapse-main">
             <div class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
-                <a href="{{ route('login') }}">@lang("app.navbar.login")</a>
+                <a href="{{ route('login') }}">@lang("app.navbar.login")</a> | <a href="{{ route('register') }}">@lang("app.navbar.register")</a>
                 @else
                 <dropdown>
                   <a data-role="trigger" class="dropdown-toggle" type="button" aria-expanded="false">
