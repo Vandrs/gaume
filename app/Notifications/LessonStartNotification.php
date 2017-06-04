@@ -28,6 +28,7 @@ class LessonStartNotification extends Notification
     {
 		return WebPushMessage::create()
 							 ->id($notification->id)
+							 ->icon(url('/img/logo/logo-104-104.png'))
             				 ->title(Config::get('app.name'))
             				 ->body(__('lesson.class_invitation_body',['name' => $this->lesson->teacher->name]))
             				 ->action(__('lesson.see_class_now'), route('lessons.show',['id' => $this->lesson->id]));	
