@@ -32,7 +32,8 @@ window.app = new Vue({
     i18n,
     components: { Dropdown },
     data: {
-    	menuToggled : false	
+    	menuToggled : false,
+        isLoading: false
     }, 
     methods: {
     	toggleMenu: function(event) {

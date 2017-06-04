@@ -32,11 +32,13 @@
 		methods: {
 			dismissLessonCallback: function(msg) {
 				if (msg == 'ok') {
+					window.app.isLoading = true;
 					LessonProvider.confirm(this.lessonId, this.confirm)
 								  .then((response) => {
 								  		window.app.$emit('app:lesson-updated', this.lessonId);
 								  		this.lessonId = null;
 										this.confirm = null;
+										window.app.isLoading = false;
 								  })
 								  .catch((error) => {
 								  		var errors = AppErrorBag.parseErrors(
@@ -47,19 +49,20 @@
 								  		window.app.$emit('app:lesson-updated', this.lessonId);
 								  		this.lessonId = null;
 										this.confirm = null;
+										window.app.isLoading = false;
 								  });
 				}
 			},
 			dismissPeriodCallback: function(msg) {
 				if (msg == 'ok') {
-					console.log('Period Update',this.lessonId,this.periodId,this.confirm);
+					window.app.isLoading = true;
 					PeriodProvider.confirm(this.lessonId, this.periodId, this.confirm)
 								  .then((reponse) => {
 								  	window.app.$emit('app:lesson-updated', this.lessonId);
 								  	this.lessonId = null;
 									this.periodId = null;
 									this.confirm = null;
-
+									window.app.isLoading = false;
 								  })
 								  .catch((error) => {
 								  	var errors = AppErrorBag.parseErrors(
@@ -71,6 +74,7 @@
 							  		this.lessonId = null;
 							  		this.periodId = null;
 									this.confirm = null;
+									window.app.isLoading = false;
 								  });
 				}
 			},

@@ -37,7 +37,7 @@
         <article class="wrapper" v-bind:class="{toggled: menuToggled}">
             @include('partials.side-menu')
             <section class="main">
-                <section class="content">
+                <section class="content" v-bind:class="{blur: isLoading}">
                 <app-alert>
                 </app-alert>
                 @yield('content')

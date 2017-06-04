@@ -18,6 +18,7 @@ use App\Exceptions\AuthorizationException;
 use Carbon\Carbon;
 use App\Jobs\CheckInProgressPeriod;
 use App\Jobs\CheckPendingPeriod;
+use App\Notifications\LessonStartNotification;
 
 class CreatePeriodService extends Service
 {
@@ -62,6 +63,7 @@ class CreatePeriodService extends Service
 		]);
 
 		$this->dispatchJobPending($period);
+		$this->dispatchNotificationJob($period);
 
 		return $period;
 	}
@@ -93,4 +95,18 @@ class CreatePeriodService extends Service
 			->onQueue(EnumQueue::LESSON);
 		dispatch($job);
 	}
+
+	private function dispatchNotificationJob(Period $period)
+	{
+		try {
+			$user = $period->lesson->teacher;
+			$user->notify(new LessonStartNotification($period->lesson));
+			return true;
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return false;
+		}
+	}
+
 }

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 184);
+/******/ 	return __webpack_require__(__webpack_require__.s = 185);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -45267,7 +45267,8 @@ window.app = new Vue({
     i18n: i18n,
     components: { Dropdown: __WEBPACK_IMPORTED_MODULE_1_uiv__["Dropdown"] },
     data: {
-        menuToggled: false
+        menuToggled: false,
+        isLoading: false
     },
     methods: {
         toggleMenu: function toggleMenu(event) {
@@ -45385,16 +45386,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this2 = this;
 
 			if (msg == 'ok') {
+				window.app.isLoading = true;
 				__WEBPACK_IMPORTED_MODULE_1__providers_lessonProvider__["a" /* LessonProvider */].confirm(this.lessonId, this.confirm).then(function (response) {
 					window.app.$emit('app:lesson-updated', _this2.lessonId);
 					_this2.lessonId = null;
 					_this2.confirm = null;
+					window.app.isLoading = false;
 				}).catch(function (error) {
 					var errors = __WEBPACK_IMPORTED_MODULE_3__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
 					window.app.$emit('app:show-alert', errors, "danger");
 					window.app.$emit('app:lesson-updated', _this2.lessonId);
 					_this2.lessonId = null;
 					_this2.confirm = null;
+					window.app.isLoading = false;
 				});
 			}
 		},
@@ -45402,12 +45406,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this3 = this;
 
 			if (msg == 'ok') {
-				console.log('Period Update', this.lessonId, this.periodId, this.confirm);
+				window.app.isLoading = true;
 				__WEBPACK_IMPORTED_MODULE_2__providers_periodProvider__["a" /* PeriodProvider */].confirm(this.lessonId, this.periodId, this.confirm).then(function (reponse) {
 					window.app.$emit('app:lesson-updated', _this3.lessonId);
 					_this3.lessonId = null;
 					_this3.periodId = null;
 					_this3.confirm = null;
+					window.app.isLoading = false;
 				}).catch(function (error) {
 					var errors = __WEBPACK_IMPORTED_MODULE_3__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
 					window.app.$emit('app:show-alert', errors, "danger");
@@ -45415,6 +45420,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					_this3.lessonId = null;
 					_this3.periodId = null;
 					_this3.confirm = null;
+					window.app.isLoading = false;
 				});
 			}
 		},
@@ -45462,9 +45468,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {
 		dismissCallback: function dismissCallback(msg) {
 			if (msg == 'ok') {
+				window.app.isLoading = true;
 				__WEBPACK_IMPORTED_MODULE_1__providers_lessonProvider__["a" /* LessonProvider */].create(this.teacherId).then(function (response) {
+					window.app.isLoading = false;
 					window.location.href = window.Laravel.baseUrl + "/app/aula/" + response.data.id;
 				}).catch(function (error) {
+					window.app.isLoading = false;
 					var errors = __WEBPACK_IMPORTED_MODULE_2__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
 					window.app.$emit('app:show-alert', errors, "danger");
 				});
@@ -45941,14 +45950,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			if (msg == 'ok') {
+				window.app.isLoading = true;
 				__WEBPACK_IMPORTED_MODULE_1__providers_periodProvider__["a" /* PeriodProvider */].create(this.lessonId).then(function (response) {
 					console.log('Period Created and Lesson Updated');
 					window.app.$emit('app:lesson-updated', _this.lessonId);
 					_this.lessonId = null;
+					window.app.isLoading = false;
 				}).catch(function (error) {
 					var errors = __WEBPACK_IMPORTED_MODULE_2__components_app_AppErrorBag__["a" /* AppErrorBag */].parseErrors(error.response.status, error.response.data);
 					window.app.$emit('app:show-alert', errors, "danger");
 					_this.lessonId = null;
+					window.app.isLoading = false;
 				});
 			}
 		},
@@ -46407,7 +46419,7 @@ webpackContext.id = 168;
 
 
 /* styles */
-__webpack_require__(181)
+__webpack_require__(182)
 
 var Component = __webpack_require__(4)(
   /* script */
@@ -47034,7 +47046,8 @@ if (false) {
 }
 
 /***/ }),
-/* 181 */
+/* 181 */,
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -47044,7 +47057,7 @@ var content = __webpack_require__(166);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(182)("edeb4f8e", content, false);
+var update = __webpack_require__(183)("edeb4f8e", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -47060,7 +47073,7 @@ if(false) {
 }
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -47079,7 +47092,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(183)
+var listToStyles = __webpack_require__(184)
 
 /*
 type StyleObject = {
@@ -47281,7 +47294,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports) {
 
 /**
@@ -47314,7 +47327,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(155);

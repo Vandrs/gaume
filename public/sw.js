@@ -3,8 +3,6 @@
 
   const WebPush = {
 
-    defaultUrl: 'http://localhost';
-
     init () {
       self.addEventListener('push', this.notificationPush.bind(this))
       self.addEventListener('notificationclick', this.notificationClick.bind(this))
@@ -51,7 +49,6 @@
      * @param {NotificationEvent} event
      */
     notificationClick (event) {
-      console.log(self.clients);
       if (event.action) {
         var navigationUrl = event.action;
       } else {
@@ -72,10 +69,6 @@
       if (redirect) {
         return self.clients.openWindow(navigationUrl);
       }
-      
-    })
-
-
     },
 
     /**

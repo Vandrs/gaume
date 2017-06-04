@@ -22,11 +22,13 @@
 		methods: {
 			dismissCallback: function(msg) {
 				if (msg == 'ok') {
+					window.app.isLoading = true;
 					PeriodProvider.create(this.lessonId)
 								  .then((response) => {
 								  		console.log('Period Created and Lesson Updated');
 								  		window.app.$emit('app:lesson-updated', this.lessonId);
 								  		this.lessonId = null;
+								  		window.app.isLoading = false;
 								  })
 								  .catch((error) => {
 								  		var errors = AppErrorBag.parseErrors(
@@ -35,6 +37,7 @@
 								  			);
 								  		window.app.$emit('app:show-alert', errors, "danger");
 								  		this.lessonId = null;
+								  		window.app.isLoading = false;
 								  });
 				}
 			},
