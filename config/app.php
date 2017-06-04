@@ -14,6 +14,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'index_pages' => env('INDEX_PAGES', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
