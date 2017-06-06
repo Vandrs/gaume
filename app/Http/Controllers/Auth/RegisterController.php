@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Config;
 use Lang;
+use App\User;
+use App\Http\Controllers\Controller;
+use App\AssetLoader\AssetLoader;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Services\Location\GetStateService;
+
 
 class RegisterController extends Controller
 {
@@ -73,8 +76,13 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+        AssetLoader::registerSiteScript('registration.js');
+        $states = GetStateService::getAll();
         $pageTitle = Lang::get('site.registration.register');
-        return view('auth.register',['pageTitle' => $pageTitle]);
+        return view('auth.register',[
+            'pageTitle' => $pageTitle,
+            'states' => $states
+        ]);
     }
 
     public function register(Request $request)
