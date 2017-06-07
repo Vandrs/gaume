@@ -1,51 +1,125 @@
+require('./plugins/bootstrap3-typeahead');
+require('./plugins/jquery-mask');
+require('./plugins/bootstrap-datepicker');
+require('./locales/bootstrap-datepicker.pt-BR');
 
 import { CityProvider } from '../providers/cityProvider';
-
-require('./plugins/bootstrap3-typeahead');
+import { NeighborhoodProvider } from '../providers/neighborhoodProvider';
 
 var CityAutoComplete = {
-
-	setup: function (cityInput, destInput) {
-		cityInput.typeahead({
-			source: {},
-			autoSelect: true
+	cityInput: null,
+	setup: function (cityInput, destInput, state) {
+		this.cityInput = cityInput;
+		if (state) {
+			CityProvider.list(selectedState).then((response) => {
+				this.cityInput.typeahead({
+					source: response.data,
+					autoSelect: true
+				});
+				this.bindChange(destInput);	
+			});
+		} else {
+			this.cityInput.typeahead({
+				source: {},
+				autoSelect: true
+			});
+			this.bindChange(destInput);	
+		}
+	},
+	updateSource: function (data) {
+		this.cityInput.data('typeahead').source = data;
+	},
+	bindChange: function (destInput) {
+		this.cityInput.on('change', () => {
+		  	var current = this.cityInput.typeahead("getActive");
+		  	if (current && current.name.toLowerCase() == this.cityInput.val().toLowerCase()) {
+			  	destInput.val(current.id);  		
+		  	} else {
+		  		destInput.val("");
+		  	}	  	
 		});
-		this.bindChange(cityInput, destInput);
-	},
+	}
+};
 
-	updateSource: function (cityInput, data) {
-		cityInput.data('typeahead').source = data;
+var NeighborhoodAutoComplete = {
+	neighborhoodInput: null,
+	setup: function (neighborhoodInput, destInput, state) {
+		this.neighborhoodInput = neighborhoodInput;
+		if (state) {
+			NeighborhoodProvider.list(selectedState).then((response) => {
+				this.cityInput.typeahead({
+					source: response.data,
+					autoSelect: true
+				});
+				this.bindChange(destInput);	
+			});
+		} else {
+			this.neighborhoodInput.typeahead({
+				source: {},
+				autoSelect: true
+			});
+			this.bindChange(destInput);	
+		}
 	},
-
-	bindChange: function (cityInput, destInput) {
-		cityInput.on('change', () => {
-		  	var current = cityInput.typeahead("getActive");
-		  	console.log(current);
-		  	if (current && current.name.toLowerCase() == cityInput.val().toLowerCase()) {
+	updateSource: function (data) {
+		this.neighborhoodInput.data('typeahead').source = data;
+	},
+	bindChange: function (destInput) {
+		this.neighborhoodInput.on('change',()=> { 
+			var current = this.neighborhoodInput.typeahead("getActive");
+		  	if (current && current.name.toLowerCase() == this.neighborhoodInput.val().toLowerCase()) {
 			  	destInput.val(current.id);  		
 		  	} else {
 		  		destInput.val("");
 		  	}
-		  	
 		});
 	}
-
 };
 
 
-$(document).ready(() => {
+$(document).ready(function () {
+
+	$("#cpf").mask('000.000.000-00',{reverse:true});
+
+	$("#birth_date_text").datepicker({
+		format: 'dd/mm/yyyy',
+		endDate: '0d',
+		language: 'pt-BR'
+	});
+
+	$("#birth_date_text").datepicker().on('changeDate',function (event) {
+		$('#birth_date').val(event.date.toLocaleString());
+	});
+
+	$("#btnShowBirthDateCalendar").on('click', function (event) {
+		event.preventDefault();
+		var data  = $("#birth_date_text").datepicker('show');
+	});
 
 	var cityInput = $('#city_name');
 	var destCityInput = $('#city');
 	var stateInput = $('#state');
+	var neighborhoodInput = $("#neighborhood_name");
+	var destNeighborhoodInput = $("#neighborhood");
 
-	CityAutoComplete.setup(cityInput, destCityInput);
+	CityAutoComplete.setup(cityInput, destCityInput, stateInput.val());
+	NeighborhoodAutoComplete.setup(neighborhoodInput, destNeighborhoodInput, stateInput.val());
 
 	stateInput.on('change', () => {
+
+		cityInput.val("");
+		destCityInput.val("");
+		stateInput.val("");
+		neighborhoodInput.val("");
+		destNeighborhoodInput.val("");
+
 		var selectedState = stateInput.val();
 		if (selectedState) {
 			CityProvider.list(selectedState).then((response) => {
-				CityAutoComplete.updateSource(cityInput, response.data);
+				CityAutoComplete.updateSource(response.data);
+			});
+			NeighborhoodProvider.list(selectedState).then((response) => {
+				NeighborhoodAutoComplete.updateSource(response.data);
 			});
 		}
 	});

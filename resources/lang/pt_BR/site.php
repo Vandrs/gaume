@@ -9,7 +9,7 @@ return [
 		'password_confirm' => 'Confirmar senha',
 		'nickname' => 'Nickname',
 		'cpf' => 'CPF',
-		'address' => 'Endereço',
+		'address' => 'Informações sobre o seu endereço',
 		'city' => 'Cidade',
 		'estate' => 'Estado',
 		'street' => 'Rua',

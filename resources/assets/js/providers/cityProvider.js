@@ -4,4 +4,4 @@ var CityProvider = {
 	},
 }
 
-export { CityProvider } ;
+export { CityProvider };

@@ -47,8 +47,8 @@
 
                         <div class="col-xs-12 col-md-4 col-md-offset-2">
                             <div class="form-group{{ $errors->has('cpf') ? ' has-error' : '' }}">
-                                <label for="name" class="control-label">@lang('site.registration.cpf')*</label>
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('cpf') }}" required autofocus>
+                                <label for="cpf" class="control-label">@lang('site.registration.cpf')*</label>
+                                <input id="cpf" type="text" class="form-control" name="cpf" value="{{ old('cpf') }}" required autofocus>
                                 @if ($errors->has('cpf'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('cpf') }}</strong>
@@ -58,11 +58,14 @@
                         </div>
                         <div class="col-xs-12 col-md-4 ">
                             <div class="form-group{{ $errors->has('birth_date') ? ' has-error' : '' }}">
-                                <label for="name" class="control-label">@lang('site.registration.birth_date')*</label>
+                                <label for="birth_date_text" class="control-label">@lang('site.registration.birth_date')*</label>
                                 <div class="input-group">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('birth_date') }}" required autofocus>
-                                    <span class="input-group-addon">
-                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    <input id="birth_date" type="hidden" name="birth_date" value="{{old('birth_date')}}">
+                                    <input id="birth_date_text" type="text" class="form-control" name="birth_date_text" value="{{ old('birth_date_text') }}" readonly="">
+                                    <span class="input-group-btn">
+                                        <button  id="btnShowBirthDateCalendar" class="btn btn-default">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
                                     </span>
                                 </div>
                                 @if ($errors->has('birth_date'))
@@ -102,7 +105,13 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-md-4 col-md-offset-2">
+                        <div class="col-xs-12 col-md-8 col-md-offset-2">
+                            <span class="help-block">
+                                @lang('site.registration.address')
+                            </span>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3 col-md-offset-2">
                             <div class="form-group{{$errors->has('state') ? ' has-error' : '' }}">
                                 <label for="state" class="control-label">@lang('site.registration.state')*</label>
                                 <select id="state" type="state" class="form-control" name="state" required>
@@ -118,7 +127,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-12 col-md-5">
                             <div class="form-group{{$errors->has('city') ? ' has-error' : '' }}">
                                 <label for="city_name" class="control-label">@lang('site.registration.city')*</label>
                                 <input id="city_name" type="text" name="city_name" value="{{old('city_name')}}" class="form-control" autocomplete="off">
@@ -126,6 +135,54 @@
                                 @if ($errors->has('city'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4 col-md-offset-2">
+                            <div class="form-group{{$errors->has('neighborhood') ? ' has-error' : '' }}">
+                                <label for="neighborhood_name" class="control-label">@lang('site.registration.neighborhood')*</label>
+                                <input id="neighborhood_name" type="text" name="neighborhood_name" value="{{old('neighborhood_name')}}" class="form-control" autocomplete="off">
+                                <input id="neighborhood" type="hidden" name="neighborhood" value="{{old('neighborhood')}}" class="form-control">
+                                @if ($errors->has('neighborhood'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('neighborhood') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group{{$errors->has('street') ? ' has-error' : '' }}">
+                                <label for="street" class="control-label">@lang('site.registration.street')*</label>
+                                <input id="street" type="text" name="street" value="{{old('street')}}" class="form-control">
+                                @if ($errors->has('city'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-xs-12 col-md-3 col-md-offset-2">
+                            <div class="form-group{{$errors->has('number') ? ' has-error' : '' }}">
+                                <label for="number" class="control-label">@lang('site.registration.number')</label>
+                                <input id="number" type="text" name="number" value="{{old('number')}}" class="form-control">
+                                @if ($errors->has('number'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-5">
+                            <div class="form-group{{$errors->has('complement') ? ' has-error' : '' }}">
+                                <label for="complement" class="control-label">@lang('site.registration.complement')</label>
+                                <input id="complement" type="text" name="complement" value="{{old('complement')}}" class="form-control">
+                                @if ($errors->has('complement'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('complement') }}</strong>
                                     </span>
                                 @endif
                             </div>
