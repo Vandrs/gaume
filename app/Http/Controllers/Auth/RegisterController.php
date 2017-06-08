@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use Config;
 use Lang;
+use Log;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\AssetLoader\AssetLoader;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use App\Services\Location\GetStateService;
-
+use App\Services\User\UserRegistrationService;
+use App\Exceptions\ValidationException;
 
 class RegisterController extends Controller
 {
@@ -87,18 +90,19 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        die('OK');
-        // LIBERAR NO FUTURO
-        /*
-        $this->validator($request->all())->validate();
+        try {
+            $userRegistration = new UserRegistrationService();
+            $user = $userRegistration->registerUser($request->all());
+            $this->guard()->login($user);
+            return $this->registered($request, $user) ? : redirect($this->redirectPath());
 
-        event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
-        */                        
+        } catch (ValidationException $e) {
+            return back()->withInput()->withErrors($userRegistration->getValidator());
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            Log::error($e->getTraceAsString());
+            return back();
+        }
     }
 
 

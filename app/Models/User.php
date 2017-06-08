@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile'
     ];
 
     /**
@@ -29,6 +29,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getNicknameAttribute($nickname)
+    {
+        return empty($nickname) ? $this->name : $nickname;
+    }
 
     public function role()
     {

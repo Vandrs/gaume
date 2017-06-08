@@ -88,9 +88,14 @@ return [
 
     'custom' => [
         'is_not_teacher' => 'O usuário selecionado não é um professor',
-        'class_confirmation_expired' => "Prazo para confirmação da aula expirado."
+        'class_confirmation_expired' => "Prazo para confirmação da aula expirado.",
+        'terms' => 'Você precisa aceitar os termos de usa para prosseguir',
+        'min_age' => 'Você deve ser maior de :age anos para se registrar'
     ],
 
     'attributes' => [],
+
+    'cpf' => 'CPF inválido',
+    'cnpj' => 'CNPJ inválido'
 
 ];

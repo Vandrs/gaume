@@ -22,4 +22,7 @@ return [
 		'teachers' => 'Professores',
 		'my_lessons' => 'Minhas aulas'
 	],
+	'messages' => [
+		'errors' => 'Alguns erros ocorreram ao tentar processar a sua requisição por favor revise os dados enviados e se o erro persistir contate os administradores do sistema.'
+	]
 ];

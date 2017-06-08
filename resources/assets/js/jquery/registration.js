@@ -76,6 +76,18 @@ var NeighborhoodAutoComplete = {
 	}
 };
 
+function readImageURL(input, target) {
+	$(target).html("");
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+        	console.log(e.target.result);
+        	var html = "<img src="+e.target.result+" title='imagem de perfil' alt='imagem de perfil' />";
+        	$(target).html(html);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 $(document).ready(function () {
 
@@ -87,7 +99,12 @@ $(document).ready(function () {
 		language: 'pt-BR'
 	});
 
-	$("#birth_date_text").datepicker().on('changeDate',function (event) {
+	$("#photoSelect").on('click', function (event) {
+		event.preventDefault();
+		$("#photo_profile").click();
+	});
+
+	$("#birth_date_text").datepicker().on('changeDate', function (event) {
 		$('#birth_date').val(event.date.toLocaleString());
 	});
 
@@ -122,6 +139,11 @@ $(document).ready(function () {
 				NeighborhoodAutoComplete.updateSource(response.data);
 			});
 		}
+	});
+
+	$("#photo_profile").on('change', function () {
+		console.log('Changed');
+    	readImageURL(this, ".img-profile-content");
 	});
 
 });
