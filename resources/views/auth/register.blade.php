@@ -215,7 +215,7 @@
 
                         <div class="col-xs-12 col-md-8 col-md-offset-2 margin-top-10">
                             <span class="form-title">@lang('site.terms.title')</span> <br />
-                            <a href="#">@lang('site.terms.accept_info')</a>
+                            <a href="#" data-toggle="modal" data-target="#termsModal">@lang('site.terms.accept_info')</a>
                             <div class="form-group{{$errors->has('terms') ? ' has-error' : '' }}">
                                 <div class="checkbox">
                                     <label>
@@ -224,7 +224,7 @@
                                 </div>
                                 @if ($errors->has('terms'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('complement') }}</strong>
+                                        <strong>{{ $errors->first('terms') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -243,5 +243,24 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Terms Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="termsModalLabel">@lang('site.terms.title')</h4>
+      </div>
+      <div class="modal-body">
+            @lang('site.terms.text')
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

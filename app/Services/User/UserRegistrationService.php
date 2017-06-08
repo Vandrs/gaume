@@ -62,7 +62,7 @@ class UserRegistrationService extends Service
 			'password.required'			      => __('validation.required', ['attribute' => __('site.registration.password')]),
 			'password.min'				      => __('validation.min.string', ['attribute' => __('site.registration.password'), 'min' => 8]),
 			'password.confirmed'		      => __('validation.confirmed', ['attribute' => __('site.registration.password')]),
-			'terms' 					      => __('validation.custom.terms')
+			'terms.required' 				  => __('validation.custom.terms')
 		];
 	}
 
