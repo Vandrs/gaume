@@ -85,17 +85,20 @@ return [
     'unique'               => 'O campo :attribute já foi utilizado.',
     'uploaded'             => 'O campo :attribute não foi possível fazer o upload.',
     'url'                  => 'O campo :attribute possui um formato inválido.',
+    'cpf' => 'CPF inválido',
+    'cnpj' => 'CNPJ inválido',
+
+    'attributes' => [],
 
     'custom' => [
         'is_not_teacher' => 'O usuário selecionado não é um professor',
         'class_confirmation_expired' => "Prazo para confirmação da aula expirado.",
         'terms' => 'Você precisa aceitar os termos de usa para prosseguir',
-        'min_age' => 'Você deve ser maior de :age anos para se registrar'
+        'min_age' => 'Você deve ser maior de :age anos para se registrar',
+        'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.'
     ],
 
-    'attributes' => [],
 
-    'cpf' => 'CPF inválido',
-    'cnpj' => 'CNPJ inválido'
+    
 
 ];

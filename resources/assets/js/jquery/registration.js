@@ -11,7 +11,7 @@ var CityAutoComplete = {
 	setup: function (cityInput, destInput, state) {
 		this.cityInput = cityInput;
 		if (state) {
-			CityProvider.list(selectedState).then((response) => {
+			CityProvider.list(state).then((response) => {
 				this.cityInput.typeahead({
 					source: response.data,
 					autoSelect: true
@@ -46,8 +46,8 @@ var NeighborhoodAutoComplete = {
 	setup: function (neighborhoodInput, destInput, state) {
 		this.neighborhoodInput = neighborhoodInput;
 		if (state) {
-			NeighborhoodProvider.list(selectedState).then((response) => {
-				this.cityInput.typeahead({
+			NeighborhoodProvider.list(state).then((response) => {
+				this.neighborhoodInput.typeahead({
 					source: response.data,
 					autoSelect: true
 				});
@@ -123,14 +123,13 @@ $(document).ready(function () {
 	NeighborhoodAutoComplete.setup(neighborhoodInput, destNeighborhoodInput, stateInput.val());
 
 	stateInput.on('change', () => {
-
 		cityInput.val("");
 		destCityInput.val("");
-		stateInput.val("");
 		neighborhoodInput.val("");
 		destNeighborhoodInput.val("");
 
 		var selectedState = stateInput.val();
+
 		if (selectedState) {
 			CityProvider.list(selectedState).then((response) => {
 				CityAutoComplete.updateSource(response.data);
@@ -142,7 +141,6 @@ $(document).ready(function () {
 	});
 
 	$("#photo_profile").on('change', function () {
-		console.log('Changed');
     	readImageURL(this, ".img-profile-content");
 	});
 

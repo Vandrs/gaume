@@ -2,11 +2,15 @@
 
 namespace App\Services\User;
 
-use App\Services\Service;
 use Validator;
-use Carbon\Carbon;
 use Config;
+use DB;
+use Carbon\Carbon;
+use App\Services\Service;
 use App\Exceptions\ValidationException;
+use App\Models\User;
+use App\Utils\StringUtil;
+use App\Services\Location\CreateAddressService;
 
 class UserRegistrationService extends Service
 {
@@ -18,9 +22,26 @@ class UserRegistrationService extends Service
 		if ($this->validator->fails()) {
 			throw new ValidationException();
 		}
-		echo '<pre>';
-		print_r($data);
-		die;
+
+		try {
+			DB::beginTransaction();
+			$user = $this->createUser($data);
+			$addressService = new CreateAddressService();
+			$address = $addressService->create($user, $data);
+			$user->address = $address;
+			echo '<pre>';
+			print_r($user);
+			die;
+			DB::commit();
+			return $user;
+		} catch(ValidationException $e) {
+			$this->validator = $addressService->getValidator();
+			DB::rollback();
+			throw $e;
+		} catch (\Exception $e) {
+			DB::rollback();
+			throw $e;
+		}
 	}
 
 	public function getRegistrationRules()
@@ -64,6 +85,19 @@ class UserRegistrationService extends Service
 			'password.confirmed'		      => __('validation.confirmed', ['attribute' => __('site.registration.password')]),
 			'terms.required' 				  => __('validation.custom.terms')
 		];
+	}
+
+	private function createUser($data)
+	{
+		return User::create([
+			'cpf' => StringUtil::justNumbers($data['cpf']),
+			'name' => $data['name'],
+			'nickname' => $data['nickname'],
+			'email' => $data['email'],
+			'password' => bcrypt($data['password']),
+			'birth_date'=> Carbon::createFromFormat('Y-m-d H:i:s', $data['birth_date']),
+			'role_id' => $data['role_id']
+		]);
 	}
 
 }

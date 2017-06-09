@@ -7,25 +7,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use App\Models\Role;
+use App\Models\Address;
 
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, HasPushSubscriptions;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile'
+        'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile', 'role_id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    protected $dates = [
+        'created_at', 'updated_at', 'birth_date'
+    ];
+    
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -43,6 +38,11 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return $this->role->role == $role;
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
     }
 
 }

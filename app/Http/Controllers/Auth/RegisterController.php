@@ -95,13 +95,13 @@ class RegisterController extends Controller
             $user = $userRegistration->registerUser($request->all());
             $this->guard()->login($user);
             return $this->registered($request, $user) ? : redirect($this->redirectPath());
-
         } catch (ValidationException $e) {
             return back()->withInput()->withErrors($userRegistration->getValidator());
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             Log::error($e->getTraceAsString());
-            return back();
+            session()->flash('flash_error', Lang::get('validation.custom.unexpected'));
+            return back()->withInput();
         }
     }
 
