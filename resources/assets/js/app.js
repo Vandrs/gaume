@@ -27,6 +27,7 @@ Vue.component('confirmation-start-modal', require('./components/lesson/Confirmat
 Vue.component('app-alert', require('./components/app/AppAlert'));
 Vue.component('lesson', require('./components/lesson/Lesson'));
 Vue.component('lesson-list', require('./components/lesson/ListLessons'));
+Vue.component('profile', require('./components/user/Profile'));
 
 window.app = new Vue({
     i18n,

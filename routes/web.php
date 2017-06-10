@@ -24,4 +24,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function(){
 	Route::get('/aula/{id}','App\LessonController@show')->name('lessons.show');
 	Route::post('/subscriptions', 'App\PushSubscriptionController@update');
 	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
+	Route::get('/perfil','App\ProfileController@index')->name('profile');
 });

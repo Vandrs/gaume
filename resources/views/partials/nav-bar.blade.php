@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('profile')}}">
                             <i class="glyphicon glyphicon-user"></i> @lang('app.navbar.profile')
                         </a>
                     </li>

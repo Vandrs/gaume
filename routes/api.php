@@ -24,6 +24,9 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::post('/lessons/{lessonId}/periods','PeriodController@create');
 	Route::patch('/lessons/{lessonId}/periods/{id}','PeriodController@confirm');
 	Route::patch('/periods/{id}','PeriodController@confirm');
+
+	#User 
+	Route::get('/me','UserController@getMe');
 	
 });
 

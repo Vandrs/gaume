@@ -33,7 +33,8 @@ return [
 	'buttons' => [
 		'send' => 'Enviar',
 		'register' => 'Cadastrar',
-		'select' => 'Selecione'
+		'select' => 'Selecione',
+		'save' => 'Salvar'
 	],
 	'terms' => [
 		'title' => 'Termos de uso',
