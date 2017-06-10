@@ -42,7 +42,7 @@ return [
     'exists'               => 'O campo selecionado ":attribute" é inválido.',
     'file'                 => 'O campo :attribute deve ser um arquivo.',
     'filled'               => 'O campo :attribute deve ser preenchido.',
-    'image'                => 'O campo :attribute deve ser uma imagem.',
+    'image'                => 'O campo :attribute deve ser uma imagem válida (png, jpg).',
     'in'                   => 'O campo selectionado ":attribute" é inválido.',
     'in_array'             => 'O campo :attribute não existe em :other.',
     'integer'              => 'O campo :attribute deve ser um número inteiro.',

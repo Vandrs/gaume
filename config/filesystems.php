@@ -65,4 +65,6 @@ return [
 
     ],
 
+    'user_photo_profile_path' => '/images/user'
+
 ];

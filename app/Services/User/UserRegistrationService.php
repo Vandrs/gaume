@@ -11,6 +11,7 @@ use App\Exceptions\ValidationException;
 use App\Models\User;
 use App\Utils\StringUtil;
 use App\Services\Location\CreateAddressService;
+use App\Services\User\UserProfilePhotoService;
 
 class UserRegistrationService extends Service
 {
@@ -22,20 +23,22 @@ class UserRegistrationService extends Service
 		if ($this->validator->fails()) {
 			throw new ValidationException();
 		}
-
 		try {
 			DB::beginTransaction();
 			$user = $this->createUser($data);
 			$addressService = new CreateAddressService();
 			$address = $addressService->create($user, $data);
-			$user->address = $address;
-			echo '<pre>';
-			print_r($user);
-			die;
+			if ($profileImage) {
+				$photoUploadService = new UserProfilePhotoService();
+				$photoUploadService->uploadPhoto($user, $profileImage);
+			}
 			DB::commit();
 			return $user;
 		} catch(ValidationException $e) {
-			$this->validator = $addressService->getValidator();
+				$this->validator->messages()->merge($addressService->getValidator()->messages());				
+				if (isset($photoUploadService)) {
+					$this->validator->messages()->merge($photoUploadService->getValidator()->messages());	
+				}
 			DB::rollback();
 			throw $e;
 		} catch (\Exception $e) {

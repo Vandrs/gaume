@@ -47,36 +47,6 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-
     public function showRegistrationForm()
     {
         AssetLoader::registerSiteScript('registration.js');
@@ -92,10 +62,12 @@ class RegisterController extends Controller
     {
         try {
             $userRegistration = new UserRegistrationService();
-            $user = $userRegistration->registerUser($request->all());
+            $user = $userRegistration->registerUser($request->all(), $request->file('photo_profile'));
             $this->guard()->login($user);
             return $this->registered($request, $user) ? : redirect($this->redirectPath());
         } catch (ValidationException $e) {
+            Log::error($e->getMessage());
+            Log::error($e->getTraceAsString());
             return back()->withInput()->withErrors($userRegistration->getValidator());
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -104,6 +76,4 @@ class RegisterController extends Controller
             return back()->withInput();
         }
     }
-
-
 }

@@ -19,7 +19,7 @@
                 @else
                 <dropdown>
                   <a data-role="trigger" class="dropdown-toggle" type="button" aria-expanded="false">
-                    {{ Auth::user()->name }} <span class="caret"></span>
+                    @if(Auth::user()->photo_profile)<img class="nav-bar-photo" src="{{Auth::user()->getPhotoProfileUrl()}}" title="Auth::user()->nickname" alt="{{Auth::user()->name}}" />@endif {{ Auth::user()->nickname }} <span class="caret"></span>
                   </a>
                   <template slot="dropdown">
                     <li>

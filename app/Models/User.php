@@ -8,6 +8,7 @@ use Laravel\Passport\HasApiTokens;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use App\Models\Role;
 use App\Models\Address;
+use Storage;
 
 class User extends Authenticatable
 {
@@ -43,6 +44,13 @@ class User extends Authenticatable
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function getPhotoProfileUrl()
+    {
+        if ($this->photo_profile) {
+            return Storage::disk('public')->url($this->photo_profile);
+        }
     }
 
 }

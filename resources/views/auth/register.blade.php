@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">@lang('site.registration.register')</div>
                 <div class="panel-body">
-                    <form role="form" method="POST" action="{{ route('register') }}">
+                    <form role="form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="role_id" value="{{EnumRole::STUDENT_ID}}">
@@ -39,24 +39,42 @@
                                     <input type="file" name="photo_profile" id="photo_profile" class="hidden"/>
                                     <button id="photoSelect" class="btn btn-primary"><i class="glyphicon glyphicon-picture"></i> @lang('site.registration.profile_image')</button>
                                 </div>
-                                <div class="form-group{{$errors->has('photo_profile') ? ' has-error' : '' }}">
-                                    @if ($errors->has('photo_profile'))
+                                <div class="form-group{{$errors->has('image') ? ' has-error' : '' }}">
+                                    @if ($errors->has('image'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('photo_profile') }}</strong>
+                                            <strong>{{ $errors->first('image') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group{{ $errors->has('nickname') ? ' has-error' : '' }}">
-                                    <label for="nickname" class="control-label">@lang('site.registration.nickname')*</label>
-                                    <input id="nickname" type="text" class="form-control" name="nickname" value="{{old('nickname')}}" >
-                                    @if ($errors->has('nickname'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('nickname') }}</strong>
-                                        </span>
-                                    @endif
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group{{ $errors->has('nickname') ? ' has-error' : '' }}">
+                                            <label for="nickname" class="control-label">@lang('site.registration.nickname')*</label>
+                                            <input id="nickname" type="text" class="form-control" name="nickname" value="{{old('nickname')}}" >
+                                            @if ($errors->has('nickname'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('nickname') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                            <label for="name" class="control-label">@lang('site.registration.name')*</label>
+                                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"  autofocus>
+                                            @if ($errors->has('name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
 
@@ -68,21 +86,7 @@
                                     @lang('site.registration.private_information_help')
                                 </span>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12 col-md-8 col-md-offset-2">
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="control-label">@lang('site.registration.name')*</label>
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"  autofocus>
-                                    @if ($errors->has('name'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
 
                         <div class="row">
                             <div class="col-xs-12 col-md-4 col-md-offset-2">
