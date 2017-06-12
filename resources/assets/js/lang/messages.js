@@ -59,7 +59,7 @@ var Messages = {
 			number: 'Nº',
 			public_information: 'Informações públicas',
 			public_information_help: 'Todos os usuários poderão ver estas informações',
-			private_information_help: 'Estas informações <b> não </b> estarão disponíveis para outros usuários',
+			private_information_help: 'Estas informações não estarão disponíveis para outros usuários',
 			private_information: 'Informações privadas',
 			profile_photo: 'Foto de perfil',
 			birth_date: 'Data de nascimento',
