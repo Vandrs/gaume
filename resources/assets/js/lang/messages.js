@@ -14,7 +14,8 @@ var Messages = {
 			noRegisterFound: 'Nenhum registro encontrado',
 			actions: 'Ações',
 			view: "Visualizar",
-			search: "Pesquisar"
+			search: "Pesquisar",
+			select: "Selecione"
 		},
 		modal : {
 			warning: "Atenção",
@@ -70,6 +71,10 @@ var Messages = {
 			number: 'Número',
 			complement: 'Complemento',
 			profile_image: 'Imagem de Perfil',
+			address: 'Informações sobre o seu endereço'
+		},
+		buttons: {
+			save: 'Salvar'
 		}
 	}
 };

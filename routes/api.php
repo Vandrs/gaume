@@ -31,5 +31,6 @@ Route::group(['middleware' => ['auth:api']] , function () {
 });
 
 // Public routes
+Route::get('/states','LocationController@getStates');
 Route::get('/cities/{uf}','LocationController@getCitiesByStateUf');
 Route::get('/neighborhoods/{uf}','LocationController@getNeighborhoodsByStateUf');

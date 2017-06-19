@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 196);
+/******/ 	return __webpack_require__(__webpack_require__.s = 201);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -439,43 +439,6 @@ module.exports = __webpack_require__(16);
 
 /***/ }),
 
-/***/ 158:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_messages__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uiv__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uiv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_uiv__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_i18n__ = __webpack_require__(37);
-/**
- * First we will load all of this project's JavaScript dependencies wheventich
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-__webpack_require__(33);
-
-window.Vue = __webpack_require__(38);
-
-
-
-
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]);
-
-var i18n = new __WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]({
-  locale: 'pt_BR',
-  messages: __WEBPACK_IMPORTED_MODULE_0__lang_messages__["a" /* Messages */]
-});
-
-window.app = new Vue({
-  el: '#app',
-  components: { Dropdown: __WEBPACK_IMPORTED_MODULE_1_uiv__["Dropdown"], i18n: i18n }
-});
-
-/***/ }),
-
 /***/ 16:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -533,6 +496,43 @@ module.exports = axios;
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
 
+
+/***/ }),
+
+/***/ 160:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_messages__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uiv__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uiv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_uiv__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_i18n__ = __webpack_require__(39);
+/**
+ * First we will load all of this project's JavaScript dependencies wheventich
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+__webpack_require__(33);
+
+window.Vue = __webpack_require__(40);
+
+
+
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]);
+
+var i18n = new __WEBPACK_IMPORTED_MODULE_2_vue_i18n__["a" /* default */]({
+  locale: 'pt_BR',
+  messages: __WEBPACK_IMPORTED_MODULE_0__lang_messages__["a" /* Messages */]
+});
+
+window.app = new Vue({
+  el: '#app',
+  components: { Dropdown: __WEBPACK_IMPORTED_MODULE_1_uiv__["Dropdown"], i18n: i18n }
+});
 
 /***/ }),
 
@@ -754,14 +754,6 @@ module.exports = InterceptorManager;
 
 /***/ }),
 
-/***/ 196:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(158);
-
-
-/***/ }),
-
 /***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -853,6 +845,14 @@ module.exports = function dispatchRequest(config) {
     return Promise.reject(reason);
   });
 };
+
+
+/***/ }),
+
+/***/ 201:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(160);
 
 
 /***/ }),
@@ -1342,7 +1342,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)))
 
 /***/ }),
 
@@ -1450,7 +1450,7 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(35);
+window._ = __webpack_require__(37);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1500,6 +1500,10 @@ window.axios.defaults.baseURL = window.Laravel.baseUrl;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Messages; });
+var _profile;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var Messages = {
 	pt_BR: {
 		app: {
@@ -1516,7 +1520,8 @@ var Messages = {
 			noRegisterFound: 'Nenhum registro encontrado',
 			actions: 'Ações',
 			view: "Visualizar",
-			search: "Pesquisar"
+			search: "Pesquisar",
+			select: "Selecione"
 		},
 		modal: {
 			warning: "Atenção",
@@ -1545,6 +1550,30 @@ var Messages = {
 				3: "Finalizada",
 				4: "Cancelada"
 			}
+		},
+		profile: (_profile = {
+			name: 'Nome',
+			email: 'E-mail',
+			password: 'Senha',
+			password_confirm: 'Confirmar senha',
+			nickname: 'Nickname',
+			cpf: 'CPF',
+			address: 'Informações sobre o seu endereço',
+			city: 'Cidade',
+			estate: 'Estado',
+			street: 'Rua',
+			complement: 'Complemento',
+			number: 'Nº',
+			public_information: 'Informações públicas',
+			public_information_help: 'Todos os usuários poderão ver estas informações',
+			private_information_help: 'Estas informações não estarão disponíveis para outros usuários',
+			private_information: 'Informações privadas',
+			profile_photo: 'Foto de perfil',
+			birth_date: 'Data de nascimento',
+			state: 'Estado'
+		}, _defineProperty(_profile, 'city', 'Cidade'), _defineProperty(_profile, 'neighborhood', 'Bairro'), _defineProperty(_profile, 'street', 'Rua'), _defineProperty(_profile, 'number', 'Número'), _defineProperty(_profile, 'complement', 'Complemento'), _defineProperty(_profile, 'profile_image', 'Imagem de Perfil'), _defineProperty(_profile, 'address', 'Informações sobre o seu endereço'), _profile),
+		buttons: {
+			save: 'Salvar'
 		}
 	}
 };
@@ -1553,7 +1582,7 @@ var Messages = {
 
 /***/ }),
 
-/***/ 35:
+/***/ 37:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18646,7 +18675,7 @@ var Messages = {
 
 /***/ }),
 
-/***/ 36:
+/***/ 38:
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -18837,7 +18866,7 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 37:
+/***/ 39:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19707,7 +19736,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 /***/ }),
 
-/***/ 38:
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

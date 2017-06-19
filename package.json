@@ -20,6 +20,7 @@
     "pusher-js": "^4.0.0"
   },
   "dependencies": {
+    "v-autocomplete": "^1.2.0",
     "vuedals": "^1.2.0"
   }
 }

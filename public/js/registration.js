@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 195);
+/******/ 	return __webpack_require__(__webpack_require__.s = 200);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10329,7 +10329,7 @@ return jQuery;
 
 /***/ }),
 
-/***/ 157:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -10339,12 +10339,12 @@ return jQuery;
  */
 
 window.$ = window.jQuery = __webpack_require__(11);
+__webpack_require__(178);
 __webpack_require__(175);
-__webpack_require__(172);
 
 /***/ }),
 
-/***/ 168:
+/***/ 171:
 /***/ (function(module, exports) {
 
 !function (a) {
@@ -10353,7 +10353,7 @@ __webpack_require__(172);
 
 /***/ }),
 
-/***/ 169:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -12197,7 +12197,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 170:
+/***/ 173:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -12800,7 +12800,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
 
 /***/ }),
 
-/***/ 171:
+/***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13414,17 +13414,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ 172:
+/***/ 175:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_neighborhoodProvider__ = __webpack_require__(174);
-__webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_neighborhoodProvider__ = __webpack_require__(36);
+__webpack_require__(173);
+__webpack_require__(174);
+__webpack_require__(172);
 __webpack_require__(171);
-__webpack_require__(169);
-__webpack_require__(168);
 
 
 
@@ -13436,7 +13436,7 @@ var CityAutoComplete = {
 
 		this.cityInput = cityInput;
 		if (state) {
-			__WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__["a" /* CityProvider */].list(selectedState).then(function (response) {
+			__WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__["a" /* CityProvider */].list(state).then(function (response) {
 				_this.cityInput.typeahead({
 					source: response.data,
 					autoSelect: true
@@ -13475,8 +13475,8 @@ var NeighborhoodAutoComplete = {
 
 		this.neighborhoodInput = neighborhoodInput;
 		if (state) {
-			__WEBPACK_IMPORTED_MODULE_1__providers_neighborhoodProvider__["a" /* NeighborhoodProvider */].list(selectedState).then(function (response) {
-				_this3.cityInput.typeahead({
+			__WEBPACK_IMPORTED_MODULE_1__providers_neighborhoodProvider__["a" /* NeighborhoodProvider */].list(state).then(function (response) {
+				_this3.neighborhoodInput.typeahead({
 					source: response.data,
 					autoSelect: true
 				});
@@ -13554,14 +13554,13 @@ $(document).ready(function () {
 	NeighborhoodAutoComplete.setup(neighborhoodInput, destNeighborhoodInput, stateInput.val());
 
 	stateInput.on('change', function () {
-
 		cityInput.val("");
 		destCityInput.val("");
-		stateInput.val("");
 		neighborhoodInput.val("");
 		destNeighborhoodInput.val("");
 
 		var selectedState = stateInput.val();
+
 		if (selectedState) {
 			__WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__["a" /* CityProvider */].list(selectedState).then(function (response) {
 				CityAutoComplete.updateSource(response.data);
@@ -13573,44 +13572,13 @@ $(document).ready(function () {
 	});
 
 	$("#photo_profile").on('change', function () {
-		console.log('Changed');
 		readImageURL(this, ".img-profile-content");
 	});
 });
 
 /***/ }),
 
-/***/ 173:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CityProvider; });
-var CityProvider = {
-	list: function list(uf, params) {
-		return axios.get('/api/cities/' + uf, { "params": params });
-	}
-};
-
-
-
-/***/ }),
-
-/***/ 174:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NeighborhoodProvider; });
-var NeighborhoodProvider = {
-	list: function list(uf, params) {
-		return axios.get('/api/neighborhoods/' + uf, { "params": params });
-	}
-};
-
-
-
-/***/ }),
-
-/***/ 175:
+/***/ 178:
 /***/ (function(module, exports) {
 
 /*!
@@ -15994,10 +15962,40 @@ if (typeof jQuery === 'undefined') {
 
 /***/ }),
 
-/***/ 195:
+/***/ 200:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(157);
+module.exports = __webpack_require__(159);
+
+
+/***/ }),
+
+/***/ 35:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CityProvider; });
+var CityProvider = {
+	list: function list(uf, params) {
+		return axios.get('/api/cities/' + uf, { "params": params });
+	}
+};
+
+
+
+/***/ }),
+
+/***/ 36:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NeighborhoodProvider; });
+var NeighborhoodProvider = {
+	list: function list(uf, params) {
+		return axios.get('/api/neighborhoods/' + uf, { "params": params });
+	}
+};
+
 
 
 /***/ })
