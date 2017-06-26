@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 	#User 
 	Route::get('/me','UserController@getMe');
+	Route::post('/me','UserController@update');
 	
 });
 

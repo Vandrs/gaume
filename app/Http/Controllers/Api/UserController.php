@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\RestController;
-use Illuminate\Http\Request;
-use App\Services\User\GetUserService;
+use DB;
+use Log;
 use League\Fractal;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Api\RestController;
+use App\Services\User\GetUserService;
+use App\Services\User\UpdateUserProfileService;
 use App\Transformers\ApiItemSerializer;
 use App\Transformers\UserProfileTransformer;
+use App\Exceptions\ValidationException;
 
 class UserController extends RestController
 {
@@ -23,7 +27,23 @@ class UserController extends RestController
 
 	public function update(Request $request) 
 	{
-		
+		try {
+			DB::beginTransaction();
+			$userService = new UpdateUserProfileService();
+			$userService->update($request->user(), $request->all());
+			DB::commit();
+			return $this->success(['msg' => __('app.messages.profileUpdateSuccess')]);
+		} catch (ValidationException $e) {
+			DB::rollback();
+			$errors = $userService->getValidator()->errors()->jsonSerialize();
+			Log::error($e->getMessage().': '.json_encode($errors));
+			return $this->badRequest($errors);
+		} catch (\Exception $e) {
+			DB::rollback();
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
 	}
 
 }

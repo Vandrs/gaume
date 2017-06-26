@@ -15,7 +15,8 @@ var Messages = {
 			actions: 'Ações',
 			view: "Visualizar",
 			search: "Pesquisar",
-			select: "Selecione"
+			select: "Selecione",
+			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente."
 		},
 		modal : {
 			warning: "Atenção",
@@ -71,7 +72,8 @@ var Messages = {
 			number: 'Número',
 			complement: 'Complemento',
 			profile_image: 'Imagem de Perfil',
-			address: 'Informações sobre o seu endereço'
+			address: 'Informações sobre o seu endereço',
+			updateSucces: 'Perfil alterado com sucesso!'
 		},
 		buttons: {
 			save: 'Salvar'
