@@ -197,12 +197,12 @@
 	                <div class="img-profile-content">
 	                	<img v-if="user.photo_profile != ''" :src="user.photo_profile" title="imagem de perfil" alt="imagem de perfil">
 	                </div>
-	                <div class="form-group" v-bind:class="{'has-error' : errors.photo_profile}">
+	                <div class="form-group" v-bind:class="{'has-error' : errors.image}">
 	                    <input type="file" name="photo_profile" id="photo_profile" class="hidden"/>
 	                    <button id="photoSelect" v-on:click="showPhotoSelection" class="btn btn-primary"><i class="glyphicon glyphicon-picture"></i> {{$t('profile.profile_image')}}</button>
 	                    <input type="file" id="photo" name="photo_profile" class="form-control hidden" v-on:change="uploadPhoto">
-	                    <span v-if="errors.photo_profile" class="help-block">
-                            <strong>{{ errors.photo_profile[0] }}</strong>
+	                    <span v-if="errors.image" class="help-block">
+                            <strong>{{ errors.image[0] }}</strong>
                         </span>
 	                </div>
 	            </div>
