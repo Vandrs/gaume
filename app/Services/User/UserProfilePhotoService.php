@@ -43,12 +43,13 @@ class UserProfilePhotoService
 		}
 
 		$user->update(['photo_profile' => $path]);
+		return $user->fresh();
 	}
 
 	public function removePhoto($strFile)
 	{
-		if ($this->publicDisk->exists($user->photo_profile)) {
-			$this->publicDisk->delete($user->photo_profile);
+		if ($this->publicDisk->exists($strFile)) {
+			$this->publicDisk->delete($strFile);
 		}
 	}
 

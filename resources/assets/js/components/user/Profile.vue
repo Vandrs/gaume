@@ -141,6 +141,40 @@
 					'number' : (this.user.address ? this.user.address.number : null),
 					'complement' : (this.user.address ? this.user.address.complement : null) 
 				}
+			},
+			showPhotoSelection: function (event) {
+				var inputFile = document.getElementById('photo');
+				inputFile.click();
+			},
+			uploadPhoto: function (event) {
+				var input = event.target;
+				if (input.files.length > 0) {
+					var file = input.files[0];
+					this.errors = {};
+					window.app.isLoading = true;
+					window.app.$emit('app:close-alert');
+					UserProvider.updatePhotoProfile(file).then(response => {
+						this.user.photo_profile = response.data.url;
+						window.app.isLoading = false;
+					}).catch(error => {
+						window.app.isLoading = false;
+						var response = error.response;
+						if (response.status == 400) {
+							this.errors = response.data.errors;
+							var locale = this.$i18n.locale;
+							var msg = this.$i18n.messages[locale].app.defaultErrors;
+							window.app.$emit('app:show-alert', [msg], "danger");
+							window.scrollTo(0,0);
+						} else {
+							var errors = AppErrorBag.parseErrors(
+							  				response.status,
+							  				response.data
+							  			);
+						  	window.app.$emit('app:show-alert', errors, "danger");
+						  	window.scrollTo(0,0);
+						}
+					});
+				}
 			}
 		}
 	}
@@ -163,11 +197,13 @@
 	                <div class="img-profile-content">
 	                	<img v-if="user.photo_profile != ''" :src="user.photo_profile" title="imagem de perfil" alt="imagem de perfil">
 	                </div>
-	                <div>
+	                <div class="form-group" v-bind:class="{'has-error' : errors.photo_profile}">
 	                    <input type="file" name="photo_profile" id="photo_profile" class="hidden"/>
-	                    <button id="photoSelect" class="btn btn-primary"><i class="glyphicon glyphicon-picture"></i> {{$t('profile.profile_image')}}</button>
-	                </div>
-	                <div class="form-group">
+	                    <button id="photoSelect" v-on:click="showPhotoSelection" class="btn btn-primary"><i class="glyphicon glyphicon-picture"></i> {{$t('profile.profile_image')}}</button>
+	                    <input type="file" id="photo" name="photo_profile" class="form-control hidden" v-on:change="uploadPhoto">
+	                    <span v-if="errors.photo_profile" class="help-block">
+                            <strong>{{ errors.photo_profile[0] }}</strong>
+                        </span>
 	                </div>
 	            </div>
 	            <div class="col-xs-12 col-md-6">

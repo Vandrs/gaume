@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\RestController;
 use App\Services\User\GetUserService;
 use App\Services\User\UpdateUserProfileService;
+use App\Services\User\UserProfilePhotoService;
 use App\Transformers\ApiItemSerializer;
 use App\Transformers\UserProfileTransformer;
 use App\Exceptions\ValidationException;
@@ -46,4 +47,24 @@ class UserController extends RestController
 		}
 	}
 
+	public function updatePhoto(Request $request)
+	{
+		try {
+			DB::beginTransaction();
+			$userService = new UserProfilePhotoService();
+			$user = $userService->uploadPhoto($request->user(), $request->file('photo_profile'));
+			DB::commit();
+			return $this->success(['url' => $user->getPhotoProfileUrl()]);
+		} catch (ValidationException $e) {
+			DB::rollback();
+			$errors = $userService->getValidator()->errors()->jsonSerialize();
+			Log::error($e->getMessage().': '.json_encode($errors));
+			return $this->badRequest($errors);
+		} catch (\Exception $e) {
+			DB::rollback();
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}	
+	}
 }
