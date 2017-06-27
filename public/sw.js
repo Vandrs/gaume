@@ -60,15 +60,12 @@
       self.clients.matchAll({type: 'window'})
                   .then(clients => {
                     if (clients.length) {
-                      redirect = false;
                       return clients[0].navigate(navigationUrl)
                                        .then(client => client.focus());
+                    } else {
+                      return self.clients.openWindow(navigationUrl);
                     }
                   });
-                  
-      if (redirect) {
-        return self.clients.openWindow(navigationUrl);
-      }
     },
 
     /**

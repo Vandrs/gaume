@@ -42,7 +42,7 @@ return [
     'exists'               => 'O campo selecionado ":attribute" é inválido.',
     'file'                 => 'O campo :attribute deve ser um arquivo.',
     'filled'               => 'O campo :attribute deve ser preenchido.',
-    'image'                => 'O campo :attribute deve ser uma imagem.',
+    'image'                => 'O campo :attribute deve ser uma imagem válida (png, jpg).',
     'in'                   => 'O campo selectionado ":attribute" é inválido.',
     'in_array'             => 'O campo :attribute não existe em :other.',
     'integer'              => 'O campo :attribute deve ser um número inteiro.',
@@ -85,12 +85,20 @@ return [
     'unique'               => 'O campo :attribute já foi utilizado.',
     'uploaded'             => 'O campo :attribute não foi possível fazer o upload.',
     'url'                  => 'O campo :attribute possui um formato inválido.',
+    'cpf' => 'CPF inválido',
+    'cnpj' => 'CNPJ inválido',
+
+    'attributes' => [],
 
     'custom' => [
         'is_not_teacher' => 'O usuário selecionado não é um professor',
-        'class_confirmation_expired' => "Prazo para confirmação da aula expirado."
+        'class_confirmation_expired' => "Prazo para confirmação da aula expirado.",
+        'terms' => 'Você precisa aceitar os termos de usa para prosseguir',
+        'min_age' => 'Você deve ser maior de :age anos para se registrar',
+        'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.'
     ],
 
-    'attributes' => [],
+
+    
 
 ];

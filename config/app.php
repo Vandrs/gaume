@@ -14,6 +14,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'min_age_student' => env('MIN_AGE_STUDENT', 14),
+
+    'index_pages' => env('INDEX_PAGES', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -229,6 +233,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'EnumRole' => App\Enums\EnumRole::class
+        'EnumRole' => App\Enums\EnumRole::class,
+        'AssetLoader' => App\AssetLoader\AssetLoader::class
     ],
 ];

@@ -31,16 +31,23 @@
 	left: 0;
 }
 
-.navbar-right > .dropdown > a {
+.navbar-right > .dropdown > a, .navbar-right > a {
     line-height: 45px;
     margin-right: 10px;
+    margin-left: 10px;
     color: $text-color;
 }
 
-.navbar-right > .dropdown > a:hover{
+.navbar-right > .dropdown > a:hover, .navbar-right > a:hover{
     text-decoration: none;
     cursor: pointer;
     background-color: none;
+}
+
+.navbar-right > .dropdown img {
+    width: 35px;
+    max-height: 35px;
+    margin-right: 5px;    
 }
 
 @media(min-width:992px) {

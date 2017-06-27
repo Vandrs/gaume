@@ -15,11 +15,11 @@
         <div class="navbar-collapse collapse" id="navbar-collapse-main">
             <div class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
-                <a href="{{ route('login') }}">@lang("app.navbar.login")</a>
+                <a href="{{ route('login') }}">@lang("app.navbar.login")</a> | <a href="{{ route('register') }}">@lang("app.navbar.register")</a>
                 @else
                 <dropdown>
                   <a data-role="trigger" class="dropdown-toggle" type="button" aria-expanded="false">
-                    {{ Auth::user()->name }} <span class="caret"></span>
+                    @if(Auth::user()->photo_profile)<img class="nav-bar-photo" src="{{Auth::user()->getPhotoProfileUrl()}}" title="Auth::user()->nickname" alt="{{Auth::user()->name}}" />@endif {{ Auth::user()->nickname }} <span class="caret"></span>
                   </a>
                   <template slot="dropdown">
                     <li>
@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('profile')}}">
                             <i class="glyphicon glyphicon-user"></i> @lang('app.navbar.profile')
                         </a>
                     </li>

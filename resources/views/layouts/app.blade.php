@@ -2,14 +2,23 @@
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
+    @if(config('app.index_pages'))
+        <meta name="robots" content="index, follow">
+    @else
+        <meta name="robots" content="noindex, nofollow">
+    @endif
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="/manifest.json" />
-
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @if(isset($pageTitle))
+    <title>{{$pageTitle | config('app.name') }}</title>
+    @else
     <title>{{ config('app.name') }}</title>
+    @endif
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -46,6 +55,8 @@
         </article>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @foreach (AssetLoader::getAppScripts() as $script)
+        <script src="{{ asset('js/'.$script) }}"></script>
+    @endforeach
 </body>
 </html>

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Config;
+use Lang;
+use Log;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\AssetLoader\AssetLoader;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Config;
+use Illuminate\Http\Request;
+use App\Services\Location\GetStateService;
+use App\Services\User\UserRegistrationService;
+use App\Exceptions\ValidationException;
 
 class RegisterController extends Controller
 {
@@ -40,58 +47,33 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-
     public function showRegistrationForm()
     {
-        // LIBERAR NO FUTURO
-        /*
-        return view('auth.register');
-        */
+        AssetLoader::registerSiteScript('registration.js');
+        $states = GetStateService::getAll();
+        $pageTitle = Lang::get('site.registration.register');
+        return view('auth.register',[
+            'pageTitle' => $pageTitle,
+            'states' => $states
+        ]);
     }
 
     public function register(Request $request)
     {
-        // LIBERAR NO FUTURO
-        /*
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
-        */                        
+        try {
+            $userRegistration = new UserRegistrationService();
+            $user = $userRegistration->registerUser($request->all(), $request->file('photo_profile'));
+            $this->guard()->login($user);
+            return $this->registered($request, $user) ? : redirect($this->redirectPath());
+        } catch (ValidationException $e) {
+            Log::error($e->getMessage());
+            Log::error($e->getTraceAsString());
+            return back()->withInput()->withErrors($userRegistration->getValidator());
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            Log::error($e->getTraceAsString());
+            session()->flash('flash_error', Lang::get('validation.custom.unexpected'));
+            return back()->withInput();
+        }
     }
-
-
 }

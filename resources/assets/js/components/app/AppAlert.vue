@@ -17,6 +17,9 @@
 					self.showAlert = true;
 					self.alertType = type ? type : 'danger';
 				});
+				window.app.$on('app:close-alert', () =>  {
+					this.close();
+				});
 			},1000);
 		},
 		methods: {

@@ -22,3 +22,60 @@
 	-ms-filter: blur(5px);
 	filter: blur(5px);
 }
+
+.v-autocomplete{position:relative}.v-autocomplete .v-autocomplete-list{position:absolute}.v-autocomplete .v-autocomplete-list .v-autocomplete-list-item{cursor:pointer}
+.v-autocomplete-input {
+	display: block;
+    width: 100%;
+    height: 36px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccd0d2;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.v-autocomplete-input:focus {
+    border-color: #98cbe8;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(152, 203, 232, 0.6);
+}
+
+.has-error .v-autocomplete-input {
+    border-color: #a94442;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.v-autocomplete-list {
+    width: 100%;
+    text-align: left;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #98cbe8;
+    border-top: none;
+    z-index: 999999;
+}
+.v-autocomplete-list .v-autocomplete-list-item {
+    cursor: pointer;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.v-autocomplete-list .v-autocomplete-list-item:last-child {
+    border-bottom: none;
+}
+
+.v-autocomplete-list .v-autocomplete-list-item:hover {
+    background-color: #eee;
+}
+
+.v-autocomplete-list .v-autocomplete-list-item abbr {
+	opacity: 0.8;
+   	font-size: 0.8em;
+    display: block;
+}

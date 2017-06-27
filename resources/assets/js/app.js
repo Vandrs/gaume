@@ -13,6 +13,7 @@ import { Messages } from './lang/messages';
 import { Dropdown } from 'uiv';
 import VueI18n from 'vue-i18n';
 import { AppPushNotifications } from './components/app/AppPushNotifications';
+import Autocomplete from 'v-autocomplete';
 
 AppPushNotifications.registerServiceWorker();
 
@@ -21,12 +22,15 @@ Vue.use(VueI18n);
 var i18n = new VueI18n({
   locale: 'pt_BR',
   messages: Messages
-})
+});
+
+Vue.use(Autocomplete);
 
 Vue.component('confirmation-start-modal', require('./components/lesson/ConfirmationStartModal'));
 Vue.component('app-alert', require('./components/app/AppAlert'));
 Vue.component('lesson', require('./components/lesson/Lesson'));
 Vue.component('lesson-list', require('./components/lesson/ListLessons'));
+Vue.component('profile', require('./components/user/Profile'));
 
 window.app = new Vue({
     i18n,
