@@ -75,6 +75,12 @@ var Messages = {
 			address: 'Informações sobre o seu endereço',
 			updateSucces: 'Perfil alterado com sucesso!'
 		},
+		game: {
+			title: 'Título',
+			description: 'Descrição',
+			status: 'Status',
+			developer_site: 'Site'
+		},
 		buttons: {
 			save: 'Salvar'
 		}

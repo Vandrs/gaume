@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function(){
+Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::get('/home', 'App\HomeController@index')->name('home');
 	Route::get('/professores','App\TeacherController@index')->name('teachers.list');
 	Route::get('/aulas','App\LessonController@index')->name('lessons.list');
@@ -25,4 +25,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function(){
 	Route::post('/subscriptions', 'App\PushSubscriptionController@update');
 	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
 	Route::get('/perfil','App\ProfileController@index')->name('profile');
+
+	Route::group(['middleware' => ['auth','adminOnly'], 'prefix' => 'admin'] , function() { 
+		Route::get('/games','App\GameAdminController@index')->name('game-admin.list');
+		Route::get('/games/cadastro','App\GameAdminController@create')->name('game-admin.create');
+		Route::get('/games/editar/{id}','App\GameAdminController@update')->name('game-admin.update');
+	});
+
 });

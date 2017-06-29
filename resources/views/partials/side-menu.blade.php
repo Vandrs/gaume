@@ -4,6 +4,9 @@
 	    @if( Auth::user()->hasRole(EnumRole::STUDENT) )
 	    <li><a href="{{route('teachers.list')}}" title="@lang('app.menu.teachers')"><i class="glyphicon glyphicon-globe"></i> <span> @lang('app.menu.teachers')</span></a></li>
 	    @endif
+        @if( Auth::user()->hasRole(EnumRole::ADMIN) )
+        <li><a href="{{route('teachers.list')}}" title="@lang('app.menu.games')"><i class="fa fa-gamepad"></i> <span> @lang('app.menu.games')</span></a></li>
+        @endif
 	    <li><a href="{{route('profile')}}" title="@lang('app.menu.profile')"><i class="glyphicon glyphicon-user"></i> <span> @lang('app.navbar.profile')</span></a></li>
 	    <li>
 	    	<a href="{{ route('logout') }}" title="@lang('app.navbar.logout')" onclick="event.preventDefault(); document.getElementById('logout-form-menu').submit();">

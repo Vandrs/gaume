@@ -31,6 +31,7 @@ Vue.component('app-alert', require('./components/app/AppAlert'));
 Vue.component('lesson', require('./components/lesson/Lesson'));
 Vue.component('lesson-list', require('./components/lesson/ListLessons'));
 Vue.component('profile', require('./components/user/Profile'));
+Vue.component('game-admin', require('./components/gameAdmin/GameAdmin'));
 
 window.app = new Vue({
     i18n,
