@@ -29,6 +29,11 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::get('/me','UserController@getMe');
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
+
+	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
+		#Game Admin
+		Route::post('/game','GameAdminController@create');
+	});
 	
 });
 

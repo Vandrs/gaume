@@ -1,33 +1,114 @@
 <script>
+	import { GameProvider } from '../../providers/gameProvider';
+	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	export default {
 		props: ['id'],
 		data () {
 			return {
-				game: {},
-				errors: {}
+				game: {
+					photo: ""
+				},
+				errors: {},
+				photo: null	
 			}
+		},
+		methods: {
+			submit: function(evt) {
+				evt.preventDefault();
+				window.app.isLoading = true;
+				window.app.$emit('app:close-alert');
+				this.errors = false;
+				if (this.id) {
+					console.log('Falte implementar');
+				} else {
+					this.create();
+				}
+			},
+			create: function () {
+				GameProvider.create(this.game, this.photo)
+							.then((response) => {
+								console.log('Salvou');
+							})
+							.catch((error) => {
+								window.app.isLoading = false;
+								var response = error.response;
+								if (response.status == 400) {
+									this.errors = response.data.errors;
+									var locale = this.$i18n.locale;
+									var msg = this.$i18n.messages[locale].app.defaultErrors;
+									window.app.$emit('app:show-alert', [msg], "danger");
+									window.scrollTo(0,0);
+								} else {
+									var errors = AppErrorBag.parseErrors(
+									  				response.status,
+									  				response.data
+									  			);
+								  	window.app.$emit('app:show-alert', errors, "danger");
+								  	window.scrollTo(0,0);
+								}
+							});
+			},
+			update: function (){
+
+			},
+			showPhotoSelection: function (event) {
+				var inputFile = document.getElementById('photo');
+				inputFile.click();
+			},
+			uploadPhoto: function(evt) {
+				var input = evt.target;
+				if (this.id) {
+					this.doUpload(input);
+				} else {
+					this.readPhotoAsUrl(input);
+				}	
+			},
+			readPhotoAsUrl: function(input) {
+				if (input.files && input.files[0]) {
+					this.photo = input.files[0];
+			        var reader = new FileReader();
+			        reader.onload = (e) => {
+			        	console.log(e.target.result);
+			        	this.game.photo = e.target.result;
+			        	console.log(this.game);
+			        }
+			        reader.readAsDataURL(input.files[0]);
+			    }
+			},
+			doUpload: function(input) {
+				console.log('Falta Implementar');
+			}	
 		}
 	}
 </script>
 <template>
 	<div>
 		<div class="row">
-			<div class="col-xs-12">
-				PHOTO
-			</div>
+			<div class="col-xs-12 col-md-6 margin-bottom-10">
+                <div class="img-game-cover-content" v-bind:class="{'hide': game.photo == ''}">
+                	<img :src="game.photo" :title="$t('game.cover_image')" :alt="$t('game.cover_image')">
+                </div>
+                <div class="form-group" v-bind:class="{'has-error' : errors.photo}">
+                    <button id="photoSelect" v-on:click="showPhotoSelection" class="btn btn-primary"><i class="glyphicon glyphicon-picture"></i> {{$t('game.cover_image')}}</button>
+                    <input type="file" id="photo" name="photo_profile" class="form-control hidden" v-on:change="uploadPhoto">
+                    <span v-if="errors.photo" class="help-block">
+                        <strong>{{ errors.photo[0] }}</strong>
+                    </span>
+                </div>
+            </div>	
 		</div>
 		<div class="row">
-			<div class="col-xs-12 control-group margin-top-10" v-bind:class="{'has-error':errors.title}">
-				<label for="name">{{$t('game.title')}}</label>
+			<div class="col-xs-12 col-md-6 control-group margin-top-10" v-bind:class="{'has-error':errors.name}">
+				<label for="name">{{$t('game.title')}}*</label>
 				<input type="text" class='form-control' name="name" v-model="game.name" id="name">
-				<span v-if="errors.title" class="help-block">
-					<strong>{{errors.title[0]}}</strong>
+				<span v-if="errors.name" class="help-block">
+					<strong>{{errors.name[0]}}</strong>
 				</span>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 control-group margin-top-10" v-bind:class="{'has-error':errors.description}">
-				<label for="description">{{$t('game.description')}}</label>
+			<div class="col-xs-12 col-md-6 control-group margin-top-10" v-bind:class="{'has-error':errors.description}">
+				<label for="description">{{$t('game.description')}}*</label>
 				<textarea class='form-control' name="description" v-model="game.description" id="description"></textarea>
 				<span v-if="errors.description" class="help-block">
 					<strong>{{errors.description[0]}}</strong>
@@ -35,8 +116,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 control-group margin-top-10">
-				<label for="developer_site">{{$t('game.developer_site')}}</label>
+			<div class="col-xs-12 col-md-6 control-group margin-top-10" v-bind:class="{'has-error':errors.developer_site}">
+				<label for="developer_site">{{$t('game.developer_site')}}*</label>
 				<div class="input-group">
 					<span class="input-group-addon">http(s)://</span>
 					<input type="text" class='form-control' name="name" v-model="game.developer_site" id="developer_site">
@@ -47,8 +128,22 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 control-group margin-top-10">
-				<label for="status">{{$t('game.status')}}</label>
+			<div class="col-xs-12 col-md-6 control-group margin-top-10" v-bind:class="{'has-error':errors.status}">
+				<label for="status">{{$t('game.status')}}:</label>
+				<label class="radio-inline">
+					<input type="radio" value="1" v-model="game.status"> Ativo
+				</label>
+				<label class="radio-inline">
+					<input type="radio" value="0" v-model="game.status"> Inativo
+				</label>
+				<span v-if="errors.status" class="help-block">
+					<strong>{{errors.status[0]}}</strong>
+				</span>
+			</div>
+		</div>
+		<div class="row margin-top-10">
+			<div class="col-xs-12 text-left">
+				<button type="button" class="btn btn-primary" v-on:click="submit"><i class="glyphicon glyphicon-floppy-disk"></i> {{$t('buttons.save')}}</button>
 			</div>
 		</div>
 	</div>

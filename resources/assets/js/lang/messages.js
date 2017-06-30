@@ -79,7 +79,8 @@ var Messages = {
 			title: 'Título',
 			description: 'Descrição',
 			status: 'Status',
-			developer_site: 'Site'
+			developer_site: 'Site',
+			cover_image: 'Foto de Capa'
 		},
 		buttons: {
 			save: 'Salvar'
