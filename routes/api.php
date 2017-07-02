@@ -29,6 +29,16 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::get('/me','UserController@getMe');
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
+
+	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
+		#Game Admin
+		Route::post('/game','GameAdminController@create');
+		Route::get('/game/{id}','GameAdminController@get');
+		Route::get('/games','GameAdminController@list');
+		Route::put('/game/{id}','GameAdminController@update');
+		Route::delete('/game/{id}','GameAdminController@delete');
+		Route::post('/game/{id}/photo','GameAdminController@updatePhoto');
+	});
 	
 });
 

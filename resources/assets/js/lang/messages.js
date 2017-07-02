@@ -1,6 +1,6 @@
 var Messages = {
 	pt_BR: {
-		app: {
+		app : {
 			student: 'Aluno',
 			teacher: 'Professor',
 			admin: 'Admin',
@@ -25,6 +25,9 @@ var Messages = {
 			classMessages : {
 				confirmStartClass: "Deseja mesmo iniciar a aula?",
 				confirmExtendPeriod: "Deseja mesmo extender esta aula?"
+			},
+			gameMessages : {
+				confirmDelete: "Deseja mesmo excluir este Jogo?"
 			}
 		},
 		lesson: {
@@ -75,10 +78,26 @@ var Messages = {
 			address: 'Informações sobre o seu endereço',
 			updateSucces: 'Perfil alterado com sucesso!'
 		},
+		game: {
+			title: 'Título',
+			description: 'Descrição',
+			status: 'Status',
+			developer_site: 'Site',
+			cover_image: 'Foto de Capa',
+			create_success : 'Jogo criado com sucesso!',
+			update_success : 'Jogo atualizado com sucesso!',
+			delete_success : 'Jogo excluído com sucesso!',
+			status_values: {
+				0: 'Inativo',
+				1: 'Ativo'
+			}
+		},
 		buttons: {
-			save: 'Salvar'
+			edit: 'Editar',
+			save: 'Salvar',
+			delete: 'Excluir'
 		}
 	}
-};
+}
 
 export { Messages };

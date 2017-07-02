@@ -47,8 +47,13 @@
             @include('partials.side-menu')
             <section class="main">
                 <section class="content" v-bind:class="{blur: isLoading}">
+                @if(session()->has('msg_error'))
+                <app-alert msg="{{session()->get('msg_error')}}" type="{{session()->get('class_error')}}">
+                </app-alert>
+                @else
                 <app-alert>
                 </app-alert>
+                @endif
                 @yield('content')
                 </section>
             </section>

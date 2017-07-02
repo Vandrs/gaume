@@ -40,13 +40,11 @@
 							  	this.pagination.totalPages = response.data.meta.pagination.total_pages;
 							  })
 							  .catch((error) => {
-							  	/*
 							  		var errors = AppErrorBag.parseErrors(
 									  				error.response.status,
 									  				error.response.data
 									  			);
-								  	window.app.$emit('app:show-alert', errors, "danger");	
-								  	*/
+								  	window.app.$emit('app:show-alert', errors, "danger"); 	
 							  });
 			},
 			getLessonDuration: function (lesson) {
@@ -79,11 +77,11 @@
 <template>
 <div>
 	<div class="row">
-		<div v-if="user.role != roles.teacher" class="col-xs-12 col-md-4 control-group">
+		<div v-if="user.role != roles.teacher" class="col-xs-12 col-md-3 control-group">
 			<label>{{$t('app.teacher')}}</label>
 			<input  type="text" v-model="filters.teacher" name="teacher" class="form-control">
 		</div>
-		<div v-if="user.role != roles.student" class="col-xs-12 col-md-4 control-group">
+		<div v-if="user.role != roles.student" class="col-xs-12 col-md-3 control-group">
 			<label>{{$t('app.student')}}</label>
 			<input type="text" v-model="filters.student"  name="student" class="form-control">
 		</div>
@@ -94,9 +92,9 @@
 				<option v-for="id in status" v-bind:value="id">{{$t('lesson.status.'+id)}}</option>
 			</select>
 		</div>
-		<div class="col-xs-12 col-md-1">
-			<label>&nbsp;</label>
-			<button v-on:click="search" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> {{$t('app.search')}}</button>
+		<div class="col-xs-12 col-md-3">
+			<label class="block-label">&nbsp;</label>
+			<button v-on:click="search" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
 		</div>
 	</div>
 	<div class="row margin-top-20">

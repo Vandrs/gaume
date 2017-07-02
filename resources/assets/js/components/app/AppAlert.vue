@@ -2,11 +2,19 @@
 	import { Alert } from 'uiv';
 	export default  {
 		components: { Alert },
+		props: [ 'msg', 'type' ],
 		data () {
 			return {
 				showAlert: false,
 				messages: [],
 				alertType: 'dander'
+			}
+		},
+		mounted () {
+			if (this.msg) {
+				this.messages = [this.msg];
+				this.showAlert = true;
+				this.alertType = this.type;
 			}
 		},
 		created () {
@@ -26,7 +34,6 @@
 			close: function(msg) {
 				this.showAlert = false;		
 				this.messages = [];
-
 			}
 		}
 	}

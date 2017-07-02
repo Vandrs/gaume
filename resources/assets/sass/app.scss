@@ -1,6 +1,7 @@
 
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import "./shared/font-awesome.min";
 
 // Variables
 @import "variables";
@@ -15,4 +16,4 @@
 @import "./app/main";
 @import "./app/lesson";
 @import "./app/profile";
-
+@import "./app/game";
