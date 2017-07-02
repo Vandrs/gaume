@@ -65,6 +65,7 @@ return [
 
     ],
 
-    'user_photo_profile_path' => '/images/user'
+    'user_photo_profile_path' => '/images/user',
+    'game_photo_path' => '/images/game'
 
 ];

@@ -94,7 +94,7 @@
 		</div>
 		<div class="col-xs-12 col-md-3">
 			<label class="block-label">&nbsp;</label>
-			<button v-on:click="search" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> {{$t('app.search')}}</button>
+			<button v-on:click="search" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
 		</div>
 	</div>
 	<div class="row margin-top-20">

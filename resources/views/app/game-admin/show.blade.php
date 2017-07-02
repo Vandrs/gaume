@@ -12,8 +12,13 @@
 						<h4>{{isset($id) && $id  ? Lang::get('games.edit_game')  : Lang::get('games.add_new_game') }}</h4>
 					</div>
 				</div>
+				@if(isset($id) && $id)
+				<game-admin :id="{{$id}}">
+				</game-admin>
+				@else
 				<game-admin>
 				</game-admin>
+				@endif
 			</div>
 		</div>
 	</div>

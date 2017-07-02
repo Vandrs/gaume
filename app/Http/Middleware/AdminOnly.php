@@ -27,6 +27,7 @@ class AdminOnly
                 return $response;
             } else {
                 session()->flash('msg_error', Lang::get('app.messages.unauthorized'));
+                session()->flash('class_error', 'danger');
                 return redirect()->route('home');    
             }
         }

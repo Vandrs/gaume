@@ -33,6 +33,11 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
 		#Game Admin
 		Route::post('/game','GameAdminController@create');
+		Route::get('/game/{id}','GameAdminController@get');
+		Route::get('/games','GameAdminController@list');
+		Route::put('/game/{id}','GameAdminController@update');
+		Route::delete('/game/{id}','GameAdminController@delete');
+		Route::post('/game/{id}/photo','GameAdminController@updatePhoto');
 	});
 	
 });

@@ -98,7 +98,5 @@ return [
         'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.'
     ],
 
-
-    
-
+    'dimension_min' => ':attribute deve ser no míminio :width de largura por :height de altura'
 ];

@@ -7,6 +7,9 @@ return [
 	'edit_game' => 'Editar Jogo',
 
 	'messages' => [
-		'status' => 'Informe se o jogo está ou não ativo.'
+		'status' => 'Informe se o jogo está ou não ativo.',
+		'update_success' => 'Jogo atualizado com sucesso!',
+		'create_success' => 'Jogo criado com sucesso!',
+		'delete_success' => 'Jogo excluido com sucesso!'
 	]
 ];

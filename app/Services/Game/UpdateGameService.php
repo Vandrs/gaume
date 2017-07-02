@@ -8,34 +8,23 @@ use App\Models\Game;
 use App\Exceptions\ValidationException;
 use Validator;
 
-class CreateGameService extends Service
+class UpdateGameService extends Service
 {
 
 	public static function registerPolicies() {}
 
-	public function create(array $data)
+	public function update(Game $game, array $data)
 	{
 		$this->validator = Validator::make($data, $this->getRules(), $this->getMessages());
 		if ($this->validator->fails()) {
 			throw new ValidationException();
 		}
-
-		$game = Game::create([
+		$game->update([
 			'name' => $data["name"],
 			'description' => $data["description"],
-			'photo' => "CUSTOM",
 			'developer_site' => str_replace(["http://","https://"], "", $data["developer_site"]),
 			'status' => $data["status"]
 		]);
-
-		try {
-			$photoUploadService = new GamePhotoUploadService();
-			$game = $photoUploadService->uploadPhoto($game, $data['photo']);
-			return $game;
-		} catch (ValidationException $e) {
-			$this->validator->messages()->merge($photoUploadService->getValidator()->messages());	
-			throw new ValidationException;
-		}
 	}
 
 	public function getRules()

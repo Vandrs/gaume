@@ -101,7 +101,7 @@ class GetLessonService extends Service
 
 		$query->orderBy('lessons.created_at','DESC');
 
-		$paginator = $query->paginate(5);
+		$paginator = $query->paginate(10);
 
 		$paginator->getCollection()->each(function ($data) {
 			$data->periods = DB::table('periods')->where('lesson_id', '=', $data->id)->get()->all();

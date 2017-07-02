@@ -12,6 +12,8 @@
 						<a class="btn btn-primary" href="{{route('game-admin.create')}}"><i class="glyphicon glyphicon-plus-sign"></i> {{Lang::get('games.buttons.add_new')}}</a>
 					</div>
 				</div>
+				<game-admin-list>
+				</game-admin-list>
 			</div>
 		</div>
 	</div>
