@@ -10,6 +10,7 @@ return [
 		'status' => 'Informe se o jogo está ou não ativo.',
 		'update_success' => 'Jogo atualizado com sucesso!',
 		'create_success' => 'Jogo criado com sucesso!',
-		'delete_success' => 'Jogo excluido com sucesso!'
+		'delete_success' => 'Jogo excluido com sucesso!',
+		'invalid_platform' => 'uma Plataforma inválida foi selecionada'
 	]
 ];

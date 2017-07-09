@@ -90,7 +90,8 @@ var Messages = {
 			status_values: {
 				0: 'Inativo',
 				1: 'Ativo'
-			}
+			},
+			platforms: 'Plataformas'
 		},
 		buttons: {
 			edit: 'Editar',
