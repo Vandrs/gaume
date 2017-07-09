@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Platform;
+use App\Models\GamePlatform;
 use Storage;
 
 class Game extends Model
@@ -24,5 +26,10 @@ class Game extends Model
         if ($this->photo) {
             return Storage::disk('public')->url($this->photo);
         }
+    }
+
+    public function platforms()
+    {
+    	return $this->belongsToMany(Platform::class, null, null, null, 'game_platforms');
     }
 }

@@ -15,7 +15,17 @@ class GameTransformer extends Fractal\TransformerAbstract
 			'description' => $game->description,
 			'developer_site' => $game->developer_site,
 			'status' => $game->status,
-			'photo' => $game->getPhotoUrl()
+			'photo' => $game->getPhotoUrl(),
+			'platforms' => $this->parsePlatforms($game)
 		];
+	}
+
+	private function parsePlatforms(Game $game)
+	{
+		$ids = [];
+		$game->platforms->each(function ($platform) use (&$ids){
+			array_push($ids, $platform->id);
+		});
+		return $ids;
 	}
 }

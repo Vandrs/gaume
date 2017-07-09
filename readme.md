@@ -14,4 +14,12 @@ php artisan passport:client --personal
 
 php artisan storage:link
 
+php artisan webpush:vapid
+
+php artisan db:seed --class=RolesTableSeeder
+
+php artisan db:seed --class=PlatformsTableSeeder
+
 npm run dev
+
+php artisan queue:work database --queue=lessons
