@@ -8,6 +8,9 @@ var GameProvider = {
 		formData.append('description', data.description);
 		formData.append('developer_site', data.developer_site);
 		formData.append('status', data.status);
+		for (var i = 0; i < data.platforms.length; i++) {
+			formData.append('platforms[]',data.platforms[i]);
+		}
 		var config = {
             headers: { 'content-type': 'multipart/form-data' }
         };

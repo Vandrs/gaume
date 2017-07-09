@@ -1,5 +1,6 @@
 <script>
 	import { GameProvider } from '../../providers/gameProvider';
+	import { PlatformProvider } from '../../providers/platformProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 
 	Vue.component('delete-game-modal', require('./ConfirmationDeleteGame'));
@@ -13,13 +14,16 @@
 					name: "",
 					description: "",
 					developer_site: "",
-					status: ""
+					status: "",
+					platforms: []
 				},
 				errors: {},
-				photo: null	
+				photo: null,
+				platforms: []
 			}
 		},
 		created () {
+			this.getPlatforms();
 			if (this.id) {
 				this.getGame();
 			}
@@ -113,6 +117,21 @@
 							  	window.app.$emit('app:show-alert', errors, "danger");
 							  	window.scrollTo(0,0);
 							});
+			},
+			getPlatforms: function () {
+				PlatformProvider.list()
+								.then((response) => {
+									this.platforms = response.data;
+								})
+								.catch((error) => {
+									var response = error.response;
+									var errors = AppErrorBag.parseErrors(
+									  				response.status,
+									  				response.data
+									  			);
+								  	window.app.$emit('app:show-alert', errors, "danger");
+								  	window.scrollTo(0,0);
+				});
 			},
 			showPhotoSelection: function (event) {
 				var inputFile = document.getElementById('photo');
@@ -231,6 +250,17 @@
 				</label>
 				<span v-if="errors.status" class="help-block">
 					<strong>{{errors.status[0]}}</strong>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6 control-group margin-top-10" v-bind:class="{'has-error':errors.platforms}">
+				<label>{{$t('game.platforms')}}:</label>
+				<label class="checkbox-inline" v-for="platform of platforms">
+					<input type="checkbox" name="platform" :value="platform.id" v-model="game.platforms"> {{platform.name}}
+				</label>
+				<span v-if="errors.platforms" class="help-block">
+					<strong>{{errors.platforms[0]}}</strong>
 				</span>
 			</div>
 		</div>

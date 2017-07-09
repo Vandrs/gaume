@@ -46,3 +46,4 @@ Route::group(['middleware' => ['auth:api']] , function () {
 Route::get('/states','LocationController@getStates');
 Route::get('/cities/{uf}','LocationController@getCitiesByStateUf');
 Route::get('/neighborhoods/{uf}','LocationController@getNeighborhoodsByStateUf');
+Route::get('/platforms','PlatformController@getAll');
