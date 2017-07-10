@@ -30,6 +30,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 		Route::get('/games','App\GameAdminController@index')->name('game-admin.list');
 		Route::get('/games/cadastro','App\GameAdminController@create')->name('game-admin.create');
 		Route::get('/games/editar/{id}','App\GameAdminController@update')->name('game-admin.update');
+
+		Route::get('/usuarios','App\UserAdminController@index')->name('user-admin.list');
+		Route::get('/usuarios/professor/cadastro','App\UserAdminController@registerTeacher')->name('user-admin.create-teacher');
 	});
 
 });

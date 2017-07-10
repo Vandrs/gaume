@@ -3,10 +3,11 @@
 namespace App\Services\Game;
 
 use App\Models\Game;
+use App\Enums\EnumActiveInactive;
 
 class GetAllGameAdminService
 {
-	public function getAll($filters)
+	public static function getAll($filters)
 	{
 		$query = Game::query()->orderBy('name', 'asc');
 		if (isset($filters['name']) && !empty($filters['name'])) {
@@ -19,5 +20,15 @@ class GetAllGameAdminService
 		$queryParams = array_diff_key($filters, array_flip(['page']));
 		$paginator->appends($queryParams);
 		return $paginator;
+	}
+
+	public static function getAllAvailables()
+	{
+		$games = Game::with(['platforms'])
+					 ->where('status', EnumActiveInactive::ACTIVE)
+					 ->get();
+		return $games->filter(function($game) {
+			return $game->platforms->count() > 0;
+		});
 	}
 }

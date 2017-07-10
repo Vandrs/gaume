@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Services\User;
+namespace App\Services\Registration;
 
 use Validator;
 use Config;
@@ -12,19 +12,23 @@ use App\Models\User;
 use App\Utils\StringUtil;
 use App\Services\Location\CreateAddressService;
 use App\Services\User\UserProfilePhotoService;
+use App\Enums\EnumUserStatus;
+use App\Enums\EnumRole;
 
-class UserRegistrationService extends Service
+class StudentRegistrationService extends Service
 {
 	public static function registerPolicies() {}
 
 	public function registerUser (array $data, $profileImage = null) 
 	{
+		$data['role_id'] = EnumRole::STUDENT_ID;
 		$this->validator = Validator::make($data, $this->getRegistrationRules(), $this->getRegistrationMessages());
 		if ($this->validator->fails()) {
 			throw new ValidationException();
 		}
 		try {
 			DB::beginTransaction();
+			$data['status'] = EnumUserStatus::ACTIVE;
 			$user = $this->createUser($data);
 			$addressService = new CreateAddressService();
 			$address = $addressService->create($user, $data);

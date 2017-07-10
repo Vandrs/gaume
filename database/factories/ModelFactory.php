@@ -19,6 +19,7 @@ $factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('12345678'),
         'remember_token' => str_random(10),
+        'status' => \App\Enums\EnumUserStatus::ACTIVE
     ];
 });
 
