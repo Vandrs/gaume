@@ -32,4 +32,9 @@ class Game extends Model
     {
     	return $this->belongsToMany(Platform::class, null, null, null, 'game_platforms');
     }
+
+    public function gamePlatforms()
+    {
+    	return $this->hasMany(GamePlatform::class);
+    }
 }

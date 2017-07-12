@@ -119,7 +119,7 @@ class GameAdminController extends RestController
 	public function getAvailables()
 	{
 		try {
-			$games = GetAllGameAdminService::getAllAvailables();
+			$games = GetAllGameAdminService::getAllAvailablesWithPlatform();
 			$fractal = new Fractal\Manager();
 			$fractal->setSerializer(new ApiItemSerializer);
 			$item = new Fractal\Resource\Collection($games, new GameAvailableTransformer);

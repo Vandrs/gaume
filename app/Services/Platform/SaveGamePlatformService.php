@@ -24,7 +24,8 @@ class SaveGamePlatformService extends Service
 	{
 		$this->validator = Validator::make([],[],[]);
 		if ($game->exists) {
-			$this->deleteGamePlatforms($game);
+			$this->deleteGamePlatforms($game, $platforms);
+			$this->removeIfExists($game, $platforms);
 		}
 		$gamePlatforms = [];
 		foreach ($platforms as $idPlatform) {
@@ -54,11 +55,29 @@ class SaveGamePlatformService extends Service
 		}
 	}
 
-	private function deleteGamePlatforms(Game $game) 
+	private function removeIfExists(Game $game, array &$ids)
 	{
-		DB::table('game_platform')
-		  ->where('game_id', '=', $game->id)
-		  ->delete();
+		$gamePlatforms = GamePlatform::query()
+									 ->where('game_id', $game->id)
+									 ->get();
+		foreach ($ids as $idx => $id) {
+			$exists = $gamePlatforms->contains(function($gamePlatform) use ($id){
+				return $gamePlatform->platform_id == $id;
+			});
+			if ($exists) {
+				unset($ids[$idx]);
+			}
+		}
+	}
+
+	private function deleteGamePlatforms(Game $game, array $excludeIds = null) 
+	{
+		$query = DB::table('game_platform')
+		  		   ->where('game_id', '=', $game->id);
+		if (!empty($excludeIds)) {
+			$query->whereNotIn('platform_id', $excludeIds);
+		}
+		$query->delete();
 	}
 
 }

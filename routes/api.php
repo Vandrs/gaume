@@ -39,6 +39,10 @@ Route::group(['middleware' => ['auth:api']] , function () {
 		Route::put('/game/{id}','GameAdminController@update');
 		Route::delete('/game/{id}','GameAdminController@delete');
 		Route::post('/game/{id}/photo','GameAdminController@updatePhoto');
+
+		# Teacher Admin
+		Route::post('/users/teachers/pre-registration','PreRegistrationController@create');
+
 	});
 	
 });

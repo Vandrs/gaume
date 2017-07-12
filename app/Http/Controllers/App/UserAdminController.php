@@ -12,10 +12,4 @@ class UserAdminController extends Controller
     {
         return view('app.user-admin.index');
     }
-
-    public function registerTeacher() 
-    {
-        return view('app.user-admin.register-teacher');
-    }
-
 }

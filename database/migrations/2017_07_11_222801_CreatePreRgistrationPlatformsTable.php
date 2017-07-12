@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PreRegistrationTable extends Migration
+class CreatePreRgistrationPlatformsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class PreRegistrationTable extends Migration
      */
     public function up()
     {
-        Schema::create('pre_registration', function(Blueprint $table) {
+        Schema::create("pre_registration_platforms", function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',255);
-            $table->string('email',255)->unique();
-            $table->string('code',255)->unique();
-            $table->dateTime('mailed_at')->nullable();
+            $table->unsignedInteger('pre_registration_id');
+            $table->unsignedInteger('game_platform_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class PreRegistrationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pre_registration');
+        Schema::dropIfExists('pre_registration_platforms');
     }
 }

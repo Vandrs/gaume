@@ -16,7 +16,8 @@ var Messages = {
 			view: "Visualizar",
 			search: "Pesquisar",
 			select: "Selecione",
-			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente."
+			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente.",
+			games: 'Jogos'
 		},
 		modal : {
 			warning: "Atenção",
@@ -92,6 +93,9 @@ var Messages = {
 				1: 'Ativo'
 			},
 			platforms: 'Plataformas'
+		},
+		pre_registration: {
+			create_succes: 'Pré cadastro criado com sucesso!'
 		},
 		buttons: {
 			edit: 'Editar',

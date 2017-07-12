@@ -22,6 +22,16 @@ class GetAllGameAdminService
 		return $paginator;
 	}
 
+	public static function getAllAvailablesWithPlatform()
+	{
+		$games = Game::with(['gamePlatforms.platform'])
+					 ->where('status', EnumActiveInactive::ACTIVE)
+					 ->get();
+		return $games->filter(function($game) {
+			return $game->platforms->count() > 0;
+		});
+	}
+
 	public static function getAllAvailables()
 	{
 		$games = Game::with(['platforms'])

@@ -22,14 +22,15 @@ class GameAvailableTransformer extends Fractal\TransformerAbstract
 
 	private function parsePlatforms(Game $game)
 	{
-		$platforms = [];
-		$game->platforms->each(function ($platform) use (&$platforms){
-			array_push($platforms, [
-				'id'   => $platform->id,
-				'name' => $platform->name,
-				'code' => $platform->code
+		$gamePlatforms = [];
+		$game->gamePlatforms->each(function ($gamePlatform) use (&$gamePlatforms, $game){
+			array_push($gamePlatforms, [
+				'id'      => $gamePlatform->id,
+				'name'    => $gamePlatform->platform->name,
+				'code'    => $gamePlatform->platform->code,
+				'game_id' => $game->id
 			]);
 		});
-		return $platforms;
+		return $gamePlatforms;
 	}
 }
