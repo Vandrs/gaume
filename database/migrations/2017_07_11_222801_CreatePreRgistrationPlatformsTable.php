@@ -18,6 +18,14 @@ class CreatePreRgistrationPlatformsTable extends Migration
             $table->unsignedInteger('pre_registration_id');
             $table->unsignedInteger('game_platform_id');
             $table->timestamps();
+
+            $table->foreign('pre_registration_id')
+                  ->references('id')
+                  ->on('pre_registration');
+
+            $table->foreign('game_platform_id')
+                  ->references('id')
+                  ->on('game_platform');
         });
     }
 

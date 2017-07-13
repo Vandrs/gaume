@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\Models\PreRgistration;
+namespace App\Models;
 
-use Illuminate\Database\Model;
-use App\Models\PreRegistrationPlatform
+use Illuminate\Database\Eloquent\Model;
+use App\Models\PreRegistrationPlatform;
 
 class PreRegistration extends Model
 {

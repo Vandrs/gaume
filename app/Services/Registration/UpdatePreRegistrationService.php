@@ -9,19 +9,20 @@ use App\Services\Service;
 use App\Services\Registration\SavePreRegistrationPlatformService;
 use App\Models\PreRegistration;
 use App\Exceptions\ValidationException;
+use Illuminate\Validation\Rule;
 
-class CreatePreRegistrationService extends Service
+class UpdatePreRegistrationService extends Service
 {
 	public static function registerPolicies() {}
 
-	public function create(array $data) 
+	public function update(PreRegistration $preRegistration, array $data) 
 	{
-		$this->validator = Validator::make($data, $this->getValidation(), $this->getMessages());
+		$this->validator = Validator::make($data, $this->getValidation($preRegistration), $this->getMessages());
 		if ($this->validator->fails()) {
 			throw new ValidationException();
 		}
 
-		$preRegistration = PreRegistration::create([
+		$preRegistration->update([
 			"name" => $data["name"],
 			"email" => $data['email'],
 			"code" => self::generateCode($data['email'])
@@ -38,11 +39,16 @@ class CreatePreRegistrationService extends Service
 		return $preRegistration;
 	}
 
-	private function getValidation()
+	private function getValidation(PreRegistration $preRegistration)
 	{
 		return [
-			'name' 			=> 'required',
-			'email' 		=> 'required|email|unique:users|unique:pre_registration',
+			'name'  => 'required',
+			'email' => [
+				'required',
+				'email',
+				 Rule::unique('pre_registration')->ignore($preRegistration->id),
+				'unique:users'
+			],
 			'gamePlatforms' => 'required|array'
 		];
 	}

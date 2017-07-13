@@ -1,7 +1,8 @@
 <script>
 	import { GameProvider } from '../../providers/gameProvider';
-	import { PreRegistration } from '../../providers/preRegistration';
+	import { PreRegistrationProvider } from '../../providers/preRegistration';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
+	import * as moment from 'moment';
 	export default {
 		props: ['id'],
 		data() {
@@ -10,6 +11,7 @@
 					id: null,
 					name: null,
 					email: null,
+					mailed_at: null,
 					gamePlatforms: []
 				},
 				gamePlatforms : [],
@@ -18,6 +20,19 @@
 		},
 		mounted() {
 			this.getGames();
+			if (this.id) {
+				this.getPreRegistration();
+			}
+		},
+		computed: {
+			mailed_at: function() {
+				if (this.registration.mailed_at) {
+					var date = moment(this.registration.mailed_at);
+					return date.format('D/M/YYYY HH:mm');
+				} else {
+					return '__/__/__ __:__';
+				}			
+			}
 		},
 		methods: {
 			getGames: function () {
@@ -33,47 +48,102 @@
 								  			);
 							  	window.app.$emit('app:show-alert', errors, "danger");
 							  	window.scrollTo(0,0);
-								
 						    });			
 			},
-
+			getPreRegistration: function () {
+				PreRegistrationProvider.get(this.id)
+									   .then((response) => {
+									   		this.registration = response.data;
+									   })
+									   .catch((error) => {
+									   		var response = error.response;
+											if (response.status == 400) {
+												this.errors = response.data.errors;
+												var locale = this.$i18n.locale;
+												var msg = this.$i18n.messages[locale].app.defaultErrors;
+												window.app.$emit('app:show-alert', [msg], "danger");
+												window.scrollTo(0,0);
+											} else {
+												var errors = AppErrorBag.parseErrors(
+												  				response.status,
+												  				response.data
+												  			);
+											  	window.app.$emit('app:show-alert', errors, "danger");
+											  	window.scrollTo(0,0);
+											}	
+									   });
+			},
 			submit: function (event) {
 				event.preventDefault();
-				if (!this.id) {
+				if (this.id) {
+					this.update();
+				} else {
 					this.create();
 				}
 			},
 			create: function() {
+				this.errors = {};
 				window.app.isLoading = true;
 				window.app.$emit('app:close-alert');
-
-				PreRegistration.create(this.registration)
-							   .then((response) => {
-							   		window.app.isLoading = false;
-							   		var locale = this.$i18n.locale;
-									var msg = this.$i18n.messages[locale].pre_registration.create_succes;
-									window.app.$emit('app:show-alert', [msg], "success");
-									window.scrollTo(0,0);
-									console.log('Depois dá o redirect');
-							   })
-							   .catch((error) => {
-									window.app.isLoading = false;
-									var response = error.response;
-									if (response.status == 400) {
-										this.errors = response.data.errors;
-										var locale = this.$i18n.locale;
-										var msg = this.$i18n.messages[locale].app.defaultErrors;
-										window.app.$emit('app:show-alert', [msg], "danger");
-										window.scrollTo(0,0);
-									} else {
-										var errors = AppErrorBag.parseErrors(
-										  				response.status,
-										  				response.data
-										  			);
-									  	window.app.$emit('app:show-alert', errors, "danger");
-									  	window.scrollTo(0,0);
-									}
-								});
+				PreRegistrationProvider.create(this.registration)
+									   .then((response) => {
+									   		window.app.isLoading = false;
+									   		var locale = this.$i18n.locale;
+											var msg = this.$i18n.messages[locale].pre_registration.create_success;
+											window.app.$emit('app:show-alert', [msg], "success");
+											window.scrollTo(0,0);
+											console.log('Depois dá o redirect');
+									   })
+									   .catch((error) => {
+											window.app.isLoading = false;
+											var response = error.response;
+											if (response.status == 400) {
+												this.errors = response.data.errors;
+												var locale = this.$i18n.locale;
+												var msg = this.$i18n.messages[locale].app.defaultErrors;
+												window.app.$emit('app:show-alert', [msg], "danger");
+												window.scrollTo(0,0);
+											} else {
+												var errors = AppErrorBag.parseErrors(
+												  				response.status,
+												  				response.data
+												  			);
+											  	window.app.$emit('app:show-alert', errors, "danger");
+											  	window.scrollTo(0,0);
+											}
+										});
+			},
+			update: function() {
+				this.errors = {};
+				window.app.isLoading = true;
+				window.app.$emit('app:close-alert');
+				PreRegistrationProvider.update(this.registration, this.id)
+									   .then((response) => {
+									   		window.app.isLoading = false;
+									   		var locale = this.$i18n.locale;
+											var msg = this.$i18n.messages[locale].pre_registration.update_success;
+											window.app.$emit('app:show-alert', [msg], "success");
+											window.scrollTo(0,0);
+											this.getPreRegistration();
+									   })
+									   .catch((error) => {
+											window.app.isLoading = false;
+											var response = error.response;
+											if (response.status == 400) {
+												this.errors = response.data.errors;
+												var locale = this.$i18n.locale;
+												var msg = this.$i18n.messages[locale].app.defaultErrors;
+												window.app.$emit('app:show-alert', [msg], "danger");
+												window.scrollTo(0,0);
+											} else {
+												var errors = AppErrorBag.parseErrors(
+												  				response.status,
+												  				response.data
+												  			);
+											  	window.app.$emit('app:show-alert', errors, "danger");
+											  	window.scrollTo(0,0);
+											}
+										});
 			}
 		}
 	}
@@ -97,6 +167,11 @@
 				<span v-if="errors.email" class="help-block">
 					<strong>{{errors.email[0]}}</strong>
 				</span>
+			</div>
+		</div>
+		<div class="row" v-if="id">
+			<div class="col-xs-12 margin-top-10 control-group" v-bind:class="">
+				<label>{{$t('pre_registration.mailed_at')}}:</label> {{mailed_at}} 
 			</div>
 		</div>
 		<div class="row">

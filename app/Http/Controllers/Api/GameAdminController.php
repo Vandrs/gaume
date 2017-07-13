@@ -109,7 +109,6 @@ class GameAdminController extends RestController
 			Log::error($e->getMessage());
 			return $this->notFound();
 		} catch (\Exception $e) {
-			DB::rollback();
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
 			return $this->internalError();
@@ -135,12 +134,15 @@ class GameAdminController extends RestController
 	public function delete(Request $request, $id) 
 	{
 		try {
+			DB::beginTransaction();
 			$service = new GetGameService();
 			$game = $service->get($id);
 			$deleteService = new DeleteGameService();
 			$deleteService->delete($game);
+			DB::commit();
 			return $this->success(['msg' => __('games.messages.delete_success')]);
 		} catch (ModelNotFoundException $e) {
+			DB::rollback();
 			Log::error($e->getMessage());
 			return $this->notFound();
 		} catch (\Exception $e) {

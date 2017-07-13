@@ -95,7 +95,9 @@ var Messages = {
 			platforms: 'Plataformas'
 		},
 		pre_registration: {
-			create_succes: 'Pré cadastro criado com sucesso!'
+			create_success: 'Pré cadastro criado com sucesso!',
+			update_success: 'Pré cadastro alterado com sucesso!',
+			mailed_at: 'E-mail de cadastro enviado em'
 		},
 		buttons: {
 			edit: 'Editar',

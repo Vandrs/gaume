@@ -1,11 +1,10 @@
 <?php 
 
-namespace App\Models\PreRgistration;
+namespace App\Models;
 
-use Illuminate\Database\Model;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\PreRegistration;
 use App\Models\GamePlatform;
-
 
 class PreRegistrationPlatform extends Model
 {
@@ -17,10 +16,10 @@ class PreRegistrationPlatform extends Model
 	];
 
 	protected $fillable = [
-		'name', 'email', 'code', 'mailed_at'
+		'pre_registration_id', 'game_platform_id'
 	];
 
-	public function preRegistration
+	public function preRegistration()
 	{
 		return $this->hasOne(PreRegistration::class);
 	}

@@ -9,10 +9,18 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-xs-12 text-left">
+						@if(isset($id))
+						<h4>@lang('users.edit_new_teacher')</h4>
+						@else
 						<h4>@lang('users.add_new_teacher')</h4>
+						@endif
 					</div>
 				</div>
+				@if(isset($id))
+				<teacher-admin-registration id="{{$id}}">
+				@else
 				<teacher-admin-registration>
+				@endif
 				</teacher-admin-registration>
 			</div>
 		</div>

@@ -38,7 +38,7 @@ class CreateGameService extends Service
 			if (isset($gamePlatformService)) {
 				$this->validator->messages()->merge($gamePlatformService->getValidator()->messages());	
 			}
-			throw new ValidationException;
+			throw $e;
 		}
 	}
 

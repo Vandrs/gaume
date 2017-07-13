@@ -72,8 +72,8 @@ class SaveGamePlatformService extends Service
 
 	private function deleteGamePlatforms(Game $game, array $excludeIds = null) 
 	{
-		$query = DB::table('game_platform')
-		  		   ->where('game_id', '=', $game->id);
+		$query = GamePlatform::query()
+		  		   			 ->where('game_id', '=', $game->id);
 		if (!empty($excludeIds)) {
 			$query->whereNotIn('platform_id', $excludeIds);
 		}

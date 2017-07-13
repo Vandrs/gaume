@@ -23,8 +23,8 @@ class GameTransformer extends Fractal\TransformerAbstract
 	private function parsePlatforms(Game $game)
 	{
 		$ids = [];
-		$game->platforms->each(function ($platform) use (&$ids){
-			array_push($ids, $platform->id);
+		$game->gamePlatforms->each(function ($gamePlatform) use (&$ids){
+			array_push($ids, $gamePlatform->platform_id);
 		});
 		return $ids;
 	}
