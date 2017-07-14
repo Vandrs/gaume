@@ -28,7 +28,7 @@ class GetAllGameAdminService
 					 ->where('status', EnumActiveInactive::ACTIVE)
 					 ->get();
 		return $games->filter(function($game) {
-			return $game->platforms->count() > 0;
+			return $game->gamePlatforms->count() > 0;
 		});
 	}
 

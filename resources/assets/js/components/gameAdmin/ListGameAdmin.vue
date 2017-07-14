@@ -89,7 +89,7 @@
 			<div class='col-xs-12 col-md-4 margin-top-10'>
 				<label class="block-label">&nbsp;</label>
 				<button type="button" v-on:click="search" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-				<button type="button" v-on:click="clearSearch" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
+				<button type="button" v-on:click="clearSearch" class="btn btn-default"><i class="fa fa-eraser"></i></button>
 			</div>
 		</div>
 		<div class='row margin-top-10'>

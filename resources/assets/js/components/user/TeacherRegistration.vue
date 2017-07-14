@@ -1,6 +1,6 @@
 <script>
 	import { GameProvider } from '../../providers/gameProvider';
-	import { PreRegistrationProvider } from '../../providers/preRegistration';
+	import { PreRegistrationProvider } from '../../providers/preRegistrationProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	import * as moment from 'moment';
 	export default {
@@ -15,7 +15,8 @@
 					gamePlatforms: []
 				},
 				gamePlatforms : [],
-				errors: {}
+				errors: {},
+				listLink: '/app/admin/usuarios/professor/pre-cadastro/lista'
 			}
 		},
 		mounted() {
@@ -92,7 +93,9 @@
 											var msg = this.$i18n.messages[locale].pre_registration.create_success;
 											window.app.$emit('app:show-alert', [msg], "success");
 											window.scrollTo(0,0);
-											console.log('Depois dá o redirect');
+											setTimeout(() => {
+							  					window.location.href = this.listLink;
+							  				}, 3000);
 									   })
 									   .catch((error) => {
 											window.app.isLoading = false;

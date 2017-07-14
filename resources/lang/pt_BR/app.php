@@ -1,4 +1,4 @@
-<?php 
+	<?php 
 
 return [
 	'labels' => [
@@ -7,7 +7,7 @@ return [
 		'start' => 'Data de início',
 		'end' => 'Data de término',
 		'start_from' => 'De',
-		'end_to' => 'Até'
+		'end_to' => 'Até',
 	],
 	'navbar' => [
 		'login' => 'Entrar',
@@ -23,7 +23,8 @@ return [
 		'my_lessons' => 'Minhas aulas',
 		'profile' => 'Perfil',
 		'games' => 'Jogos',
-		'users' => 'Usuários'
+		'users' => 'Usuários',
+		'pre_registration' => 'Pré Cadastro'
 	],
 	'messages' => [
 		'errors' => 'Alguns erros ocorreram ao tentar processar a sua requisição por favor revise os dados enviados e se o erro persistir contate os administradores do sistema.',

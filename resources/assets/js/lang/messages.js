@@ -17,7 +17,8 @@ var Messages = {
 			search: "Pesquisar",
 			select: "Selecione",
 			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente.",
-			games: 'Jogos'
+			games: 'Jogos',
+			created_at: 'Data de cadastro'
 		},
 		modal : {
 			warning: "Atenção",

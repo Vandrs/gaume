@@ -7,6 +7,9 @@ var PreRegistrationProvider = {
 	},
 	update: function (data, id) {
 		return axios.put('/api/admin/users/teachers/pre-registration/'+id, data);
+	},
+	list: function(data) {
+		return axios.get('/api/admin/users/teachers/pre-registration', {"params":data});
 	}
 };
 export { PreRegistrationProvider };

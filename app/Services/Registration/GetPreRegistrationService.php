@@ -17,4 +17,22 @@ class GetPreRegistrationService extends Service
 							  ->where('id', $id)
 							  ->firstOrFail();
 	}
+
+	public function getAll(array $parameters)
+	{
+		$query = PreRegistration::query()->orderBy('name','ASC');
+		
+		if (isset($parameters['name']) && !empty($parameters['name'])) {
+			$query->where('name','LIKE','%'.$parameters['name'].'%');
+		}
+
+		if (isset($parameters['email']) && !empty($parameters['email'])) {
+			$query->where('email','LIKE','%'.$parameters['email'].'%');
+		}
+
+		$paginator = $query->paginate(20);
+		$queryParams = array_diff_key($parameters, array_flip(['page']));
+		$paginator->appends($queryParams);
+		return $paginator;
+	}
 }

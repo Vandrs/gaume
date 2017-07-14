@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 		# Teacher Admin
 		Route::post('/users/teachers/pre-registration','PreRegistrationController@create');
+		Route::get('/users/teachers/pre-registration','PreRegistrationController@getAll');
 		Route::get('/users/teachers/pre-registration/{id}','PreRegistrationController@get');
 		Route::put('/users/teachers/pre-registration/{id}','PreRegistrationController@update');
 	});

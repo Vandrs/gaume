@@ -9,11 +9,13 @@ use App\Services\Registration\UpdatePreRegistrationService;
 use App\Services\Registration\GetPreRegistrationService;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use League\Fractal;
 use App\Transformers\ApiItemSerializer;
 use App\Transformers\PreRegistrationTransformer;
+use App\Transformers\PreRegistrationListTransformer;
 use Log;
 use DB;
+use League\Fractal;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class PreRegistrationController extends RestController
 {
@@ -75,6 +77,28 @@ class PreRegistrationController extends RestController
 			return $this->success($data);
 		} catch (ModelNotFoundException $e) {
 			return $this->notFound();
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function getAll(Request $request)
+	{
+		try {
+			$getService = new GetPreRegistrationService();
+			$paginator = $getService->getAll($request->all());
+			$paginatorAdapter = new IlluminatePaginatorAdapter($paginator);
+			$fractal = new Fractal\Manager();
+			$items = new Fractal\Resource\Collection($paginator->getCollection(), new PreRegistrationListTransformer);
+			$items->setPaginator($paginatorAdapter);
+			$data = $fractal->createData($items)->toArray(); 
+			return $this->success($data);	
+		} catch (ValidationException $e) {
+			$errors = $getService->getValidator()->errors()->jsonSerialize();
+			Log::error($e->getMessage().': '.json_encode($errors));
+			return $this->badRequest($errors);
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());

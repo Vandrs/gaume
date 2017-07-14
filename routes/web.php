@@ -26,13 +26,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
 	Route::get('/perfil','App\ProfileController@index')->name('profile');
 
+	if (config('app.env') == 'local') {
+		Route::get('/teste','App\TestController@index');
+	}
+
 	Route::group(['middleware' => ['auth','adminOnly'], 'prefix' => 'admin'] , function() { 
 		Route::get('/games','App\GameAdminController@index')->name('game-admin.list');
 		Route::get('/games/cadastro','App\GameAdminController@create')->name('game-admin.create');
 		Route::get('/games/editar/{id}','App\GameAdminController@update')->name('game-admin.update');
 		Route::get('/usuarios','App\UserAdminController@index')->name('user-admin.list');
-		Route::get('/usuarios/professor/cadastro','App\PreRegistrationController@create')->name('user-admin.create-teacher');
-		Route::get('/usuarios/professor/cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');
+		Route::get('/usuarios/professor/pre-cadastro','App\PreRegistrationController@create')->name('user-admin.create-teacher');
+		Route::get('/usuarios/professor/pre-cadastro/lista','App\PreRegistrationController@index')->name('user-admin.list-pre-registration');
+		Route::get('/usuarios/professor/pre-cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');
 	});
 
 });
