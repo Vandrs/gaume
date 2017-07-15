@@ -7,6 +7,7 @@ use Validator;
 use Carbon\Carbon;
 use App\Services\Service;
 use App\Services\Registration\SavePreRegistrationPlatformService;
+use App\Services\Registration\SendPreRegistrationEmailService;
 use App\Models\PreRegistration;
 use App\Exceptions\ValidationException;
 
@@ -26,7 +27,7 @@ class CreatePreRegistrationService extends Service
 			"email" => $data['email'],
 			"code" => self::generateCode($data['email'])
 		]);
-
+		
 		try {
 			$registrationPlatformService = new SavePreRegistrationPlatformService();
 			$registrationPlatformService->save($preRegistration, $data['gamePlatforms']);
@@ -34,7 +35,9 @@ class CreatePreRegistrationService extends Service
 			$this->validator->messages()->merge($registrationPlatformService->getValidator()->messages());
 			throw $e;
 		}
-		
+
+		SendPreRegistrationEmailService::send($preRegistration);
+
 		return $preRegistration;
 	}
 

@@ -98,7 +98,8 @@ var Messages = {
 		pre_registration: {
 			create_success: 'Pré cadastro criado com sucesso!',
 			update_success: 'Pré cadastro alterado com sucesso!',
-			mailed_at: 'E-mail de cadastro enviado em'
+			mailed_at: 'E-mail de cadastro enviado em',
+			resend_email: 'Reenviar e-mail'
 		},
 		buttons: {
 			edit: 'Editar',

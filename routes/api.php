@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 		Route::get('/users/teachers/pre-registration','PreRegistrationController@getAll');
 		Route::get('/users/teachers/pre-registration/{id}','PreRegistrationController@get');
 		Route::put('/users/teachers/pre-registration/{id}','PreRegistrationController@update');
+		Route::post('/users/teachers/pre-registration/{id}/send-email','PreRegistrationController@reSendRegistrationEmail');
 	});
 	
 });

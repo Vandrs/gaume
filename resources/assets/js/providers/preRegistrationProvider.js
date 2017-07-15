@@ -10,6 +10,9 @@ var PreRegistrationProvider = {
 	},
 	list: function(data) {
 		return axios.get('/api/admin/users/teachers/pre-registration', {"params":data});
+	},
+	sendEmail: function(id) {
+		return axios.post('/api/admin/users/teachers/pre-registration/'+id+'/send-email');
 	}
 };
 export { PreRegistrationProvider };

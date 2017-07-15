@@ -7,12 +7,15 @@ use App\Exceptions\ValidationException;
 use App\Services\Registration\CreatePreRegistrationService;
 use App\Services\Registration\UpdatePreRegistrationService;
 use App\Services\Registration\GetPreRegistrationService;
+use App\Services\Registration\ReSendPreRegistrationEmailService;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Transformers\ApiItemSerializer;
 use App\Transformers\PreRegistrationTransformer;
 use App\Transformers\PreRegistrationListTransformer;
+use App\Models\PreRegistration;
 use Log;
+use Lang;
 use DB;
 use League\Fractal;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
@@ -99,6 +102,21 @@ class PreRegistrationController extends RestController
 			$errors = $getService->getValidator()->errors()->jsonSerialize();
 			Log::error($e->getMessage().': '.json_encode($errors));
 			return $this->badRequest($errors);
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function reSendRegistrationEmail(Request $request, $id)
+	{
+		try {
+			$preRegistration = PreRegistration::firstOrFail();
+			ReSendPreRegistrationEmailService::send($preRegistration);
+			return $this->success(['msg' => Lang::get('pre_registration.send_email_confirmation')]);
+		} catch (ModelNotFoundException $e) {
+			return $this->notFound();
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());

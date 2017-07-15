@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/professors/cadastro','App\RegisterController@showTeacherRegistrationForm')->name('teacher.registration');
+
+
 Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::get('/home', 'App\HomeController@index')->name('home');
 	Route::get('/professores','App\TeacherController@index')->name('teachers.list');

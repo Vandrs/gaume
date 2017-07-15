@@ -58,6 +58,11 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function showTeacherRegistrationForm(Request $request)
+    {
+        
+    }
+
     public function register(Request $request)
     {
         try {
