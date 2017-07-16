@@ -26,8 +26,9 @@ class UpdateUserProfileService extends Service
 		]);
 
 		try {
+			$addressData = isset($data['address']) ? $data['address'] : null;
 			$addresService = new UpdateAddressService();
-			$addresService->update($user->address, $data);
+			$addresService->update($user->address, $addressData);
 		} catch (ValidationException $e) {
 			$this->validator->messages()->merge($addresService->getValidator()->messages());	
 			throw new ValidationException;

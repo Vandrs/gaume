@@ -16,20 +16,14 @@ class CreateAddressTable extends Migration
         Schema::create('address', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable(false);
-            $table->integer('state_id')->nullable(false);
-            $table->integer('city_id')->nullable(false);
-            $table->integer('neighborhood_id')->nullable(false);
+            $table->string('state',2)->nullable(false);
+            $table->string('city',255)->nullable(false);
+            $table->string('neighborhood',255)->nullable(true);
             $table->string('street',100)->nullable(false);
             $table->string('number',20)->nullable(false);
             $table->string('complement',100)->nullable(true);
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('state_id')->references('id')->on('states');
-            $table->foreign('city_id')->references('id')->on('cities');
-            $table->foreign('neighborhood_id')->references('id')->on('neighborhoods');
+            $table->string('zipcode',10);
             $table->index('user_id');
-            $table->index('state_id');
-            $table->index('city_id');
-            $table->index('neighborhood_id');
             $table->timestamps();
         });
     }

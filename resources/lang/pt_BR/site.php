@@ -3,6 +3,7 @@
 return [
 	'registration' => [
 		'register' => 'Cadastro',
+		'register_teacher' => 'Cadastro de Novo Treinador',
 		'name' => 'Nome',
 		'email' => 'E-mail',
 		'password' => 'Senha',
@@ -29,6 +30,7 @@ return [
 		'complement' => 'Complemento',
 		'profile_image' => 'Imagem de Perfil',
 		'ok' => 'Entendi',
+		'zipcode' => 'CEP'
 	],
 	'buttons' => [
 		'send' => 'Enviar',

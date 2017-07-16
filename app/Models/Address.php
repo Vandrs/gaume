@@ -13,26 +13,11 @@ class Address extends Model
 	protected $table = 'address';
 	
 	protected $fillable = [
-		'user_id', 'state_id', 'city_id', 'neighborhood_id', 'street', 'number', 'complement'
+		'user_id', 'state', 'city', 'neighborhood', 'street', 'number', 'complement', 'zipcode'
 	];
 
 	public function user()
 	{
 		return $this->belongsTo(User::class);
-	}
-
-	public function state()
-	{
-		return $this->belongsTo(State::class);
-	}
-
-	public function city()
-	{
-		return $this->belongsTo(City::class);
-	}
-
-	public function neighborhood()
-	{
-		return $this->belongsTo(Neighborhood::class);
 	}
 }	

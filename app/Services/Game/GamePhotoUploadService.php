@@ -23,7 +23,7 @@ class GamePhotoUploadService
 		$this->publicDisk = Storage::disk('public');
 	}
 
-	public function uploadPhoto(Game $game, UploadedFile $file)
+	public function uploadPhoto(Game $game, UploadedFile $file = null)
 	{
 
 		$this->validator = Validator::make(['photo' => $file], $this->getRules(), $this->getMessages());

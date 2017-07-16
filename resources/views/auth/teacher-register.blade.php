@@ -4,12 +4,18 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-heading">@lang('site.registration.register')</div>
+                <div class="panel-heading">@lang('site.registration.register_teacher')</div>
                 <div class="panel-body">
-                    <form role="form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                @if(session()->has('flash_error'))
+                    <div class="row">
+                        @include('partials.flash-error-container')
+                    </div>
+                @else
+                    <form role="form" method="POST" action="{{ route('teacher.registration') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="role_id" value="{{EnumRole::STUDENT_ID}}">
+                        <input type="hidden" name="code" value="{{$code}}">
 
                         <div class="row">
                         @include('partials.flash-error-container')
@@ -65,7 +71,7 @@
                                     <div class="col-xs-12">
                                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                             <label for="name" class="control-label">@lang('site.registration.name')*</label>
-                                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"  autofocus>
+                                            <input id="name" type="text" class="form-control" name="name" value="{{ Util::coalesce(old('name'), $preRegistration->name) }}"  autofocus>
                                             @if ($errors->has('name'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('name') }}</strong>
@@ -126,7 +132,7 @@
                             <div class="col-xs-12 col-md-8 col-md-offset-2">
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email" class="control-label">@lang('site.registration.email')*</label>
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" >
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ Util::coalesce(old('email'), $preRegistration->email) }}" >
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -275,6 +281,8 @@
                         </div>
 
                     </form>
+                @endif
+
                 </div>
             </div>
         </div>

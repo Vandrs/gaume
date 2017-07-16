@@ -87,6 +87,7 @@ return [
     'url'                  => 'O campo :attribute possui um formato inválido.',
     'cpf' => 'CPF inválido',
     'cnpj' => 'CNPJ inválido',
+    'cep' => 'CEP inválido',
 
     'attributes' => [],
 

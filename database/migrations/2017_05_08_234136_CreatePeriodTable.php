@@ -19,8 +19,8 @@ class CreatePeriodTable extends Migration
             $table->smallInteger('hours')->nullable(false);
             $table->decimal('hour_value',10,2);
             $table->smallInteger('status');
-            $table->boolean('billed');
-            $table->dateTime('finished_at');
+            $table->boolean('billed')->nullable(false)->default(false);
+            $table->dateTime('finished_at')->nullable(true)->default(null);
             $table->timestamps();
             $table->foreign('lesson_id')->references('id')->on('lessons');
             $table->index('status');

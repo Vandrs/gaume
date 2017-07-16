@@ -4,6 +4,7 @@ namespace App\Services\Registration;
 
 use App\Services\Service;
 use App\Models\PreRegistration;
+use DB;
 
 
 class GetPreRegistrationService extends Service
@@ -34,5 +35,12 @@ class GetPreRegistrationService extends Service
 		$queryParams = array_diff_key($parameters, array_flip(['page']));
 		$paginator->appends($queryParams);
 		return $paginator;
+	}
+
+	public static function getByCode($code)
+	{
+		return PreRegistration::with(['preRegistrationPlatforms'])
+							  ->where('code', $code)
+							  ->firstOrFail();
 	}
 }

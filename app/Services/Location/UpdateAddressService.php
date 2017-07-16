@@ -6,6 +6,7 @@ use Validator;
 use App\Models\Address;
 use App\Exceptions\ValidationException;
 use App\Services\Service;
+use App\Utils\StringUtil;
 
 class UpdateAddressService extends Service
 {
@@ -19,9 +20,9 @@ class UpdateAddressService extends Service
 			throw new ValidationException();
 		}
 		return $address->update([
-			'state_id' => $data['state'],
-			'city_id'  => $data['city'],
-			'neighborhood_id' => $data['neighborhood'],
+			'state' => $data['state'],
+			'city'  => $data['city'],
+			'neighborhood' => $data['neighborhood'],
 			'street' => $data['street'],
 			'number' => $data['number'],
 			'complement' => isset($data['complement']) ? $data['complement'] : null
@@ -31,9 +32,10 @@ class UpdateAddressService extends Service
 	public function getRules()
 	{
 		return [
-			'state' => 'required|integer|exists:states,id',  
-			'city' => 'required|integer|exists:cities,id', 
-			'neighborhood' => 'required|integer|exists:neighborhoods,id',
+			'zipcode' => 'required|cep',
+			'state' => 'required',  
+			'city' => 'required', 
+			'neighborhood' => 'required',
 			'street' => 'required',
 			'number' => 'required'
 		];
@@ -42,12 +44,10 @@ class UpdateAddressService extends Service
 	public function getMessages()
 	{
 		return [
+			'zipcode.required' => __('validation.required', ['attribute' => __('site.registration.zipcode')]),
 			'state.required' => __('validation.required', ['attribute' => __('site.registration.state')]),
-			'state.exists'   => __('validation.exists', ['attribute' => __('site.registration.state')]),
 			'city.required'  => __('validation.required', ['attribute' => __('site.registration.city')]),
-			'city.exists'    => __('validation.exists', ['attribute' => __('site.registration.city')]), 
 			'neighborhood.required' => __('validation.required', ['attribute' => __('site.registration.neighborhood')]),
-			'neighborhood.exists'   => __('validation.exists', ['attribute' => __('site.registration.neighborhood')]),
 			'street.required' => __('validation.required', ['attribute' => __('site.registration.street')]), 
 			'number.required' => __('validation.required', ['attribute' => __('site.registration.number')])
 		];

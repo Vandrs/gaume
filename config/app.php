@@ -234,6 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'EnumRole' => App\Enums\EnumRole::class,
-        'AssetLoader' => App\AssetLoader\AssetLoader::class
+        'AssetLoader' => App\AssetLoader\AssetLoader::class,
+        'Util' => App\Utils\Util::class
     ],
 ];

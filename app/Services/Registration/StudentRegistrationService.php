@@ -26,8 +26,8 @@ class StudentRegistrationService extends Service
 		if ($this->validator->fails()) {
 			throw new ValidationException();
 		}
+		
 		try {
-			DB::beginTransaction();
 			$data['status'] = EnumUserStatus::ACTIVE;
 			$user = $this->createUser($data);
 			$addressService = new CreateAddressService();
@@ -36,17 +36,12 @@ class StudentRegistrationService extends Service
 				$photoUploadService = new UserProfilePhotoService();
 				$photoUploadService->uploadPhoto($user, $profileImage);
 			}
-			DB::commit();
 			return $user;
 		} catch(ValidationException $e) {
 				$this->validator->messages()->merge($addressService->getValidator()->messages());				
 				if (isset($photoUploadService)) {
 					$this->validator->messages()->merge($photoUploadService->getValidator()->messages());	
 				}
-			DB::rollback();
-			throw $e;
-		} catch (\Exception $e) {
-			DB::rollback();
 			throw $e;
 		}
 	}

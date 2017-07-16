@@ -32,50 +32,15 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 		$address = $user->address;
 		if ($address) {
 			return [
-				'neighborhood' => $this->getNeighborhood($address),
-				'city' 	 => $this->getCity($address),
-				'state'  => $this->getState($address),
+				'zipcode' => $address->zipcode,
+				'neighborhood' => $address->neighborhood,
+				'city' 	 => $address->city,
+				'state'  => $address->state,
 				'street' => $address->street,
 				'number' => $address->number,
 				"complement" => $address->complement,
 			];
 		}
 		return [];
-	}
-
-	private function getState(Address $address)
-	{
-		if ($address->state) {
-			return [
-				'id'   => $address->state->id,
-				'name' => $address->state->name,
-				'uf'   => $address->state->uf,
-			];
-		} 
-		return [];
-	}
-
-	private function getCity(Address $address)
-	{
-		if ($address->city) {
-			return [
-				'id'   => $address->city->id,
-				'name' => $address->city->name,
-				'uf'   => $address->city->uf,
-			];
-		} 
-		return [];	
-	}
-
-	private function getNeighborhood(Address $address)
-	{
-		if ($address->neighborhood) {
-			return [
-				'id'   => $address->neighborhood->id,
-				'name' => $address->neighborhood->name,
-				'uf'   => $address->neighborhood->uf,
-			];
-		} 
-		return [];		
 	}
 }

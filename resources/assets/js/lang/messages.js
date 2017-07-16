@@ -78,7 +78,9 @@ var Messages = {
 			complement: 'Complemento',
 			profile_image: 'Imagem de Perfil',
 			address: 'Informações sobre o seu endereço',
-			updateSucces: 'Perfil alterado com sucesso!'
+			updateSucces: 'Perfil alterado com sucesso!',
+			zipcode: 'CEP',
+			zipcode_not_found: 'CEP não encontrato'
 		},
 		game: {
 			title: 'Título',

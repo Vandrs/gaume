@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Auth;
 use Config;
 use Lang;
 use Log;
-use App\User;
+use DB;
+use App\Utils\Util;
 use App\Http\Controllers\Controller;
 use App\AssetLoader\AssetLoader;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use App\Services\Location\GetStateService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Services\Registration\StudentRegistrationService;
+use App\Services\Registration\GetPreRegistrationService;
+use App\Services\Registration\ValidadeRegistrationPeriodService;
 use App\Exceptions\ValidationException;
 
 class RegisterController extends Controller
@@ -50,35 +53,70 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         AssetLoader::registerSiteScript('registration.js');
-        $states = GetStateService::getAll();
         $pageTitle = Lang::get('site.registration.register');
         return view('auth.register',[
-            'pageTitle' => $pageTitle,
-            'states' => $states
+            'pageTitle' => $pageTitle
         ]);
-    }
-
-    public function showTeacherRegistrationForm(Request $request)
-    {
-        
     }
 
     public function register(Request $request)
     {
         try {
+            DB::beginTransaction();
             $userRegistration = new StudentRegistrationService();
             $user = $userRegistration->registerUser($request->all(), $request->file('photo_profile'));
             $this->guard()->login($user);
+            DB::commit();
             return $this->registered($request, $user) ? : redirect($this->redirectPath());
         } catch (ValidationException $e) {
+            DB::rollback();
             Log::error($e->getMessage());
             Log::error($e->getTraceAsString());
             return back()->withInput()->withErrors($userRegistration->getValidator());
         } catch (\Exception $e) {
+            DB::rollback();
             Log::error($e->getMessage());
             Log::error($e->getTraceAsString());
             session()->flash('flash_error', Lang::get('validation.custom.unexpected'));
             return back()->withInput();
         }
+    }
+
+    public function showTeacherRegistrationForm(Request $request)
+    {
+        AssetLoader::registerSiteScript('registration.js');
+        $session = session();
+        $pageTitle = Lang::get('site.registration.register_teacher');
+        try{
+            $code = Util::coalesce(old('code'), $request->code);
+            $preRegistration = GetPreRegistrationService::getByCode($code);
+        } catch (ModelNotFoundException $e) {
+            $session->flash('flash_error', Lang::get('pre_registration.code_not_found'));
+        } catch (ValidationException $e) {
+            $session->flash('flash_error', $e->getMessage());
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            Log::error($e->getTraceAsString());
+            $session->flash('flash_error', Lang::get('validation.custom.unexpected'));
+        }
+
+        if ($session->has('flash_error')) {
+            return view('auth.teacher-register',[
+                'pageTitle' => $pageTitle
+            ]);
+        } else {
+            return view('auth.teacher-register',[
+                'preRegistration' => $preRegistration,
+                'pageTitle'       => $pageTitle,
+                'code'            => $code,
+            ]);            
+        }
+    }
+
+    public function teacherRegister(Request $request)
+    {
+        echo '<pre>';
+        print_r($request->all());
+        die;
     }
 }
