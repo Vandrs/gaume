@@ -15,6 +15,7 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     'min_age_student' => env('MIN_AGE_STUDENT', 14),
+    'min_age_teacher' => env('MIN_AGE_TEACHER', 18),
 
     'index_pages' => env('INDEX_PAGES', false),
 

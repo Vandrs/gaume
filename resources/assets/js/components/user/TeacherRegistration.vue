@@ -174,18 +174,16 @@
 </script>
 <template>
 <div class="row">
-	<div class="col-xs-12 col-md-6">
+	<div class="col-xs-12 col-md-8 col-md-offset-2">
 		<div class="row">	
-			<div class="col-xs-12 margin-top-10 control-group" v-bind:class="{'has-error':errors.name}">
+			<div class="col-xs-12 col-md-6 margin-top-10 control-group" v-bind:class="{'has-error':errors.name}">
 				<label>{{$t('profile.name')}}</label>
 				<input type="text" class="form-control" name="name" id="name" v-model="registration.name">
 				<span v-if="errors.name" class="help-block">
 					<strong>{{errors.name[0]}}</strong>
 				</span>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 margin-top-10 control-group" v-bind:class="{'has-error':errors.email}">
+			<div class="col-xs-12 col-md-6 margin-top-10 control-group" v-bind:class="{'has-error':errors.email}">
 				<label>{{$t('profile.email')}}</label>
 				<input type="text" class="form-control" name="email" id="email" v-model="registration.email">
 				<span v-if="errors.email" class="help-block">
@@ -205,15 +203,19 @@
 				<span v-if="errors.gamePlatforms" class="help-block">
 					<strong>{{errors.gamePlatforms[0]}}</strong>
 				</span>
-				<div v-for="game of gamePlatforms">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<label>{{game.name}}</label>		
-						</div>
-						<div class="panel-body">
-							<label class="checkbox-inline" v-for="platform of game.platforms">
-								<input type="checkbox" :value="platform.id" v-model="registration.gamePlatforms"> {{platform.name}}
-							</label>
+				<div class="row">
+					<div v-for="game of gamePlatforms">
+						<div class="col-xs-12 col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<label>{{game.name}}</label>		
+								</div>
+								<div class="panel-body">
+									<label class="checkbox-inline" v-for="platform of game.platforms">
+										<input type="checkbox" :value="platform.id" v-model="registration.gamePlatforms"> {{platform.name}}
+									</label>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -298,7 +298,60 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+
+            <div v-if="user.bankAccount">
+	            <div class="row margin-top-10">
+	                <div class="col-xs-12 col-md-8 col-md-offset-2">
+	                    <span class="form-title">{{$t('profile.bank_info')}}</span>
+	                    <span class="help-block">
+	                        {{$t('profile.bank_info_help')}}
+	                    </span>
+	                </div>
+	            </div>
+
+	            <div class="row">
+	                <div class="col-xs-12 col-md-4 col-md-offset-2" >
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.bank}">
+	                        <label for="bank">{{$t('profile.bank')}}*</label>
+	                        <input type="text" name="bank" id="bank" class="form-control" v-model="user.bankAccount.bank" maxlength="100">
+                            <span class="help-block" v-if="errors.bank">
+                                <strong>{{ errors.bank[0] }}</strong>
+                            </span>
+	                    </div>
+	                </div>
+	                <div class="col-xs-12 col-md-4" >
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.agency}">
+	                        <label for="bank">{{$t('profile.agency')}}*</label>
+	                        <input type="text" name="agency" id="agency" class="form-control" v-model="user.bankAccount.agency" maxlength="20">
+                            <span class="help-block" v-if="errors.agency">
+                                <strong>{{ errors.agency[0] }}</strong>
+                            </span>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-xs-12 col-md-4 col-md-offset-2">
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.account}">
+	                        <label for="account">{{$t('profile.account')}}*</label>
+	                        <input type="text" name="account" id="account" class="form-control" v-model="user.bankAccount.account" maxlength="20">
+	                        <span class="help-block" v-if="errors.account">
+	                            <strong>{{ errors.account[0] }}</strong>
+	                        </span>
+	                    </div>
+	                </div>
+	                <div class="col-xs-12 col-md-2" >
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.digit}">
+	                        <label for="digit">{{$t('profile.digit')}}*</label>
+	                        <input type="text" name="digit" id="digit" class="form-control" v-model="user.bankAccount.digit" maxlength="2">
+                            <span class="help-block" v-if="errors.digit">
+                                <strong>{{ errors.digit[0] }}</strong>
+                            </span>
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+
+            <div class="row margin-top-10">
             	<div class="col-xs-12 col-md-8 col-md-offset-2">
             		<button type="button" id="submit" v-on:click="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> {{$t('buttons.save')}}</button>
             	</div>

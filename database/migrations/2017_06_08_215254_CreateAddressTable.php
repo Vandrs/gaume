@@ -23,8 +23,8 @@ class CreateAddressTable extends Migration
             $table->string('number',20)->nullable(false);
             $table->string('complement',100)->nullable(true);
             $table->string('zipcode',10);
-            $table->index('user_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

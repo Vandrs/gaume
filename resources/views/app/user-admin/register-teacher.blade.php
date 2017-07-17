@@ -8,7 +8,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-xs-12 text-left">
+					<div class="col-xs-12 col-md-8 col-md-offset-2 text-left">
 						@if(isset($id))
 						<h4>@lang('users.edit_new_teacher')</h4>
 						@else

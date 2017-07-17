@@ -80,7 +80,13 @@ var Messages = {
 			address: 'Informações sobre o seu endereço',
 			updateSucces: 'Perfil alterado com sucesso!',
 			zipcode: 'CEP',
-			zipcode_not_found: 'CEP não encontrato'
+			zipcode_not_found: 'CEP não encontrato',
+			bank_info: 'Informações de Pagamento',
+			bank_info_help: 'Estas informações serão utilizadas para que possamos fazer os pagamentos regerentes as aulas. O CPF do títular desta conta deve ser o mesmo que informado acima.',
+			bank: 'Banco',
+			agency: 'Agência',
+			account: 'Conta Corrente',
+			digit: 'Dígito',			
 		},
 		game: {
 			title: 'Título',

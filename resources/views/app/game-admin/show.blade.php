@@ -8,7 +8,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-xs-12 text-left">
+					<div class="col-xs-12 col-md-8 col-md-offset-2 text-left">
 						<h4>{{isset($id) && $id  ? Lang::get('games.edit_game')  : Lang::get('games.add_new_game') }}</h4>
 					</div>
 				</div>

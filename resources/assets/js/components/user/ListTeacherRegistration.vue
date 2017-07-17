@@ -86,7 +86,7 @@
 						<th>{{$t('app.created_at')}}</th>
 						<th>{{$t('app.actions')}}</th>
 					</thead>
-					<tbody>
+					<tbody v-if="preRegistrations.length">
 						<tr v-for="preRegistration of  preRegistrations">
 							<td>{{preRegistration.name}}</td>
 							<td>{{preRegistration.email}}</td>
@@ -96,6 +96,11 @@
 									<i class="glyphicon glyphicon-edit"></i>
 								</a>
 							</td>
+						</tr>
+					</tbody>
+					<tbody v-else> 
+						<tr>
+							<td colspan="4">{{$t('app.noRegisterFound')}}</td>
 						</tr>
 					</tbody>
 				</table>

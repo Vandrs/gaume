@@ -21,12 +21,12 @@ class PreRegistrationPlatform extends Model
 
 	public function preRegistration()
 	{
-		return $this->hasOne(PreRegistration::class);
+		return $this->belongsTo(PreRegistration::class);
 	}
 
 	public function gamePlatform()
 	{
-		return $this->hasOne(GamePlatform::class);
+		return $this->belongsTo(GamePlatform::class);
 	}
 
 }

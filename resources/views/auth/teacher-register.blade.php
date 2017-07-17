@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">@lang('site.registration.register_teacher')</div>
                 <div class="panel-body">
-                @if(session()->has('flash_error'))
+                @if(session()->has('flash_error') && (!isset($code) || empty($code)) )
                     <div class="row">
                         @include('partials.flash-error-container')
                     </div>
@@ -80,7 +80,57 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class="col-xs-12 col-md-8 col-md-offset-2 margin-top-10">
+                                <div class="form-group {{ $errors->has('games') ? ' has-error' : '' }}">
+                                    <span class="form-title">@lang('site.registration.games')</span>
+                                    <span class="help-block">
+                                        @lang('site.registration.game_information')
+                                    </span>
+                                    @if($errors->has('games'))
+                                    <span class="help-block">    
+                                        @lang('site.registration.generic_game_error')
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                <div class="row">
+                                    @foreach($games as $gamePlatform)
+                                    <div class="col-xs-12 col-md-6 margin-top-10">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                {{$gamePlatform['game']->name}}
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class='col-xs-12'>
+                                                        <label for="gameDescription_{{$gamePlatform['game']->id}}">@lang('site.registration.skill_descripion')</label>
+                                                        <textarea class="form-control" id="gameDescription_{{$gamePlatform['game']->id}}" name="games[{{$gamePlatform['game']->id}}][description]" rows="5">{{old('games.'.$gamePlatform['game']->id.'.description')}}</textarea>
+                                                    </div>
+                                                </div>
+                                                @foreach($gamePlatform['platforms'] as $platform)                                                
+                                                <div class="row margin-top-10">
+                                                    <div class='col-xs-12'>
+                                                        <label for="gamePlatformNickname_{{$platform->id}}">@lang('site.registration.nickname'): {{$platform->name}}</label>
+                                                        <input type="text" class="form-control" 
+                                                               name="games[{{$gamePlatform['game']->id}}][platforms][{{$platform->id}}][nickname]" 
+                                                               id="gamePlatformNickname_{{$platform->id}}"
+                                                               value="{{old('games.'.$gamePlatform['game']->id.'.platforms.'.$platform->id.'.nickname')}}" />
+                                                    </div>
+                                                </div>    
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
 
@@ -92,11 +142,11 @@
                                     @lang('site.registration.private_information_help')
                                 </span>
                             </div>
-                        </div>                        
+                        </div>
 
                         <div class="row">
                             <div class="col-xs-12 col-md-4 col-md-offset-2">
-                                <div class="form-group{{ $errors->has('cpf') ? ' has-error' : '' }}">
+                                <div class="form-group {{ $errors->has('cpf') ? ' has-error' : '' }}">
                                     <label for="cpf" class="control-label">@lang('site.registration.cpf')*</label>
                                     <input id="cpf" type="text" class="form-control" name="cpf" value="{{ old('cpf') }}"  autofocus>
                                     @if ($errors->has('cpf'))
@@ -229,7 +279,7 @@
                         <div class="row">                        
                             <div class="col-xs-12 col-md-3 col-md-offset-2">
                                 <div class="form-group{{$errors->has('number') ? ' has-error' : '' }}">
-                                    <label for="number" class="control-label">@lang('site.registration.number')</label>
+                                    <label for="number" class="control-label">@lang('site.registration.number')*</label>
                                     <input id="number" type="text" name="number" value="{{old('number')}}" class="form-control">
                                     @if ($errors->has('number'))
                                         <span class="help-block">
@@ -245,6 +295,64 @@
                                     @if ($errors->has('complement'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('complement') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-10">
+                            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                <span class="form-title">@lang('site.registration.bank_info')</span>
+                                <span class="help-block">
+                                    @lang('site.registration.bank_info_help')
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-4 col-md-offset-2" >
+                                <div class="form-group {{$errors->has('bank') ? ' has-error' : ''}} ">
+                                    <label for="bank">@lang('site.registration.bank')*</label>
+                                    <input type="text" name="bank" id="bank" class="form-control" value="{{old('bank')}}" maxlength="100">
+                                    @if ($errors->has('bank'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('bank') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4" >
+                                <div class="form-group {{$errors->has('agency') ? ' has-error' : ''}} ">
+                                    <label for="bank">@lang('site.registration.agency')*</label>
+                                    <input type="text" name="agency" id="agency" class="form-control" value="{{old('agency')}}" maxlength="20">
+                                    @if ($errors->has('agency'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('agency') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-4 col-md-offset-2">
+                                <div class="form-group {{$errors->has('account') ? ' has-error' : ''}} ">
+                                    <label for="account">@lang('site.registration.account')*</label>
+                                    <input type="text" name="account" id="account" class="form-control" value="{{old('account')}}" maxlength="20">
+                                    @if ($errors->has('account'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('account') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-2" >
+                                <div class="form-group {{$errors->has('digit') ? ' has-error' : ''}} ">
+                                    <label for="digit">@lang('site.registration.digit')*</label>
+                                    <input type="text" name="digit" id="digit" class="form-control" value="{{old('digit')}}" maxlength="2">
+                                    @if ($errors->has('digit'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('digit') }}</strong>
                                         </span>
                                     @endif
                                 </div>

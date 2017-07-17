@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['guest']], function(){
 	Route::get('/professor/cadastro','Auth\RegisterController@showTeacherRegistrationForm')->name('teacher.registration.form');	
-	Route::post('/professor/cadastro','Auth\RegisterController@showTeacherRegistrationForm')->name('teacher.registration');	
+	Route::post('/professor/cadastro','Auth\RegisterController@teacherRegister')->name('teacher.registration');	
 });
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::post('/subscriptions', 'App\PushSubscriptionController@update');
 	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
 	Route::get('/perfil','App\ProfileController@index')->name('profile');
+	Route::get('/meus-jogos','App\TeacherGameController@index')->name('my-games');
 
 	if (config('app.env') == 'local') {
 		Route::get('/teste','App\TestController@index');

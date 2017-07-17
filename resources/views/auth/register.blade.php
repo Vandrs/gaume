@@ -244,7 +244,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-xs-12 col-md-8 col-md-offset-2 margin-top-10">
                                 <span class="form-title">@lang('site.terms.title')</span> <br />

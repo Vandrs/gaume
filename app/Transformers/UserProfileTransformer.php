@@ -23,7 +23,8 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 				'id'   => $user->role->id,
 				'name' => $user->role->role
 			],
-			'address' => $this->getAddress($user)
+			'address' => $this->getAddress($user),
+			'bankAccount' => $this->getBankAccount($user),
 		];
 	}
 
@@ -41,6 +42,19 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 				"complement" => $address->complement,
 			];
 		}
-		return [];
+		return null;
+	}
+
+	private function getBankAccount(User $user)
+	{
+		if ($user->bankAccount) {
+			return [
+				'bank'    => $user->bankAccount->bank,
+				'agency'  => $user->bankAccount->agency,
+				'account' => $user->bankAccount->account,
+				'digit'   =>  $user->bankAccount->digit
+			];
+		} 
+		return null;
 	}
 }

@@ -23,6 +23,7 @@ return [
 		'my_lessons' => 'Minhas aulas',
 		'profile' => 'Perfil',
 		'games' => 'Jogos',
+		'my-games' => 'Meus Jogos',
 		'users' => 'Usuários',
 		'pre_registration' => 'Pré Cadastro'
 	],

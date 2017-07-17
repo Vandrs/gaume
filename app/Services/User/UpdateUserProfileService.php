@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Exceptions\ValidationException;
 use App\Services\Service;
 use App\Services\Location\UpdateAddressService;
+use App\Services\BankAccount\SaveBankAccountService;
 use Illuminate\Validation\Rule;
 
 class UpdateUserProfileService extends Service
@@ -29,9 +30,20 @@ class UpdateUserProfileService extends Service
 			$addressData = isset($data['address']) ? $data['address'] : null;
 			$addresService = new UpdateAddressService();
 			$addresService->update($user->address, $addressData);
+
+
+			if ($user->bankAccount) {
+				$bankAccountService = new SaveBankAccountService();
+				$bankData = isset($data['bankAccount']) ? $data['bankAccount'] : [];
+				$bankAccountService->update($user->bankAccount, $bankData);
+			}
+
 		} catch (ValidationException $e) {
 			$this->validator->messages()->merge($addresService->getValidator()->messages());	
-			throw new ValidationException;
+			if (isset($bankAccountService)) {
+				$this->validator->messages()->merge($bankAccountService->getValidator()->messages());	
+			}
+			throw $e;
 		}
 	}
 

@@ -10,7 +10,6 @@ function readImageURL(input, target) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-        	console.log(e.target.result);
         	var html = "<img src="+e.target.result+" title='imagem de perfil' alt='imagem de perfil' />";
         	$(target).html(html);
         }
@@ -22,6 +21,9 @@ $(document).ready(function () {
 
 	$("#cpf").mask('000.000.000-00',{reverse:true});
 	$("#zipcode").mask('00000-000');
+	$("#agency").mask('00000000000000000000');
+	$("#account").mask('00000000000000000000');
+	$("#digit").mask('00');
 
 	$("#birth_date_text").datepicker({
 		format: 'dd/mm/yyyy',
