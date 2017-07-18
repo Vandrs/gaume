@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 	#User 
 	Route::get('/me','UserController@getMe');
+	Route::get('/me/games','TeacherGameController@get');
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
 

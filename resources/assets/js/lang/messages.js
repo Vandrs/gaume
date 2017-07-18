@@ -103,6 +103,9 @@ var Messages = {
 			},
 			platforms: 'Plataformas'
 		},
+		teacher_game: {
+			skill_descripion: 'Descreva seu estilo de jogo e principais habilidades'
+		},
 		pre_registration: {
 			create_success: 'Pré cadastro criado com sucesso!',
 			update_success: 'Pré cadastro alterado com sucesso!',
