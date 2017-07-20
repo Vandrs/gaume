@@ -7,9 +7,12 @@ use App\Models\TeacherGame;
 
 class GetTeacherGameService
 {
-	public static function getAll(User $user)
+	public static function getAll(User $user = null)
 	{
-		return TeacherGame::with(['game','teacherGamePlatforms.platform'])
-						  ->get();		
+		$query = TeacherGame::with(['game','teacherGamePlatforms.platform']);
+		if ($user) {
+			$query->where('teacher_id', $user->id);
+		}
+		return $query->get();		
 	}
 }

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Transformers\ApiItemSerializer;
 use	App\Transformers\TeacherGameTransformer;
 use App\Services\TeacherGame\GetTeacherGameService;
+use App\Services\TeacherGame\UpdateTeacherGameService;
 use Log;
+use DB;
 use League\Fractal;
 
 class TeacherGameController extends RestController
@@ -26,6 +28,27 @@ class TeacherGameController extends RestController
 		} catch (ModelNotFoundException $e) {
 			return $this->notFound();
 		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function update(Request $request)
+	{
+		try {
+			DB::beginTransaction();
+			$service = new UpdateTeacherGameService();
+			$service->update($request->user(), $request->all());
+			DB::commit();
+			return $this->success();
+		} catch (ValidationException $e) {
+			DB::rollback();
+			$errors = $service->getValidator()->errors()->jsonSerialize();
+			Log::error($e->getMessage().': '.json_encode($errors));
+			return $this->badRequest($errors);
+		} catch (\Exception $e) {
+			DB::rollback();
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
 			return $this->internalError();

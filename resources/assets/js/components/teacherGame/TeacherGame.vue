@@ -28,6 +28,34 @@
 								  		window.app.$emit('app:show-alert', errors, "danger");
 								  		window.scrollTo(0,0);	
 								   });
+			},
+			save: function(evt) {
+				evt.preventDefault();
+				TeacherGameProvider.update(this.teacherGames)
+								   .then((response) => {
+								   		this.getGames();
+								   		window.app.isLoading = false;
+								   		var locale = this.$i18n.locale;
+										var msg = this.$i18n.messages[locale].game.multiple_update_success;
+										window.app.$emit('app:show-alert', [msg], "success");
+										window.scrollTo(0,0);
+								   })
+								   .catch((error) => {
+								   		window.app.isLoading = false;
+								   		if (error.status == 400) {
+								   			var locale = this.$i18n.locale;
+											var msg = this.$i18n.messages[locale].game.generic_game_error;
+											window.app.$emit('app:show-alert', [msg], "danger");
+								   		} else {
+								   			var response = error.response;
+								   			var errors = AppErrorBag.parseErrors(
+									  				response.status,
+									  				response.data
+									  			);
+								  			window.app.$emit('app:show-alert', errors, "danger");	
+								   		}
+								  		window.scrollTo(0,0);	
+								   });
 			}
 		}
 	};
@@ -58,6 +86,11 @@
 					</div>	
 				</div>
 			</div>
+			<div class="row margin-top-10">
+        		<div class="col-xs-12 text-left">
+        			<button type="button" class="btn btn-primary" v-on:click="save"><i class="glyphicon glyphicon-floppy-disk"></i> {{$t('buttons.save')}}</button>
+        		</div>
+        	</div>
 		</div>
 	</div>
 </template>

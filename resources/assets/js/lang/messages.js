@@ -97,11 +97,13 @@ var Messages = {
 			create_success : 'Jogo criado com sucesso!',
 			update_success : 'Jogo atualizado com sucesso!',
 			delete_success : 'Jogo excluído com sucesso!',
+			multiple_update_success : 'Jogos atualizados com sucesso!',
 			status_values: {
 				0: 'Inativo',
 				1: 'Ativo'
 			},
-			platforms: 'Plataformas'
+			platforms: 'Plataformas',
+			generic_game_error: 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário'
 		},
 		teacher_game: {
 			skill_descripion: 'Descreva seu estilo de jogo e principais habilidades'
