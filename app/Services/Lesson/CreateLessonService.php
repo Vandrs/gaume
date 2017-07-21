@@ -85,11 +85,9 @@ class CreateLessonService extends Service
 	private function createValidation()
 	{
 		return [
-			'teacher_id' => [
-				'required',
-				'integer',
-				Rule::exists('users','id')->where('role_id', EnumRole::TEACHER_ID)
-			]
+			'teacher_id'  => ['required', 'integer', Rule::exists('users','id')->where('role_id', EnumRole::TEACHER_ID)],
+			'game_id' 	  => ['required', 'integer', Rule::exists('games','id')->whereNull('deleted_at')],
+			'platform_id' => ['required', 'integer', Rule::exists('platforms','id')->whereNull('deleted_at')],
 		];
 	}
 

@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::put('/me/games','TeacherGameController@update');
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
+	Route::get('/teacher/games/{id}','TeacherGameController@getGamesForLesson');
 
 	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
 		#Game Admin

@@ -8,8 +8,8 @@ var LessonProvider = {
 		return axios.get('/api/lessons',{"params":params});
 	},
 
-	create: function (teacherId) {
-		return axios.post('/api/lessons',{'teacher_id': teacherId});
+	create: function (data) {
+		return axios.post('/api/lessons', data);
 	},
 
 	confirm: function (lessonId, confirm) {

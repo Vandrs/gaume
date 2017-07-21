@@ -18,11 +18,14 @@ var Messages = {
 			select: "Selecione",
 			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente.",
 			games: 'Jogos',
+			game: 'Jogo',
 			created_at: 'Data de cadastro'
 		},
 		modal : {
 			warning: "Atenção",
 			okText: "Sim",
+			confirmText: "Confirmar",
+			cancel2Text: "Cancelar",
 			cancelText: "Não",
 			classMessages : {
 				confirmStartClass: "Deseja mesmo iniciar a aula?",
@@ -103,10 +106,13 @@ var Messages = {
 				1: 'Ativo'
 			},
 			platforms: 'Plataformas',
+			platform: 'Plataforma',
 			generic_game_error: 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário'
 		},
 		teacher_game: {
-			skill_descripion: 'Descreva seu estilo de jogo e principais habilidades'
+			skill_descripion: 'Descreva seu estilo de jogo e principais habilidades',
+			no_game_available: 'O Professor não possui jogos cadastrados no momento!',
+			select_game_platform: 'Por favor selecione o Jogo e a Plataforma'
 		},
 		pre_registration: {
 			create_success: 'Pré cadastro criado com sucesso!',

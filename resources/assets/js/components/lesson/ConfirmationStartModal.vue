@@ -1,21 +1,27 @@
 <script> 
 	import { Modal } from 'uiv';
 	import { LessonProvider } from '../../providers/lessonProvider';
+	import { TeacherGameProvider } from '../../providers/teacherGameProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	export default  {
 		components: { Modal },
 		data () {
 			return {
 				showModal: false,
-				teacherId: null
+				teacherId: null,
+				selectedGame: null,
+				selectedPlatform: null,
+				games: [],
+				platforms: [],
+				errorsMsg: []
 			}
 		},
 		created () {
 			var self = this;
 			setTimeout(function(){
 				window.app.$on('app:start-confirmation-modal', function (teacherId) {
-					self.toggleModal();
 					self.teacherId = teacherId;
+					self.toggleModal();
 				});
 			},1000);
 		},
@@ -23,7 +29,12 @@
 			dismissCallback: function(msg) {
 				if (msg == 'ok') {
 					window.app.isLoading = true;
-					LessonProvider.create(this.teacherId)
+					var data = {
+						teacher_id: this.teacherId,
+						game_id: this.selectedGame,
+						platform_id: this.selectedPlatform
+					};
+					LessonProvider.create(data)
 								  .then((response) => {
 								  		window.app.isLoading = false;
 								  		window.location.href = window.Laravel.baseUrl+"/app/aula/"+response.data.id;
@@ -37,20 +48,97 @@
 								  		window.app.$emit('app:show-alert', errors, "danger");
 								  });
 				}
-				this.teacherId = null;
+				this.clean();
 			},
 			toggleModal: function() {
-				this.showModal = (!this.showModal) ? true : false;
+				if (!this.showModal) {
+					window.app.isLoading = true;
+					TeacherGameProvider.getLessonGames(this.teacherId)
+									   .then((response) => {
+									   		window.app.isLoading = false;
+									   		this.games = response.data;
+									   		this.showModal = true;
+									   })
+									   .catch((error) => {
+									   		window.app.isLoading = false;
+								  			var errors = AppErrorBag.parseErrors(
+								  				error.response.status,
+								  				error.response.data
+								  			);
+								  			window.app.$emit('app:show-alert', errors, "danger");
+									   });
+				} else {
+					this.showModal = false;
+					this.clean();					
+				}
+			},
+			clean: function () {
+				this.errorsMsg = [];
+				this.games = [];
+				this.platforms = [];
+				this.selectedGame = null;
+				this.selectedPlatform = null;
+				this.teacherId = null;
+			},
+			showPlatformOptions: function() {
+				for (var game of this.games) {
+					if (game.id == this.selectedGame) {
+						this.platforms = game.platforms;
+					}
+				}
 			}	
 		}
 	}
 </script>
 <template>
 	<div>
-		<modal  v-model="showModal" :title="$t('modal.warning')" v-on:hide="dismissCallback" :ok-text="$t('modal.okText')" :cancel-text="$t('modal.cancelText')" >
+		<modal  v-model="showModal" :title="$t('modal.warning')" v-on:hide="dismissCallback" :ok-text="$t('modal.confirmText')" :cancel-text="$t('modal.cancel2Text')" >
 			<div slot="default">
-				{{$t('modal.classMessages.confirmStartClass')}}
+				<div v-if="errorsMsg.length" class="row">
+					<div class="col-xs-12">
+						<div class="alert alert-danger">
+							<ul class="list-alert-messages">
+	            				<li v-for="message in errorsMsg ">{{message}}</li>
+	            			</ul>
+						</div>
+					</div>
+				</div>
+				<div class="row margin-top-10">
+					<div class="col-xs-12">
+						{{$t('teacher_game.select_game_platform')}}
+					</div>
+				</div>
+				<div v-if="games.length" class="row margin-top-10">
+					<div class="col-xs-12">
+						<label for="lesson_game">{{$t('app.game')}}</label>
+						<select class="form-control" id="lesson_game" name="lesson_game" v-model="selectedGame" v-on:change="showPlatformOptions">
+							<option value="">{{$t('app.select')}}</option>
+							<option v-for="game of games" :value="game.id">{{game.game}}</option>
+						</select>
+					</div>
+				</div>
+				<div v-else class="row">
+					<div class="col-xs-12">
+						{{$t('teacher_game.no_game_available')}}
+					</div>
+				</div>
+				<div v-if="selectedGame" class="row">
+					<div class="col-xs-12">
+						<label>{{$t('game.platform')}}</label>
+					</div>
+					<div class="col-xs-12">
+						<label v-for="platform of platforms" class="radio-inline">
+							<input type="radio" name="platform" v-model="selectedPlatform" :value="platform.id">{{platform.platform}}
+						</label>
+					</div>
+				</div>
 			</div>
 		</modal>
 	</div>
 </template>
+<style scoped="true">
+	ul.list-alert-messages {
+		list-style: none;
+	    padding-left: 0px;
+	}
+</style>
