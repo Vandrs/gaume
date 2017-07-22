@@ -7,7 +7,7 @@ var AppErrorBag = {
 		if (arrStatus.indexOf(status) >= 0) {
 			return [data.msg];
 		} else if (status == 400) {
-			return data.erros;
+			return data.errors;
 		}
 		return null;
 	}

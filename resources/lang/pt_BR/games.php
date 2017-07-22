@@ -5,7 +5,8 @@ return [
 	],
 	'add_new_game' => 'Cadastrar Novo Jogo',
 	'edit_game' => 'Editar Jogo',
-
+	'game' => 'Jogo',
+	'platform' => 'Plataforma',
 	'messages' => [
 		'status' => 'Informe se o jogo está ou não ativo.',
 		'update_success' => 'Jogo atualizado com sucesso!',

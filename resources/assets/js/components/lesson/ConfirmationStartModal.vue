@@ -12,8 +12,7 @@
 				selectedGame: null,
 				selectedPlatform: null,
 				games: [],
-				platforms: [],
-				errorsMsg: []
+				platforms: []
 			}
 		},
 		created () {
@@ -73,7 +72,6 @@
 				}
 			},
 			clean: function () {
-				this.errorsMsg = [];
 				this.games = [];
 				this.platforms = [];
 				this.selectedGame = null;
@@ -94,15 +92,6 @@
 	<div>
 		<modal  v-model="showModal" :title="$t('modal.warning')" v-on:hide="dismissCallback" :ok-text="$t('modal.confirmText')" :cancel-text="$t('modal.cancel2Text')" >
 			<div slot="default">
-				<div v-if="errorsMsg.length" class="row">
-					<div class="col-xs-12">
-						<div class="alert alert-danger">
-							<ul class="list-alert-messages">
-	            				<li v-for="message in errorsMsg ">{{message}}</li>
-	            			</ul>
-						</div>
-					</div>
-				</div>
 				<div class="row margin-top-10">
 					<div class="col-xs-12">
 						{{$t('teacher_game.select_game_platform')}}
@@ -122,7 +111,7 @@
 						{{$t('teacher_game.no_game_available')}}
 					</div>
 				</div>
-				<div v-if="selectedGame" class="row">
+				<div v-if="selectedGame" class="row margin-top-10">
 					<div class="col-xs-12">
 						<label>{{$t('game.platform')}}</label>
 					</div>
@@ -136,9 +125,3 @@
 		</modal>
 	</div>
 </template>
-<style scoped="true">
-	ul.list-alert-messages {
-		list-style: none;
-	    padding-left: 0px;
-	}
-</style>

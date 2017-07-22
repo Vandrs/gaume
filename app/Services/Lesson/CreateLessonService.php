@@ -43,9 +43,11 @@ class CreateLessonService extends Service
 		}
 
 		$lesson = Lesson::create([
-			'teacher_id' => $data['teacher_id'],
-			'student_id' => $student->id,
-			'status'	 => EnumLessonStatus::PENDING
+			'teacher_id'  => $data['teacher_id'],
+			'student_id'  => $student->id,
+			'game_id'	  => $data['game_id'],
+			'platform_id' => $data['platform_id'],
+			'status'	  => EnumLessonStatus::PENDING
 		]);
 
 		$this->dispatchJobCheckPendingJob($lesson);		
@@ -103,7 +105,9 @@ class CreateLessonService extends Service
 		return [
 			'teacher_id.required' => __('validation.required',['attribute' => 'teacher_id']),
 			'teacher_id.integer'  => __('validation.integer',['attribute' => 'teacher_id']),
-			'teacher_id.exists'   => __('validation.custom.is_not_teacher')
+			'teacher_id.exists'   => __('validation.custom.is_not_teacher'),
+			'game_id.required'	  => __('validation.required',['attribute' => __('games.game')]),
+			'platform_id.required' => __('validation.required',['attribute' => __('games.platform')])
 		];	
 	}
 

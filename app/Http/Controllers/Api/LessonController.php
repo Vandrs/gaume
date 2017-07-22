@@ -31,7 +31,7 @@ class LessonController extends RestController
 				throw new AuthorizationException('Acesso Negado!!!');
 			}
 			$lessonService = new CreateLessonService();
-			$lesson = $lessonService->create($request->user(), $request->only(['teacher_id']));
+			$lesson = $lessonService->create($request->user(), $request->all());
 			DB::commit();
 			return $this->created($lesson->id);
 		} catch (AuthorizationException $e) {
