@@ -29,7 +29,8 @@ class CreateGameService extends Service
 		]);
 		try {
 			$photoUploadService = new GamePhotoUploadService();
-			$game = $photoUploadService->uploadPhoto($game, $data['photo']);
+			$photo = isset($data['photo']) ? $data['photo'] : null;
+			$game = $photoUploadService->uploadPhoto($game, $photo);
 			$gamePlatformService = new SaveGamePlatformService();
 			$gamePlatformService->save($game, $data['platforms']);
 			return $game;
@@ -38,7 +39,7 @@ class CreateGameService extends Service
 			if (isset($gamePlatformService)) {
 				$this->validator->messages()->merge($gamePlatformService->getValidator()->messages());	
 			}
-			throw new ValidationException;
+			throw $e;
 		}
 	}
 

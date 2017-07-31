@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Transformers\GameTransformer;
 use App\Transformers\ApiItemSerializer;
+use App\Transformers\GameAvailableTransformer;
 use League\Fractal;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use Log;
@@ -108,7 +109,22 @@ class GameAdminController extends RestController
 			Log::error($e->getMessage());
 			return $this->notFound();
 		} catch (\Exception $e) {
-			DB::rollback();
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function getAvailables()
+	{
+		try {
+			$games = GetAllGameAdminService::getAllAvailablesWithPlatform();
+			$fractal = new Fractal\Manager();
+			$fractal->setSerializer(new ApiItemSerializer);
+			$item = new Fractal\Resource\Collection($games, new GameAvailableTransformer);
+			$data = $fractal->createData($item)->toArray(); 
+			return $this->success($data);
+		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
 			return $this->internalError();
@@ -118,12 +134,15 @@ class GameAdminController extends RestController
 	public function delete(Request $request, $id) 
 	{
 		try {
+			DB::beginTransaction();
 			$service = new GetGameService();
 			$game = $service->get($id);
 			$deleteService = new DeleteGameService();
 			$deleteService->delete($game);
+			DB::commit();
 			return $this->success(['msg' => __('games.messages.delete_success')]);
 		} catch (ModelNotFoundException $e) {
+			DB::rollback();
 			Log::error($e->getMessage());
 			return $this->notFound();
 		} catch (\Exception $e) {
@@ -137,8 +156,7 @@ class GameAdminController extends RestController
 	public function list(Request $request)
 	{
 		try {
-			$gameService = new GetAllGameAdminService();
-			$gamesPaginator = $gameService->getAll($request->all());
+			$gamesPaginator = GetAllGameAdminService::getAll($request->all());
 			$paginatorAdapter = new IlluminatePaginatorAdapter($gamesPaginator);
 			$fractal = new Fractal\Manager();
 			$items = new Fractal\Resource\Collection($gamesPaginator->getCollection(), new GameTransformer);

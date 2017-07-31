@@ -23,3 +23,4 @@ php artisan db:seed --class=PlatformsTableSeeder
 npm run dev
 
 php artisan queue:work database --queue=lessons
+php artisan queue:work database --queue=email

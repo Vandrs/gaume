@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "v-autocomplete": "^1.2.0",
+    "v-mask": "^1.3.0",
     "vuedals": "^1.2.0"
   }
 }

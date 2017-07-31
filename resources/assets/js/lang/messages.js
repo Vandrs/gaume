@@ -16,11 +16,16 @@ var Messages = {
 			view: "Visualizar",
 			search: "Pesquisar",
 			select: "Selecione",
-			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente."
+			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente.",
+			games: 'Jogos',
+			game: 'Jogo',
+			created_at: 'Data de cadastro'
 		},
 		modal : {
 			warning: "Atenção",
 			okText: "Sim",
+			confirmText: "Confirmar",
+			cancel2Text: "Cancelar",
 			cancelText: "Não",
 			classMessages : {
 				confirmStartClass: "Deseja mesmo iniciar a aula?",
@@ -76,7 +81,15 @@ var Messages = {
 			complement: 'Complemento',
 			profile_image: 'Imagem de Perfil',
 			address: 'Informações sobre o seu endereço',
-			updateSucces: 'Perfil alterado com sucesso!'
+			updateSucces: 'Perfil alterado com sucesso!',
+			zipcode: 'CEP',
+			zipcode_not_found: 'CEP não encontrato',
+			bank_info: 'Informações de Pagamento',
+			bank_info_help: 'Estas informações serão utilizadas para que possamos fazer os pagamentos regerentes as aulas. O CPF do títular desta conta deve ser o mesmo que informado acima.',
+			bank: 'Banco',
+			agency: 'Agência',
+			account: 'Conta Corrente',
+			digit: 'Dígito',			
 		},
 		game: {
 			title: 'Título',
@@ -87,11 +100,25 @@ var Messages = {
 			create_success : 'Jogo criado com sucesso!',
 			update_success : 'Jogo atualizado com sucesso!',
 			delete_success : 'Jogo excluído com sucesso!',
+			multiple_update_success : 'Jogos atualizados com sucesso!',
 			status_values: {
 				0: 'Inativo',
 				1: 'Ativo'
 			},
-			platforms: 'Plataformas'
+			platforms: 'Plataformas',
+			platform: 'Plataforma',
+			generic_game_error: 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário'
+		},
+		teacher_game: {
+			skill_descripion: 'Descreva seu estilo de jogo e principais habilidades',
+			no_game_available: 'O Professor não possui jogos cadastrados no momento!',
+			select_game_platform: 'Por favor selecione o Jogo e a Plataforma'
+		},
+		pre_registration: {
+			create_success: 'Pré cadastro criado com sucesso!',
+			update_success: 'Pré cadastro alterado com sucesso!',
+			mailed_at: 'E-mail de cadastro enviado em',
+			resend_email: 'Reenviar e-mail'
 		},
 		buttons: {
 			edit: 'Editar',

@@ -3,6 +3,7 @@
 return [
 	'registration' => [
 		'register' => 'Cadastro',
+		'register_teacher' => 'Cadastro de Novo Treinador',
 		'name' => 'Nome',
 		'email' => 'E-mail',
 		'password' => 'Senha',
@@ -19,6 +20,8 @@ return [
 		'public_information_help' => 'Todos os usuários poderão ver estas informações',
 		'private_information_help' => 'Estas informações <b> não </b> estarão disponíveis para outros usuários',
 		'private_information' => 'Informações privadas',
+		'game_information' => 'Descreva as informações sobre os jogos que você irá ser treinador',
+		'games' => 'Jogos',
 		'profile_photo' => 'Foto de perfil',
 		'birth_date' => 'Data de nascimento',
 		'state' => 'Estado',
@@ -29,6 +32,16 @@ return [
 		'complement' => 'Complemento',
 		'profile_image' => 'Imagem de Perfil',
 		'ok' => 'Entendi',
+		'zipcode' => 'CEP',
+		'skill_descripion' => 'Descreva seu estilo de jogo e principais habilidades',
+		'bank_info' => 'Informações de Pagamento',
+		'bank_info_help' => 'Estas informações serão utilizadas para que possamos fazer os pagamentos regerentes as aulas. O CPF do títular desta conta deve ser o mesmo que informado acima.',
+		'bank' => 'Banco',
+		'agency' => 'Agência',
+		'account' => "Conta Corrente",
+		'digit' => 'Dígito',
+		'generic_game_error' => 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário',
+		'game_description' => 'Preencha  sua descrição de perfil para todos os jogos presentes no formulário'
 	],
 	'buttons' => [
 		'send' => 'Enviar',

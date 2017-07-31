@@ -31,7 +31,7 @@ class UpdateGameService extends Service
 			$gamePlatformService->save($game, $data['platforms']);
 		} catch (ValidationException $e) {
 			$this->validator->messages()->merge($gamePlatformService->getValidator()->messages());
-			throw new ValidationException;
+			throw $e;
 		}
 	}
 

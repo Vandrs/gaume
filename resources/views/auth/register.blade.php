@@ -12,7 +12,7 @@
                         <input type="hidden" name="role_id" value="{{EnumRole::STUDENT_ID}}">
 
                         <div class="row">
-                        @include('partials.flash-error-container');
+                        @include('partials.flash-error-container')
                         @if($errors->any())
                         <div class="col-xs-12 col-md-8 col-md-offset-2">
                             <div class="alert alert-danger">
@@ -166,14 +166,15 @@
 
                         <div class="row">
                             <div class="col-xs-12 col-md-3 col-md-offset-2">
+                                <div class="form-group{{$errors->has('zipcode') ? ' has-error' : '' }}">
+                                    <label for="zipcode" class="control-label">@lang('site.registration.zipcode')*</label>
+                                    <input type="text" name="zipcode" id="zipcode" value="{{old('zipcode')}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-2">
                                 <div class="form-group{{$errors->has('state') ? ' has-error' : '' }}">
                                     <label for="state" class="control-label">@lang('site.registration.state')*</label>
-                                    <select id="state" type="state" class="form-control" name="state" >
-                                        <option value="">@lang('site.buttons.select')</option>
-                                        @foreach($states as $state)
-                                        <option value="{{$state->uf}}" {{$state->uf == old('state') ? 'selected' : ''}}>{{$state->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" name="state" id="state" value="{{old('state')}}" class="form-control" readonly="">
                                     @if ($errors->has('state'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('state') }}</strong>
@@ -181,11 +182,10 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-md-5">
+                            <div class="col-xs-12 col-md-3">
                                 <div class="form-group{{$errors->has('city') ? ' has-error' : '' }}">
-                                    <label for="city_name" class="control-label">@lang('site.registration.city')*</label>
-                                    <input id="city_name" type="text" name="city_name" value="{{old('city_name')}}" class="form-control" autocomplete="off">
-                                    <input id="city" type="hidden" name="city" value="{{old('city')}}" class="form-control">
+                                    <label for="city" class="control-label">@lang('site.registration.city')*</label>
+                                    <input id="city" type="text" name="city" value="{{old('city')}}" class="form-control" readonly="">
                                     @if ($errors->has('city'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('city') }}</strong>
@@ -199,8 +199,7 @@
                             <div class="col-xs-12 col-md-4 col-md-offset-2">
                                 <div class="form-group{{$errors->has('neighborhood') ? ' has-error' : '' }}">
                                     <label for="neighborhood_name" class="control-label">@lang('site.registration.neighborhood')*</label>
-                                    <input id="neighborhood_name" type="text" name="neighborhood_name" value="{{old('neighborhood_name')}}" class="form-control" autocomplete="off">
-                                    <input id="neighborhood" type="hidden" name="neighborhood" value="{{old('neighborhood')}}" class="form-control">
+                                    <input id="neighborhood" type="text" name="neighborhood" value="{{old('neighborhood')}}" class="form-control" readonly="">
                                     @if ($errors->has('neighborhood'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('neighborhood') }}</strong>
@@ -245,7 +244,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-xs-12 col-md-8 col-md-offset-2 margin-top-10">
                                 <span class="form-title">@lang('site.terms.title')</span> <br />

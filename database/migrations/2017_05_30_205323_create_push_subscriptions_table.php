@@ -20,7 +20,6 @@ class CreatePushSubscriptionsTable extends Migration
             $table->string('public_key')->nullable();
             $table->string('auth_token')->nullable();
             $table->timestamps();
-
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')

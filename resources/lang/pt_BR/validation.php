@@ -87,6 +87,7 @@ return [
     'url'                  => 'O campo :attribute possui um formato inválido.',
     'cpf' => 'CPF inválido',
     'cnpj' => 'CNPJ inválido',
+    'cep' => 'CEP inválido',
 
     'attributes' => [],
 
@@ -95,7 +96,7 @@ return [
         'class_confirmation_expired' => "Prazo para confirmação da aula expirado.",
         'terms' => 'Você precisa aceitar os termos de usa para prosseguir',
         'min_age' => 'Você deve ser maior de :age anos para se registrar',
-        'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.'
+        'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.'        
     ],
 
     'dimension_min' => ':attribute deve ser no míminio :width de largura por :height de altura'

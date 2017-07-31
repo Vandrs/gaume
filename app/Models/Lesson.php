@@ -13,7 +13,7 @@ class Lesson extends Model
 	];
 
 	protected $fillable = [
-		'teacher_id', 'student_id', 'status'
+		'teacher_id', 'student_id', 'status', 'game_id', 'platform_id'
 	];
 
 	protected $dates = [

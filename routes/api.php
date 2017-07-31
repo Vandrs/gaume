@@ -27,23 +27,32 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 	#User 
 	Route::get('/me','UserController@getMe');
+	Route::get('/me/games','TeacherGameController@get');
+	Route::put('/me/games','TeacherGameController@update');
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
+	Route::get('/teacher/games/{id}','TeacherGameController@getGamesForLesson');
 
 	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
 		#Game Admin
 		Route::post('/game','GameAdminController@create');
 		Route::get('/game/{id}','GameAdminController@get');
 		Route::get('/games','GameAdminController@list');
+		Route::get('/games/availables','GameAdminController@getAvailables');
 		Route::put('/game/{id}','GameAdminController@update');
 		Route::delete('/game/{id}','GameAdminController@delete');
 		Route::post('/game/{id}/photo','GameAdminController@updatePhoto');
+
+		# Teacher Admin
+		Route::post('/users/teachers/pre-registration','PreRegistrationController@create');
+		Route::get('/users/teachers/pre-registration','PreRegistrationController@getAll');
+		Route::get('/users/teachers/pre-registration/{id}','PreRegistrationController@get');
+		Route::put('/users/teachers/pre-registration/{id}','PreRegistrationController@update');
+		Route::post('/users/teachers/pre-registration/{id}/send-email','PreRegistrationController@reSendRegistrationEmail');
 	});
 	
 });
 
 // Public routes
-Route::get('/states','LocationController@getStates');
-Route::get('/cities/{uf}','LocationController@getCitiesByStateUf');
-Route::get('/neighborhoods/{uf}','LocationController@getNeighborhoodsByStateUf');
+Route::get('/address/{cep}','LocationController@getAddressByCep');
 Route::get('/platforms','PlatformController@getAll');

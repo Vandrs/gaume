@@ -8,6 +8,7 @@ use Laravel\Passport\HasApiTokens;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use App\Models\Role;
 use App\Models\Address;
+use App\Models\BankAccount;
 use Storage;
 
 class User extends Authenticatable
@@ -15,7 +16,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable, HasPushSubscriptions;
 
     protected $fillable = [
-        'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile', 'role_id'
+        'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile', 'role_id', 'status'
     ];
 
     protected $dates = [
@@ -51,6 +52,11 @@ class User extends Authenticatable
         if ($this->photo_profile) {
             return Storage::disk('public')->url($this->photo_profile);
         }
+    }
+
+    public function bankAccount()
+    {
+        return $this->hasOne(BankAccount::class);
     }
 
 }

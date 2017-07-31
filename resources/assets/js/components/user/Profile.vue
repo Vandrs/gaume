@@ -1,10 +1,10 @@
 <script>
 	import { UserProvider } from '../../providers/userProvider';
-	import { StateProvider } from '../../providers/stateProvider';
-	import { CityProvider } from '../../providers/cityProvider';
-	import { NeighborhoodProvider } from '../../providers/neighborhoodProvider';
+	import { LocationProvider } from '../../providers/locationProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
-	import AutocompleteTemplate from '../shared/AutocompleteTemplate'
+	import VueMask from 'v-mask'
+	Vue.use(VueMask);
+	
 	export default {
 		data() {
 			return { 
@@ -17,18 +17,11 @@
 					states: [],
 					cities: [],
 					neighborhoods: [],
-				},
-				selecteds: {
-					state_id: null,
-					city: null,
-					neighborhood: null
-				},
-				itemTemplate: AutocompleteTemplate
+				}
 			}
 		},
 		mounted() {
 			this.getUser();
-			this.getStates();
 		},
 		computed: {
 			cpf: function() {
@@ -53,58 +46,14 @@
 			getUser: function () {	
 				UserProvider.me().then((userResponse) => {
 					this.user = userResponse.data;
-					setTimeout(() => {
-						this.selecteds.state_id = this.user.address.state.id;
-						this.selecteds.city = this.user.address.city;
-						this.selecteds.neighborhood = this.user.address.neighborhood;
-					}, 500);
-
 				});	
-			},
-			getStates: function () {
-				StateProvider.list().then((response) => {
-					this.location.states = response.data;	
-				});
-			},
-			getCities: function (text) {
-				CityProvider.list(this.user.address.state.uf, {"q":text})
-						    .then((response) => {
-								this.location.cities = response.data;
-							});
-			},
-			getNeighborhoods: function (text) {
-				NeighborhoodProvider.list(this.user.address.state.uf, {"q":text})
-									.then((response) => {
-										this.location.neighborhoods = response.data;
-									});
-			},
-			getLocationLabel: function (item) {
-				return item.name;
-			},
- 			setSelectedState: function (ev) {
-				for (var state of this.location.states) {
-					if (state.id == ev.target.value) {
-						this.user.address.state = state;
-						break;
-					}
-				}
-				this.selecteds.city = {};
-				this.selecteds.neighborhood = {};
-			},
-			cityHasUpdated: function (item){
-				if (this.user.address.city && item && (item.id != this.user.address.city.id)) {
-					this.selecteds.neighborhood = {};
-				} else if (!item) {
-					this.selecteds.neighborhood = {};
-				}
 			},
 			submit: function (evt) {
 				evt.preventDefault();
 				this.errors = {};
 				window.app.isLoading = true;
 				window.app.$emit('app:close-alert');
-				var data = this.buildRequestData();
-				UserProvider.updateProfile(data)
+				UserProvider.updateProfile(this.user)
 							.then(response => {
 								window.app.isLoading = false;
 								window.app.$emit('app:show-alert', [response.data.msg], "success");
@@ -130,16 +79,27 @@
 								}
 							});
 			},
-			buildRequestData: function () {
-				return {
-					'nickname' : this.user.nickname, 
-					'email' : this.user.email,
-					'state' : (this.user.address ? this.user.address.state.id : null),  
-					'city' : (this.selecteds.city ? this.selecteds.city.id : null), 
-					'neighborhood' : (this.selecteds.neighborhood ? this.selecteds.neighborhood.id : null),
-					'street' : (this.user.address ? this.user.address.street : null),
-					'number' : (this.user.address ? this.user.address.number : null),
-					'complement' : (this.user.address ? this.user.address.complement : null) 
+			getLocation: function() {
+				this.user.address.state = null;
+				this.user.address.city = null;
+				this.user.address.neighborhood = null;
+				this.user.address.street = null;
+				this.user.address.number = null;
+				this.user.address.complement = null;
+
+				if (this.user.address.zipcode.length >= 9) {
+					LocationProvider.get(this.user.address.zipcode)
+								    .then((response) => {
+								    	var data = response.data;
+								    	this.user.address.state = data.state;
+								    	this.user.address.city = data.city;
+								    	this.user.address.neighborhood = data.neighborhood;
+								    })
+								    .catch((error) => {
+								    	var locale = this.$i18n.locale;
+										var msg = this.$i18n.messages[locale].profile.zipcode_not_found;
+										this.errors.zipcode = [msg];
+								    });
 				}
 			},
 			showPhotoSelection: function (event) {
@@ -273,24 +233,28 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-3 col-md-offset-2">
+            	<div class="col-xs-12 col-md-3 col-md-offset-2">
+                    <div class="form-group" v-bind:class="{'has-error' : errors.zipcode}">
+                        <label for="zipcode" class="control-label">{{$t('profile.zipcode')}}*</label>
+                        <input type="text" id="zipcode" name="zipcode" class="form-control" v-model="user.address.zipcode" v-on:change="getLocation" v-mask="'#####-###'">
+						<span v-if="errors.zipcode" class="help-block">
+	                        <strong>{{ errors.zipcode[0] }}</strong>
+	                    </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
                     <div class="form-group" v-bind:class="{'has-error' : errors.state}">
                         <label for="state" class="control-label">{{$t('profile.state')}}*</label>
-                        <select id="state" class="form-control" name="state" v-model="selecteds.state_id" v-on:change="setSelectedState">
-						  	<option v-for="state in location.states" :value="state.id">
-						    	{{ state.name }}
-						  	</option>
-						</select>
+                        <input type="text" id="state" name="state" class="form-control" v-model="user.address.state" readonly="">
 						<span v-if="errors.state" class="help-block">
 	                        <strong>{{ errors.state[0] }}</strong>
 	                    </span>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-5">
+                <div class="col-xs-12 col-md-3">
                     <div class="form-group" v-bind:class="{'has-error' : errors.city}">
-                        <label for="city_name" class="control-label">{{$t('profile.city')}}*</label>
-                        <v-autocomplete :items="location.cities" v-model="selecteds.city" :component-item="itemTemplate" :get-label="getLocationLabel" v-on:update-items="getCities" v-on:input="cityHasUpdated">
-  						</v-autocomplete>
+                        <label for="city" class="control-label">{{$t('profile.city')}}*</label>
+                        <input type="text" id="city" name="city" class="form-control" v-model="user.address.city" readonly="">
   						<span v-if="errors.city" class="help-block">
 	                        <strong>{{ errors.city[0] }}</strong>
 	                    </span>
@@ -300,9 +264,8 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4 col-md-offset-2">
                     <div class="form-group" v-bind:class="{'has-error' : errors.neighborhood}">
-                        <label for="neighborhood_name" class="control-label">{{$t('profile.neighborhood')}}*</label>
-                        <v-autocomplete :items="location.neighborhoods" v-model="selecteds.neighborhood" :component-item="itemTemplate" :get-label="getLocationLabel" v-on:update-items="getNeighborhoods">
-  						</v-autocomplete>
+                        <label for="neighborhood" class="control-label">{{$t('profile.neighborhood')}}*</label>
+                        <input type="text" id="neighborhood" name="neighborhood" class="form-control" v-model="user.address.neighborhood" readonly="">
   						<span v-if="errors.neighborhood" class="help-block">
 	                        <strong>{{ errors.neighborhood[0] }}</strong>
 	                    </span>
@@ -335,7 +298,60 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+
+            <div v-if="user.bankAccount">
+	            <div class="row margin-top-10">
+	                <div class="col-xs-12 col-md-8 col-md-offset-2">
+	                    <span class="form-title">{{$t('profile.bank_info')}}</span>
+	                    <span class="help-block">
+	                        {{$t('profile.bank_info_help')}}
+	                    </span>
+	                </div>
+	            </div>
+
+	            <div class="row">
+	                <div class="col-xs-12 col-md-4 col-md-offset-2" >
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.bank}">
+	                        <label for="bank">{{$t('profile.bank')}}*</label>
+	                        <input type="text" name="bank" id="bank" class="form-control" v-model="user.bankAccount.bank" maxlength="100">
+                            <span class="help-block" v-if="errors.bank">
+                                <strong>{{ errors.bank[0] }}</strong>
+                            </span>
+	                    </div>
+	                </div>
+	                <div class="col-xs-12 col-md-4" >
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.agency}">
+	                        <label for="bank">{{$t('profile.agency')}}*</label>
+	                        <input type="text" name="agency" id="agency" class="form-control" v-model="user.bankAccount.agency" maxlength="20">
+                            <span class="help-block" v-if="errors.agency">
+                                <strong>{{ errors.agency[0] }}</strong>
+                            </span>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-xs-12 col-md-4 col-md-offset-2">
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.account}">
+	                        <label for="account">{{$t('profile.account')}}*</label>
+	                        <input type="text" name="account" id="account" class="form-control" v-model="user.bankAccount.account" maxlength="20">
+	                        <span class="help-block" v-if="errors.account">
+	                            <strong>{{ errors.account[0] }}</strong>
+	                        </span>
+	                    </div>
+	                </div>
+	                <div class="col-xs-12 col-md-2" >
+	                    <div class="form-group" v-bind:class="{'has-error' : errors.digit}">
+	                        <label for="digit">{{$t('profile.digit')}}*</label>
+	                        <input type="text" name="digit" id="digit" class="form-control" v-model="user.bankAccount.digit" maxlength="2">
+                            <span class="help-block" v-if="errors.digit">
+                                <strong>{{ errors.digit[0] }}</strong>
+                            </span>
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+
+            <div class="row margin-top-10">
             	<div class="col-xs-12 col-md-8 col-md-offset-2">
             		<button type="button" id="submit" v-on:click="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> {{$t('buttons.save')}}</button>
             	</div>

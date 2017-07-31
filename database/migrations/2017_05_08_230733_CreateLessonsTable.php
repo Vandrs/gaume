@@ -18,7 +18,7 @@ class CreateLessonsTable extends Migration
             $table->unsignedInteger('teacher_id')->nullable(false);
             $table->unsignedInteger('student_id')->nullable(false);
             $table->smallInteger('status');
-            $table->dateTime('finished_at');
+            $table->dateTime('finished_at')->nullable(true)->default(null);
             $table->timestamps();
             $table->foreign('teacher_id')->references('id')->on('users');
             $table->foreign('student_id')->references('id')->on('users');
