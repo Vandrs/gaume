@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 214);
+/******/ 	return __webpack_require__(__webpack_require__.s = 224);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10329,7 +10329,7 @@ return jQuery;
 
 /***/ }),
 
-/***/ 161:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -10339,12 +10339,12 @@ return jQuery;
  */
 
 window.$ = window.jQuery = __webpack_require__(11);
-__webpack_require__(184);
-__webpack_require__(181);
+__webpack_require__(189);
+__webpack_require__(186);
 
 /***/ }),
 
-/***/ 177:
+/***/ 182:
 /***/ (function(module, exports) {
 
 !function (a) {
@@ -10353,7 +10353,7 @@ __webpack_require__(181);
 
 /***/ }),
 
-/***/ 178:
+/***/ 183:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -12197,7 +12197,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 179:
+/***/ 184:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -12800,7 +12800,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
 
 /***/ }),
 
-/***/ 180:
+/***/ 185:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13414,105 +13414,24 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ 181:
+/***/ 186:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_neighborhoodProvider__ = __webpack_require__(37);
-__webpack_require__(179);
-__webpack_require__(180);
-__webpack_require__(178);
-__webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_locationProvider__ = __webpack_require__(36);
+__webpack_require__(184);
+__webpack_require__(185);
+__webpack_require__(183);
+__webpack_require__(182);
 
 
-
-
-var CityAutoComplete = {
-	cityInput: null,
-	setup: function setup(cityInput, destInput, state) {
-		var _this = this;
-
-		this.cityInput = cityInput;
-		if (state) {
-			__WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__["a" /* CityProvider */].list(state).then(function (response) {
-				_this.cityInput.typeahead({
-					source: response.data,
-					autoSelect: true
-				});
-				_this.bindChange(destInput);
-			});
-		} else {
-			this.cityInput.typeahead({
-				source: {},
-				autoSelect: true
-			});
-			this.bindChange(destInput);
-		}
-	},
-	updateSource: function updateSource(data) {
-		this.cityInput.data('typeahead').source = data;
-	},
-	bindChange: function bindChange(destInput) {
-		var _this2 = this;
-
-		this.cityInput.on('change', function () {
-			var current = _this2.cityInput.typeahead("getActive");
-			if (current && current.name.toLowerCase() == _this2.cityInput.val().toLowerCase()) {
-				destInput.val(current.id);
-			} else {
-				destInput.val("");
-			}
-		});
-	}
-};
-
-var NeighborhoodAutoComplete = {
-	neighborhoodInput: null,
-	setup: function setup(neighborhoodInput, destInput, state) {
-		var _this3 = this;
-
-		this.neighborhoodInput = neighborhoodInput;
-		if (state) {
-			__WEBPACK_IMPORTED_MODULE_1__providers_neighborhoodProvider__["a" /* NeighborhoodProvider */].list(state).then(function (response) {
-				_this3.neighborhoodInput.typeahead({
-					source: response.data,
-					autoSelect: true
-				});
-				_this3.bindChange(destInput);
-			});
-		} else {
-			this.neighborhoodInput.typeahead({
-				source: {},
-				autoSelect: true
-			});
-			this.bindChange(destInput);
-		}
-	},
-	updateSource: function updateSource(data) {
-		this.neighborhoodInput.data('typeahead').source = data;
-	},
-	bindChange: function bindChange(destInput) {
-		var _this4 = this;
-
-		this.neighborhoodInput.on('change', function () {
-			var current = _this4.neighborhoodInput.typeahead("getActive");
-			if (current && current.name.toLowerCase() == _this4.neighborhoodInput.val().toLowerCase()) {
-				destInput.val(current.id);
-			} else {
-				destInput.val("");
-			}
-		});
-	}
-};
 
 function readImageURL(input, target) {
 	$(target).html("");
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function (e) {
-			console.log(e.target.result);
 			var html = "<img src=" + e.target.result + " title='imagem de perfil' alt='imagem de perfil' />";
 			$(target).html(html);
 		};
@@ -13523,6 +13442,10 @@ function readImageURL(input, target) {
 $(document).ready(function () {
 
 	$("#cpf").mask('000.000.000-00', { reverse: true });
+	$("#zipcode").mask('00000-000');
+	$("#agency").mask('00000000000000000000');
+	$("#account").mask('00000000000000000000');
+	$("#digit").mask('00');
 
 	$("#birth_date_text").datepicker({
 		format: 'dd/mm/yyyy',
@@ -13544,41 +13467,29 @@ $(document).ready(function () {
 		var data = $("#birth_date_text").datepicker('show');
 	});
 
-	var cityInput = $('#city_name');
-	var destCityInput = $('#city');
-	var stateInput = $('#state');
-	var neighborhoodInput = $("#neighborhood_name");
-	var destNeighborhoodInput = $("#neighborhood");
-
-	CityAutoComplete.setup(cityInput, destCityInput, stateInput.val());
-	NeighborhoodAutoComplete.setup(neighborhoodInput, destNeighborhoodInput, stateInput.val());
-
-	stateInput.on('change', function () {
-		cityInput.val("");
-		destCityInput.val("");
-		neighborhoodInput.val("");
-		destNeighborhoodInput.val("");
-
-		var selectedState = stateInput.val();
-
-		if (selectedState) {
-			__WEBPACK_IMPORTED_MODULE_0__providers_cityProvider__["a" /* CityProvider */].list(selectedState).then(function (response) {
-				CityAutoComplete.updateSource(response.data);
-			});
-			__WEBPACK_IMPORTED_MODULE_1__providers_neighborhoodProvider__["a" /* NeighborhoodProvider */].list(selectedState).then(function (response) {
-				NeighborhoodAutoComplete.updateSource(response.data);
-			});
-		}
-	});
-
 	$("#photo_profile").on('change', function () {
 		readImageURL(this, ".img-profile-content");
+	});
+
+	$("#zipcode").on('change', function () {
+		var cep = $(this).val();
+		$("#state, #city, #neighborhood, #street, #complement, #number").val("");
+		if (cep.length >= 9) {
+			__WEBPACK_IMPORTED_MODULE_0__providers_locationProvider__["a" /* LocationProvider */].get(cep).then(function (response) {
+				var data = response.data;
+				$("#state").val(data.state);
+				$("#city").val(data.city);
+				$("#neighborhood").val(data.neighborhood);
+			}).catch(function (error) {
+				alert('Cep não encontrato!');
+			});
+		}
 	});
 });
 
 /***/ }),
 
-/***/ 184:
+/***/ 189:
 /***/ (function(module, exports) {
 
 /*!
@@ -15962,37 +15873,22 @@ if (typeof jQuery === 'undefined') {
 
 /***/ }),
 
-/***/ 214:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(161);
+module.exports = __webpack_require__(164);
 
 
 /***/ }),
 
-/***/ 35:
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CityProvider; });
-var CityProvider = {
-	list: function list(uf, params) {
-		return axios.get('/api/cities/' + uf, { "params": params });
-	}
-};
-
-
-
-/***/ }),
-
-/***/ 37:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NeighborhoodProvider; });
-var NeighborhoodProvider = {
-	list: function list(uf, params) {
-		return axios.get('/api/neighborhoods/' + uf, { "params": params });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocationProvider; });
+var LocationProvider = {
+	get: function get(cep) {
+		return axios.get('/api/address/' + cep, {});
 	}
 };
 
