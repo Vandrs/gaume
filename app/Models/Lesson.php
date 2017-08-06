@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Period;
+use App\Models\LessonEvaluation;
 
 class Lesson extends Model 
 {
@@ -33,5 +34,10 @@ class Lesson extends Model
 	public function periods()
 	{
 		return $this->hasMany(Period::class)->orderBy('created_at','ASC');
+	}
+
+	public function evaluations()
+	{
+		return $this->hasMany(LessonEvaluation::class);
 	}
 }

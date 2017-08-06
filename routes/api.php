@@ -20,6 +20,10 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::get('/lessons','LessonController@getAll');
 	Route::get('/lessons/{id}','LessonController@get');
 
+	#LessonEvaluation
+	Route::get('/lesson-evaluations/{id}','LessonEvaluationController@get');
+	Route::put('/lesson-evaluations/{id}','LessonEvaluationController@evaluate');
+
 	#Period
 	Route::post('/lessons/{lessonId}/periods','PeriodController@create');
 	Route::patch('/lessons/{lessonId}/periods/{id}','PeriodController@confirm');

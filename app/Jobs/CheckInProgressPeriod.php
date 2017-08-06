@@ -7,9 +7,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Enums\EnumLessonStatus;
 use App\Models\Period;
 use App\Services\Lesson\EndPeriodService;
 use App\Services\Lesson\EndLessonService;
+use App\Services\Lesson\CreateLessonEvaluationService;
 
 class CheckInProgressPeriod implements ShouldQueue
 {
@@ -41,7 +43,17 @@ class CheckInProgressPeriod implements ShouldQueue
             $lessonService = new EndLessonService();
             if ($lessonService->mustEndLesson($this->period->lesson)) {
                 $lessonService->endLesson($this->period->lesson);
+                $this->createEvaluation();
             }
+        }
+    }
+
+    private function createEvaluation()
+    {
+        $this->period->lesson->fresh();
+        if ($this->period->lesson->status == EnumLessonStatus::FINISHED) {
+            $lessonEvaluationService = new CreateLessonEvaluationService();
+            $lessonEvaluationService->create($this->period->lesson);
         }
     }
 }
