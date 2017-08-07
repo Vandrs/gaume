@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Period;
+use App\Models\Game;
 use App\Models\LessonEvaluation;
 
 class Lesson extends Model 
@@ -29,6 +30,11 @@ class Lesson extends Model
 	public function student()
 	{
 		return $this->belongsTo(User::class, 'student_id', 'id');	
+	}
+
+	public function game()
+	{
+		return $this->belongsTo(Game::class);
 	}
 
 	public function periods()
