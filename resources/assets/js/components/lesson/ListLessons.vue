@@ -99,7 +99,7 @@
 	</div>
 	<div class="row margin-top-20">
 		<div class="col-xs-12">
-			<table class="table table-bordered table-stripped table-blue-header">
+			<table class="table table-default table-bordered table-striped">
 				<thead>
 					<tr>
 						<th v-if="user.role != roles.student">{{$t('app.student')}}</th>

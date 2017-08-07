@@ -8,6 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Services\Lesson\EndLessonService;
+use App\Services\Lesson\CreateLessonEvaluationService;
+use App\Enums\EnumLessonStatus;
 use App\Models\Lesson;
 
 class CheckPendingLesson implements ShouldQueue
@@ -26,7 +28,7 @@ class CheckPendingLesson implements ShouldQueue
         $this->lesson = $lesson;
     }
 
-    /**ck
+    /**
      * Execute the job.
      *
      * @return void
@@ -37,6 +39,16 @@ class CheckPendingLesson implements ShouldQueue
         $lessonService = new EndLessonService();
         if ($lessonService->mustEndLesson($this->lesson)) {
             $lessonService->endLesson($this->lesson);
+            $this->createEvaluation();
+        }
+    }
+
+    private function createEvaluation()
+    {
+        $this->lesson->fresh();
+        if ($this->lesson->status == EnumLessonStatus::FINISHED) {
+            $lessonEvaluationService = new CreateLessonEvaluationService();
+            $lessonEvaluationService->create($this->lesson);
         }
     }
 }

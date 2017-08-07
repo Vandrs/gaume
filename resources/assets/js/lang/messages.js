@@ -24,9 +24,9 @@ var Messages = {
 		modal : {
 			warning: "Atenção",
 			okText: "Sim",
+			cancelText: "Não",
 			confirmText: "Confirmar",
 			cancel2Text: "Cancelar",
-			cancelText: "Não",
 			classMessages : {
 				confirmStartClass: "Deseja mesmo iniciar a aula?",
 				confirmExtendPeriod: "Deseja mesmo extender esta aula?"
@@ -119,6 +119,15 @@ var Messages = {
 			update_success: 'Pré cadastro alterado com sucesso!',
 			mailed_at: 'E-mail de cadastro enviado em',
 			resend_email: 'Reenviar e-mail'
+		},
+		evaluation: {
+			message: 'Por favor, avalie esta aula para nos ajudar a oferecer sempre a melhor experiência para nossos usuários',
+			evaluation: 'Avaliação',
+			evaluate: 'Avaliar',
+			note: 'Nota',
+			comment: 'Comentário',
+			teacher_type_message: 'Com base em sua experiência na aula, avalie o treinador.',
+			student_type_message: 'Com base em sua experiência na aula, avalie o aluno.'
 		},
 		buttons: {
 			edit: 'Editar',

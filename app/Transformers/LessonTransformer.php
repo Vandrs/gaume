@@ -6,12 +6,13 @@ use League\Fractal;
 use App\Models\Lesson;
 use App\Transformers\UserTransformer;
 use App\Transformers\PeriodTransformer;
+use App\Transformers\LessonEvaluationTransformer;
 
 class LessonTransformer extends Fractal\TransformerAbstract
 {
 
 	protected $availableIncludes = [
-		'periods', 'teacher', 'student'
+		'periods', 'teacher', 'student', 'evaluations'
 	];
 
 	public function transform(Lesson $lesson)
@@ -38,11 +39,16 @@ class LessonTransformer extends Fractal\TransformerAbstract
 		return $this->item($lesson->student, new UserTransformer);
 	}
 
-	public function includePeriods(Lesson $lesson )
+	public function includePeriods(Lesson $lesson)
 	{
 		if ($lesson->periods->count() == 0) {
 			$lesson->load('periods');
 		}
 		return $this->collection($lesson->periods->all(), new PeriodTransformer);
+	}
+
+	public function includeEvaluations(Lesson $lesson)
+	{
+		return $this->collection($lesson->evaluations->all(), new LessonEvaluationTransformer);	
 	}
 }

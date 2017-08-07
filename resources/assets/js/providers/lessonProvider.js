@@ -1,7 +1,7 @@
 var LessonProvider = {
 
 	get: function (id) {
-		return axios.get('/api/lessons/'+id+'?includes=teacher,student,periods');
+		return axios.get('/api/lessons/'+id+'?includes=teacher,student,periods,evaluations');
 	},
 
 	list: function (params) {

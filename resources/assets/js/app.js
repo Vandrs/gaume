@@ -41,7 +41,6 @@ window.app = new Vue({
     i18n,
     components: { Dropdown },
     data: {
-    	menuToggled : false,
         isLoading: false
     }, 
     methods: {

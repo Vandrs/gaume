@@ -12,7 +12,9 @@
 				selectedGame: null,
 				selectedPlatform: null,
 				games: [],
-				platforms: []
+				platforms: [],
+				errors: [],
+				disableConfirm: false
 			}
 		},
 		created () {
@@ -26,27 +28,6 @@
 		},
 		methods: {
 			dismissCallback: function(msg) {
-				if (msg == 'ok') {
-					window.app.isLoading = true;
-					var data = {
-						teacher_id: this.teacherId,
-						game_id: this.selectedGame,
-						platform_id: this.selectedPlatform
-					};
-					LessonProvider.create(data)
-								  .then((response) => {
-								  		window.app.isLoading = false;
-								  		window.location.href = window.Laravel.baseUrl+"/app/aula/"+response.data.id;
-								  })
-								  .catch((error) => {
-								  		window.app.isLoading = false;
-								  		var errors = AppErrorBag.parseErrors(
-								  				error.response.status,
-								  				error.response.data
-								  			);
-								  		window.app.$emit('app:show-alert', errors, "danger");
-								  });
-				}
 				this.clean();
 			},
 			toggleModal: function() {
@@ -77,6 +58,7 @@
 				this.selectedGame = null;
 				this.selectedPlatform = null;
 				this.teacherId = null;
+				this.errors = [];
 			},
 			showPlatformOptions: function() {
 				for (var game of this.games) {
@@ -84,14 +66,51 @@
 						this.platforms = game.platforms;
 					}
 				}
+			},
+			cancelModal: function() {
+				this.clean();
+				this.showModal = false;
+			},
+			confirmModal: function() {
+				window.app.isLoading = true;
+				this.disableConfirm = true;
+				var data = {
+					teacher_id: this.teacherId,
+					game_id: this.selectedGame,
+					platform_id: this.selectedPlatform
+				};
+				LessonProvider.create(data)
+							  .then((response) => {
+							  		window.app.isLoading = false;
+							  		this.disableConfirm = false;
+							  		window.location.href = window.Laravel.baseUrl+"/app/aula/"+response.data.id;
+							  })
+							  .catch((error) => {
+							  		window.app.isLoading = false;
+							  		var errors = AppErrorBag.parseErrors(
+							  				error.response.status,
+							  				error.response.data
+							  			);
+							  		this.errors = errors;
+							  		this.disableConfirm = false;
+							  });
 			}	
 		}
 	}
 </script>
 <template>
 	<div>
-		<modal  v-model="showModal" :title="$t('modal.warning')" v-on:hide="dismissCallback" :ok-text="$t('modal.confirmText')" :cancel-text="$t('modal.cancel2Text')" >
+		<modal  v-model="showModal" :title="$t('modal.warning')" v-on:hide="dismissCallback" :footer="false" >
 			<div slot="default">
+				<div v-if="errors.length" class="row margin-top-10">
+					<div class="col-xs-12">
+						<div class="alert alert-danger">		
+							<ul class="alert-list">
+								<li v-for="error of errors">{{error}}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 				<div class="row margin-top-10">
 					<div class="col-xs-12">
 						{{$t('teacher_game.select_game_platform')}}
@@ -119,6 +138,12 @@
 						<label v-for="platform of platforms" class="radio-inline">
 							<input type="radio" name="platform" v-model="selectedPlatform" :value="platform.id">{{platform.platform}}
 						</label>
+					</div>
+				</div>
+				<div class="row margin-top-10">
+					<div class="col-xs-12 text-right">
+						<button type="button" class="btn btn-default" v-on:click="cancelModal">{{$t('modal.cancel2Text')}}</button>
+						<button type="button" class="btn btn-primary" v-bind:class="{disabled:disableConfirm}" v-on:click="confirmModal">{{$t('modal.confirmText')}}</button>
 					</div>
 				</div>
 			</div>

@@ -3,9 +3,13 @@
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	import * as moment from 'moment';
 	import { LessonStatus } from '../../components/lesson/LessonStatus';
+	import { AppRoles } from '../../components/shared/AppRoles';
+	import StarRating from 'vue-star-rating';
 	Vue.component('lesson-accept-modal',require('../../components/lesson/ConfirmationAcceptModal'));
 	Vue.component('lesson-renew-modal',require('../../components/lesson/RenewLessonModal'));
+	Vue.component('evaluate-lesson-modal', require('../../components/lesson/EvaluateLessonModal'));
 	export default {
+		components: { StarRating },
 		props: {
 			id: Number
 		},
@@ -24,7 +28,10 @@
 				totalHours: 0,
 				remainingTime: null,
 				remainingTimeInterval: null,
-				timeToRenewLesson: (1000*60*10) //10 Minutos
+				timeToRenewLesson: (1000*60*10), //10 Minutos
+				studentEvaluation: null,
+				teacherEvaluation: null,
+				showEvaluationButton: false
 			}
 		},
 		mounted() {
@@ -47,8 +54,11 @@
 							  	this.setDuration();
 							  	this.setUpdateStatus();
 							  	this.setRemainingTimeInterval();
+							  	this.setupEvaluations();
+							  	this.checkShowEvaluationButton();
 							  })
 							  .catch((error) => {
+							  		console.log(error);
 									var errors = AppErrorBag.parseErrors(
 									  				error.response.status,
 									  				error.response.data
@@ -184,6 +194,35 @@
 					}
 				}
 				return inProgressPeriod;
+			},
+			setupEvaluations: function() {
+				if (this.lesson.status == this.status.FINISHED) {
+					for (var i = 0; i < this.lesson.evaluations.length; i++) {
+						var evaluation = this.lesson.evaluations[i];
+						if (evaluation.type == AppRoles.STUDENT) {
+							this.teacherEvaluation = evaluation;
+						} else if (evaluation.type == AppRoles.TEACHER) {
+							this.studentEvaluation = evaluation;
+						}
+					}
+				}
+			},
+			checkShowEvaluationButton: function() {
+				this.showEvaluationButton = false;
+				if (this.lesson.status == this.status.FINISHED && !this.isAdmin()) {
+					if (this.isTeacher() && this.teacherEvaluation && this.teacherEvaluation.status == this.status.EVALUATION_PENDING) {
+						this.showEvaluationButton = true;
+					} else if (this.isStudent() && this.studentEvaluation && this.studentEvaluation.status == this.status.EVALUATION_PENDING) {
+						this.showEvaluationButton = true;
+					}
+				}
+			},
+			showEvaluationModal() {
+				if (this.isTeacher() && this.teacherEvaluation.status == this.status.EVALUATION_PENDING) {
+					window.app.$emit('app:evaluate-lesson-modal', this.lesson.id, this.teacherEvaluation.id, this.teacherEvaluation.type);
+				} else if (this.isStudent() && this.studentEvaluation.status == this.status.EVALUATION_PENDING) {
+					window.app.$emit('app:evaluate-lesson-modal', this.lesson.id, this.studentEvaluation.id, this.studentEvaluation.type);
+				}
 			}
 		} 
 	}
@@ -194,6 +233,8 @@
 		</lesson-accept-modal>
 		<lesson-renew-modal>
 		</lesson-renew-modal>
+		<evaluate-lesson-modal>
+		</evaluate-lesson-modal>
 		<div class="row" v-if="currentStatus == status.PENDING && isTeacher()">
 			<div class="col-xs-12">
 				<div class="alert alert-warning">
@@ -203,6 +244,16 @@
 					</button>
 					<button v-on:click="showConfirmationModal(false)" class="btn btn-danger">
 						<i class="glyphicon glyphicon-thumbs-down"></i> {{$t('app.no')}}
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="row" v-if="showEvaluationButton">
+			<div class="col-xs-12">
+				<div class="alert alert-warning">
+					<span class="text-label">{{$t('evaluation.message')}}</span> 
+					<button v-on:click="showEvaluationModal()" class="btn btn-success">
+						<i class="fa fa-star"></i> {{$t('evaluation.evaluate')}}
 					</button>
 				</div>
 			</div>
@@ -244,6 +295,14 @@
 				<div class="row" v-if="currentStatus == status.IN_PROGRESS && remainingTime">
 					<div class="col-xs-12">
 						<span class="text-label">{{$t('lesson.labels.remaining_time')}}:</span><span class="bold-blue"><i class="glyphicon glyphicon-hourglass"></i> {{ remainingTime.asMilliseconds() > 0 ? remainingTime.hours()+":"+remainingTime.minutes() : '00:00' }}</span>
+					</div>
+				</div>
+				<div class="row" v-if="(isStudent() || isAdmin()) && studentEvaluation">
+					<div class="col-xs-12">
+						<span class="text-label">{{$t('evaluation.evaluation')}}:</span>
+					</div>
+					<div class="col-xs-12">
+						<StarRating v-model="studentEvaluation.note" :read-only="true" :star-size="20" :show-rating="false"></StarRating>
 					</div>
 				</div>
 			</div>

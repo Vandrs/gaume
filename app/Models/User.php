@@ -9,6 +9,7 @@ use NotificationChannels\WebPush\HasPushSubscriptions;
 use App\Models\Role;
 use App\Models\Address;
 use App\Models\BankAccount;
+use App\Models\UserEvaluation;
 use Storage;
 
 class User extends Authenticatable
@@ -57,6 +58,11 @@ class User extends Authenticatable
     public function bankAccount()
     {
         return $this->hasOne(BankAccount::class);
+    }
+
+    public function evaluation()
+    {
+        return $this->hasOne(UserEvaluation::class);
     }
 
 }

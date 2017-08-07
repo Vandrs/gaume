@@ -84,3 +84,58 @@
 .block-label {
     display: block !important;
 }
+
+ul.alert-list {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.help-block {
+    color: $text-color;
+}
+
+.form-control {
+    border: solid 1px #cccccc;
+}
+
+.btn.btn-primary {
+    background-color: $text-color;
+    border-color: #096e6f;
+}
+
+.btn.btn-default {
+    border: solid 2px $text-color;
+}
+
+.btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary:focus {
+    background-color: #053131;
+}
+
+.table.table-default {
+    border: solid 2px $tableHeaderBg;
+}
+
+.table.table-default thead {
+    background-color: $tableHeaderBg;
+}
+
+.table.table-default thead th {
+    border: solid 1px #fff;
+}
+
+.table.table-default tbody td {
+    border-color: $tableHeaderBg;
+}
+
+.pagination > .active > a, 
+.pagination > .active > a:hover, 
+.pagination > .active > a:focus, 
+.pagination > .active > span, 
+.pagination > .active > span:hover, 
+.pagination > .active > span:focus {
+    background-color: $text-color;   
+}
+
+.modal-content {
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(188,208,185,1) 100%);
+}
