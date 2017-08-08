@@ -44,14 +44,6 @@ window.app = new Vue({
         isLoading: false
     }, 
     methods: {
-    	toggleMenu: function(event) {
-    		event.preventDefault();
-    		if (this.menuToggled) {
-    			this.menuToggled = false;
-    		} else {
-    			this.menuToggled = true;
-    		}
-    	},
         showConfirmationClassModal: function (teacherId) {
             this.$emit('app:start-confirmation-modal', teacherId);
         }

@@ -44,7 +44,7 @@
         <confirmation-start-modal>
         </confirmation-start-modal>
         @include('partials.nav-bar')
-        <article class="wrapper" v-bind:class="{toggled: menuToggled}">
+        <article class="wrapper">
             <section class="main">
                 <section class="content container" v-bind:class="{blur: isLoading}">
                 @if(session()->has('msg_error'))
