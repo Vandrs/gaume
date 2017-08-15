@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
 	Route::get('/perfil','App\ProfileController@index')->name('profile');
 	Route::get('/meus-jogos','App\TeacherGameController@index')->name('my-games');
+	Route::Get('/jogos','App\GameController@index')->name('games');
 
 	if (config('app.env') == 'local') {
 		Route::get('/teste','App\TestController@index');

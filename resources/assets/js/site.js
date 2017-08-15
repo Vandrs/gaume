@@ -13,6 +13,7 @@ import { Messages } from './lang/messages';
 import { Dropdown } from 'uiv';
 import VueI18n from 'vue-i18n';
 
+
 Vue.use(VueI18n);
 
 var i18n = new VueI18n({
@@ -23,5 +24,6 @@ var i18n = new VueI18n({
 
 window.app = new Vue({
     el: '#app',
-    components: { Dropdown, i18n }
+    i18n,
+    components: { Dropdown },
 });

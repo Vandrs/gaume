@@ -22,6 +22,7 @@
     <meta name="description" content="Monzy, o maior time de Experts em Jogos. Treine com maiores experts em e-Sports.">
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700i" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->

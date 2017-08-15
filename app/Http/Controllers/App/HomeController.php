@@ -17,12 +17,13 @@ class HomeController extends Controller
     public function index()
     {
     	$user = Auth::user();
-
     	if ($user->hasRole(EnumRole::TEACHER)) {
     		return redirect()->route('lessons.list');
     	} else if ($user->hasRole(EnumRole::ADMIN)) {
     		return redirect()->route('user-admin.list');
-    	} 
+    	} else if ($user->hasRole(EnumRole::STUDENT)) {
+            return redirect()->route('games');
+        }
         return view('home');
     }
 }

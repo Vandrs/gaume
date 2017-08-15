@@ -2,8 +2,8 @@
 @section('content')
 <div class="row">
 	<div class="col-xs-12">
-		<teacher-list gameid="{{$gameId}}">
-		</teacher-list>
+		<game-list>
+		</game-list>
 	</div>
 </div>
 @endsection

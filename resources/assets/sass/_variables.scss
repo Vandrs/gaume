@@ -18,7 +18,7 @@ $brand-danger: #bf5329;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$font-family-sans-serif: "Raleway", sans-serif;
+$font-family-sans-serif: 'Lato', "Raleway", sans-serif;
 $font-size-base: 14px;
 $font-size-title: 16px;
 $line-height-base: 1.6;
@@ -47,4 +47,31 @@ $tableHeaderBg: #ffcc01;
 	font-weight: bold;
 	margin-right: 5px;
 	font-size: $font-size-title;
+}
+
+@mixin bg-cover() {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;	
+	background-color: $text-color;
+
+}
+
+.yellow-btn {
+	background-color: #fbb634;
+	color: #09797a;
+}
+
+.play-btn {
+	padding-left: 20px !important;
+	padding-right: 20px !important;
+	font-weight: bold !important;
+	text-transform: uppercase !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
 }

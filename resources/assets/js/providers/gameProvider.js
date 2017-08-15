@@ -38,6 +38,9 @@ var GameProvider = {
 	},
 	listAdminAvailables: function () {
 		return axios.get('/api/admin/games/availables');	
+	},
+	list: function() {
+		return axios.get('/api/games');	
 	}
 
 };

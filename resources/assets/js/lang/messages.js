@@ -1,8 +1,9 @@
 var Messages = {
 	pt_BR: {
 		app : {
+			play: 'Play',
 			student: 'Aluno',
-			teacher: 'Professor',
+			teacher: 'Treinador',
 			admin: 'Admin',
 			loading: 'Carregando...',
 			resume: 'Resumo',
@@ -48,7 +49,7 @@ var Messages = {
 				status: 'Situação'
 			},
 			status: {
-				1: "Aguardando confirmação do Professor",
+				1: "Aguardando confirmação do Treinador",
 				2: "Em andamento ",
 				3: "Finalizada",
 				4: "Cancelada"
@@ -107,12 +108,16 @@ var Messages = {
 			},
 			platforms: 'Plataformas',
 			platform: 'Plataforma',
-			generic_game_error: 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário'
+			generic_game_error: 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário',
+			pick_game: 'Escolha o Jogo',
+			select_game: 'Selecione o Jogo'
 		},
 		teacher_game: {
 			skill_descripion: 'Descreva seu estilo de jogo e principais habilidades',
-			no_game_available: 'O Professor não possui jogos cadastrados no momento!',
-			select_game_platform: 'Por favor selecione o Jogo e a Plataforma'
+			no_game_available: 'O Treinador não possui jogos cadastrados no momento!',
+			select_game_platform: 'Por favor selecione o Jogo e a Plataforma',
+			pick_teacher: 'Escolha o Treinador',
+			set_teacher_name: 'Digite o nome do treinador'
 		},
 		pre_registration: {
 			create_success: 'Pré cadastro criado com sucesso!',
@@ -133,7 +138,7 @@ var Messages = {
 			edit: 'Editar',
 			save: 'Salvar',
 			delete: 'Excluir'
-		}
+		},
 	}
 }
 

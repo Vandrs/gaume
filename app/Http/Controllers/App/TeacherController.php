@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Enums\EnumRole;
 
 class TeacherController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$teachers = User::where('role_id','=',EnumRole::TEACHER_ID)
-						->orderBy('name','ASC')
-					    ->get();
-		return view('app.teacher.index',['teachers' => $teachers]);	
+		$gameId = $request->game;
+		return view('app.teacher.index',['gameId' => $gameId]);	
 	}
 }

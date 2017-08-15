@@ -15,6 +15,10 @@
 	margin-top: 10px;
 }
 
+.yellow-icon {
+    color: $monzyYellow;
+}
+
 .blur {
 	-webkit-filter: blur(5px);
 	-moz-filter: blur(5px);
@@ -139,3 +143,21 @@ ul.alert-list {
 .modal-content {
     background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(188,208,185,1) 100%);
 }
+
+.game-home {
+    @include bg-cover;
+    min-height: 300px;
+    margin-bottom: 30px;
+    padding: 25px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.game-home h2 {
+    font-weight: bold;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px #000000 !important;
+}
+

@@ -20,7 +20,6 @@ class TestController extends Controller
      */
     public function index()
     {
-/*
         $lessonEvaluation = LessonEvaluation::find(6);
 
         $view = $lessonEvaluation->type == EnumRole::STUDENT ? 'evaluate_lesson_teacher_mail' : 'evaluate_lesson_student_mail';
@@ -33,7 +32,7 @@ class TestController extends Controller
             'link' => route('lessons.show', ['id' => $lessonEvaluation->lesson->id])
         ];
         return view('email.'.$view,$data);
-*/
-        return "Done!";
+
+//        return "Done!";
     }
 }
