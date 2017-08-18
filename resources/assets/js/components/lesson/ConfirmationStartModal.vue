@@ -8,19 +8,22 @@
 		data () {
 			return {
 				showModal: false,
+				gameId: null,
 				teacherId: null,
 				selectedGame: null,
 				selectedPlatform: null,
 				games: [],
 				platforms: [],
 				errors: [],
-				disableConfirm: false
+				disableConfirm: false,
+				urlLogo: window.Laravel.baseUrl + "/images/logo.png"
 			}
 		},
 		created () {
 			var self = this;
 			setTimeout(function(){
-				window.app.$on('app:start-confirmation-modal', function (teacherId) {
+				window.app.$on('app:start-confirmation-modal', function (teacherId, gameId) {
+					self.gameId = gameId;
 					self.teacherId = teacherId;
 					self.toggleModal();
 				});
@@ -37,6 +40,12 @@
 									   .then((response) => {
 									   		window.app.isLoading = false;
 									   		this.games = response.data;
+
+									   		if (this.gameId) {
+									   			this.selectedGame = this.gameId;
+									   			this.showPlatformOptions();
+									   		}
+
 									   		this.showModal = true;
 									   })
 									   .catch((error) => {
@@ -59,6 +68,7 @@
 				this.selectedPlatform = null;
 				this.teacherId = null;
 				this.errors = [];
+				self.gameId = null;
 			},
 			showPlatformOptions: function() {
 				for (var game of this.games) {
@@ -94,14 +104,24 @@
 							  		this.errors = errors;
 							  		this.disableConfirm = false;
 							  });
-			}	
+			}
 		}
 	}
 </script>
 <template>
 	<div>
-		<modal  v-model="showModal" :title="$t('modal.warning')" v-on:hide="dismissCallback" :footer="false" >
+		<modal  v-model="showModal" :header="false" v-on:hide="dismissCallback" :footer="false" >
 			<div slot="default">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<img class="modal-logo" :src="urlLogo" title="Logo Monzy" alt="Logo Monzy">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<h2>{{$t('modal.warning')}}</h2>
+					</div>
+				</div>
 				<div v-if="errors.length" class="row margin-top-10">
 					<div class="col-xs-12">
 						<div class="alert alert-danger">		

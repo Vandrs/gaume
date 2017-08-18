@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\Address;
 use App\Models\BankAccount;
 use App\Models\UserEvaluation;
+use App\Models\TeacherGame;
 use Storage;
 
 class User extends Authenticatable
@@ -63,6 +64,11 @@ class User extends Authenticatable
     public function evaluation()
     {
         return $this->hasOne(UserEvaluation::class);
+    }
+
+    public function teacherGames()
+    {
+        return $this->hasMany(TeacherGame::class, 'teacher_id');
     }
 
 }

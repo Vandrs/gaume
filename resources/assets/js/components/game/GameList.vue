@@ -4,7 +4,7 @@
 	export default {
 		data() {
 			return {
-				teacherUrl: Laravel.baseUrl+'/app/professores',
+				teacherUrl: Laravel.baseUrl+'/app/treinadores',
 				games: []
 			}
 		},

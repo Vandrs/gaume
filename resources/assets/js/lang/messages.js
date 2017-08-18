@@ -20,7 +20,8 @@ var Messages = {
 			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente.",
 			games: 'Jogos',
 			game: 'Jogo',
-			created_at: 'Data de cadastro'
+			created_at: 'Data de cadastro',
+			see_profile: 'Ver Perfil'
 		},
 		modal : {
 			warning: "Atenção",
@@ -54,6 +55,7 @@ var Messages = {
 				3: "Finalizada",
 				4: "Cancelada"
 			},
+			lesson_resume: 'Resumo da Aula'
 		},
 		profile: {
 			name: 'Nome',

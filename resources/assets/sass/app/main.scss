@@ -153,11 +153,62 @@ ul.alert-list {
     font-weight: bold;
 }
 
+.game-home .row {
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+.game-home:hover .row {
+    opacity: 1;
+}
+
 .game-home h2 {
     font-weight: bold;
 }
 
 .text-shadow {
     text-shadow: 2px 2px #000000 !important;
+}
+
+.teacher-container {
+    background-color: #CCCCCC;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%; 
+    position: relative
+}
+
+.teacher-container-info {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    color: #FFFFFF;
+
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+.teacher-container:hover .teacher-container-info {
+    opacity: 1;
+}
+
+
+
+.full-size-button {
+    width: 90%;
+}
+
+.modal-logo{
+    width: 50px;
+    height: 50px;
 }
 

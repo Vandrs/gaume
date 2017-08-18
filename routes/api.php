@@ -21,7 +21,10 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::get('/lessons/{id}','LessonController@get');
 
 	#Games
-	Route::get('/games','GameController@list');
+	Route::get('/games', 'GameController@list');
+
+	#Teachers
+	Route::get('/teachers', 'TeacherController@list');
 
 	#LessonEvaluation
 	Route::get('/lesson-evaluations/{id}','LessonEvaluationController@get');

@@ -235,6 +235,17 @@
 		</lesson-renew-modal>
 		<evaluate-lesson-modal>
 		</evaluate-lesson-modal>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<span class="fa-stack fa-lg">
+  					<i class="fa fa-circle fa-stack-2x yellow-icon"></i>
+  					<i class="fa fa-graduation-cap fa-stack-1x fa-inverse"></i>
+				</span>
+			</div>
+			<div class="col-xs-12 text-center">
+				<h1>{{$t('lesson.lesson_resume')}}</h1>
+			</div>
+		</div>
 		<div class="row" v-if="currentStatus == status.PENDING && isTeacher()">
 			<div class="col-xs-12">
 				<div class="alert alert-warning">
