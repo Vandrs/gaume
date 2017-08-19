@@ -1,6 +1,7 @@
 <script>
 	import { LessonProvider } from '../../providers/lessonProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
+	import { AppRoles } from '../../components/shared/AppRoles';
 	import { LessonStatus } from '../../components/lesson/LessonStatus';
 	import { Pagination } from 'uiv';
 	export default {
@@ -76,6 +77,17 @@
 </script>
 <template>
 <div>
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<span class="fa-stack fa-lg">
+					<i class="fa fa-circle fa-stack-2x yellow-icon"></i>
+					<i class="fa fa-graduation-cap fa-stack-1x fa-inverse"></i>
+			</span>
+		</div>
+		<div class="col-xs-12 text-center">
+			<h1>{{ user.role == roles.admin ? $t('lesson.lessons') : $t('lesson.my_lessons') }}</h1>
+		</div>
+	</div>
 	<div class="row">
 		<div v-if="user.role != roles.teacher" class="col-xs-12 col-md-3 control-group">
 			<label>{{$t('app.teacher')}}</label>

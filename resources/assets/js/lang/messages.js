@@ -55,7 +55,9 @@ var Messages = {
 				3: "Finalizada",
 				4: "Cancelada"
 			},
-			lesson_resume: 'Resumo da Aula'
+			lesson_resume: 'Resumo da Aula',
+			my_lessons: 'Minhas Aulas',
+			lessons: 'Aulas'
 		},
 		profile: {
 			name: 'Nome',
