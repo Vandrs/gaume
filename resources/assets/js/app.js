@@ -37,6 +37,7 @@ Vue.component('game-admin-list', require('./components/gameAdmin/ListGameAdmin')
 Vue.component('teacher-admin-registration', require('./components/user/TeacherRegistration'));
 Vue.component('pre-registration-list', require('./components/user/ListTeacherRegistration'));
 Vue.component('teacher-game', require('./components/teacherGame/TeacherGame'));
+Vue.component('teacher-profile', require('./components/teacher/Teacher'));
 Vue.component('game-list', require('./components/game/GameList'));
 
 window.app = new Vue({

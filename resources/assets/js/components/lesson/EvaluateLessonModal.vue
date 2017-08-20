@@ -14,7 +14,8 @@
 				lessonId: null,
 				errors: [],
 				type: null,
-				disableConfirmButton: false
+				disableConfirmButton: false,
+				urlLogo: window.Laravel.baseUrl + "/images/logo.png"
 			}
 		},
 		created () {
@@ -98,8 +99,18 @@
 </script>
 <template>
 	<div>
-		<modal v-model="showModal" :footer="false" :title="$t('evaluation.evaluation')">
+		<modal v-model="showModal" :footer="false" :header="false" >
 			<div slot="default">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<img class="modal-logo" :src="urlLogo" title="Logo Monzy" alt="Logo Monzy">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<h2>{{$t('modal.warning')}}</h2>
+					</div>
+				</div>
 				<div v-if="errors.length" class="row">
 					<div class="col-xs-12">
 						<div class="alert alert-danger">		

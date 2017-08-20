@@ -1,6 +1,7 @@
 <?php 
 
 return [
+	'remember_me' => 'Mantenha-me logado',
 	'registration' => [
 		'register' => 'Cadastro',
 		'register_teacher' => 'Cadastro de Novo Treinador',

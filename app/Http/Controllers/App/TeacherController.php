@@ -14,4 +14,15 @@ class TeacherController extends Controller
 		$gameId = $request->game;
 		return view('app.teacher.index',['gameId' => $gameId]);	
 	}
+
+	public function show(Request $request, $id)
+	{
+		$url = route('teachers.page',['id' => $id]);
+		$page_id = 'teacher_'.$id;
+		return view('app.teacher.show',[
+			'id' 	   => $id,
+			'page_url' => $url,
+			'page_id'  => $page_id
+		]);
+	}
 }

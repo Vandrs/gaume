@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">@lang('site.registration.register_teacher')</div>
                 <div class="panel-body">
                 @if(session()->has('flash_error') && (!isset($code) || empty($code)) )
@@ -109,6 +109,13 @@
                                                 {{$gamePlatform['game']->name}}
                                             </div>
                                             <div class="panel-body">
+                                                @if($gamePlatform['game']->getPhotoUrl())
+                                                <div class="row margin-bottom-10">
+                                                    <div class="col-xs-12">
+                                                        <img class="game-img-container" src="{{$gamePlatform['game']->getPhotoUrl()}}"  title="{{$gamePlatform['game']->name}}" alt="{{$gamePlatform['game']->name}}" />
+                                                    </div>
+                                                </div>
+                                                @endif
                                                 <div class="row">
                                                     <div class='col-xs-12'>
                                                         <label for="gameDescription_{{$gamePlatform['game']->id}}">@lang('site.registration.skill_descripion')</label>

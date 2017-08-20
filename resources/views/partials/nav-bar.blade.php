@@ -20,7 +20,7 @@
                             <i class="glyphicon glyphicon-home"></i> @lang('app.navbar.home')
                         </a>
                     </li>
-                    <li><a href="{{route('lessons.list')}}" title="@lang('app.menu.my_lessons')"><i class="glyphicon glyphicon-education"></i> <span> @lang('app.menu.my_lessons')</span></a></li>
+                    <li><a href="{{route('lessons.list')}}" title="@lang('app.menu.my_lessons')"><i class="glyphicon glyphicon-education"></i> <span>@if(Auth::user()->hasRole(EnumRole::ADMIN)) @lang('app.menu.lessons')  @else @lang('app.menu.my_lessons') @endif </span></a></li>
                     @if( Auth::user()->hasRole(EnumRole::STUDENT) )
                     <li><a href="{{route('teachers.list')}}" title="@lang('app.menu.teachers')"><i class="fa fa-users"></i> <span> @lang('app.menu.teachers')</span></a></li>
                     @endif

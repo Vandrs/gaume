@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 	#Teachers
 	Route::get('/teachers', 'TeacherController@list');
+	Route::get('/teachers/{id}', 'TeacherController@get');
 
 	#LessonEvaluation
 	Route::get('/lesson-evaluations/{id}','LessonEvaluationController@get');

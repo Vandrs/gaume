@@ -19,6 +19,8 @@ return [
 
     'index_pages' => env('INDEX_PAGES', false),
 
+    'disqus' => env('DISQUS', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

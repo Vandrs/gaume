@@ -13,6 +13,7 @@ class UserTransformer extends Fractal\TransformerAbstract
 			'id' 	=> $user->id,
 			'name' 	=> $user->name,
 			'email' => $user->email,
+			'photo' => $user->getPhotoProfileUrl(),
 			'role' => [
 				'id'   => $user->role->id,
 				'name' => $user->role->role

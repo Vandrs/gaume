@@ -42,6 +42,7 @@ class ConfirmPeriodService extends Service
 			$period->lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
 			$this->dispatchJob($period);
 		} else {
+			
 			$period->update(['status' => EnumLessonStatus::CANCELED]);
 			$endLessonService = new EndLessonService();
 			$endLessonService->endLesson($period->lesson);

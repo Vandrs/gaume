@@ -19,7 +19,8 @@
 					currentPage: 1,
 					totalPages: 1,	
 					linksRange: 5
-				}
+				},
+				teacherUrl: '/app/treinadores/'
 			}
 		},
 		mounted() {
@@ -145,9 +146,9 @@
 						</div>
 						<div class='row margin-top-10'>
 							<div class='col-xs-12 text-center'>
-							 	<button class='btn btn-primary full-size-button'>{{$t('app.see_profile')}}</button>
+							 	<a class='btn btn-primary full-size-button' :href="teacherUrl+teacher.id">{{$t('app.see_profile')}}</a>
 							</div>
-						</div>
+						</div>		
 					</div>
 				</div>
 			</div>

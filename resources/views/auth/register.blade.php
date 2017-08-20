@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">@lang('site.registration.register')</div>
                 <div class="panel-body">
                     <form role="form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -288,7 +288,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="termsModalLabel">@lang('site.terms.title')</h4>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <img class="modal-logo" src="{{url('/images/logo.png')}}" title="Logo Monzy" alt="Logo Monzy">
+            </div>
+        </div>
       </div>
       <div class="modal-body">
             @lang('site.terms.text')

@@ -36,10 +36,9 @@ class TeacherTransformer extends Fractal\TransformerAbstract
 		$gameId = $this->gameId;
 
 		$teacher->teacherGames->each( function($teacherGame) use (&$games, $gameId) {
-			if ( !empty($gameId) && $teacherGame->status == EnumStatus::ACTIVE && 
-				 $teacherGame->game->status == EnumStatus::ACTIVE ) {
+			if ($teacherGame->status == EnumStatus::ACTIVE && 
+				$teacherGame->game->status == EnumStatus::ACTIVE ) {
 				$platforms = [];
-
 				$teacherGame->teacherGamePlatforms->each(function($teacherGamePlatform) use (&$platforms) {
 					$platformData = [
 						'id' 	   => $teacherGamePlatform->platform->id,
@@ -48,7 +47,6 @@ class TeacherTransformer extends Fractal\TransformerAbstract
 					];
 					array_push($platforms, $platformData);
 				});
-
 				$gameData = [
 					'id' => $teacherGame->game->id,
 					'name' => $teacherGame->game->name,
@@ -56,7 +54,6 @@ class TeacherTransformer extends Fractal\TransformerAbstract
 					'description' => $teacherGame->description,
 					'platforms' => $platforms,
 				];
-
 				array_push($games, $gameData);
 			}
 		});

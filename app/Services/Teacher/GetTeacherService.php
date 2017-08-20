@@ -35,4 +35,19 @@ class GetTeacherService
 		
 		return $paginator;
 	}
+
+	public static function get($id)
+	{
+		return User::query()
+			   	   ->select(DB::raw('DISTINCT users.*'))
+			   	   ->join('teacher_game','users.id','=','teacher_game.teacher_id')
+			   	   ->join('games','teacher_game.game_id','=','games.id')
+			   	   ->where('users.id','=', $id)
+			   	   ->where('users.status','=', EnumStatus::ACTIVE)
+			   	   ->where('users.role_id','=', EnumRole::TEACHER_ID)
+			   	   ->where('teacher_game.status','=',EnumStatus::ACTIVE)
+			   	   ->where('games.status','=',EnumStatus::ACTIVE)
+			   	   ->firstOrFail();
+	}
+
 }

@@ -22,8 +22,8 @@
 				duration: null,
 				intervelId: null,
 				updateInterval: {
-					pendingLesson: 10000, // 3 Minutos
-					inProgressLesson: (5000*60) // 5 Minutos
+					pendingLesson: 10000, 
+					inProgressLesson: 10000
 				},
 				totalHours: 0,
 				remainingTime: null,
@@ -49,6 +49,7 @@
 				LessonProvider.get(this.id)
 							  .then((response) => {
 							  	this.lesson = response.data;
+							  	console.log('Lesson Get Lesson: ',this.lesson);
 							  	this.parseDates();
 							  	this.setLessonStatus();
 							  	this.setDuration();
@@ -148,15 +149,19 @@
 				window.app.$emit('app:renew-lesson-modal', this.lesson.id);
 			},
 			updateStatus: function (time) {
+				console.log('Set Update Status Time:' + time);
 				this.intervalId = setInterval(() => {
 									this.getLesson();
 								  }, time);
+				console.log('Set Update Status Interval:' + this.intervalId);
 			},
 			cancelUpdateStatus: function () {
 				clearInterval(this.intervalId);
 			},
 			setUpdateStatus: function () {
 				if (this.intervalId) {
+					console.log('Cancel Interval: '+ this.intervalId);
+					console.log('Lesson On Cancel',this.lesson);
 					this.cancelUpdateStatus();
 				}
 				if (this.currentStatus == this.status.PENDING) {
@@ -324,13 +329,16 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12">
-						{{lesson.teacher.name}}
+					<div v-if="lesson.teacher.photo" class="col-xs-12 col-md-4">
+						<img class="lesson-user-img" :src="lesson.teacher.photo" :alt="lesson.teacher.name" :title="lesson.teacher.name">
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						{{lesson.teacher.email}}
+					<div class="col-xs-12 col-md-8">
+						<div class="row">
+							<div class="col-xs-12">{{lesson.teacher.name}}</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">{{lesson.teacher.email}}</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -341,13 +349,20 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12">
-						{{lesson.student.name}}
+					<div v-if="lesson.student.photo" class="col-xs-12 col-md-4">
+						<img class="lesson-user-img" :src="lesson.student.photo" :alt="lesson.student.name" :title="lesson.student.name">
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						{{lesson.student.email}}
+					<div class="col-xs-12 col-md-8">
+						<div class="row">
+							<div class="col-xs-12">
+								{{lesson.student.name}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								{{lesson.student.email}}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

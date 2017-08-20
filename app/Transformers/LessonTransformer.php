@@ -33,8 +33,6 @@ class LessonTransformer extends Fractal\TransformerAbstract
 	{
 		if (empty($lesson->student)) {
 			$lesson->load('student');
-			print_r($lesson->student);
-			die;
 		}
 		return $this->item($lesson->student, new UserTransformer);
 	}

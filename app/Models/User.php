@@ -54,6 +54,7 @@ class User extends Authenticatable
         if ($this->photo_profile) {
             return Storage::disk('public')->url($this->photo_profile);
         }
+        return null;
     }
 
     public function bankAccount()

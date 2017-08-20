@@ -21,7 +21,10 @@ var Messages = {
 			games: 'Jogos',
 			game: 'Jogo',
 			created_at: 'Data de cadastro',
-			see_profile: 'Ver Perfil'
+			see_profile: 'Ver Perfil',
+			profile: 'Perfil',
+			my_games: 'Meus Jogos',
+			teacher: 'Treinador'
 		},
 		modal : {
 			warning: "Atenção",
@@ -136,7 +139,12 @@ var Messages = {
 			note: 'Nota',
 			comment: 'Comentário',
 			teacher_type_message: 'Com base em sua experiência na aula, avalie o treinador.',
-			student_type_message: 'Com base em sua experiência na aula, avalie o aluno.'
+			student_type_message: 'Com base em sua experiência na aula, avalie o aluno.',
+			bee_first: 'Seja o primeiro a realizar uma aula e avaliar o treinador.'
+		},
+		teacher_page: {
+			no_available_game: 'O Treinador não possui Jogos disponíveis neste momento.',
+			nickname: 'Nickname'
 		},
 		buttons: {
 			edit: 'Editar',

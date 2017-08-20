@@ -21,6 +21,7 @@ return [
 		'users' => 'Usuários',
 		'teachers' => 'Professores',
 		'my_lessons' => 'Minhas aulas',
+		'lessons' => 'Aulas',
 		'profile' => 'Perfil',
 		'games' => 'Jogos',
 		'my-games' => 'Meus Jogos',

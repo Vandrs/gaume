@@ -142,7 +142,19 @@
 <template>
 	<div class="row">
 		<div class="col-xs-12">
-
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<span class="fa-stack fa-lg">
+	  					<i class="fa fa-circle fa-stack-2x yellow-icon"></i>
+	  					<i class="fa fa-user fa-stack-1x fa-inverse"></i>
+					</span>
+				</div>
+				<div class="col-xs-12 text-center">
+					<h1>{{$t('app.profile')}}</h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
 			<div class="row">
                 <div class="col-xs-12 col-md-8 col-md-offset-2">
                     <span class="form-title">{{$t('profile.public_information')}}</span>

@@ -26,6 +26,7 @@ class Game extends Model
         if ($this->photo) {
             return Storage::disk('public')->url($this->photo);
         }
+        return null;
     }
 
     public function gamePlatforms()

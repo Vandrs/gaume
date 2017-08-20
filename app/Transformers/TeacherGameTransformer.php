@@ -11,6 +11,7 @@ class TeacherGameTransformer extends Fractal\TransformerAbstract
 	{
 		return [
 			'id' => $teacherGame->id,
+			'photo' => $teacherGame->game->getPhotoUrl(), 
 			'description' => $teacherGame->description,
 			'game' => $teacherGame->game->name,
 			'platforms'   => $this->parsePlatform($teacherGame)
