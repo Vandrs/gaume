@@ -44,6 +44,8 @@
 		</div>
 		<div class='row margin-top-20'>
 			<div v-for="game of games"  class="col-xs-12 game-home" :style="{'background-image':'url('+game.photo+')'}">
+				<div class="layer">
+				</div>
 				<div class="row margin-top-10">
 					<div class="col-xs-12 text-shadow">
 						<h2>{{game.name}}</h2>
