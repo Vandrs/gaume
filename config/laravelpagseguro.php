@@ -2,7 +2,7 @@
 
 return [
     /* DEFINE SE SERÁ UTILIZADO O AMBIENTE DE TESTES */
-    'use-sandbox' => env('APP_ENV') == 'production' ? true : false,
+    'use-sandbox' => env('APP_ENV') == 'production' ? false : true,
 
     /*
      * Coloque abaixo as informações do seu cadastro no PagSeguro
@@ -11,6 +11,8 @@ return [
         'email' => env('PAGSEGURO_EMAIL'),
         'token' => env('PAGSEGURO_TOKEN'),
     ],
+
+    'sandbox-email' => 'monzy@sandbox.pagseguro.com.br',
 
     /*
      * Informe abaixo o nome / url das rotas de aplicação para notificações

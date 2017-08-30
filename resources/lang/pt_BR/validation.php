@@ -96,6 +96,7 @@ return [
         'class_confirmation_expired' => "Prazo para confirmação da aula expirado.",
         'terms' => 'Você precisa aceitar os termos de usa para prosseguir',
         'min_age' => 'Você deve ser maior de :age anos para se registrar',
+        'unauthorized' => 'Você não possui permissão para realizar a ação solicitada.',
         'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.'        
     ],
 

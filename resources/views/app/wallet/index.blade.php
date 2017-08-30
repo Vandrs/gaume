@@ -1,5 +1,18 @@
 @extends('layouts.app')
 @section('content')
+@if(session()->has('errors'))
+<div class="row">
+	<div class="col-xs-12">
+		<div class="alert {{session()->get('error_class','alert-danger')}}">
+			<ul class="inline-list">
+				@foreach(session()->get('errors') as $error)
+				{{$error}}
+				@endforeach
+			</ul>
+		</div>
+	</div>
+</div>
+@endif
 <div class="row">
 	<div class="col-xs-12 text-center">
 		<span class="fa-stack fa-lg">
@@ -16,13 +29,14 @@
 		<div class="col-xs-12 col-sm-3 col-md-4">
 			<div class="row">
 				<div class="col-xs-12">
-					<h2>{{$monzyPoint->points}} Monzy Points</h2>
-					<p>+ bonus {{}} de monzy points <br/> R$ {{number_format($monzyPoint->value, 2, ',', '.')}}</p>
+					{!!$monzyPoint->description(true)!!}
+					<p>R$ {{number_format($monzyPoint->value, 2, ',', '.')}}</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<form method="POST" action="{{route('pagseguro.payment',['id' => $monzyPoint->id])}}">
+					<form method="post" action="{{route('pagseguro.payment',['id' => $monzyPoint->id])}}">
+						{{csrf_field()}}
 						<button class="btn btn-default" type="submit">Comprar</button>
 					</form>
 				</div>

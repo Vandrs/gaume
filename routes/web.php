@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::get('/meus-jogos','App\TeacherGameController@index')->name('my-games');
 	Route::get('/jogos','App\GameController@index')->name('games');
 	Route::get('/carteira', 'App\WalletController@index')->name('pagseguro.redirect');
-	Route::POST('/carteira/pagamento/{$id}', 'App\WalletController@index')->name('pagseguro.payment');
+	Route::post('/carteira/pagamentos/{id}', 'App\WalletController@makePaymentRequest')->name('pagseguro.payment');
 
 	if (config('app.env') == 'local') {
 		Route::get('/teste','App\TestController@index');
