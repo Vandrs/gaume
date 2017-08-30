@@ -22,6 +22,11 @@ Route::group(['middleware' => ['guest']], function(){
 	Route::post('/professor/cadastro','Auth\RegisterController@teacherRegister')->name('teacher.registration');	
 });
 
+Route::post('/pagseguro/notification', [
+	'uses' => '\laravel\pagseguro\Platform\Laravel5\NotificationController@notification',
+	'as' => 'pagseguro.notification',
+]);
+
 Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::get('/home', 'App\HomeController@index')->name('home');
 	Route::get('/treinadores','App\TeacherController@index')->name('teachers.list');
@@ -32,7 +37,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
 	Route::get('/perfil','App\ProfileController@index')->name('profile');
 	Route::get('/meus-jogos','App\TeacherGameController@index')->name('my-games');
-	Route::Get('/jogos','App\GameController@index')->name('games');
+	Route::get('/jogos','App\GameController@index')->name('games');
+	Route::get('/carteira', 'App\WalletController@index')->name('pagseguro.redirect');
+	Route::POST('/carteira/pagamento/{$id}', 'App\WalletController@index')->name('pagseguro.payment');
 
 	if (config('app.env') == 'local') {
 		Route::get('/teste','App\TestController@index');
@@ -47,5 +54,4 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 		Route::get('/usuarios/professor/pre-cadastro/lista','App\PreRegistrationController@index')->name('user-admin.list-pre-registration');
 		Route::get('/usuarios/professor/pre-cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');
 	});
-
 });

@@ -26,7 +26,8 @@ return [
 		'games' => 'Jogos',
 		'my-games' => 'Meus Jogos',
 		'users' => 'Usuários',
-		'pre_registration' => 'Pré Cadastro'
+		'pre_registration' => 'Pré Cadastro',
+		'wallet' => 'Carteira'
 	],
 	'messages' => [
 		'errors' => 'Alguns erros ocorreram ao tentar processar a sua requisição por favor revise os dados enviados e se o erro persistir contate os administradores do sistema.',

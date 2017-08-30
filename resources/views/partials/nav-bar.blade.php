@@ -23,6 +23,7 @@
                     <li><a href="{{route('lessons.list')}}" title="@lang('app.menu.my_lessons')"><i class="glyphicon glyphicon-education"></i> <span>@if(Auth::user()->hasRole(EnumRole::ADMIN)) @lang('app.menu.lessons')  @else @lang('app.menu.my_lessons') @endif </span></a></li>
                     @if( Auth::user()->hasRole(EnumRole::STUDENT) )
                     <li><a href="{{route('teachers.list')}}" title="@lang('app.menu.teachers')"><i class="fa fa-users"></i> <span> @lang('app.menu.teachers')</span></a></li>
+                    <li><a href="{{route('pagseguro.redirect')}}" title="@lang('app.menu.wallet')"><i class="fa fa-credit-card-alt"></i> <span> @lang('app.menu.wallet')</span></a></li>
                     @endif
                     @if( Auth::user()->hasRole(EnumRole::ADMIN) )
                     <li><a href="{{route('game-admin.list')}}" title="@lang('app.menu.games')"><i class="fa fa-gamepad"></i> <span> @lang('app.menu.games')</span></a></li>

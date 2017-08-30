@@ -14,7 +14,7 @@ class CreateMonzyPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('monzy_points', function($table){
+        Schema::create('monzy_points', function($table) {
             $table->increments('id');
             $table->integer('points');
             $table->integer('bonus')->nullable();
