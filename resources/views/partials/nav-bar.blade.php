@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-header">    
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{url('/images/logo-header.png')}}">
+                <img src="{{url('/images/logo-header.png')}}" >
             </a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapse-main">

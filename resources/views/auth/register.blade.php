@@ -199,7 +199,7 @@
                             <div class="col-xs-12 col-md-4 col-md-offset-2">
                                 <div class="form-group{{$errors->has('neighborhood') ? ' has-error' : '' }}">
                                     <label for="neighborhood_name" class="control-label">@lang('site.registration.neighborhood')*</label>
-                                    <input id="neighborhood" type="text" name="neighborhood" value="{{old('neighborhood')}}" class="form-control" readonly="">
+                                    <input id="neighborhood" type="text" name="neighborhood" value="{{old('neighborhood')}}" class="form-control">
                                     @if ($errors->has('neighborhood'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('neighborhood') }}</strong>

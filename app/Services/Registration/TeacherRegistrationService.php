@@ -119,13 +119,14 @@ class TeacherRegistrationService extends Service
 
 	private function createUser($data)
 	{
+		$format = str_contains($data['birth_date'], '/') ? 'd/m/Y H:i:s' : 'Y-m-d H:i:s';
 		return User::create([
 			'cpf' => StringUtil::justNumbers($data['cpf']),
 			'name' => $data['name'],
 			'nickname' => $data['nickname'],
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
-			'birth_date'=> Carbon::createFromFormat('Y-m-d H:i:s', $data['birth_date']),
+			'birth_date'=> Carbon::createFromFormat($format, $data['birth_date']),
 			'role_id' => $data['role_id']
 		]);
 	}
