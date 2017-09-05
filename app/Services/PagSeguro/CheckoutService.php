@@ -14,7 +14,7 @@ class CheckoutService
 		$data = $this->makeRequestData($user, $monzyPoint);
 		$checkout = PagSeguro::checkout()->createFromArray($data);
 		$credentials = PagSeguro::credentials()->get();
-		$information = $checkout->send($credentials); // Retorna um objeto de laravel\pagseguro\Checkout\Information\Information
+		$information = $checkout->send($credentials);
 		return $information;
 	}
 
@@ -24,12 +24,25 @@ class CheckoutService
 			'sender'   => $this->makeSenderData($user),
 			'shipping' => $this->makeShipping($user),
 			'items'    => $this->makeItemData($monzyPoint),
-			'acceptedPaymentMethods' => [
+			'acceptedPaymentMethod' => [
 				'include' => [
 					'paymentMethod' => [
 						'group' => 'CREDIT_CARD'
 					]
 				]
+			],
+			'paymentMethodConfigs' => [
+				[
+		            'paymentMethod' => [
+		                'group' => 'CREDIT_CARD'
+		            ],
+		            'configs' => [
+		                [
+		                    'key' => 'MAX_INSTALLMENTS_LIMIT',
+		                    'value' => '1'
+		                ]
+		            ]
+		        ]
 			]
 		];
 	}

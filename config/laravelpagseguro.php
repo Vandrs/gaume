@@ -29,9 +29,7 @@ return [
             'route-name' => 'pagseguro.redirect', // Criar uma rota com este nome
         ],
         'notification' => [
-            'callback' => function ($information) { // Callable
-                \Log::debug(print_r($information, 1));
-            },
+            'callback' => ['\App\Services\PagSeguro\NotificationService','receive'],
             'credential' => 'default', // Callable resolve credential function (notificationCode) : Credentials {}
             'route-name' => 'pagseguro.notification', // Criar uma rota com este nome
         ],

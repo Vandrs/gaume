@@ -9,11 +9,11 @@
         "doctrine/dbal": "^2.5",
         "laravel-notification-channels/webpush": "^1.0",
         "laravel/framework": "5.4.*",
-        "laravel/passport": "^2.0",
+        "laravel/passport": "4.0.1",
         "laravel/tinker": "~1.0",
         "league/fractal": "^0.16.0",
         "predis/predis": "^1.1",
-        "michael/laravelpagseguro": "dev-master"
+        "vwnunes/laravel-pagseguro": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -53,5 +53,11 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-    }
+    },
+    "repositories": [
+        {
+            "url": "https://github.com/Vandrs/laravel-pagseguro",
+            "type": "git"
+        }
+    ]
 }
