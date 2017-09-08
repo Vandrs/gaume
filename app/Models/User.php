@@ -11,6 +11,7 @@ use App\Models\Address;
 use App\Models\BankAccount;
 use App\Models\UserEvaluation;
 use App\Models\TeacherGame;
+use App\Models\Wallet;
 use Storage;
 
 class User extends Authenticatable
@@ -70,6 +71,11 @@ class User extends Authenticatable
     public function teacherGames()
     {
         return $this->hasMany(TeacherGame::class, 'teacher_id');
+    }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
     }
 
 }

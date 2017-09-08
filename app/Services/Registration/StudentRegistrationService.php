@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Utils\StringUtil;
 use App\Services\Location\CreateAddressService;
 use App\Services\User\UserProfilePhotoService;
+use App\Services\Wallet\CreateWalletService;
 use App\Enums\EnumUserStatus;
 use App\Enums\EnumRole;
 
@@ -32,6 +33,7 @@ class StudentRegistrationService extends Service
 			$user = $this->createUser($data);
 			$addressService = new CreateAddressService();
 			$address = $addressService->create($user, $data);
+			CreateWalletService::create($user);
 			if ($profileImage) {
 				$photoUploadService = new UserProfilePhotoService();
 				$photoUploadService->uploadPhoto($user, $profileImage);

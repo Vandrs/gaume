@@ -1,10 +1,10 @@
-'<?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionsTable extends Migration
+class CreateCheckoutReferenceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,12 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('transaction_references', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('transaction_id', 255);
-            $table->unsignedInteger('monzy_point_id');
+            $table->string('code', 255)->unique();
             $table->unsignedInteger('user_id');
-            $table->smallInteger('status');
-            $table->smallInteger('type');
-            $table->dateTime('last_event')->nullable(true);
-            $table->boolean('must_update')->default(true);
+            $table->unsignedInteger('monzy_point_id');
             $table->timestamps();
-            $table->softDeletes();
             $table->foreign('monzy_point_id')
                   ->references('id')
                   ->on('monzy_points');
@@ -40,6 +35,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('transactions');
+        Schema::drop('transaction_references');
     }
 }

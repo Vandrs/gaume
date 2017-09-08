@@ -3,24 +3,42 @@
 namespace App\Services\PagSeguro;
 
 use Log;
-use App\Models\MonzyPoint;
+use App\Models\TransactionReference;
+use App\Models\Transaction;
 use App\Services\Transaction\CreateTransactionService;
+use App\Services\Transaction\UpdateTransactionService;
+use App\Services\Transaction\GetTransactionService;
+use App\Services\Transaction\GetTransactionReferenceService;
+use App\Services\User\GetUserService;
 use laravel\pagseguro\Transaction\Information\Information;
 
 class NotificationService 
 {
 
 	private static $instance;
+	private $statusChanged;
+
+	public function __construct()
+	{
+		$this->statusChanged = false;
+	}
 
 	public static function receive(Information $information)
 	{
 		try {
 			$instance = self::getInstance();
 			if ($information->getItemCount() == 1) {
-				$monzyPoint = $instance->getMonzyPointProduct($information);
-				if ($monzyPoint) {
-					CreateTransactionService::create($monzyPoint, $information);		
+				$reference = GetTransactionReferenceService::getByCode($information->getReference());
+				$transaction = $instance->getTransaction($reference);
+				if (empty($transaction)) {
+					$transaction = $instance->createTransaction($reference, $information);
+				} else {
+					$instance->updateTransaction($transaction, $information);
 				}
+				if ($instance->hasStatusChanged()) {
+					
+				}
+				return $transaction;
 			} else {
 				throw new \Exception("Transaction retornou mais de 1 item");
 			}
@@ -30,14 +48,30 @@ class NotificationService
 		}
 	}
 
-	private function getMonzyPointProduct(Information $information)
+	private function getTransaction(TransactionReference $reference)
 	{
-		$item = $information->getItems()->offsetGet(0);
-		if (empty($item)) {
-			Log::info('Transaction: '. $information->getCode(). ' Nenhum item encontrado');
-			return;
+		return GetTransactionService::getByReferenceId($reference->id);
+	}
+
+	private function createTransaction(TransactionReference $reference, Information $information)
+	{
+		$this->statusChanged = true;
+		return CreateTransactionService::create($reference, $information);
+	}
+
+	private function hasStatusChanged()
+	{
+		$this->statusChanged;
+	}
+
+	private function updateTransaction(Transaction $transaction, Information $information)
+	{
+		$oldStatus = $transaction->status;
+		UpdateTransactionService::update($transaction, $information);
+		$transaction->fresh();
+		if ($oldStatus != $transaction->status) {
+			$this->statusChanged = true;
 		}
-		return MonzyPoint::findOrFail($item->getId());
 	}
 
 	private static function getInstance()
@@ -47,4 +81,5 @@ class NotificationService
 		}
 		return self::$instance;
 	}
+
 }

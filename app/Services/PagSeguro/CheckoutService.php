@@ -4,6 +4,8 @@ namespace App\Services\PagSeguro;
 
 use App\Models\User;
 use App\Models\MonzyPoint;
+use App\Models\TransactionReference;
+use App\Services\Transaction\CreateTransactionReferenceService;
 use PagSeguro;
 use Config;
 
@@ -11,11 +13,18 @@ class CheckoutService
 {
 	public function makeCheckout(User $user, MonzyPoint $monzyPoint)
 	{
+		$reference = $this->makeReference($user, $monzyPoint);
 		$data = $this->makeRequestData($user, $monzyPoint);
+		$data['reference'] = $reference->code;
 		$checkout = PagSeguro::checkout()->createFromArray($data);
 		$credentials = PagSeguro::credentials()->get();
 		$information = $checkout->send($credentials);
 		return $information;
+	}
+
+	private function makeReference(User $user, MonzyPoint $monzyPoint)
+	{
+		return CreateTransactionReferenceService::create($user, $monzyPoint);
 	}
 
 	private function makeRequestData(User $user, MonzyPoint $monzyPoint)

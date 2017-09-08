@@ -54,18 +54,7 @@
       } else {
         var navigationUrl = event.notification.actions[0].action;
       }
-      
-      var redirect = true;
-
-      self.clients.matchAll({type: 'window'})
-                  .then(clients => {
-                    if (clients.length) {
-                      return clients[0].navigate(navigationUrl)
-                                       .then(client => client.focus());
-                    } else {
-                      return self.clients.openWindow(navigationUrl);
-                    }
-                  });
+      return self.clients.openWindow(navigationUrl);
     },
 
     /**

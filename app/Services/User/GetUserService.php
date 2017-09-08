@@ -11,4 +11,10 @@ class GetUserService
 				   ->where('id',$id)
 				   ->first();
 	}
+
+	public static function getByEmail($email)
+	{
+		return User::where('email','=', $email)
+				   ->firstOrFail();
+	}	
 }
