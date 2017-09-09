@@ -9,7 +9,9 @@ use App\Services\Transaction\CreateTransactionService;
 use App\Services\Transaction\UpdateTransactionService;
 use App\Services\Transaction\GetTransactionService;
 use App\Services\Transaction\GetTransactionReferenceService;
+use App\Services\Wallet\AddWalletPointsService;
 use App\Services\User\GetUserService;
+use App\Enums\EnumTransactionStatus;
 use laravel\pagseguro\Transaction\Information\Information;
 
 class NotificationService 
@@ -35,8 +37,8 @@ class NotificationService
 				} else {
 					$instance->updateTransaction($transaction, $information);
 				}
-				if ($instance->hasStatusChanged()) {
-					
+				if ($instance->hasStatusChanged() && $transaction->status == EnumTransactionStatus::PAID) {
+					AddWalletPointsService::add($transaction->user->wallet, $transaction->monzyPoint);
 				}
 				return $transaction;
 			} else {
@@ -45,26 +47,27 @@ class NotificationService
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
+			throw $e;
 		}
 	}
 
-	private function getTransaction(TransactionReference $reference)
+	public function getTransaction(TransactionReference $reference)
 	{
 		return GetTransactionService::getByReferenceId($reference->id);
 	}
 
-	private function createTransaction(TransactionReference $reference, Information $information)
+	public function createTransaction(TransactionReference $reference, Information $information)
 	{
 		$this->statusChanged = true;
 		return CreateTransactionService::create($reference, $information);
 	}
 
-	private function hasStatusChanged()
+	public function hasStatusChanged()
 	{
-		$this->statusChanged;
+		return $this->statusChanged;
 	}
 
-	private function updateTransaction(Transaction $transaction, Information $information)
+	public function updateTransaction(Transaction $transaction, Information $information)
 	{
 		$oldStatus = $transaction->status;
 		UpdateTransactionService::update($transaction, $information);

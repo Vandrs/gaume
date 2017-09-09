@@ -62,6 +62,13 @@ var Messages = {
 			my_lessons: 'Minhas Aulas',
 			lessons: 'Aulas'
 		},
+		wallet: {
+			'transaction_history': 'Histórico de transações',
+			'product': 'Produto',
+			'code': 'Código',
+			'status': 'Status',
+			'last_event': 'Última atualização'
+		},
 		profile: {
 			name: 'Nome',
 			email: 'E-mail',

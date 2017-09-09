@@ -39,6 +39,7 @@ Vue.component('pre-registration-list', require('./components/user/ListTeacherReg
 Vue.component('teacher-game', require('./components/teacherGame/TeacherGame'));
 Vue.component('teacher-profile', require('./components/teacher/Teacher'));
 Vue.component('game-list', require('./components/game/GameList'));
+Vue.component('transaction-list', require('./components/transaction/TransactionList'));
 
 window.app = new Vue({
     i18n,

@@ -10,13 +10,18 @@ use App\Services\MonzyPoint\GetMonzyPointService;
 use App\Enums\EnumRole;
 use App\Services\PagSeguro\CheckoutService;
 use Log;
+use Lang;
 
 class WalletController extends Controller
 {
     public function index(Request $request)
     {
     	$monzyPoints = GetMonzyPointService::getAll();
-        return view('app.wallet.index', ['monzyPoints' => $monzyPoints]);
+        if ($request->transaction_id) {
+            session()->flash('errors', [Lang::get('wallet.buy_success')]);
+            session()->flash('error_class', 'alert-success');
+        }
+        return view('app.wallet.index', ['monzyPoints' => $monzyPoints, 'wallet' => $request->user()->wallet]);
     }
 
     public function makePaymentRequest(Request $request, $id)

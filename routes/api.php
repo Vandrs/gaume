@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::post('/me/photo','UserController@updatePhoto');
 	Route::get('/teacher/games/{id}','TeacherGameController@getGamesForLesson');
 
+	#Transactions
+	Route::get('/transactions','TransactionController@list');
+
 	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
 		#Game Admin
 		Route::post('/game','GameAdminController@create');
