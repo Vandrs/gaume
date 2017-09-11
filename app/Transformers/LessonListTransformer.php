@@ -42,15 +42,15 @@ class LessonListTransformer extends Fractal\TransformerAbstract
 		$data = [];
 		foreach ($periods as $period) {
 			array_push($data, [
-				"id" => $period->id,
-                "lesson_id" => $period->lesson_id,
-                "hours" => $period->hours,
-                "hour_value" => $period->hour_value,
-                "status" => $period->status,
-                "billed" => $period->billed,
+				"id" 		  => $period->id,
+                "lesson_id"   => $period->lesson_id,
+                "hours" 	  => $period->hours,
+                "hour_value"  => $period->hour_value,
+                "points" 	  => $period->points,
+                "status" 	  => $period->status,
                 "finished_at" => $period->finished_at,
-                "created_at" => $period->created_at,
-                "updated_at" => $period->updated_at
+                "created_at"  => $period->created_at,
+                "updated_at"  => $period->updated_at
 			]);
 		}
 		return $data;

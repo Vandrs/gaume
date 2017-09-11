@@ -15,6 +15,7 @@ use App\Models\Lesson;
 use App\Models\Period;
 use App\Services\Service;
 use App\Services\Lesson\EndLessonService;
+use App\Services\Lesson\EndPeriodService;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Carbon\Carbon;
@@ -42,10 +43,10 @@ class ConfirmPeriodService extends Service
 			$period->lesson->update(['status' => EnumLessonStatus::IN_PROGRESS]);
 			$this->dispatchJob($period);
 		} else {
-			
-			$period->update(['status' => EnumLessonStatus::CANCELED]);
-			$endLessonService = new EndLessonService();
-			$endLessonService->endLesson($period->lesson);
+			if ($period->status != EnumLessonStatus::CANCELED) {
+				$endPeriod = new EndPeriodService();
+				$endPeriod->cancelPeriod($period);
+			}
 		}
 	}
 

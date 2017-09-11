@@ -13,8 +13,11 @@ use App\Services\Lesson\CreatePeriodService;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
 use App\Enums\EnumLessonStatus;
+use App\Enums\EnumBillingParam;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
+use App\Services\Wallet\WalletService;
+use App\Services\Billing\GetBillingParamService;
 use App\Models\Lesson;
 use Carbon\Carbon;
 
@@ -53,6 +56,12 @@ class ConfirmLessonService extends Service
 		} else {
 			return $lesson->update(['status' => EnumLessonStatus::CANCELED]);
 		}
+	}
+
+	private function returnPoints(Lesson $lesson)
+	{
+		$paramCoins = GetBillingParamService::getParam(EnumBillingParam::CLASS_POINTS);
+		WalletService::returnPoints($lesson->student->wallet, $paramCoins->value);
 	}
 
 

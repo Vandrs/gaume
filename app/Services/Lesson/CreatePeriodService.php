@@ -5,14 +5,19 @@ namespace App\Services\Lesson;
 use Config;
 use Gate;
 use Log;
+use Lang;
 use App\Enums\EnumLessonStatus;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
 use App\Enums\EnumQueue;
+use App\Enums\EnumBillingParam;
 use App\Models\User;
 use App\Models\Lesson;
 use App\Models\Period;
+use App\Models\Wallet;
 use App\Services\Service;
+use App\Services\Wallet\WalletService;
+use App\Services\Billing\GetBillingParamService;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Carbon\Carbon;
@@ -22,6 +27,15 @@ use App\Notifications\LessonStartNotification;
 
 class CreatePeriodService extends Service
 {
+
+	private $paramCoins;
+	private $paramValue;
+
+	public function __construct()
+	{
+		$this->paramCoins = GetBillingParamService::getParam(EnumBillingParam::CLASS_POINTS);		
+		$this->paramValue = GetBillingParamService::getParam(EnumBillingParam::CLASS_VALUE);		
+	}
 
 	public static function registerPolicies()
 	{
@@ -38,10 +52,11 @@ class CreatePeriodService extends Service
 		}
 
 		$period = Period::create([
-			'lesson_id' => $lesson->id,
-			'hours' => Config::get('lesson.lesson_time'),
-			'hour_value' => Config::get('lesson.lesson_hour_value'),
-			'status' => EnumLessonStatus::IN_PROGRESS
+			'lesson_id'  => $lesson->id,
+			'hours' 	 => Config::get('lesson.lesson_time'),
+			'hour_value' => $this->paramValue->value,
+			'points' 	 => $this->paramCoins->value,
+			'status' 	 => EnumLessonStatus::IN_PROGRESS
 		]);
 
 		$this->dispatchJobInProgress($period);
@@ -55,17 +70,33 @@ class CreatePeriodService extends Service
 			throw new AuthorizationException(__('validation.custom.class_confirmation_expired'));
 		}
 
+		$this->checkWallet($lesson->student->wallet);
+
 		$period = Period::create([
-			'lesson_id' => $lesson->id,
-			'hours' => Config::get('lesson.lesson_time'),
-			'hour_value' => Config::get('lesson.lesson_hour_value'),
-			'status' => EnumLessonStatus::PENDING
+			'lesson_id'  => $lesson->id,
+			'hours' 	 => Config::get('lesson.lesson_time'),
+			'hour_value' => $this->paramValue->value,
+			'points' 	 => $this->paramCoins->value,
+			'status' 	 => EnumLessonStatus::PENDING
 		]);
 
+		$this->discountWallet($lesson->student->wallet);
 		$this->dispatchJobPending($period);
 		$this->dispatchNotificationJob($period);
 
 		return $period;
+	}
+
+	private function checkWallet(Wallet $wallet)
+	{
+		if (!WalletService::checkPoints($wallet, $this->paramCoins->value)) {
+			throw new AuthorizationException(Lang::get('wallet.no_credits',['link' => route('pagseguro.redirect')]));
+		}
+	}
+	
+	private function discountWallet(Wallet $wallet)
+	{
+		WalletService::removePoints($wallet, $this->paramCoins->value);	
 	}
 
 	public function createPolicy(User $user, Lesson $lesson)

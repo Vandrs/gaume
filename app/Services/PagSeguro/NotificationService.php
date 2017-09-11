@@ -9,7 +9,7 @@ use App\Services\Transaction\CreateTransactionService;
 use App\Services\Transaction\UpdateTransactionService;
 use App\Services\Transaction\GetTransactionService;
 use App\Services\Transaction\GetTransactionReferenceService;
-use App\Services\Wallet\AddWalletPointsService;
+use App\Services\Wallet\WalletService;
 use App\Services\User\GetUserService;
 use App\Enums\EnumTransactionStatus;
 use laravel\pagseguro\Transaction\Information\Information;
@@ -38,7 +38,7 @@ class NotificationService
 					$instance->updateTransaction($transaction, $information);
 				}
 				if ($instance->hasStatusChanged() && $transaction->status == EnumTransactionStatus::PAID) {
-					AddWalletPointsService::add($transaction->user->wallet, $transaction->monzyPoint);
+					WalletService::addPoints($transaction->user->wallet, $transaction->monzyPoint);
 				}
 				return $transaction;
 			} else {

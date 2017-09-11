@@ -6,23 +6,38 @@ use Gate;
 use Config;
 use Validator;
 use Log;
+use Lang;
 use DB;
 use Illuminate\Validation\Rule;
-use App\Models\User;
 use App\Services\Service;
+use App\Services\Wallet\WalletService;
+use App\Services\Billing\GetBillingParamService;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
 use App\Enums\EnumLessonStatus;
 use App\Enums\EnumQueue;
+use App\Enums\EnumBillingParam;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use App\Models\Lesson;
+use App\Models\User;
+use App\Models\Wallet;
 use App\Jobs\CheckPendingLesson;
 use App\Notifications\LessonStartNotification;
 use Carbon\Carbon;
 
 class CreateLessonService extends Service
 {
+
+	private $paramCoins;
+	private $paramValue;
+
+	public function __construct()
+	{
+		$this->paramCoins = GetBillingParamService::getParam(EnumBillingParam::CLASS_POINTS);		
+		$this->paramValue = GetBillingParamService::getParam(EnumBillingParam::CLASS_VALUE);		
+	}
+
 	public static function registerPolicies()
 	{
 		$service = new self();
@@ -42,6 +57,8 @@ class CreateLessonService extends Service
 			throw new ValidationException('FALHA AO VALIDAR: '.json_encode($this->validator->errors()->all()));
 		}
 
+		$this->checkWallet($student->wallet);
+
 		$lesson = Lesson::create([
 			'teacher_id'  => $data['teacher_id'],
 			'student_id'  => $student->id,
@@ -50,10 +67,23 @@ class CreateLessonService extends Service
 			'status'	  => EnumLessonStatus::PENDING
 		]);
 
+		$this->discountWallet($student->wallet);
 		$this->dispatchJobCheckPendingJob($lesson);		
 		$this->dispatchNotificationJob($lesson);
 
 		return $lesson;
+	}
+
+	private function checkWallet(Wallet $wallet)
+	{
+		if (!WalletService::checkPoints($wallet, $this->paramCoins->value)) {
+			throw new AuthorizationException(Lang::get('wallet.no_credits',['link' => route('pagseguro.redirect')]));
+		}
+	}
+	
+	private function discountWallet(Wallet $wallet)
+	{
+		WalletService::removePoints($wallet, $this->paramCoins->value);	
 	}
 
 	private function dispatchJobCheckPendingJob(Lesson $lesson)

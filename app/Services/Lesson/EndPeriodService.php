@@ -6,6 +6,7 @@ use App\Models\Period;
 use App\Enums\EnumLessonStatus;
 use Config;
 use Carbon\Carbon;
+use App\Services\Wallet\WalletService;
 
 class EndPeriodService
 {
@@ -46,7 +47,15 @@ class EndPeriodService
 		$now = Carbon::now();
 		$period->finished_at = $now;
 		$period->status = EnumLessonStatus::CANCELED;
+		$this->returnPoints($period);
 		return $period->save();
 	}
+
+	private function returnPoints(Period $period)
+	{
+		$wallet = $period->lesson->student->wallet;
+		WalletService::returnPoints($wallet, $period->points);
+	}
+
 }
 

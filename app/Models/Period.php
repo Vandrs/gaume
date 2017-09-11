@@ -12,7 +12,7 @@ class Period extends Model
 	];
 
 	protected $fillable = [
-		'lesson_id', 'hours', 'hour_value', 'status', 'billed'
+		'lesson_id', 'hours', 'hour_value', 'status', 'points'
 	];
 
 	protected $dates = [

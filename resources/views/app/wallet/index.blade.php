@@ -52,6 +52,8 @@
 						<div>@lang('wallet.coins')</div>
 						@if($monzyPoint->bonus)
 						<div class="bonus-points">+ {{$monzyPoint->bonus}} @lang('wallet.free')</div>
+						@else
+						<div>&nbsp;</div>
 						@endif
 						<div>
 							<form method="post" action="{{route('pagseguro.payment',['id' => $monzyPoint->id])}}">

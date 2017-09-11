@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use Gate;
 use Log;
 use DB;
+use Exception;
 use App\Enums\EnumPolicy;
 use App\Models\Lesson;
 use App\Services\Lesson\CreateLessonService;
@@ -16,8 +16,8 @@ use App\Transformers\ApiItemSerializer;
 use App\Transformers\LessonListTransformer;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Exception;
 use League\Fractal;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 

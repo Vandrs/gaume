@@ -12,6 +12,8 @@ use App\Models\Period;
 use App\Services\Lesson\EndPeriodService;
 use App\Services\Lesson\EndLessonService;
 use App\Services\Lesson\CreateLessonEvaluationService;
+use DB;
+use Log;
 
 class CheckInProgressPeriod implements ShouldQueue
 {
@@ -36,16 +38,25 @@ class CheckInProgressPeriod implements ShouldQueue
      */
     public function handle()
     {
-        $this->period->fresh();
-        $periodService = new EndPeriodService();
-        if ($periodService->canFinishPeriod($this->period)) {
-            $periodService->finishPeriod($this->period);
-            $lessonService = new EndLessonService();
-            if ($lessonService->mustEndLesson($this->period->lesson)) {
-                $lessonService->endLesson($this->period->lesson);
-                $this->createEvaluation();
+        DB::beginTransaction();
+        try {
+            $this->period->fresh();
+            $periodService = new EndPeriodService();
+            if ($periodService->canFinishPeriod($this->period)) {
+                $periodService->finishPeriod($this->period);
+                $lessonService = new EndLessonService();
+                if ($lessonService->mustEndLesson($this->period->lesson)) {
+                    $lessonService->endLesson($this->period->lesson);
+                    $this->createEvaluation();
+                }
             }
-        }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::error($e->getMessage());
+            Log::error($e->getTraceAsString());
+            throw $e;
+        }   
     }
 
     private function createEvaluation()

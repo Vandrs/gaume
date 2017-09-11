@@ -9,5 +9,6 @@ return [
 	'point_description_with_bonus' => ':name :points Monzy Coins + bonus de :bonus points',
 	'point_description' => ':name :points Monzy Coins',
 	'html_point_description_with_bonus' => '<h2>:name :points Monzy Coins</h2><p> + bonus de :bonus points</p>',
-	'html_point_description' => '<h2>:name :points Monzy Coins</h2>'
+	'html_point_description' => '<h2>:name :points Monzy Coins</h2>',
+	'no_credits' => 'Atenção, você não possui saldo suficiente em sua carteira para realizar esta aula.'
 ];
