@@ -19,7 +19,7 @@ class BillingParamSeeder extends Seeder
                 'name'   => 'Pacote Easy'
             ],
             [
-                'points' => 359,
+                'points' => 350,
                 'bonus'  => 50,
                 'value'  => 14.50,
                 'name'   => 'Pacote Medium'
