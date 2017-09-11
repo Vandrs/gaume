@@ -16,12 +16,6 @@ class MonzyPointName extends Migration
         Schema::table('monzy_points', function (Blueprint $table) {
             $table->string('name',100)->nullable(true)->after('id');
         });
-
-        DB::table('monzy_points')->where('id', '=' , 1)->update(['name' => 'Pacote Easy']);
-        DB::table('monzy_points')->where('id', '=' , 2)->update(['name' => 'Pacote Medium']);
-        DB::table('monzy_points')->where('id', '=' , 3)->update(['name' => 'Pacote Hard']);
-        DB::table('monzy_points')->where('id', '=' , 4)->update(['name' => 'Pacote Advanced']);
-
     }
 
     /**

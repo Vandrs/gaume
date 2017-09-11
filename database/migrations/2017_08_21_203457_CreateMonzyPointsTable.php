@@ -21,30 +21,6 @@ class CreateMonzyPointsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-        DB::table('monzy_points')->insert([
-            [
-                'points' => 100,
-                'bonus'  => 0,
-                'value'  => 5.00
-            ],
-            [
-                'points' => 359,
-                'bonus'  => 50,
-                'value'  => 14.50
-            ],
-            [
-                'points' => 1050,
-                'bonus'  => 100,
-                'value'  => 44.00
-            ],
-            [
-                'points' => 1650,
-                'bonus'  => 150,
-                'value'  => 72.50
-            ]
-        ]);
-        
     }
 
     /**
