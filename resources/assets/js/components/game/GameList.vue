@@ -47,12 +47,12 @@
 				<div class="layer">
 				</div>
 				<div class="row margin-top-10">
-					<div class="col-xs-12 text-shadow">
+					<div class="col-xs-12">
 						<h2>{{game.name}}</h2>
 					</div>
 				</div>
-				<div class="row margin-top-10">
-					<div class="col-xs-12 col-md-8 col-sm-8 text-shadow">
+				<div class="row margin-top-10 game-description">
+					<div class="col-xs-12 col-md-8 col-sm-8">
 						{{game.description}}
 					</div>
 				</div>

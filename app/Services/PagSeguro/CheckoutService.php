@@ -36,7 +36,7 @@ class CheckoutService
 			'acceptedPaymentMethod' => [
 				'include' => [
 					'paymentMethod' => [
-						'group' => 'CREDIT_CARD'
+						'group' => 'CREDIT_CARD,BOLETO'
 					]
 				]
 			],
