@@ -29,7 +29,7 @@ class CreateBillingParamsTable extends Migration
             ],
             [
                 'code'  => EnumBillingParam::CLASS_VALUE, 
-                'value' => 10.9
+                'value' => 10.15
             ]
         ]);
         

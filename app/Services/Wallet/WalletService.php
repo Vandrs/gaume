@@ -9,7 +9,7 @@ class WalletService
 {
 	public static function addPoints(Wallet $wallet, MonzyPoint $points)
 	{
-		$amount = $wallet->amount + $points->points;
+		$amount = $wallet->amount + $points->points + $points->bonus;
 		return $wallet->update(['amount' => $amount]);
 	}
 
