@@ -5,6 +5,13 @@ require('./locales/bootstrap-datepicker.pt-BR');
 
 import { LocationProvider } from '../providers/locationProvider';
 
+String.prototype.lpad = function(padString, length) {
+    var str = this;
+    while (str.length < length)
+        str = padString + str;
+    return str;
+}
+
 function readImageURL(input, target) {
 	$(target).html("");
     if (input.files && input.files[0]) {
@@ -37,7 +44,13 @@ $(document).ready(function () {
 	});
 
 	$("#birth_date_text").datepicker().on('changeDate', function (event) {
-		$('#birth_date').val(event.date.toLocaleString());
+		var day   = event.date.getDate();
+		var month = event.date.getMonth() + 1;
+		var year  = event.date.getFullYear();
+		day = day.toString().lpad("0",2).toString();
+		month = month.toString().lpad("0",2).toString();
+		var strDate = year.toString()+"-"+month+"-"+day+" 00:00:00";
+		$('#birth_date').val(strDate);
 	});
 
 	$("#btnShowBirthDateCalendar").on('click', function (event) {
