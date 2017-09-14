@@ -136,7 +136,7 @@ class RegisterController extends Controller
             return $this->registered($request, $user) ? : redirect($this->redirectPath());
         } catch (ValidationException $e) {
             DB::rollback();
-            Log::error($e->getMessage());
+            Log::error(json_encode($userRegistration->getValidator()->errors()->all()));
             Log::error($e->getTraceAsString());
             return back()->withInput()->withErrors($userRegistration->getValidator());
         } catch (\Exception $e) {
