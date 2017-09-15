@@ -3,19 +3,34 @@
 namespace App\Transformers;
 
 use League\Fractal;
+use App\Models\User;
+use App\Enums\EnumLessonStatus;
+use App\Enums\EnumRole;
+
 
 class LessonListTransformer extends Fractal\TransformerAbstract
 {
 
+	private $user;
+
+	public function __construct(User $user)
+	{
+		$this->user = $user;
+	}
+
+
 	public function transform($lesson)
 	{
+		$value = $this->getValue($lesson);
 		return [
-			'id' 		 => $lesson->id,
-			'status' 	 => $lesson->status,
-			'created_at' => $lesson->created_at,
-			'teacher'    => $this->parseTeacher($lesson),
-			'student'    => $this->parseStudent($lesson),
-			'periods'    => $this->parsePeriods($lesson->periods)
+			'id' 		 	 => $lesson->id,
+			'status' 	 	 => $lesson->status,
+			'value'		 	 => $value,
+			'formated_value' => "R$".number_format($value, 2, ',', '.'),
+			'created_at' 	 => $lesson->created_at,
+			'teacher'    	 => $this->parseTeacher($lesson),
+			'student'    	 => $this->parseStudent($lesson),
+			'periods'    	 => $this->parsePeriods($lesson->periods)
 		];
 	}
 
@@ -54,5 +69,14 @@ class LessonListTransformer extends Fractal\TransformerAbstract
 			]);
 		}
 		return $data;
+	}
+
+	public function getValue($lesson)
+	{
+		if ($lesson->status == EnumLessonStatus::FINISHED && ($this->user->hasRole(EnumRole::ADMIN) || $this->user->hasRole(EnumRole::TEACHER))) {
+			return $lesson->value;
+		} else {
+			return 0;
+		}
 	}
 }

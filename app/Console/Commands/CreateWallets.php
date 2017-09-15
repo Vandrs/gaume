@@ -16,7 +16,7 @@ class CreateWallets extends Command
      *
      * @var string
      */
-    protected $signature = 'wallets:make';
+    protected $signature = 'app:wallets:make';
 
     /**
      * The console command description.

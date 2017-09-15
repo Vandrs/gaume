@@ -60,7 +60,8 @@ var Messages = {
 			},
 			lesson_resume: 'Resumo da Aula',
 			my_lessons: 'Minhas Aulas',
-			lessons: 'Aulas'
+			lessons: 'Aulas',
+			value: 'Valor'
 		},
 		wallet: {
 			'transaction_history': 'Histórico de transações',

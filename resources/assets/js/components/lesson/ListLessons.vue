@@ -118,6 +118,7 @@
 						<th v-if="user.role != roles.teacher">{{$t('app.teacher')}}</th>
 						<th>{{$t('lesson.table.status')}}</th>
 						<th>{{$t('lesson.labels.duration')}}</th>
+						<th v-if="user.role == roles.teacher || user.role == roles.admin">{{$t('lesson.value')}}</th>
 						<th>{{$t('app.actions')}}</th>
 					</tr>
 				</thead>
@@ -127,6 +128,7 @@
 						<td v-if="user.role != roles.teacher">{{lesson.teacher.name}}</td>
 						<td>{{$t('lesson.status.'+lesson.status)}}</td>
 						<td>{{getLessonDuration(lesson)+" "+$tc('app.hour',getLessonDuration(lesson))}}</td>
+						<td v-if="user.role == roles.teacher || user.role == roles.admin">{{lesson.formated_value}}</td>
 						<td>
 							<a class="btn btn-default" v-bind:title="$t('app.view')" v-on:click="seePage(lesson.id)"><i class="glyphicon glyphicon-eye-open"></i></a>
 						</td>

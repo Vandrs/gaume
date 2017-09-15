@@ -8,6 +8,7 @@ use App\Enums\EnumLessonStatus;
 use Carbon\Carbon;
 use App\Services\Wallet\WalletService;
 use App\Services\Billing\GetBillingParamService;
+use App\Services\Billing\CalculateLessonBillingService;
 use App\Enums\EnumBillingParam;
 
 class EndLessonService
@@ -34,6 +35,8 @@ class EndLessonService
 
 		if ($status == EnumLessonStatus::CANCELED) {
 			$this->returnPoints($lesson);
+		} else if ($status == EnumLessonStatus::FINISHED) {
+			$this->calculateBilling($lesson);
 		}
 
 		return $lesson->save();
@@ -43,5 +46,11 @@ class EndLessonService
 	{
 		$paramCoins = GetBillingParamService::getParam(EnumBillingParam::CLASS_POINTS);
 		WalletService::returnPoints($lesson->student->wallet, $paramCoins->value);
+	}
+
+	private function calculateBilling(Lesson $lesson)
+	{
+		$service = new CalculateLessonBillingService();
+		$service->calculate($lesson);
 	}
 }

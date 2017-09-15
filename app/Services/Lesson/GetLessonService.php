@@ -59,6 +59,7 @@ class GetLessonService extends Service
 			'lessons.student_id',
 			'lessons.created_at',
 			'lessons.status',
+			'lessons.value',
 			DB::raw('teacher.name as teacher_name'),
 			DB::raw('teacher.email as teacher_email'),
 			DB::raw('student.name as student_name'),
