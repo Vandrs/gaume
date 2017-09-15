@@ -7,7 +7,7 @@ use App\Models\State;
 use App\Models\Neighborhood;
 use App\Models\User;
 use App\Models\Address;
-use App\Exzipcodetions\ValidationExzipcodetion;
+use App\Exceptions\ValidationException;
 use Validator;
 use App\Services\Service;
 use App\Utils\StringUtil;
@@ -22,7 +22,7 @@ class CreateAddressService extends Service
 		$data['user_id'] = $user->id;
 		$this->validator = Validator::make($data, $this->getRules(), $this->getMessages());
 		if ($this->validator->fails()) {
-			throw new ValidationExzipcodetion('Errors: '.json_encode($this->validator->errors()->all()));
+			throw new ValidationException('Errors: '.json_encode($this->validator->errors()->all()));
 		}
 		
 		return Address::create([
