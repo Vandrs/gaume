@@ -58,14 +58,14 @@ class GamePhotoUploadService
 		return [
 			'photo.required' => __('validation.required', ['attribute' => 'Foto de Capa']),
 			'photo.image' => __('validation.image', ['attribute' => 'Foto de Capa']),
-			'photo.dimension_min' => __('validation.dimension_min',['attribute' => 'Foto de Capa', 'width' => 730, 'height' => 365])
+			'photo.dimension_min' => __('validation.dimension_min',['attribute' => 'Foto de Capa', 'width' => 700, 'height' => 300])
 		];
 	}
 
 	public function getRules()
 	{
 		return [
-			'photo' => 'required|image|dimension_min:730,365'
+			'photo' => 'required|image|dimension_min:700,300'
 		];
 	}
 
