@@ -13,6 +13,7 @@ use App\Models\UserEvaluation;
 use App\Models\TeacherGame;
 use App\Models\Wallet;
 use Storage;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -76,6 +77,11 @@ class User extends Authenticatable
     public function wallet()
     {
         return $this->hasOne(Wallet::class);
+    }
+
+    public function getLessonsByPeriod(Carbon $dtIni, Carbon $dtEnd)
+    {
+        
     }
 
 }

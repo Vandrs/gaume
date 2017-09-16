@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::get('/transactions','TransactionController@list');
 
 	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
+
 		#Game Admin
 		Route::post('/game','GameAdminController@create');
 		Route::get('/game/{id}','GameAdminController@get');
@@ -63,6 +64,10 @@ Route::group(['middleware' => ['auth:api']] , function () {
 		Route::get('/users/teachers/pre-registration/{id}','PreRegistrationController@get');
 		Route::put('/users/teachers/pre-registration/{id}','PreRegistrationController@update');
 		Route::post('/users/teachers/pre-registration/{id}/send-email','PreRegistrationController@reSendRegistrationEmail');
+
+		# Billing
+		Route::get('/billing','BillingController@listBillingUsers');
+		
 	});
 	
 });
