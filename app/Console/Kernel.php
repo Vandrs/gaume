@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\CreateAdminUser::class,
-        \App\Console\Commands\CreateWallets::class
+        \App\Console\Commands\CreateWallets::class,
+        \App\Console\Commands\CalculateBilling::class
     ];
 
     /**

@@ -126,10 +126,11 @@ class LessonController extends RestController
 	{
 		try {
 			$lessonService = new GetLessonService();
-			$lessonsPaginator = $lessonService->getAll($request->user(), $request->all());
+			$user = $request->user();
+			$lessonsPaginator = $lessonService->getAll($user, $request->all());
 			$paginatorAdapter = new IlluminatePaginatorAdapter($lessonsPaginator);
 			$fractal = new Fractal\Manager();
-			$items = new Fractal\Resource\Collection($lessonsPaginator->getCollection(), new LessonListTransformer);
+			$items = new Fractal\Resource\Collection($lessonsPaginator->getCollection(), new LessonListTransformer($user));
 			$items->setPaginator($paginatorAdapter);
 			$data = $fractal->createData($items)->toArray(); 
 			return $this->success($data);	

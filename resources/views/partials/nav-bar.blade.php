@@ -29,6 +29,7 @@
                     <li><a href="{{route('game-admin.list')}}" title="@lang('app.menu.games')"><i class="fa fa-gamepad"></i> <span> @lang('app.menu.games')</span></a></li>
                     <li><a href="{{route('user-admin.list')}}" title="@lang('app.menu.users')"><i class="fa fa-users"></i> <span> @lang('app.menu.users')</span></a></li>
                     <li><a href="{{route('user-admin.list-pre-registration')}}" title="@lang('app.menu.pre_registration')"><i class="fa fa-id-card"></i> <span> @lang('app.menu.pre_registration')</span></a></li>
+                    <li><a href="{{route('billing')}}" title="@lang('app.menu.billing')"><i class="fa fa-money"></i> <span> @lang('app.menu.billing')</span></a></li>
                     @endif
                     @if( Auth::user()->hasRole(EnumRole::TEACHER) )
                     <li><a href="{{route('my-games')}}" title="@lang('app.menu.my-games')"><i class="fa fa-gamepad"></i> <span> @lang('app.menu.my-games')</span></a></li>

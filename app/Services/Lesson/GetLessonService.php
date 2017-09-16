@@ -5,6 +5,7 @@ namespace App\Services\Lesson;
 use Gate;
 use DB;
 use Validator;
+use Carbon\Carbon;
 use App\Services\Service;
 use App\Enums\EnumPolicy;
 use App\Enums\EnumRole;
@@ -51,14 +52,13 @@ class GetLessonService extends Service
 			throw new ValidationException('FALHA AO VALIDAR: '.json_encode($this->validator->errors()->all()));
 		}
 
-
-
 		$selectData = [
 			'lessons.id',
 			'lessons.teacher_id',
 			'lessons.student_id',
 			'lessons.created_at',
 			'lessons.status',
+			'lessons.value',
 			DB::raw('teacher.name as teacher_name'),
 			DB::raw('teacher.email as teacher_email'),
 			DB::raw('student.name as student_name'),
@@ -141,5 +141,32 @@ class GetLessonService extends Service
 			'start_date.date_format' => __('validation.date_format', ['attribute' => __('app.labels.start'), 'format' => 'yyyy-mm-dd']),
 			'end_date.date_format' => __('validation.date_format', ['attribute' => __('app.labels.start'), 'format' => 'yyyy-mm-dd'])
 		];
+	}
+
+	public static function getUserLessonsByPeriod(User $user, $status, $dtIni = null, $dtEnd = null)
+	{
+
+		if ($dtIni && !($dtIni instanceof Carbon)) {
+			$dtIni = Carbon::createFromFormat("Y-m-d");
+		}
+
+		if ($dtEnd && !($dtEnd instanceof Carbon)) {
+			$dtEnd = Carbon::createFromFormat("Y-m-d");
+		}
+
+		$query = Lesson::with(['periods'])
+			  		   ->where('teacher_id', '=', $user->id)
+			  		   ->where('status', '=', $status);
+
+		if ($dtIni) {
+			$query->where('created_at', '>=', $dtIni->format('Y-m-d H:i:s'));
+		}
+
+		if ($dtEnd) {
+			$query->where('created_at', '<=', $dtEnd->format('Y-m-d H:i:s'));
+		}
+
+		return $query->get();
+			  		 
 	}
 }

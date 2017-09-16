@@ -53,5 +53,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 		Route::get('/usuarios/professor/pre-cadastro','App\PreRegistrationController@create')->name('user-admin.create-teacher');
 		Route::get('/usuarios/professor/pre-cadastro/lista','App\PreRegistrationController@index')->name('user-admin.list-pre-registration');
 		Route::get('/usuarios/professor/pre-cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');
+		Route::get('/pagamentos','App\BillingController@index')->name('billing');
 	});
 });

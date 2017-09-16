@@ -14,10 +14,13 @@ import { Dropdown } from 'uiv';
 import VueI18n from 'vue-i18n';
 import { AppPushNotifications } from './components/app/AppPushNotifications';
 import Autocomplete from 'v-autocomplete';
+import { VueMaskDirective } from 'v-mask'
+
 
 AppPushNotifications.registerServiceWorker();
 
 Vue.use(VueI18n);
+Vue.directive('mask', VueMaskDirective);
 
 var i18n = new VueI18n({
   locale: 'pt_BR',
@@ -40,6 +43,7 @@ Vue.component('teacher-game', require('./components/teacherGame/TeacherGame'));
 Vue.component('teacher-profile', require('./components/teacher/Teacher'));
 Vue.component('game-list', require('./components/game/GameList'));
 Vue.component('transaction-list', require('./components/transaction/TransactionList'));
+Vue.component('billing-users', require('./components/billing/ListBillingUsers'));
 
 window.app = new Vue({
     i18n,

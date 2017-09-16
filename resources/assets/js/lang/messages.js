@@ -24,7 +24,10 @@ var Messages = {
 			see_profile: 'Ver Perfil',
 			profile: 'Perfil',
 			my_games: 'Meus Jogos',
-			teacher: 'Treinador'
+			teacher: 'Treinador',
+			billing: 'Pagamentos',
+			from: 'De',
+			to: 'Até'
 		},
 		modal : {
 			warning: "Atenção",
@@ -60,7 +63,8 @@ var Messages = {
 			},
 			lesson_resume: 'Resumo da Aula',
 			my_lessons: 'Minhas Aulas',
-			lessons: 'Aulas'
+			lessons: 'Aulas',
+			value: 'Valor'
 		},
 		wallet: {
 			'transaction_history': 'Histórico de transações',
@@ -152,6 +156,12 @@ var Messages = {
 		teacher_page: {
 			no_available_game: 'O Treinador não possui Jogos disponíveis neste momento.',
 			nickname: 'Nickname'
+		},
+		billing: {
+			lesson_history: 'Historico de Aulas',
+			qtd_hours: 'QTD. Horas',
+			qtd_lessons: 'QTD. Aulas',
+			value: 'Valor'
 		},
 		buttons: {
 			edit: 'Editar',
