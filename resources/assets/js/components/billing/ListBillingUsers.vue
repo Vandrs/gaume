@@ -4,6 +4,7 @@
 	import { Pagination } from 'uiv';
 	export default {
 		components: { Pagination },
+		props: ['dt_ini','dt_end'],
 		data() {
 			return {
 				users: [], 
@@ -21,6 +22,8 @@
 			};
 		},
 		mounted() {
+			this.filters.dt_ini = this.dt_ini;
+			this.filters.dt_end = this.dt_end;
 			this.getUsers(1);
 		},
 		methods: {
