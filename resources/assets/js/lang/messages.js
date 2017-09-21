@@ -29,6 +29,13 @@ var Messages = {
 			from: 'De',
 			to: 'Até'
 		},
+		notification: {
+			notifications: 'Notificações',
+			empty: 'Você não possui notificações',
+			mark_all_read: 'Marcar todas como lidas',
+			mark_read: 'Marcar como lida.',
+			see_all: 'Ver todas'
+		},
 		modal : {
 			warning: "Atenção",
 			okText: "Sim",

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\App;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\RestController;
 
-class PushSubscriptionController extends Controller
+class PushSubscriptionController extends RestController
 {
     /**
      * Update user's subscription.
@@ -21,6 +21,7 @@ class PushSubscriptionController extends Controller
             $request->key,
             $request->token
         );
+        return $this->success();
     }
     /**
      * Delete the specified subscription.

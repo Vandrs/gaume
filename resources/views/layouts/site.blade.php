@@ -28,6 +28,10 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
+            'pusherApp' => [
+                'cluster' => Config::get('broadcasting.connections.pusher.options.cluster'),
+                'key'     => Config::get('broadcasting.connections.pusher.key') 
+            ],
             'user' => [
                 'token' => Auth::guest() ? null : (Auth::user()->token() ? Auth::user()->token()->accessToken : Auth::user()->createToken('app')->accessToken),
                 'name' => Auth::guest() ? null : Auth::user()->name,

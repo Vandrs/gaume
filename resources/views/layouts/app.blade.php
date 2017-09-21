@@ -30,6 +30,10 @@
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
             'vapidPublicKey' => Config::get('webpush.vapid.public_key'),
+            'pusherApp' => [
+                'cluster' => Config::get('broadcasting.connections.pusher.options.cluster'),
+                'key'     => Config::get('broadcasting.connections.pusher.key') 
+            ],
             'user' => [
                 'token' => Auth::guest() ? null : (Auth::user()->token() ? Auth::user()->token()->accessToken : Auth::user()->createToken('app')->accessToken),
                 'name'  => Auth::guest() ? null : Auth::user()->name,

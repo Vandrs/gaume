@@ -19,7 +19,9 @@ Vue.use(VueI18n);
 var i18n = new VueI18n({
   locale: 'pt_BR',
   messages: Messages
-})
+});
+
+Vue.component('notifications-dropdown', require('./components/notification/NotificationsDropdown'));
 
 
 window.app = new Vue({

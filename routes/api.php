@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 */
 
+Route::get('notifications/last', 'NotificationController@last');
+Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
+
 Route::group(['middleware' => ['auth:api']] , function () {
 
 	#Lesson
@@ -47,8 +50,16 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	#Transactions
 	Route::get('/transactions','TransactionController@list');
 
-	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
+	#Notifications
+	Route::get('/notifications', 'NotificationController@index');
+	Route::patch('/notifications/{id}/read', 'NotificationController@markAsRead');
+	Route::post('/notifications/mark-all-read', 'NotificationController@markAllRead');
 
+	#Notifications Subscriptions
+	Route::post('/subscriptions', 'PushSubscriptionController@update');
+	Route::post('/subscriptions/delete', 'PushSubscriptionController@destroy');
+
+	Route::group(['middleware' => ['adminOnly'], 'prefix' => 'admin'] , function () {
 		#Game Admin
 		Route::post('/game','GameAdminController@create');
 		Route::get('/game/{id}','GameAdminController@get');

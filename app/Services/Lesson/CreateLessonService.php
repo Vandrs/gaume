@@ -97,15 +97,9 @@ class CreateLessonService extends Service
 
 	private function dispatchNotificationJob(Lesson $lesson)
 	{
-		try {
-			$user = $lesson->teacher;
-			$user->notify(new LessonStartNotification($lesson));
-			return true;
-		} catch (\Exception $e) {
-			Log::error($e->getMessage());
-			Log::error($e->getTraceAsString());
-			return false;
-		}
+		$notification = new LessonStartNotification($lesson, $lesson->teacher);
+		$notification->onQueue(EnumQueue::NOTIFICATION);
+		dispatch($notification);
 	}
 
 	

@@ -33,8 +33,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::get('/treinadores/{id}','App\TeacherController@show')->name('teachers.page');
 	Route::get('/aulas','App\LessonController@index')->name('lessons.list');
 	Route::get('/aula/{id}','App\LessonController@show')->name('lessons.show');
-	Route::post('/subscriptions', 'App\PushSubscriptionController@update');
-	Route::post('/subscriptions/delete', 'App\PushSubscriptionController@destroy');
 	Route::get('/perfil','App\ProfileController@index')->name('profile');
 	Route::get('/meus-jogos','App\TeacherGameController@index')->name('my-games');
 	Route::get('/jogos','App\GameController@index')->name('games');

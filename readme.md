@@ -26,6 +26,4 @@ php artisan user:admin:create
 
 npm run dev
 
-php artisan queue:work database --queue=lessons
-php artisan queue:work database --queue=email
-php artisan queue:work database --queue=user
+php artisan queue:work database --queue=email,lessons,user,notification,default  --tries=3

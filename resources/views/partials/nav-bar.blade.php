@@ -6,6 +6,18 @@
             </a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapse-main">
+
+
+            <div class="nav navbar-nav">
+                <ul class="nav navbar-nav">
+                    @if (Auth::check())
+                        {{-- See resources/assets/js/components/NotificationsDropdown.vue --}}
+                        <notifications-dropdown></notifications-dropdown>
+                    @endif
+                </ul>
+            </div>
+
+
             <div class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
                 <a href="{{ route('login') }}">@lang("app.navbar.login")</a> | <a href="{{ route('register') }}">@lang("app.navbar.register")</a>

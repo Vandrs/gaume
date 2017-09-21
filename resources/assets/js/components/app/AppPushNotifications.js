@@ -82,7 +82,7 @@ var AppPushNotifications = {
         	key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
         	token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null
       	}
-      	axios.post('/app/subscriptions', data).then(() => { this.loading = false })
+      	axios.post('/api/subscriptions', data).then(() => { this.loading = false })
     },
     /**
      * Send a requst to the server to delete user's subscription.
@@ -90,7 +90,7 @@ var AppPushNotifications = {
      * @param {PushSubscription} subscription
      */
     deleteSubscription (subscription) {
-      axios.post('/app/subscriptions/delete', { endpoint: subscription.endpoint })
+      axios.post('/api/subscriptions/delete', { endpoint: subscription.endpoint })
         .then(() => { this.loading = false })
     },
 

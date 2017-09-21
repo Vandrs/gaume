@@ -12,6 +12,7 @@ window.Vue = require('vue');
 import { Messages } from './lang/messages';
 import { Dropdown } from 'uiv';
 import VueI18n from 'vue-i18n';
+import VueTimeago from 'vue-timeago'
 import { AppPushNotifications } from './components/app/AppPushNotifications';
 import Autocomplete from 'v-autocomplete';
 import { VueMaskDirective } from 'v-mask'
@@ -29,6 +30,15 @@ var i18n = new VueI18n({
 
 Vue.use(Autocomplete);
 
+Vue.use(VueTimeago, {
+  name: 'timeago',
+  locale: 'pt-BR',
+  locales: {
+    'pt-BR': require('vue-timeago/locales/pt-BR.json')
+  }
+})
+
+
 Vue.component('confirmation-start-modal', require('./components/lesson/ConfirmationStartModal'));
 Vue.component('app-alert', require('./components/app/AppAlert'));
 Vue.component('lesson', require('./components/lesson/Lesson'));
@@ -44,6 +54,8 @@ Vue.component('teacher-profile', require('./components/teacher/Teacher'));
 Vue.component('game-list', require('./components/game/GameList'));
 Vue.component('transaction-list', require('./components/transaction/TransactionList'));
 Vue.component('billing-users', require('./components/billing/ListBillingUsers'));
+Vue.component('notifications-dropdown', require('./components/notification/NotificationsDropdown'));
+
 
 window.app = new Vue({
     i18n,
