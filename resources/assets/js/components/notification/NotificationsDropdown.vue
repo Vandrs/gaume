@@ -35,12 +35,31 @@
                                 id: id,
                                 title: data.title,
                                 body: data.body,
-                                created: created,
-                                action_url: data.action_url
+                                created: data.created,
+                                action_url: data.action_url,
+                                icon: data.icon
                               }
                             })
         })
       },
+
+      fetchAll () {
+        NotificationProvider.get()
+                            .then(({ data: { total, notifications }}) => {
+                              this.total = total
+                              this.notifications = notifications.map(({ id, data, created }) => {
+                              return {
+                                id: id,
+                                title: data.title,
+                                body: data.body,
+                                created: data.created,
+                                action_url: data.action_url,
+                                icon: data.icon
+                              }
+                            });
+        })
+      },
+
       /**
        * Mark the given notification as read.
        *

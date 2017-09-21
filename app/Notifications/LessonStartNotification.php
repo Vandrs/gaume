@@ -34,10 +34,11 @@ class LessonStartNotification extends Notification implements ShouldQueue
 	public function toArray($notifiable)
     {
         return [
-            'title' => __('lesson.new_class_invitation'),
-            'body' => __('lesson.class_invitation_body',['name' => $this->lesson->teacher->name]),
+            'title' 	 => __('lesson.new_class_invitation'),
+            'body' 		 => __('lesson.class_invitation_body',['name' => $this->lesson->teacher->name]),
             'action_url' => route('lessons.show',['id' => $this->lesson->id]),
-            'created' => Carbon::now()->toDateTimeString()
+            'created' 	 => Carbon::now()->format('Y-m-d H:i:s'),
+            'icon' 		 => $this->getNotificationIcon()
         ];
     }
 
@@ -45,7 +46,7 @@ class LessonStartNotification extends Notification implements ShouldQueue
     {
 		return WebPushMessage::create()
 							 ->id($notification->id)
-							 ->icon(url('/img/logo/logo-104-104.png'))
+							 ->icon($this->getPushNotificationIcon())
             				 ->title(Config::get('app.name'))
             				 ->body(__('lesson.class_invitation_body',['name' => $this->lesson->teacher->name]))
             				 ->action(__('lesson.see_class_now'), route('lessons.show',['id' => $this->lesson->id]));	
@@ -60,5 +61,15 @@ class LessonStartNotification extends Notification implements ShouldQueue
 	{
 		$this->user->fresh();
 		$this->user->notify($this);
+	}
+
+	private function getNotificationIcon()
+	{
+		return $this->lesson->student->getPhotoProfileUrl();
+	}
+
+	private function getPushNotificationIcon() 
+	{
+		return $this->lesson->student->getPhotoProfileUrl() ? $this->lesson->student->getPhotoProfileUrl() : url('/images/favicon/favicon-96x96.png');
 	}
 }

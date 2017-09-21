@@ -12,8 +12,8 @@
   <li class="notification">
     <div class="media">
       <div class="media-left">
-        <div class="media-object">
-          <img src="/notification-icon.png">
+        <div class="media-object" v-if="notification.icon">
+          <img :src="notification.icon" alt="Foto Notificação">
         </div>
       </div>
 
