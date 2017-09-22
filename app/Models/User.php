@@ -20,7 +20,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable, HasPushSubscriptions;
 
     protected $fillable = [
-        'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile', 'role_id', 'status'
+        'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile', 'role_id', 'status', 'is_online'
     ];
 
     protected $dates = [

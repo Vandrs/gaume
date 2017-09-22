@@ -17,6 +17,10 @@ Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
 
 Route::group(['middleware' => ['auth:api']] , function () {
 
+	#users
+	Route::post('/users/online', 'UserOnlineController@online');
+	Route::post('/users/offline', 'UserOnlineController@offline');
+
 	#Lesson
 	Route::patch('/lessons/{id}','LessonController@confirm');
 	Route::post('/lessons','LessonController@create');
