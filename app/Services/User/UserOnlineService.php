@@ -4,6 +4,8 @@ namespace App\Services\User;
 
 use App\Models\User;
 use App\Enums\EnumStatus;
+use App\Events\UserOnline;
+use App\Events\UserOffline;
 
 class UserOnlineService
 {

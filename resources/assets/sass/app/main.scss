@@ -261,3 +261,12 @@ ul.inline-list,  ul.inline-list > li{
     padding-left: 0px;
     padding-right: 10px;
 }
+
+.teacher-status {
+    color: #CCCCCC;
+}
+
+.teacher-status.online {
+    color: $monyGreen;
+}
+

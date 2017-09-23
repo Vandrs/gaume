@@ -15,7 +15,8 @@ import VueI18n from 'vue-i18n';
 import VueTimeago from 'vue-timeago'
 import { AppPushNotifications } from './components/app/AppPushNotifications';
 import Autocomplete from 'v-autocomplete';
-import { VueMaskDirective } from 'v-mask'
+import { VueMaskDirective } from 'v-mask';
+import { UserProvider } from './providers/userProvider';
 
 
 AppPushNotifications.registerServiceWorker();
@@ -60,12 +61,39 @@ Vue.component('notifications-dropdown', require('./components/notification/Notif
 window.app = new Vue({
     i18n,
     components: { Dropdown },
+    mounted () {
+        this.setOnline();
+        this.listen();
+    },
     data: {
         isLoading: false
     }, 
     methods: {
         showConfirmationClassModal: function (teacherId) {
             this.$emit('app:start-confirmation-modal', teacherId);
+        },
+        listen: function() {
+            Echo.join('online-users')
+                .joining((user) => {
+                    console.log('User Online: ', user.name);
+                    this.$emit('user-online', user);
+                })
+                .leaving((user) => {
+                    console.log('USer Offline', user.name);
+                    this.$emit('user-offline', user);
+                    UserProvider.offline(user.id)
+                                .then(() => {
+                                    console.log('User Offline');  
+                                })
+                                .catch(() => {
+                                    console.log('User Offline Error');
+                                });  
+                });
+        },
+        setOnline : function(){
+            UserProvider.online(window.Laravel.user.id)
+                        .then()
+                        .catch();
         }
     }
 }).$mount("#app");

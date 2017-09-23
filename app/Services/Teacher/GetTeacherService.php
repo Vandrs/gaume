@@ -28,6 +28,8 @@ class GetTeacherService
 			$query->where('users.name','LIKE','%'.$data['name'].'%');
 		}
 
+		$query->orderBy('is_online','DESC');
+
 		$paginator = $query->paginate(12);
 
 		$queryParams = array_diff_key($data, array_flip(['page']));

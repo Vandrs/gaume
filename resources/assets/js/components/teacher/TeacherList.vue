@@ -26,6 +26,14 @@
 		mounted() {
 			this.getGames();
 			this.getTeachers();
+			setTimeout(() => {
+				window.app.$on('user-online', (user) => {
+					this.updateUserStatus(user, 1);
+				});
+				window.app.$on('user-offline', (user) => {
+					this.updateUserStatus(user, 0);
+				});
+			}, 1000);
 		},
 		methods: {
 			getGames: function () {
@@ -95,6 +103,14 @@
 			},
 			showStartLessonModal: function (teacherId) {
 				window.app.$emit('app:start-confirmation-modal', teacherId, this.filters.game_id);
+			},
+			updateUserStatus: function (user, status) {
+				for (var teacher of this.teachers){
+					if (user.id == teacher.id) {
+						teacher.is_online = status;
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -150,6 +166,13 @@
 							</div>
 						</div>		
 					</div>
+				</div>
+				<div class="teacher-status text-center margin-top-10" v-bind:class="{'online':teacher.is_online}">
+					<span class="fa-stack fa-lg">
+  						<i class="fa fa-circle fa-stack-2x"></i>
+  						<i class="fa fa-gamepad fa-stack-1x fa-inverse"></i>
+					</span>
+					<h4>{{ teacher.is_online ? 'Online' : 'Offline' }}</h4>
 				</div>
 			</div>
 		</div>

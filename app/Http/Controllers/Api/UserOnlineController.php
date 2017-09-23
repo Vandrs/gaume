@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Api;
 use Log;
 use Illuminate\Http\Request;
 use App\Services\User\UserOnlineService;
+use App\Models\User;
 
 class UserOnlineController extends RestController
 {
-	public function online(Request $request) 
+	public function online(Request $request, $id) 
 	{
 		try {
-			UserOnlineService::setOnline($request->user());
+			$user = User::findOrFail($id);
+			UserOnlineService::setOnline($user);
 			return $this->success();
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
@@ -20,10 +22,11 @@ class UserOnlineController extends RestController
 		}
 	}
 
-	public function offline(Request $request)
+	public function offline(Request $request, $id)
 	{
 		try {
-			UserOnlineService::setOffline($request->user());
+			$user = User::findOrFail($id);
+			UserOnlineService::setOffline($user);
 			return $this->success();
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());

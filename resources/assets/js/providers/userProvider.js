@@ -12,6 +12,12 @@ var UserProvider = {
             headers: { 'content-type': 'multipart/form-data' }
         };
 		return axios.post('/api/me/photo', formData, config);
+	},
+	online: function(id) {
+		return axios.post('/api/users/'+id+'/online');
+	},
+	offline: function(id) {
+		return axios.post('/api/users/'+id+'/offline');
 	}
 };
 

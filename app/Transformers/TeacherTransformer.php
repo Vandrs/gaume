@@ -25,6 +25,7 @@ class TeacherTransformer extends Fractal\TransformerAbstract
 			'photo'		 => $teacher->getPhotoProfileUrl(),
 			'nickname' 	 => $teacher->nickname,
 			'status' 	 => $teacher->status,
+			'is_online'  => $teacher->is_online,
 			'games'  	 => $this->parseGames($teacher),
 			'evaluation' => $this->parseEvaluation($teacher)
 		];

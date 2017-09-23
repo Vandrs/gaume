@@ -14,3 +14,13 @@
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+BroadCast::channel('online-users', function ($user){
+	$data = [
+        'id'       => $user->id,
+        'name'     => $user->name,
+        'nickname' => $user->nickname,
+        'photo'    => $user->getPhotoProfileUrl()
+    ];
+	return $data;
+});
