@@ -64,6 +64,7 @@ window.app = new Vue({
     mounted () {
         this.setOnline();
         this.listen();
+        document.addEventListener('beforeunload', this.setOffline);
     },
     data: {
         isLoading: false
@@ -75,25 +76,24 @@ window.app = new Vue({
         listen: function() {
             Echo.join('online-users')
                 .joining((user) => {
-                    console.log('User Online: ', user.name);
                     this.$emit('user-online', user);
                 })
                 .leaving((user) => {
-                    console.log('USer Offline', user.name);
                     this.$emit('user-offline', user);
                     UserProvider.offline(user.id)
-                                .then(() => {
-                                    console.log('User Offline');  
-                                })
-                                .catch(() => {
-                                    console.log('User Offline Error');
-                                });  
+                                .then(() => {})
+                                .catch(() => {});  
                 });
         },
-        setOnline : function(){
+        setOnline : function() {
             UserProvider.online(window.Laravel.user.id)
-                        .then()
-                        .catch();
+                        .then(() => {})
+                        .catch(() => {});
+        },
+        setOffline : function () {
+            UserProvider.offline(window.Laravel.user.id)
+                        .then(() => {})
+                        .catch(() => {});
         }
     }
 }).$mount("#app");

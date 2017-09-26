@@ -5,11 +5,13 @@ namespace App\Services\Lesson;
 use DB;
 use App\Models\Lesson;
 use App\Enums\EnumLessonStatus;
+use App\Enums\EnumQueue;
 use Carbon\Carbon;
 use App\Services\Wallet\WalletService;
 use App\Services\Billing\GetBillingParamService;
 use App\Services\Billing\CalculateLessonBillingService;
 use App\Enums\EnumBillingParam;
+use App\Notifications\EvaluateClassNotification;
 
 class EndLessonService
 {
@@ -37,6 +39,7 @@ class EndLessonService
 			$this->returnPoints($lesson);
 		} else if ($status == EnumLessonStatus::FINISHED) {
 			$this->calculateBilling($lesson);
+			$this->dispatchNotifications($lesson);
 		}
 
 		return $lesson->save();
@@ -52,5 +55,16 @@ class EndLessonService
 	{
 		$service = new CalculateLessonBillingService();
 		$service->calculate($lesson);
+	}
+
+	private function dispatchNotifications(Lesson $lesson)
+	{
+		$notificationTeacher = new EvaluateClassNotification($lesson, $lesson->teacher);
+		$notificationTeacher->onQueue(EnumQueue::NOTIFICATION);
+		dispatch($notificationTeacher);	
+
+		$notificationStudent = new EvaluateClassNotification($lesson, $lesson->student);
+		$notificationStudent->onQueue(EnumQueue::NOTIFICATION);
+		dispatch($notificationStudent);	
 	}
 }
