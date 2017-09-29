@@ -3,25 +3,48 @@
 <head>
     <meta charset="utf-8">
     @if(config('app.index_pages'))
-        <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow">
     @else
-        <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="noindex, nofollow">
     @endif
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="/manifest.json" />
-    @include('partials.favicon')
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     @if(isset($pageTitle))
-    <title>{{$pageTitle." | ".config('app.name') }}</title>
+    <title>{{$pageTitle}}</title>
     @else
     <title>{{ config('app.name') }}</title>
     @endif
-    <meta name="description" content="Monzy, o maior time de Experts em Jogos. Treine com maiores experts em e-Sports.">
+    <link rel="manifest" href="/manifest.json" />
+    @include('partials.favicon')
+    @if(config('app.env') == 'production')
+    <link rel="canonical" href="{{url('')}}">
+    @endif
+
+    @if(isset($pageDescription))
+    <meta name="description" content="{{$pageDescription}}">
+    @endif
+
+    @if(isset($pageTitle))
+    <meta property="og:title" content="{{$pageTitle}}">
+    @else
+    <meta property="og:title" content="{{config('app.name')}}">
+    @endif
+
+    @if(isset($ogDescription))
+    <meta property="og:description" content="{{$ogDescription}}">
+    @endif
+
+    <meta property="og:site_name" content="Monzy">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:url" content="{{url('')}}">
+    <meta property="og:image" content="{{url('/images/logo-share.png')}}">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel="stylesheet">
     <link href="{{ asset('css/site.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -41,9 +64,16 @@
         ]) !!};
     </script>
 </head>
+
+@if(isset($bodyClass))
+<body class="{{$bodyClass}}" data-spy="scroll" data-offset="65">
+@else
 <body>
+@endif
+
+
     <div id="app">
-        @include('partials.nav-bar')
+        @include('partials.nav-bar-site')
         <article class="wrapper">
             <section class="main">
                 <div class="content">

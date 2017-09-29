@@ -1,6 +1,55 @@
 <?php 
 
 return [
+	'students'   => 'Alunos',
+	'teachers' 	 => 'Treinadores',
+	'be_teacher' => 'Quero ser treinador',
+	'be_student' => 'Quero ser aluno',
+	'monzy_team' => 'Time Monzy',
+	'talk_to_us' => 'Fale Conosco',
+	'copyright'  => 'MONZY © COPYRIGHT 2017. TODOS OS DIREITOS RESERVADOS',
+	'pages' => [
+		'home' => [
+			'title' 	     => 'O Maior time de Experts em Jogos',
+			'description'    => 'Monzy, o maior time de Experts em Jogos. Treine com maiores experts em e-Sports.',
+			'og_description' => 'Você já imaginou ganhar dinheiro jogando online ou até mesmo melhorar sua performance com jogadores experientes a qualquer momento? A nova plataforma Monzy oferece essa oportunidade única para quem é apaixonado pelo mundo dos jogos.',
+			'keywords' 	     => 'Monzy, Ganhe dinheiro jogando, Time de experts em games',
+			'body' => [
+				'title' 	  => 'ESTAMOS CONSTRUINDO <br /> O <strong>MAIOR TIME DE EXPERTS</strong> EM JOGOS',
+				'subtitle' 	  => 'JOGUE, ENSINE E <strong>RECEBA</strong> POR ISSO',
+				'area_text_1' => "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
+                <strong>jogadores experientes</strong> a qualquer momento? A nova plataforma <storng>Monzy</storng> oferece essa oportunidade 
+                única para quem é apaixonado pelo mundo dos jogos. A plataforma <strong>conecta jogadores de alto, médio e 
+                baixo nível</strong>, possibilitando um treinamento para <strong>melhorar o seu nível de habilidade</strong>
+                 e fazer com que o cenário do e-Sports cresça cada vez mais.",
+                'what_is' 	   => 'o que é?',
+                'who_we_are'   => 'quem somos?',
+                'student_info' => "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
+                <strong>jogadores experientes</strong> a qualquer momento? A nova plataforma <storng>Monzy</storng> oferece essa oportunidade 
+                única para quem é apaixonado pelo mundo dos jogos. A plataforma <strong>conecta jogadores de alto, médio e 
+                baixo nível</strong>, possibilitando um treinamento para <strong>melhorar o seu nível de habilidade</strong>
+                 e fazer com que o cenário do e-Sports cresça cada vez mais.",
+                'teacher_info' => "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
+                <strong>jogadores experientes</strong> a qualquer momento? A nova plataforma <storng>Monzy</storng> oferece essa oportunidade 
+                única para quem é apaixonado pelo mundo dos jogos. A plataforma <strong>conecta jogadores de alto, médio e 
+                baixo nível</strong>, possibilitando um treinamento para <strong>melhorar o seu nível de habilidade</strong>
+                 e fazer com que o cenário do e-Sports cresça cada vez mais.",
+                'monzy_team_info' => "Você já imaginou ganhar dinheiro jogando online ou até mesmo melhorar sua performance com 
+                jogadores experientes a qualquer momento?",
+                'contact_title' => 'DÚVIDAS, SUGESTÕES, INFORMAÇÕES?'
+			]
+		]
+	],
+	'menu' => [
+		'home' 	  => 'HOME',
+		'about'   => 'SOBRE',
+		'we' 	  => 'QUEM SOMOS',
+		'contact' => 'CONTATO',
+		'student' => 'ALUNO',
+		'register' => 'CADASTRO',
+		'teacher' => 'TREINADOR',
+		'login'   => 'ENTRAR',
+	],
 	'remember_me' => 'Mantenha-me logado',
 	'registration' => [
 		'register' => 'Cadastro',

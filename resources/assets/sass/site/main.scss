@@ -3,6 +3,15 @@ $body-background: #FFFFFF;
 
 body {
 	background-color: $body-background;
+    position: relative;
+    padding-top: 70px; 
+}
+
+body.set-bg {
+    background-image: url('/images/background-header.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    font-size: 16px;
 }
 
 .welcome-title {
@@ -50,4 +59,237 @@ body {
 
 .margin-bottom-10 {
  	margin-bottom: 10px;   
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;   
+}
+
+
+/*
+    HOME
+*/
+
+div.title-area {
+    height: 600px;  
+    padding-top: 170px;
+}
+
+div.title-area h1 {
+    font-size: 50px;
+    text-shadow: 2px 1px 1px rgba(150, 150, 150, 1);
+    font-weight: 300;
+    color: #FFFFFF;
+}
+
+.section-content h2 {
+    margin-top: 30px;
+    font-size: 50px;
+    color: #067879;
+    font-weight: 300;
+}
+
+.game-cover {
+    background-image: url('/images/cover-img-play-monzy.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 0;
+    padding-top: 35%;
+}
+
+.section-content#about .what-is {
+    color: $monyGreen;
+    font-weight: bold;
+}
+
+#we {
+    padding-top: 30px
+}
+
+div.we-bg {
+    background-color: #000000;
+}
+
+#we span.who-we-are {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.student-info {
+    color: $monyGreen;
+    border: solid 5px #ffc500;
+}
+
+.student-info, .teacher-info {
+    min-height: 410px;
+}
+
+.teacher-info, .monzy-team {
+    border: solid 5px $monyGreen;
+}
+
+#we .max-height {
+    height: 100%;
+}
+
+#we .student-info, #we .teacher-info, #we .monzy-team {
+    padding: 5px 20px;
+}
+
+#we .student-info h2, #we .teacher-info h2{
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+ #we .teacher-info, #we .teacher-info h2,  #we .teacher-info h3 a, .monzy-team, .monzy-team h3, .monzy-team a{
+    color: #FFFFFF !important;
+}
+
+#we .student-info {
+    background-color: #ffc500;
+}
+
+.student-info h3 a, 
+.teacher-info h3 a{
+    text-decoration: none !important
+}
+
+.student-info h3 a {
+    color: #bc8500 !important;
+}
+
+.section-footer {
+    background-color: #CCCCCC;
+}
+
+.section-footer .copyright {
+    font-size: 12px;
+}
+
+.section-footer {
+    font-weight: bold;
+    color: #242424;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+ul.footer-menu {
+    list-style: none;
+}
+ul.footer-menu li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+ul.footer-menu li a, 
+ul.footer-menu li a:hover, 
+ul.footer-menu li a:active {
+    color: #242424;
+}
+
+.section-form {
+    padding: 40px 0px;
+}
+
+.section-form h3 {
+    color: #FFFFFF;
+}
+
+.section-form .icon-area {
+    color: $monzyYellow;
+}
+
+.leadFormArea {
+    border: solid 1px #CCC;
+    padding: 20px 20px;
+    border-radius: 10px;
+    background: linear-gradient(-135deg, #6ca3a3, #c3be93);
+}
+
+.leadFormArea input[placeholder], .leadFormArea [placeholder], .leadFormArea *[placeholder] {
+    color: #CCC;
+}
+
+.bg-form-content{
+    width: 100%;
+    background-color: #067879;
+}
+
+.leadFormArea .btn-default {
+    width: 100%;
+    color: #FFFFFF;
+    border: solid 1px #067879;
+    background-color: #0a797a;
+}
+
+.leadFormArea .btn-default:hover {
+    background-color: #064a4b;
+}
+
+@media (max-width: 1600px) and (min-width:1400px) {
+    .section-content {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: $screen-md-max) {
+
+    div.title-area h1 {
+        font-size: 40px;
+    }   
+
+    div.title-area {
+        height: 400px;  
+        padding-top: 100px;
+    }
+
+    .section-content h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: $screen-sm-max) {
+
+    div.title-area h1 {
+        font-size: 30px;
+    }
+
+    .section-content h2 {
+        font-size: 30px;
+    }   
+
+    div.title-area {
+        height: 300px;  
+        padding-top: 100px;
+    }
+}
+
+@media (max-width: $screen-xs-max) {
+
+    .navbar-header a img {
+        max-width: 100px;
+    }
+
+    div.title-area h1 {
+        font-size: 16px;
+    } 
+
+    .section-content h2 {
+        font-size: 16px;
+    }
+
+    .section-form h2 {
+        font-size: 16px;
+    }   
+
+    div.title-area {
+        height: auto;   
+        padding-top: 0px;
+        padding-bottom: 20px;
+    }
+
+    .section-content .text-about {
+        font-size: 14px;
+    }
 }
