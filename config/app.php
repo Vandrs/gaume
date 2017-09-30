@@ -238,6 +238,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'EnumRole' => App\Enums\EnumRole::class,
+        'EnumContactType' => App\Enums\EnumContactType::class,
         'AssetLoader' => App\AssetLoader\AssetLoader::class,
         'Util' => App\Utils\Util::class,
         'PagSeguro' => laravel\pagseguro\Platform\Laravel5\PagSeguro::class

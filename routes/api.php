@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 Route::get('notifications/last', 'NotificationController@last');
 Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
+Route::post('contact', 'ContactController@createGuestContact');
 
 Route::group(['middleware' => ['auth:api']] , function () {
 

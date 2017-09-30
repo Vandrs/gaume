@@ -88,7 +88,7 @@ return [
     'cpf' => 'CPF inválido',
     'cnpj' => 'CNPJ inválido',
     'cep' => 'CEP inválido',
-
+    'invalid' => ':attribute inválido',
     'attributes' => [],
 
     'custom' => [
