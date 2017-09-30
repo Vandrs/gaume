@@ -24,6 +24,7 @@ return [
                  e fazer com que o cenário do e-Sports cresça cada vez mais.",
                 'what_is' 	   => 'o que é?',
                 'who_we_are'   => 'quem somos?',
+                'what_games'   => 'quais jogos?',
                 'student_info' => "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
                 <strong>jogadores experientes</strong> a qualquer momento? A nova plataforma <storng>Monzy</storng> oferece essa oportunidade 
                 única para quem é apaixonado pelo mundo dos jogos. A plataforma <strong>conecta jogadores de alto, médio e 
@@ -36,7 +37,9 @@ return [
                  e fazer com que o cenário do e-Sports cresça cada vez mais.",
                 'monzy_team_info' => "Você já imaginou ganhar dinheiro jogando online ou até mesmo melhorar sua performance com 
                 jogadores experientes a qualquer momento?",
-                'contact_title' => 'DÚVIDAS, SUGESTÕES, INFORMAÇÕES?'
+                'contact_title' => 'DÚVIDAS, SUGESTÕES, INFORMAÇÕES?',
+                'games-text'   	=> "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
+                <strong>jogadores experientes</strong>"
 			]
 		]
 	],

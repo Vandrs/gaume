@@ -8,7 +8,7 @@ body {
 }
 
 body.set-bg {
-    background-image: url('/images/background-header.png');
+    background-image: url('/images/background-header.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
     font-size: 16px;
@@ -98,7 +98,7 @@ div.title-area h1 {
     padding-top: 35%;
 }
 
-.section-content#about .what-is {
+.section-content .what-is , .section-games .what-is{
     color: $monyGreen;
     font-weight: bold;
 }
@@ -108,7 +108,9 @@ div.title-area h1 {
 }
 
 div.we-bg {
-    background-color: #000000;
+    background-image: url('/images/background-header-2.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 #we span.who-we-are {
@@ -140,6 +142,7 @@ div.we-bg {
 #we .student-info h2, #we .teacher-info h2{
     font-weight: 600;
     text-transform: uppercase;
+    font-size: 40px;
 }
 
  #we .teacher-info, #we .teacher-info h2,  #we .teacher-info h3 a, .monzy-team, .monzy-team h3, .monzy-team a{
@@ -160,7 +163,7 @@ div.we-bg {
 }
 
 .section-footer {
-    background-color: #CCCCCC;
+    background-color: #f3f3f3;
 }
 
 .section-footer .copyright {
@@ -226,6 +229,69 @@ ul.footer-menu li a:active {
 .leadFormArea .btn-default:hover {
     background-color: #064a4b;
 }
+
+.bg-games-content {
+    padding-top: 40px;
+    background-color: #f3f3f3;
+}
+
+.game-bg {
+    background-size: 100% 100%;
+    min-width: 294px; 
+    min-height: 420px;
+    color: $monzyYellow;
+    text-transform: uppercase;
+}
+
+.game-content {
+    padding-top: 40%;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+.game-bg:hover .game-content, .game-bg:hover .layer{
+    opacity: 1;   
+}
+
+.game-bg.dota { 
+    background-image: url('/images/dota.jpg'); 
+    background-repeat: no-repeat; 
+}
+
+.game-bg.lol {
+    background-image: url('/images/lol.jpg'); 
+    background-repeat: no-repeat; 
+}
+
+.game-bg.overwatch { 
+    background-image: url('/images/overwatch.jpg'); 
+    background-repeat: no-repeat; 
+}
+
+.game-bg .layer {
+    width: 294px; 
+    height: 420px;
+    padding: 10px;
+    background-color: rgba(9,121,122,0.5);
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+.game-bg .game-content {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    border: solid 5px $monzyYellow;
+}
+
 
 @media (max-width: 1600px) and (min-width:1400px) {
     .section-content {
