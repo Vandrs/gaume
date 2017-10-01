@@ -20,4 +20,14 @@ class SiteController extends Controller
 		];
 		return view('welcome', $data);
 	}
+
+	public function teacherContact()
+	{
+		$data = [
+			'bodyClass' => 'set-bg-green',
+			'pageTitle' 	  => Lang::get('site.contact.title'),
+			'pageDescription' => Lang::get('site.contact.description'),
+		];
+		return view('teacher-contact', $data);
+	}
 }

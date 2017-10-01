@@ -6,6 +6,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">@lang('site.registration.register')</div>
                 <div class="panel-body">
+                    <div class="row margin-top-10 margin-bottom-10">
+                        <div class="col-xs-12">
+                            <div class="alert alert-warning">
+                                @lang('site.registration.student_only',['link' => route('site.teacher.contact')])
+                            </div>
+                        </div>
+                    </div>
                     <form role="form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 

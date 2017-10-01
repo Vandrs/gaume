@@ -10,7 +10,7 @@ return [
 	'copyright'  => 'MONZY © COPYRIGHT 2017. TODOS OS DIREITOS RESERVADOS',
 	'pages' => [
 		'home' => [
-			'title' 	     => 'O Maior time de Experts em Jogos',
+			'title' 	     => 'O Maior time de Experts em Jogos | Monzy',
 			'description'    => 'Monzy, o maior time de Experts em Jogos. Treine com maiores experts em e-Sports.',
 			'og_description' => 'Você já imaginou ganhar dinheiro jogando online ou até mesmo melhorar sua performance com jogadores experientes a qualquer momento? A nova plataforma Monzy oferece essa oportunidade única para quem é apaixonado pelo mundo dos jogos.',
 			'keywords' 	     => 'Monzy, Ganhe dinheiro jogando, Time de experts em games',
@@ -95,7 +95,15 @@ return [
 		'account' => "Conta Corrente",
 		'digit' => 'Dígito',
 		'generic_game_error' => 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário',
-		'game_description' => 'Preencha  sua descrição de perfil para todos os jogos presentes no formulário'
+		'game_description' => 'Preencha  sua descrição de perfil para todos os jogos presentes no formulário',
+		'student_only' => 'Atenção esta é a pagina de cadastro para Alunos, caso deseje ser um treinador <a href=":link"><strong>clique aqui</strong></a>',
+		'page_title' => 'Cadastro de Alunos | Monzy',
+		'page_description' => 'Cadastre-se e venha treinar com o maios experts em games do Brazil'
+	],
+	'contact' => [
+		'page_title' => 'Cadastro-se para ser um de nossos treinadores | Monzy',
+		'page_description' => 'Monzy, venha fazer parte do maior time de treinadores de games do Brasil',
+		'title' => 'Quer ser um de nossos treinadores? Então entre em contato conosco pelo formulário abaixo'
 	],
 	'buttons' => [
 		'send' => 'Enviar',

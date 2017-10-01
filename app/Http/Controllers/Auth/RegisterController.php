@@ -53,11 +53,14 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+        $data = [
+            'pageTitle'       => Lang::get('site.registration.page_title'),
+            'pageDescription' => Lang::get('site.registration.page_description')
+        ];
         AssetLoader::registerSiteScript('registration.js');
+        AssetLoader::excludeSiteScript('site.js');
         $pageTitle = Lang::get('site.registration.register');
-        return view('auth.register',[
-            'pageTitle' => $pageTitle
-        ]);
+        return view('auth.register', $data);
     }
 
     public function register(Request $request)

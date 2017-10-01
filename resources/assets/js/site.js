@@ -29,15 +29,26 @@ $(document).ready(function () {
 		});
 	});
 
-	$('a[href^="#"]').on('click',function (e) {
-	    e.preventDefault();
+	$('.navbar-nav a').on('click',function (e) {
+
+	    if ($(this).hasClass('dropdown-toggle')) {
+	    	return;
+	    }
+
 	    var target = this.hash;
 	    var $target = $(target);
-	    $('html, body').stop().animate({
-	        'scrollTop': $target.offset().top
-	    }, 900, 'swing', function () {
-	        window.location.hash = target;
-	    });
+
+	    if ($target.length >= 1) {
+	    	$('html, body').stop().animate({
+		        'scrollTop': $target.offset().top
+		    }, 900, 'swing', function () {
+		        window.location.hash = target;
+		    });
+	    } else {
+	    	window.location = this.href;
+	    }
+
+	    
 	});
 });
 

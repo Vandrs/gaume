@@ -15,7 +15,7 @@ class AssetLoader
 
 	public static function registerAppScript($script)
 	{
-		self::$appScripts = $script;
+		self::$appScripts[] = $script;
 	}
 
 	public static function getSiteScripts()
@@ -26,6 +26,16 @@ class AssetLoader
 	public static function getAppScripts()
 	{
 		return self::$appScripts;
+	}
+
+	public static function excludeSiteScript($script)
+	{
+
+		foreach(self::$siteScripts as $key => $siteScript) {
+			if ($siteScript == $script) {
+				unset(self::$siteScripts[$key]);
+			}
+		}
 	}
 
 }

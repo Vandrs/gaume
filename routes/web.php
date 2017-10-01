@@ -12,6 +12,7 @@
 */
 
 Route::get('/','Site\SiteController@index')->name('site.home');
+Route::get('/professor/contato','Site\SiteController@teacherContact')->name('site.teacher.contact');
 
 Auth::routes();
 
