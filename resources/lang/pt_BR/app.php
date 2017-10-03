@@ -28,7 +28,9 @@ return [
 		'users' => 'Usuários',
 		'pre_registration' => 'Pré Cadastro',
 		'wallet' => 'Carteira',
-		'billing' => 'Pagamentos'
+		'billing' => 'Pagamentos',
+		'faq' => 'FAQ/Contato',
+		'messages' => 'Mensagens'
 	],
 	'messages' => [
 		'errors' => 'Alguns erros ocorreram ao tentar processar a sua requisição por favor revise os dados enviados e se o erro persistir contate os administradores do sistema.',
@@ -39,5 +41,11 @@ return [
 		'1' => 'Administrador',
 		'2' => 'Treinador',
 		'3' => 'Aluno'
+	],
+	'contact_type' => [
+		'1' => 'Home',
+		'2' => 'Interesse Professor',
+		'3' => 'Professor',
+		'4' => 'Aluno',
 	]
 ];

@@ -15,7 +15,8 @@ class CreateContactService
 
 	public function create(array $data)
 	{
-		$this->validator = Validator::make($data, $this->validation(), $this->messages());
+		$data['type'] = isset($data['type']) ? $data['type'] : null;
+		$this->validator = Validator::make($data, $this->validation($data['type']), $this->messages());
 		if ($this->validator->fails()) {
 			throw new ValidationException('Parâmetros inválidos');
 		}
@@ -27,9 +28,9 @@ class CreateContactService
 		]);
 	}
 
-	public function validation()
+	public function validation($type = null)
 	{
-		return [
+		$validation = [
 			'name' 	  => 'required|max:100',
 	        'email'   => 'required|email|max:100',
 	        'type' => [
@@ -41,7 +42,10 @@ class CreateContactService
 					EnumContactType::STUDENT
 	        ])]
         ];
-
+        if ($type && in_array($type, [EnumContactType::TEACHER, EnumContactType::STUDENT])) {
+        	$validation['comment'] = 'required';
+        }
+		return $validation;
 	}
 
 	public function messages()
@@ -53,7 +57,8 @@ class CreateContactService
 			'email.max' 	   => __('validation.max.string',['attribute' => 'Email', 'max' => 100]),
 			'email.email' 	   => __('validation.email', ['attribute' => 'Email']),
 			'type.required'    => __('validation.required', ['attribute' => 'Type']),
-			'type.in' 	   	   => __('validation.invalid', ['attribute' => 'Type'])
+			'type.in' 	   	   => __('validation.invalid', ['attribute' => 'Type']),
+			'comment.required' => __('validation.required', ['attribute' => 'Comentário']),
 		];
 	}
 

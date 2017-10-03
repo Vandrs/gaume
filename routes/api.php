@@ -83,8 +83,14 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 		# Billing
 		Route::get('/billing','BillingController@listBillingUsers');
+
+		# Contact
+		Route::get('/contacts','ContactController@list');
 		
 	});
+
+	#Contact 
+	Route::post('/faq-contact','ContactController@createContact');
 	
 });
 

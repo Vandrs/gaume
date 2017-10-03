@@ -44,6 +44,7 @@ return [
 		]
 	],
 	'contact_response' => ':name obrigado por manifestar seu interesse em fazer parte da Monzy. Em breve entraremos em contato.',
+	'contact_faq_response' => ':name obrigado por entrar em contato conosco, estamos sempre trabalhando para melhor atendê-lo e sua opinião é muito importante para nós.',
 	'menu' => [
 		'home' 	  => 'HOME',
 		'about'   => 'SOBRE',

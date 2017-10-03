@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::get('/jogos','App\GameController@index')->name('games');
 	Route::get('/carteira', 'App\WalletController@index')->name('pagseguro.redirect');
 	Route::post('/carteira/pagamentos/{id}', 'App\WalletController@makePaymentRequest')->name('pagseguro.payment');
+	Route::get('/faq', 'App\FaqController@index')->name('app.faq');
 
 	if (config('app.env') == 'local') {
 		Route::get('/teste','App\TestController@index');
@@ -51,5 +52,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 		Route::get('/usuarios/professor/pre-cadastro/lista','App\PreRegistrationController@index')->name('user-admin.list-pre-registration');
 		Route::get('/usuarios/professor/pre-cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');
 		Route::get('/pagamentos','App\BillingController@index')->name('billing');
+		Route::get('/contatos','App\FaqController@contactList')->name('contact-list');
 	});
 });

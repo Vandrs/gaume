@@ -170,10 +170,24 @@ var Messages = {
 			qtd_lessons: 'QTD. Aulas',
 			value: 'Valor'
 		},
+		faq: {
+			contact_message: 'Entre em contato conosco para dúvidas, reclamações e sugestões',
+			message: 'Mensagem',
+			message_placeholder: 'Digite aqui a sua mengagem',
+			messages: 'Mensagens',
+			type: 'Tipo',
+			types: {
+				1 : 'Home',
+				2 : 'Interesse Professor',
+				3 : 'Professor',
+				4 : 'Aluno'
+			}
+		},
 		buttons: {
 			edit: 'Editar',
 			save: 'Salvar',
-			delete: 'Excluir'
+			delete: 'Excluir',
+			send: 'Enviar'
 		},
 	}
 }

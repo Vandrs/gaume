@@ -6,7 +6,7 @@
             <div class="col-xs-12 col-md-4 col-md-offset-4 text-center icon-area">
                 <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x yellow-icon"></i>
-                    <i class="fa fa-gamepad fa-stack-1x fa-inverse"></i>
+                    <i class="fa fa-mortar-board fa-stack-1x fa-inverse"></i>
                 </span>
             </div>
         </div>

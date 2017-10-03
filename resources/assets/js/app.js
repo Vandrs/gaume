@@ -60,6 +60,8 @@ Vue.component('game-list', require('./components/game/GameList'));
 Vue.component('transaction-list', require('./components/transaction/TransactionList'));
 Vue.component('billing-users', require('./components/billing/ListBillingUsers'));
 Vue.component('notifications-dropdown', require('./components/notification/NotificationsDropdown'));
+Vue.component('contact', require('./components/faq/Contact'));
+Vue.component('contact-list', require('./components/faq/ContactList'));
 
 
 window.app = new Vue({
