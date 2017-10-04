@@ -86,6 +86,8 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 		# Contact
 		Route::get('/contacts','ContactController@list');
+		Route::delete('/contacts/{id}','ContactController@delete');
+		Route::post('/contacts/{id}/read','ContactController@markAsRead');
 		
 	});
 

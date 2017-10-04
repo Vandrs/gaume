@@ -15,6 +15,7 @@ class ContactTransformer extends Fractal\TransformerAbstract
 			'name' 		 => $contact->name,
 			'email' 	 => $contact->email,
 			'type' 		 => $contact->type,
+			'status'	 => $contact->status,
 			'type_label' => Lang::get('app.contact_type.'.$contact->type),
 			'comment' 	 => $contact->comment
 		];

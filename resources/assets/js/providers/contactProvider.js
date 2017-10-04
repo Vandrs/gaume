@@ -7,6 +7,12 @@ var ContactProvider = {
 	},
 	list: function (data) {
 		return axios.get('/api/admin/contacts',{params:data});
+	},
+	delete: function (id) {
+		return axios.delete('/api/admin/contacts/'+id);
+	},
+	setRead: function (id) {
+		return axios.post('/api/admin/contacts/'+id+'/read');
 	}
 };
 export { ContactProvider };

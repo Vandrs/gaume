@@ -71,7 +71,8 @@ var Messages = {
 			lesson_resume: 'Resumo da Aula',
 			my_lessons: 'Minhas Aulas',
 			lessons: 'Aulas',
-			value: 'Valor'
+			value: 'Valor',
+			date: 'Data'
 		},
 		wallet: {
 			'transaction_history': 'Histórico de transações',
@@ -181,13 +182,18 @@ var Messages = {
 				2 : 'Interesse Professor',
 				3 : 'Professor',
 				4 : 'Aluno'
-			}
+			},
+			status: 'Situação',
+			message_read: 'Mensagens lidas',
+			message_not_read: 'Não lidas'
 		},
 		buttons: {
 			edit: 'Editar',
 			save: 'Salvar',
 			delete: 'Excluir',
-			send: 'Enviar'
+			send: 'Enviar',
+			mark_as_read: 'Marcar como lido',
+			actions: 'Ações'
 		},
 	}
 }

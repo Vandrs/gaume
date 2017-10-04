@@ -15,6 +15,9 @@ class GetContactService
 		if (isset($data['type']) && !empty($data['type'])) {
 			$query->where('type', '=', $data['type']);
 		}
+		if (isset($data['status']) && is_numeric($data['status'])) {
+			$query->where('status', '=', $data['status']);
+		}
 		$paginator = $query->paginate($size);
 		$queryParams = array_diff_key($data, array_flip(['page']));
 		$paginator->appends($queryParams);

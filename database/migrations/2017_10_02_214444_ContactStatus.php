@@ -13,7 +13,11 @@ class ContactStatus extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('contacts', function(Blueprint $table){
+            $table->boolean('status')->default(0);
+            $table->index('status');
+            $table->index('name');
+        });
     }
 
     /**
@@ -23,6 +27,10 @@ class ContactStatus extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('contacts', function(Blueprint $table){
+            $table->dropColumn('status');
+            $table->dropIndex('status');
+            $table->dropIndex('name');
+        });
     }
 }

@@ -71,6 +71,11 @@
 			},
 			getFilters: function () {
 				return this.filters;
+			},
+			getFormatedDate: function (date) {
+				var arrDate = date.split(" ");
+				var strDate = arrDate[0];
+				return strDate.split('-').reverse().join('/');
 			}
 		}
 	}
@@ -118,6 +123,7 @@
 						<th v-if="user.role != roles.teacher">{{$t('app.teacher')}}</th>
 						<th>{{$t('lesson.table.status')}}</th>
 						<th>{{$t('lesson.labels.duration')}}</th>
+						<th>{{$t('lesson.date')}}</th>
 						<th v-if="user.role == roles.teacher || user.role == roles.admin">{{$t('lesson.value')}}</th>
 						<th>{{$t('app.actions')}}</th>
 					</tr>
@@ -128,6 +134,7 @@
 						<td v-if="user.role != roles.teacher">{{lesson.teacher.name}}</td>
 						<td>{{$t('lesson.status.'+lesson.status)}}</td>
 						<td>{{getLessonDuration(lesson)+" "+$tc('app.hour',getLessonDuration(lesson))}}</td>
+						<td>{{getFormatedDate(lesson.created_at)}}</td>
 						<td v-if="user.role == roles.teacher || user.role == roles.admin">{{lesson.formated_value}}</td>
 						<td>
 							<a class="btn btn-default" v-bind:title="$t('app.view')" v-on:click="seePage(lesson.id)"><i class="glyphicon glyphicon-eye-open"></i></a>
