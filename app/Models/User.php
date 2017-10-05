@@ -14,10 +14,11 @@ use App\Models\TeacherGame;
 use App\Models\Wallet;
 use Storage;
 use Carbon\Carbon;
+use Cmgmyr\Messenger\Traits\Messagable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, HasPushSubscriptions;
+    use HasApiTokens, Notifiable, HasPushSubscriptions, Messagable;
 
     protected $fillable = [
         'cpf', 'name', 'nickname', 'email', 'password', 'birth_date', 'photo_profile', 'role_id', 'status', 'is_online'

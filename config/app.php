@@ -188,7 +188,9 @@ return [
 
         NotificationChannels\WebPush\WebPushServiceProvider::class,
 
-        laravel\pagseguro\Platform\Laravel5\ServiceProvider::class
+        laravel\pagseguro\Platform\Laravel5\ServiceProvider::class,
+
+        Cmgmyr\Messenger\MessengerServiceProvider::class
     ],
 
     /*
