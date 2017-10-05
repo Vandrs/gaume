@@ -11,11 +11,11 @@ return [
 	'pages' => [
 		'home' => [
 			'title' 	     => 'O Maior time de Experts em Jogos | Monzy',
-			'description'    => 'Monzy, o maior time de Experts em Jogos. Treine com maiores experts em e-Sports.',
+			'description'    => 'Monzy, o maior time experts em e-Sports. Uma plataforma para quem quer aprender e ensinar a jogar online.',
 			'og_description' => 'Você já imaginou ganhar dinheiro jogando online ou até mesmo melhorar sua performance com jogadores experientes a qualquer momento? A nova plataforma Monzy oferece essa oportunidade única para quem é apaixonado pelo mundo dos jogos.',
 			'keywords' 	     => 'Monzy, Ganhe dinheiro jogando, Time de experts em games',
 			'body' => [
-				'title' 	  => 'ESTAMOS CONSTRUINDO <br /> O <strong>MAIOR TIME DE EXPERTS</strong> EM JOGOS',
+				'title' 	  => 'UMA <strong>PLATAFORMA</strong> PARA QUEM QUER APRENDER E ENSINAR A <strong>JOGAR ONLINE</strong>',
 				'subtitle' 	  => 'JOGUE, ENSINE E <strong>RECEBA</strong> POR ISSO',
 				'area_text_1' => "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
                 <strong>jogadores experientes</strong> a qualquer momento? A nova plataforma <storng>Monzy</storng> oferece essa oportunidade 
@@ -25,21 +25,11 @@ return [
                 'what_is' 	   => 'o que é?',
                 'who_we_are'   => 'quem somos?',
                 'what_games'   => 'quais jogos?',
-                'student_info' => "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
-                <strong>jogadores experientes</strong> a qualquer momento? A nova plataforma <storng>Monzy</storng> oferece essa oportunidade 
-                única para quem é apaixonado pelo mundo dos jogos. A plataforma <strong>conecta jogadores de alto, médio e 
-                baixo nível</strong>, possibilitando um treinamento para <strong>melhorar o seu nível de habilidade</strong>
-                 e fazer com que o cenário do e-Sports cresça cada vez mais.",
-                'teacher_info' => "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
-                <strong>jogadores experientes</strong> a qualquer momento? A nova plataforma <storng>Monzy</storng> oferece essa oportunidade 
-                única para quem é apaixonado pelo mundo dos jogos. A plataforma <strong>conecta jogadores de alto, médio e 
-                baixo nível</strong>, possibilitando um treinamento para <strong>melhorar o seu nível de habilidade</strong>
-                 e fazer com que o cenário do e-Sports cresça cada vez mais.",
-                'monzy_team_info' => "Você já imaginou ganhar dinheiro jogando online ou até mesmo melhorar sua performance com 
-                jogadores experientes a qualquer momento?",
+                'student_info' => "Você que quer entrar no mundo dos games online, melhorar sua performance, conhecer novas técnicas e descobrir novos jogos pode entrar para a Monzy como aluno. Aqui você poderá escolher qual jogo, qual plataforma (PC ou console) e qual professor que você quer ter aulas. Nosso objetivo é que sejam mostradas  as mais diversas técnicas e táticas de jogos para que você possa escolher qual perfil de jogador quer ser.",
+                'teacher_info' => "Você que domina estratégias de jogos online pode ensinar outras pessoas a se tornarem grandes adversários e receber dinheiro por isso. Escolha dar aulas quando você quiser, durante o dia ou à noite, defina metodologias e táticas e garanta o seu perfil de mestre passando conhecimento adiante. A equipe da Monzy prestará todo suporte necessário para que você se torne referência no meio.",
+                'monzy_team_info' => " Somos apaixonados por jogos e acreditamos que o conhecimento compartilhado pode aumentar ainda mais o universo da tecnologia em jogos. Você tem alguma dúvida ou sugestão? Conte pra gente!",
                 'contact_title' => 'DÚVIDAS, SUGESTÕES, INFORMAÇÕES?',
-                'games-text'   	=> "Você já imaginou <strong>ganhar dinheiro jogando online</strong> ou até mesmo melhorar sua performance com 
-                <strong>jogadores experientes</strong>"
+                'games-text'   	=> "Veja alguns dos jogos você pode aprender, ou, ensinar pessoas a jogar."
 			]
 		]
 	],
