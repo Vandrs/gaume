@@ -9,7 +9,7 @@ class FaqController extends Controller
 {
 	public function index(Request $request)
 	{
-		return view('app.faq.contact');
+		return view('app.faq.contact',['user' => $request->user()]);
 	}
 
 	public function contactList(Request $request)

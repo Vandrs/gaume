@@ -122,52 +122,63 @@ div.we-bg {
     font-weight: bold;
 }
 
-.student-info {
-    color: $monyGreen;
-    border: solid 5px #ffc500;
-}
-
 .student-info, .teacher-info {
     min-height: 410px;
 }
 
-.teacher-info {
-    background-color: $monyGreen;
+
+#we  .teacher-info h2, 
+#we  .monzy-team h2, 
+#we  .student-info h2{
+    color: #ffffff;
 }
 
-.teacher-info, .monzy-team {
+.teacher-info, 
+.monzy-team, 
+.student-info {
     border: solid 5px $monyGreen;
-}
-
-#we .max-height {
-    height: 100%;
-}
-
-#we .student-info, #we .teacher-info, #we .monzy-team {
+    background-color: rgba(9, 121, 122, 0.5);
     padding: 5px 20px;
+    text-decoration: none !important;
+    color: #FFFFFF;
 }
 
-#we .student-info h2, #we .teacher-info h2{
+.teacher-info a, 
+.monzy-team a, 
+.student-info a {
+    text-decoration: none !important;
+    color: #FFFFFF;
+}
+
+#we .student-info h2, 
+#we .teacher-info h2{
     font-weight: 600;
     text-transform: uppercase;
     font-size: 40px;
 }
 
- #we .teacher-info, #we .teacher-info h2,  #we .teacher-info h3 a, .monzy-team, .monzy-team h3, .monzy-team a{
-    color: #FFFFFF !important;
-}
-
-#we .student-info {
+.teacher-info:hover, 
+.monzy-team:hover, 
+.student-info:hover{
     background-color: #ffc500;
+    border: solid 5px #ffc500;
+    color: $monyGreen;
 }
 
-.student-info h3 a, 
-.teacher-info h3 a{
-    text-decoration: none !important
+#we .teacher-info:hover h2, 
+#we .monzy-team:hover h2, 
+#we .student-info:hover h2 {
+    color: $monyGreen;
 }
 
-.student-info h3 a {
-    color: #bc8500 !important;
+#we .teacher-info:hover a, 
+#we .monzy-team:hover a, 
+#we .student-info:hover a {
+    color: #b07900;
+}
+
+#we .max-height {
+    height: 100%;
 }
 
 .section-footer {
