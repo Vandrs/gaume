@@ -21,7 +21,12 @@
 					student: "STUDENT"
 				},
 				viewLessonLink: window.Laravel.baseUrl + '/app/aula/',
-				status: LessonStatus,
+				status: {
+					PENDING:1,
+					IN_PROGRESS:2,
+					FINISHED:3,
+					CANCELED:4,
+				},
 				pagination: {
 					currentPage: 1,
 					totalPages: 1,	
@@ -143,7 +148,7 @@
 				</tbody>
 				<tbody v-else>
 					<tr>
-						<td colspan="5">{{$t('app.noRegisterFound')}}</td>
+						<td colspan="6">{{$t('app.noRegisterFound')}}</td>
 					</tr>
 				</tbody>
 			</table>
