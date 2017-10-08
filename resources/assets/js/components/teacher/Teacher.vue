@@ -3,6 +3,7 @@
 	import { AppRoles } from '../../components/shared/AppRoles';
 	import { TeacherProvider } from '../../providers/teacherProvider';
 	import StarRating from 'vue-star-rating';
+	Vue.component('send-inbox-message',require('../../components/message/UserMessage'));
 	export default {
 		props: ['id'],
 		components : { StarRating },
@@ -10,11 +11,14 @@
 			return {
 				teacher: {
 					games: []
-				}
+				},
+				showMessageBox: false,
+				recipient: 0
 			};
 		},
 		mounted() {
 			this.getTeacher();
+			this.recipient = this.id;
 		},
 		methods: {
 			getTeacher: function() {
@@ -33,6 +37,9 @@
 			},
 			showStartLessonModal: function(gameId) {
 				window.app.$emit('app:start-confirmation-modal', this.id, gameId);
+			},
+			toggleMessageBox: function () {
+				this.showMessageBox = this.showMessageBox ? false : true;
 			}
 		} 
 	}
@@ -74,6 +81,14 @@
 					<span class="help-block">{{$t('evaluation.bee_first')}}</span>
 				</div>
 			</div>
+			<div class="row margin-top-10">
+				<div class="col-xs-12">
+					<button class='btn btn-primary' v-on:click="toggleMessageBox">{{$t('buttons.send_message')}}</button>
+				</div>
+				<div class="col-xs-12 col-xs-12 margin-top-20">
+					<send-inbox-message :showMessageBox="showMessageBox" :recipient="recipient"></send-inbox-message>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-xs-12">
 					<h3>{{$t('app.games')}}</h3>
@@ -106,7 +121,7 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 text-left margin-top-10">
-						<button class='btn yellow-btn play-btn' v-on:click="showStartLessonModal(game.id)">{{$t('app.play')}}</button>
+							<button class='btn yellow-btn play-btn' v-on:click="showStartLessonModal(game.id)">{{$t('app.play')}}</button>
 						</div>
 					</div>
 					<hr />

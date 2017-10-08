@@ -27,7 +27,8 @@ var Messages = {
 			teacher: 'Treinador',
 			billing: 'Pagamentos',
 			from: 'De',
-			to: 'Até'
+			to: 'Até',
+			write_here: 'Escreva aqui'
 		},
 		notification: {
 			notifications: 'Notificações',
@@ -193,6 +194,7 @@ var Messages = {
 			delete: 'Excluir',
 			send: 'Enviar',
 			mark_as_read: 'Marcar como lido',
+			send_message: 'Enviar Mensagem',
 			actions: 'Ações'
 		},
 	}

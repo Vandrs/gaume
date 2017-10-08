@@ -55,6 +55,9 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	#Transactions
 	Route::get('/transactions','TransactionController@list');
 
+	#Messages
+	Route::post('/message/thread','MessageController@createThread');
+
 	#Notifications
 	Route::get('/notifications', 'NotificationController@index');
 	Route::patch('/notifications/{id}/read', 'NotificationController@markAsRead');
