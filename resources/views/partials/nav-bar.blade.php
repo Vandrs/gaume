@@ -51,6 +51,7 @@
                     <li><a href="{{route('profile')}}" title="@lang('app.menu.profile')"><i class="glyphicon glyphicon-user"></i> <span> @lang('app.navbar.profile')</span></a></li>
                     @endif
                     @if( !Auth::user()->hasRole(EnumRole::ADMIN) )
+                    <li><a href="{{route('messages')}}" title="@lang('app.menu.messages')"><i class="fa fa-envelope"></i> <span> @lang('app.menu.messages')</span></a></li>
                     <li><a href="{{route('app.faq')}}" title="@lang('app.menu.faq')"><i class="fa fa-question-circle"></i> <span> @lang('app.menu.faq')</span></a></li>
                     @endif
                     <li>

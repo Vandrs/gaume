@@ -188,6 +188,9 @@ var Messages = {
 			message_read: 'Mensagens lidas',
 			message_not_read: 'Não lidas'
 		},
+		messages: {
+			title: 'Mensagens'
+		},
 		buttons: {
 			edit: 'Editar',
 			save: 'Salvar',

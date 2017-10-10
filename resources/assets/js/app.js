@@ -62,6 +62,7 @@ Vue.component('billing-users', require('./components/billing/ListBillingUsers'))
 Vue.component('notifications-dropdown', require('./components/notification/NotificationsDropdown'));
 Vue.component('contact', require('./components/faq/Contact'));
 Vue.component('contact-list', require('./components/faq/ContactList'));
+Vue.component('message-app', require('./components/message/MessageApp'));
 
 
 window.app = new Vue({

@@ -56,7 +56,9 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::get('/transactions','TransactionController@list');
 
 	#Messages
-	Route::post('/message/thread','MessageController@createThread');
+	Route::post('/message/threads','MessageController@createThread');
+	Route::get('/message/threads','MessageController@getThreads');
+	Route::get('/message/threads/{id}','MessageController@getThread');
 
 	#Notifications
 	Route::get('/notifications', 'NotificationController@index');

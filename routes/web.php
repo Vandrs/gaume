@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 	Route::get('/carteira', 'App\WalletController@index')->name('pagseguro.redirect');
 	Route::post('/carteira/pagamentos/{id}', 'App\WalletController@makePaymentRequest')->name('pagseguro.payment');
 	Route::get('/faq', 'App\FaqController@index')->name('app.faq');
+	Route::get('/mensagens','App\MessageController@index')->name('messages');
 
 	if (config('app.env') == 'local') {
 		Route::get('/teste','App\TestController@index');
