@@ -5,6 +5,7 @@ namespace App\Transformers;
 use League\Fractal;
 use App\Models\User;
 use Cmgmyr\Messenger\Models\Thread;
+use App\Utils\StringUtil;
 
 class MessageThreadTransformer extends Fractal\TransformerAbstract 
 {
@@ -19,25 +20,39 @@ class MessageThreadTransformer extends Fractal\TransformerAbstract
 	public function transform(Thread $thread)
 	{
 		return [
-			'id' 		   => $thread->id,
-			'subject' 	   => $thread->subject,
-			'updated_at'   => $thread->updated_at->__toString(),
-			'is_read'      => !$thread->isUnread($this->user->id),
-			'last_message' => $this->parseLastMessage($thread)
+			'id' 		      => $thread->id,
+			'subject' 	      => $thread->subject,
+			'updated_at'      => $thread->updated_at->__toString(),
+			'updated_at_text' => $thread->updated_at->format('d/m/Y H:i'),
+			'is_read'         => !$thread->isUnread($this->user->id),
+			'last_message'    => $this->parseLastMessage($thread),
+			'participants'    => $this->parseParticipantsString($thread)
 		];
 	}
 
 	private function parseLastMessage(Thread $thread)
 	{
 		$lastMessage = $thread->latestMessage;
-
 		return [
-			'message' =>   $lastMessage->body,
+			'message' 		    =>   $lastMessage->body,
+			'truncated_message' => StringUtil::limitaCaracteres(strip_tags($lastMessage->body), 50, '...'),
 			'user' 	  => [
 				'id' 	   => $lastMessage->user->id,
 				'name'	   => $lastMessage->user->name,
-				'nickname' => $lastMessage->user->nickname
+				'nickname' => $lastMessage->user->nickname,
+				'photo'	   => $lastMessage->user->getPhotoProfileUrl()
 			]
 		];
+	}
+
+	private function parseParticipantsString(Thread $thread)
+	{
+		$participants = explode(',', $thread->participantsString($this->user->id));
+		$users = [];
+		foreach ($participants as $participant) {
+			$nameParts = explode(" ", $participant);
+			array_push($users, $nameParts[0]);
+		}
+		return implode(',', $users);
 	}
 }

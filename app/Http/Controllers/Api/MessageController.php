@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use Log;
+use DB;
 use App\Http\Controllers\Api\RestController;
 use Illuminate\Http\Request;
 use App\Exceptions\ValidationException;
 use App\Services\Message\CreateThreadMessageService;
 use App\Services\Message\GetThreadMessageService;
+use App\Services\Message\DeleteThreadService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use League\Fractal;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use App\Transformers\MessageThreadTransformer;
-use Log;
-use DB;
+use Cmgmyr\Messenger\Models\Thread;
 
 class MessageController extends RestController
 {
@@ -58,5 +61,23 @@ class MessageController extends RestController
 	public function getThread(Request $request, $id)
 	{
 
+	}
+
+	public function delete(Request $request, $id)
+	{
+		try {
+			$thread = Thread::findOrFail($id);
+			$deleteService = new DeleteThreadService();
+			$deleteService->delete($request->user(), $thread);
+		} catch (ModelNotFoundException $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->notFound();
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+		
 	}
 }

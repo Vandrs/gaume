@@ -189,7 +189,12 @@ var Messages = {
 			message_not_read: 'Não lidas'
 		},
 		messages: {
-			title: 'Mensagens'
+			title: 'Mensagens',
+			threads: 'Conversas',
+			see_all: 'Ver todas',
+			unread_only: 'Apenas não lidas',
+			no_unread_messages: 'Você não possui mensagens não lidas.',
+			no_messages: 'Você não possui mensagens.',
 		},
 		buttons: {
 			edit: 'Editar',

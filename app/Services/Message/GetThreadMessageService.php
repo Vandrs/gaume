@@ -25,5 +25,4 @@ class GetThreadMessageService
 		$paginator->appends($queryParams);
 		return $paginator;
 	}
-
 }

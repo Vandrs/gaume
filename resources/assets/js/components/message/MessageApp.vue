@@ -9,6 +9,7 @@
 		methods: {
 			setThread: function(thread) {	
 				this.currentThread = thread;
+				this.currentThread.is_read = true;
 			}
 		}
 	}
@@ -27,12 +28,33 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 col-md-2 col-md-offset-2">
-				<thread-list>
-				</thread-list>
-			</div>
-			<div class="col-xs-12 col-md-6">
-
+			<div class="col-xs-12 col-md-10 col-md-offset-1">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-12 col-md-4">
+								<div class="trhreads-title">
+									<strong>{{$t('messages.threads')}}</strong>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-8">
+								<div class="messages-title">
+									<strong>{{$t('messages.title')}}</strong>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-12 col-md-4">
+								<thread-list v-on:thread-selected="setThread">
+								</thread-list>
+							</div>
+							<div class="col-xs-12 col-md-8">
+							</div>
+						</div>			
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
