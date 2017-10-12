@@ -10,39 +10,37 @@ use Cmgmyr\Messenger\Models\Thread;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
 
-class CreateThreadMessageService
+class UpdateThreadMessageService
 {
 
 	private $validator;
 
-	public function create(User $user, $data)
+	public function update(User $user, Thread $thread, $data)
 	{
 		$this->validator = Validator::make($data, $this->validation(), $this->messages());
 		if ($this->validator->fails())  {
 			throw new ValidationException('Parâmetros inválidos');
 		}
 
-		$subject = (isset($data['subject']) && !empty($data['subject'])) ? trim($data['subject']) : __('messages.new_contact',['name' => $user->name]);
+		$thread->activateAllParticipants();
 
-		$thread = Thread::create([
-            'subject' => $subject,
+        $message = Message::create([
+            'thread_id' => $thread->id,
+            'user_id'   => $user->id,
+            'body' 	    => trim($data['message']),
         ]);
         
-        Message::create([
+        $participant = Participant::firstOrCreate([
             'thread_id' => $thread->id,
             'user_id' 	=> $user->id,
-            'body' 		=> trim($data['message']),
         ]);
-        
-        Participant::create([
-            'thread_id' => $thread->id,
-            'user_id' 	=> $user->id,
-            'last_read' => Carbon::now(),
-        ]);
-        
+
+        $participant->last_read = new Carbon;
+        $participant->save();
+
         $thread->addParticipant($data['recipients']);
         
-        return $thread;
+        return $message;
 	}
 
 	public function validation() 

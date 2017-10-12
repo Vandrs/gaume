@@ -1,5 +1,6 @@
 <script>
 	Vue.component('thread-list', require('../../components/message/ThreadList'));
+	Vue.component('inbox-messages', require('../../components/message/MessageBox'));
 	export default {
 		data() {
 			return {
@@ -10,6 +11,7 @@
 			setThread: function(thread) {	
 				this.currentThread = thread;
 				this.currentThread.is_read = true;
+				this.$emit('thread-selected', this.currentThread);
 			}
 		}
 	}
@@ -29,7 +31,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" id="panel-inbox-messages">
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-12 col-md-4">
@@ -51,6 +53,8 @@
 								</thread-list>
 							</div>
 							<div class="col-xs-12 col-md-8">
+								<inbox-messages>
+								</inbox-messages>
 							</div>
 						</div>			
 					</div>

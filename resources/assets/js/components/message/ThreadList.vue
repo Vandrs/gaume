@@ -63,6 +63,16 @@
 				this.getThreads();		
 			},
 			selectThread(thread) {
+				for (var i = 0; i < this.threads.length; i++) {
+					this.threads[i].selected = false;
+					if (thread.id == this.threads[i].id) {
+						this.threads[i].selected = true;
+						thread.selected = true;
+					} else {
+						this.threads[i].selected = false;
+					}
+				}
+				console.log('Selected Thread:',thread.id);
 				this.$emit('thread-selected', thread);
 			},
 			deleteThread(thread) {
@@ -91,23 +101,27 @@
 					<a href="#" v-on:click="getUnreadThreads" v-bind:class="{'selected':filter.mode == unreadThreads}">{{$t('messages.unread_only')}}</a> | 
 					<a href="#" v-on:click="getAllThreads" v-bind:class="{'selected':filter.mode == allThreads}">{{$t('messages.see_all')}}</a>
 				</div>
-				<div v-for="thread of threads" class="message-thread margin-bottom-10" v-bind:class="{'unred':!thread.is_read}" v-on:click="selectThread(thread)">
-					<div class='thread-hour text-right'>
-						{{thread.updated_at_text}}
-					</div>
-					<div class="img-content">
-						<img v-if="thread.last_message.user.photo" :src="thread.last_message.user.photo">
-						<icon v-else class="glyphicon glyphicon-user"></icon>
-					</div>
-					<div class="thread-body">
-						<h2>{{thread.participants}}</h2>
-						<div class='thread-message'>
-							{{thread.last_message.truncated_message}}
+				<div class="thread-list-container">
+					<div v-for="thread of threads" class="message-thread margin-bottom-10" v-bind:class="[!thread.is_read ? 'unred' : '', thread.selected ? 'selected' : '']"   v-on:click="selectThread(thread)">
+						<div class='thread-hour text-right'>
+							{{thread.updated_at_text}}
 						</div>
-					</div>
-					<div class="thread-actions text-right">
-						<a href="#" v-on:click="deleteThread(thread)" v-bind:class="{'selected':filter.mode == allThreads}">{{$t('buttons.delete')}}</a>
-					</div>
+						<div class="message-container">
+							<div class="img-content">
+								<img v-if="thread.contact.photo" :src="thread.contact.photo">
+								<icon v-else class="glyphicon glyphicon-user"></icon>
+							</div>
+							<div class="thread-body">
+								<h2>{{thread.contact.text}}</h2>
+								<div class='thread-message'>
+									{{thread.last_message.truncated_message}}
+								</div>
+							</div>
+						</div>
+						<div class="thread-actions text-right">
+							<a href="#" v-on:click="deleteThread(thread)">{{$t('buttons.delete')}}</a>
+						</div>
+					</div>	
 				</div>
 				<div v-if="threads.length == 0">
 					<span v-if="filter.mode == allThreads">{{$t('messages.no_messages')}}</span>

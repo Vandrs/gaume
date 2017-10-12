@@ -1,3 +1,7 @@
+#panel-inbox-messages {
+	max-height: 950px;
+}
+
 .message-thread {
 	float: left;
 	padding: 15px 10px;
@@ -16,8 +20,16 @@
 	width:100%;
 }
 
+.message-thread-list ul.pagination {
+	margin: 5px 0;
+}
+
 .message-thread .thread-body {
 	max-width: 77%;
+}
+
+.message-thread {
+	width: 98%;
 }
 
 .message-thread-list {
@@ -26,6 +38,12 @@
 	padding-bottom: 10px;
 	border-right: solid 1px $monyGreen;
 	float: left;
+}
+
+.thread-list-container {
+	float: left;
+	max-height: 450px;
+	overflow-y: auto;
 }
 
 .message-thread .img-content {
@@ -66,10 +84,33 @@
 	color: #6b6a6a;
 }
 
+.thread-body {
+	width: 80%;
+}
+
+.img-content {
+	width: 20%;
+}
+
 .message-thread.unred {
 	font-weight: bold;
 }
 
-.thread-list-controls a.selected {
+.thread-list-controls a.selected,  
+.list-message-controls a.selected {
 	font-weight: bold;
+}
+
+.thread-actions {
+	width: 100%;
+	padding: 0 5px;
+	float: left;
+}
+.message-container {
+	width: 100%;
+	float: left;
+}
+
+.list-messages-container {
+	padding-top: 10px;
 }

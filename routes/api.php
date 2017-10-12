@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::get('/message/threads','MessageController@getThreads');
 	Route::get('/message/threads/{id}','MessageController@getThread');
 	Route::delete('/message/threads/{id}','MessageController@delete');
+	Route::put('/message/threads/{id}','MessageController@updateThread');
 
 	#Notifications
 	Route::get('/notifications', 'NotificationController@index');

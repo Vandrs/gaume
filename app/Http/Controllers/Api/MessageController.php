@@ -10,10 +10,13 @@ use App\Exceptions\ValidationException;
 use App\Services\Message\CreateThreadMessageService;
 use App\Services\Message\GetThreadMessageService;
 use App\Services\Message\DeleteThreadService;
+use App\Services\Message\UpdateThreadMessageService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use League\Fractal;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use App\Transformers\MessageThreadTransformer;
+use App\Transformers\MessageTransformer;
+use App\Transformers\ApiItemSerializer;
 use Cmgmyr\Messenger\Models\Thread;
 
 class MessageController extends RestController
@@ -30,6 +33,36 @@ class MessageController extends RestController
 		} catch (ValidationException $e) {
 			DB::rollback();
 			$errors = $threadService->getValidator()->errors()->all();
+			Log::error($e->getMessage().': '.json_encode($errors));
+			return $this->badRequest($errors);
+		} catch (\Exception $e) {
+			DB::rollback();
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function updateThread(Request $request, $id)
+	{
+		DB::beginTransaction();
+		try {
+			$thread = Thread::findOrFail($id);
+			$updateService = new UpdateThreadMessageService();
+			$message = $updateService->update($request->user(), $thread, $request->all());
+			$fractal = new Fractal\Manager();
+			$fractal->setSerializer(new ApiItemSerializer);
+			$item = new Fractal\Resource\Item($message, new MessageTransformer());
+			$data = $fractal->createData($item)->toArray(); 
+			DB::commit();
+			return $this->success(['message' => $data]);
+		} catch (ModelNotFoundException $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->notFound();
+		} catch (ValidationException $e) {
+			DB::rollback();
+			$errors = $updateService->getValidator()->errors()->all();
 			Log::error($e->getMessage().': '.json_encode($errors));
 			return $this->badRequest($errors);
 		} catch (\Exception $e) {

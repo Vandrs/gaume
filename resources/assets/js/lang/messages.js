@@ -195,6 +195,9 @@ var Messages = {
 			unread_only: 'Apenas não lidas',
 			no_unread_messages: 'Você não possui mensagens não lidas.',
 			no_messages: 'Você não possui mensagens.',
+			placeholder: 'Digite sua mensagem',
+			see_last_only: 'Ver apenas as ultimas mensagens',
+			see_last_messages: 'Ver mensagens anteriores'
 		},
 		buttons: {
 			edit: 'Editar',

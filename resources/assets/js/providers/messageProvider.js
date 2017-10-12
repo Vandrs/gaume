@@ -8,6 +8,9 @@ var MessageProvider = {
 	},
 	deleteThread: function(id) {
 		return axios.delete('/api/message/threads/'+id);
+	},
+	updateThread: function(id, data) {
+		return axios.put('/api/message/threads/'+id, data);
 	}
 };
 
