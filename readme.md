@@ -19,11 +19,11 @@ php artisan storage:link
 php artisan webpush:vapid
 
 php artisan db:seed --class=RolesTableSeeder
-
+ 
 php artisan db:seed --class=PlatformsTableSeeder
 
 php artisan user:admin:create
 
 npm run dev
 
-php artisan queue:work database --queue=email,lessons,user,notification,default  --tries=3
+php artisan queue:work database --queue=email,lessons,user,notification,default,chat  --tries=3

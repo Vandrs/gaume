@@ -28,7 +28,7 @@ class CreateThreadMessageService
             'subject' => $subject,
         ]);
         
-        Message::create([
+        $message = Message::create([
             'thread_id' => $thread->id,
             'user_id' 	=> $user->id,
             'body' 		=> trim($data['message']),
@@ -41,6 +41,9 @@ class CreateThreadMessageService
         ]);
         
         $thread->addParticipant($data['recipients']);
+
+        $participans = is_array($data['recipients'])? $data['recipients'] : explode(',', $data['recipients']);
+        $this->dispatchNotifications($message, $participans);
         
         return $thread;
 	}
@@ -63,5 +66,17 @@ class CreateThreadMessageService
 
 	public function getValidator() {
 		return $this->validator;
+	}
+
+	private function dispatchNotifications(Message $message, $participants) 
+	{
+		foreach ($participants as $id) {
+			$user = User::find($id);
+			if ($user) {
+				$job = new MessageNotification($user, $message);
+				$job->onQueue(EnumQueue::CHAT);
+				dispatch($job);
+			}	
+		}
 	}
 }

@@ -8,4 +8,5 @@ class EnumQueue
 	const EMAIL = 'email';
 	const USER = 'user';
 	const NOTIFICATION = 'notification';
+	const CHAT = 'chat';
 }

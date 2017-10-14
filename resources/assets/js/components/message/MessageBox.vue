@@ -24,15 +24,20 @@
 					this.getThreadMessages();
 				}
 			});
+			this.$parent.$on('new-message', (message) => {
+				this.updateCurrentThread(message);
+			});
 		},
 		methods: {
 			getThreadMessages: function() {
 				MessageProvider.getMessages(this.thread.id)
 							   .then((response) => {
 							   		this.messages = response.data;
+							   		this.setListOnBottom();
 							   		MessageProvider.readThread(this.thread.id)
 							   					   .then()
 							   					   .catch();
+							   		
 							   })
 							   .catch((error) => {
 							   		var errors = AppErrorBag.parseErrors(
@@ -54,6 +59,7 @@
 								   		var message = response.data.message;
 								   		this.messages.push(message);
 								   		this.message_text = null;
+								   		this.setListOnBottom();
 								   })
 								   .catch((error) => {
 								   		var errors = AppErrorBag.parseErrors(
@@ -70,8 +76,22 @@
 					return true;
 				}
 				return false;
+			},
+			updateCurrentThread(message) {
+				if (this.thread && message.thread_id == this.thread.id) {
+					this.messages.push(message);
+					this.setListOnBottom();
+					MessageProvider.readThread(this.thread.id)
+							   	   .then()
+							   	   .catch();
+				}
+			},
+			setListOnBottom: function() {
+				setTimeout(function(){
+					var objDiv = document.getElementById("list-messages-box");
+					objDiv.scrollTop = objDiv.scrollHeight;
+				},500);
 			}
-
 		}
 	};
 </script>
@@ -88,7 +108,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="list-messages-box margin-bottom-10">
+					<div class="list-messages-box margin-bottom-10" id="list-messages-box">
 						<div v-for="message of messages" class="media message">
 						    <div class="pull-left">
 						    	<div class='message-photo'>

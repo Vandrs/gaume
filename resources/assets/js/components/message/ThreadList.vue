@@ -25,6 +25,12 @@
 			this.filter.mode = this.unreadThreads;
 			this.filter.page = 1;
 			this.getThreads();
+			this.$parent.$on('new-message', (message) => {
+				setTimeout(() => {
+					this.filter.page = 1;
+					this.getThreads();
+				},1000);
+			});
 		},
 		methods: {
 			getThreads() {

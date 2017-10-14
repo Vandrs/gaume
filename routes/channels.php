@@ -15,7 +15,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-BroadCast::channel('online-users', function ($user){
+Broadcast::channel('online-users', function ($user){
 	$data = [
         'id'       => $user->id,
         'name'     => $user->name,
@@ -23,4 +23,8 @@ BroadCast::channel('online-users', function ($user){
         'photo'    => $user->getPhotoProfileUrl()
     ];
 	return $data;
+});
+
+Broadcast::channel('chat-room.{id}', function ($user, $id) {
+	return (int) $user->id === (int) $id;
 });

@@ -7,6 +7,12 @@
 				currentThread: null
 			}
 		},
+		mounted() {
+			window.Echo.private(`chat-room.${window.Laravel.user.id}`)
+				       .listen('NewMessage', (event) => {
+				       		this.$emit('new-message', event.message);
+						});
+		},
 		methods: {
 			setThread: function(thread) {	
 				this.currentThread = thread;

@@ -9,6 +9,8 @@ use App\Exceptions\ValidationException;
 use Cmgmyr\Messenger\Models\Thread;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
+use App\Enums\EnumQueue;
+use App\Jobs\MessageNotification;
 
 class UpdateThreadMessageService
 {
@@ -39,6 +41,9 @@ class UpdateThreadMessageService
         $participant->save();
 
         $thread->addParticipant($data['recipients']);
+
+        $participans = is_array($data['recipients'])? $data['recipients'] : explode(',', $data['recipients']);
+        $this->dispatchNotifications($message, $participans);
         
         return $message;
 	}
@@ -59,7 +64,20 @@ class UpdateThreadMessageService
 		];	
 	}
 
-	public function getValidator() {
+	public function getValidator() 
+	{
 		return $this->validator;
+	}
+
+	private function dispatchNotifications(Message $message, $participants) 
+	{
+		foreach ($participants as $id) {
+			$user = User::find($id);
+			if ($user) {
+				$job = new MessageNotification($user, $message);
+				$job->onQueue(EnumQueue::CHAT);
+				dispatch($job);
+			}	
+		}
 	}
 }
