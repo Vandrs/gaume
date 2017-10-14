@@ -114,3 +114,36 @@
 .list-messages-container {
 	padding-top: 10px;
 }
+
+.list-messages-container .list-messages-box{
+	height: 370px;
+	padding: 5px;
+	border: solid 1px #cccccc;
+	border-radius: 5px;
+	background-color: #f5f5f5;
+	overflow-y: auto;
+}
+
+.list-messages-box .message-photo {
+	background-color: #cccccc;
+	border-radius: 20px;
+	color: $monyGreen;
+	overflow: hidden;
+	margin-top: 5px;
+}
+
+.list-messages-box .message-photo img {
+	width: 50px;
+}
+
+.list-messages-box .message {
+	padding: 10px;
+	margin: 5px;
+}
+
+.list-messages-box .message .media-body {
+	padding: 7px;
+	border-radius: 5px;
+	background-color: #ffffff;
+}
+

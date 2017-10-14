@@ -11,6 +11,12 @@ var MessageProvider = {
 	},
 	updateThread: function(id, data) {
 		return axios.put('/api/message/threads/'+id, data);
+	},
+	readThread: function(id) {
+		return axios.put('/api/message/threads/'+id+'/read');
+	},
+	getMessages: function(id) {
+		return axios.get('/api/message/threads/'+id+'/messages');
 	}
 };
 

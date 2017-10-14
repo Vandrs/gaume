@@ -91,9 +91,25 @@ class MessageController extends RestController
 		}
 	}
 
-	public function getThread(Request $request, $id)
+	public function getMessages(Request $request, $id)
 	{
-
+		try {
+			$thread = Thread::findOrFail($id);
+			$messages = $thread->messages;
+			$fractal = new Fractal\Manager();
+			$fractal->setSerializer(new ApiItemSerializer);
+			$item = new Fractal\Resource\Collection($messages, new MessageTransformer());
+			$data = $fractal->createData($item)->toArray(); 
+			return $this->success($data);
+		} catch (ModelNotFoundException $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->notFound();
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
 	}
 
 	public function delete(Request $request, $id)
@@ -112,5 +128,22 @@ class MessageController extends RestController
 			return $this->internalError();
 		}
 		
+	}
+
+	public function readThread(Request $request, $id)
+	{
+		try {
+			$thread = Thread::findOrFail($id);
+			$thread->markAsRead($request->user()->id);
+			return $this->success();
+		} catch (ModelNotFoundException $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->notFound();
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}	
 	}
 }

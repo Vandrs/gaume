@@ -197,7 +197,9 @@ var Messages = {
 			no_messages: 'Você não possui mensagens.',
 			placeholder: 'Digite sua mensagem',
 			see_last_only: 'Ver apenas as ultimas mensagens',
-			see_last_messages: 'Ver mensagens anteriores'
+			see_last_messages: 'Ver mensagens anteriores',
+			talking_to: 'Conversando com',
+			no_thread_selected: 'Nenhuma conversa selecionada',
 		},
 		buttons: {
 			edit: 'Editar',

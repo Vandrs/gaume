@@ -19,6 +19,7 @@
 		mounted() {
 			this.$parent.$on('thread-selected',(thread) => {
 				this.thread = thread;
+				this.messages = [];
 				if (this.thread) {
 					this.getThreadMessages();
 				}
@@ -26,7 +27,21 @@
 		},
 		methods: {
 			getThreadMessages: function() {
-				console.log(this.thread);
+				MessageProvider.getMessages(this.thread.id)
+							   .then((response) => {
+							   		this.messages = response.data;
+							   		MessageProvider.readThread(this.thread.id)
+							   					   .then()
+							   					   .catch();
+							   })
+							   .catch((error) => {
+							   		var errors = AppErrorBag.parseErrors(
+								  				error.response.status,
+								  				error.response.data
+								  			);
+							  		window.app.$emit('app:show-alert', errors, "danger");
+							  		window.scrollTo(0,0);
+							   });
 			},
 			sendMessage: function(evt) {
 				if (this.canSendMessage()) {
@@ -34,10 +49,10 @@
 						'message': this.message_text,
 						'recipients': this.thread.recipients
 					};
-					MessageProvider.updateThread(this.thread.id,data)
+					MessageProvider.updateThread(this.thread.id, data)
 								   .then((response) => {
 								   		var message = response.data.message;
-								   		console.log('OK', message);
+								   		this.messages.push(message);
 								   		this.message_text = null;
 								   })
 								   .catch((error) => {
@@ -66,14 +81,29 @@
 			<div class="row">
 				<div class="col-xs-12 margin-bottom-10">
 					<div class="list-message-controls">
-						<a href="#" v-bind:class="{'selected':filter.mode == last}">{{$t('messages.see_last_only')}}</a> | 
-					    <a href="#" v-bind:class="{'selected':filter.mode == get_more}">{{$t('messages.see_last_messages')}}</a>
+						<span v-if="thread">{{$t('messages.talking_to')+": "+thread.contact.text}}</span>
+						<span v-else>{{$t('messages.no_thread_selected')}}</span>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="list-messages-box">
+					<div class="list-messages-box margin-bottom-10">
+						<div v-for="message of messages" class="media message">
+						    <div class="pull-left">
+						    	<div class='message-photo'>
+						        	<img v-if="message.user.photo" :src="message.user.photo">
+									<icon v-else class="glyphicon glyphicon-user"></icon>
+								</div>
+						    </div>
+						    <div class="media-body">
+						        <h4 class="media-heading">{{message.user.nickname ? message.user.nickname : message.user.name}}</h4>
+						        <p>{{message.message}}</p>
+						        <div class="text-muted text-right">
+						            <small>{{message.created_at_formated}}</small>
+						        </div>
+						    </div>
+						</div>
 					</div>
 				</div>
 			</div>

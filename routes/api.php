@@ -58,9 +58,11 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	#Messages
 	Route::post('/message/threads','MessageController@createThread');
 	Route::get('/message/threads','MessageController@getThreads');
-	Route::get('/message/threads/{id}','MessageController@getThread');
+	Route::get('/message/threads/{id}/messages','MessageController@getMessages');
 	Route::delete('/message/threads/{id}','MessageController@delete');
 	Route::put('/message/threads/{id}','MessageController@updateThread');
+	Route::put('/message/threads/{id}/read','MessageController@readThread');
+
 
 	#Notifications
 	Route::get('/notifications', 'NotificationController@index');

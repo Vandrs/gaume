@@ -37,7 +37,9 @@ class MessageThreadTransformer extends Fractal\TransformerAbstract
 	{
 		$lastMessage = $thread->latestMessage;
 		return [
-			'message' 		    =>   $lastMessage->body,
+			'id'				=> $lastMessage->id,
+			'thread_id'			=> $lastMessage->thread_id, 
+			'message' 		    => $lastMessage->body,
 			'truncated_message' => StringUtil::limitaCaracteres(strip_tags($lastMessage->body), 50, '...'),
 			'user' 	  => [
 				'id' 	   => $lastMessage->user->id,
