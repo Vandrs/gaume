@@ -16,6 +16,7 @@ use App\Events\NewMessage;
 use App\Notifications\NewMessageNotification;
 use App\Enums\EnumQueue;
 use \Pusher;
+use Log;
 
 class MessageNotification implements ShouldQueue
 {
@@ -72,6 +73,12 @@ class MessageNotification implements ShouldQueue
     {
         $config = config('broadcasting.connections.pusher');
         $pusher = new Pusher($config['key'], $config['secret'], $config['app_id'], $config['options']);
+
+        if (config('app.debug')) {
+            $logger = new CustomPusherLog();
+            $pusher->set_logger($logger);
+        }
+
         $info = $pusher->get_channel_info('private-chat-room.33',array('info' => 'subscription_count'));
         if ($info) {
             if ($info->subscription_count) {
@@ -81,5 +88,13 @@ class MessageNotification implements ShouldQueue
             }
         }
         return $this->notification;
+    }
+}
+
+class CustomPusherLog 
+{
+    public function log($msg)
+    {
+        Log::info($msg);
     }
 }
