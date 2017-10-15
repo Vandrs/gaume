@@ -9,6 +9,7 @@ use App\Exceptions\ValidationException;
 use Cmgmyr\Messenger\Models\Thread;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
+use App\Jobs\MessageNotification;
 
 class CreateThreadMessageService
 {
