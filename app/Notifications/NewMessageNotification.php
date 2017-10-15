@@ -37,7 +37,7 @@ class NewMessageNotification extends Notification
         return [
             'title'      => __('messages.new_contact',['name' => $this->message['user']['nickname']]),
             'body'       => $this->message['truncated_message'],
-            'action_url' => route('messages'),
+            'action_url' => route('messages',['id' => $this->message['thread_id']]),
             'created'    => Carbon::now()->format('Y-m-d H:i:s'),
             'icon'       => $this->message['user']['photo']
         ];

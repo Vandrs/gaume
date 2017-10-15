@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<message-app id="{{$userId}}">
+<message-app thread-id="{{$threadId}}">
 </message-app>
 @endsection

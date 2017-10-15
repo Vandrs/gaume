@@ -6,6 +6,10 @@ var MessageProvider = {
 	{
 		return axios.get('/api/message/threads', {'params': data});
 	},
+	getThread: function(id)
+	{
+		return axios.get('/api/message/threads/'+id);
+	},
 	deleteThread: function(id) {
 		return axios.delete('/api/message/threads/'+id);
 	},

@@ -91,6 +91,27 @@ class MessageController extends RestController
 		}
 	}
 
+	public function getThread(Request $request, $id)
+	{
+		try {
+			$thread = Thread::findOrFail($id);
+			$fractal = new Fractal\Manager();
+			$fractal->setSerializer(new ApiItemSerializer);
+			$item = new Fractal\Resource\Item($thread, new MessageThreadTransformer($request->user()));
+			$data = $fractal->createData($item)->toArray(); 
+			return $this->success($data);
+		} catch (ModelNotFoundException $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->notFound();
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+
 	public function getMessages(Request $request, $id)
 	{
 		try {

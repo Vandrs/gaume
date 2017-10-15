@@ -1,7 +1,9 @@
 <script>
+	import { MessageProvider } from '../../providers/messageProvider';
 	Vue.component('thread-list', require('../../components/message/ThreadList'));
 	Vue.component('inbox-messages', require('../../components/message/MessageBox'));
 	export default {
+		props: ['thread-id'],
 		data() {
 			return {
 				currentThread: null
@@ -12,12 +14,31 @@
 				       .listen('NewMessage', (event) => {
 				       		this.$emit('new-message', event.message);
 						});
+
+			console.log('Thread', this.threadId);
+			if (this.threadId) {
+				this.getThread();
+			}
 		},
 		methods: {
 			setThread: function(thread) {	
 				this.currentThread = thread;
 				this.currentThread.is_read = true;
 				this.$emit('thread-selected', this.currentThread);
+			},
+			getThread: function() {
+				MessageProvider.getThread(this.threadId)
+							   .then((response) => {
+							   		this.setThread(response.data);
+							   })
+							   .catch((error) => {
+							   		var errors = AppErrorBag.parseErrors(
+								  				error.response.status,
+								  				error.response.data
+								  			);
+							  		window.app.$emit('app:show-alert', errors, "danger");
+							  		window.scrollTo(0,0);
+							   });
 			}
 		}
 	}

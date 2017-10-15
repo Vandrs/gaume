@@ -10,6 +10,9 @@ class MessageController extends Controller
 {
 	public function index(Request $request)
 	{
-		return view('app.message-box.index',['userId' => $request->user()->id]);
+		return view('app.message-box.index',[
+			'userId'   => $request->user()->id,
+			'threadId' => $request->id
+		]);
 	}
 }
