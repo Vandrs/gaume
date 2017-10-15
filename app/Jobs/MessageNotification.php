@@ -79,7 +79,7 @@ class MessageNotification implements ShouldQueue
             $pusher->set_logger($logger);
         }
 
-        $info = $pusher->get_channel_info('private-chat-room.33',array('info' => 'subscription_count'));
+        $info = $pusher->get_channel_info('private-chat-room.'.$this->user->id, array('info' => 'subscription_count'));
         if ($info) {
             if ($info->subscription_count) {
                 return $this->pusher;
