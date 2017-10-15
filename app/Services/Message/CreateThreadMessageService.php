@@ -10,6 +10,7 @@ use Cmgmyr\Messenger\Models\Thread;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
 use App\Jobs\MessageNotification;
+use App\Enums\EnumQueue;
 
 class CreateThreadMessageService
 {
