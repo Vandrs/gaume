@@ -21,6 +21,8 @@ return [
 
     'disqus' => env('DISQUS', false),
 
+    'google_analytics_id' =>  env('GOOGLE_ANALYTICS_ID', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -22,7 +22,7 @@ php artisan db:seed --class=RolesTableSeeder
  
 php artisan db:seed --class=PlatformsTableSeeder
 
-php artisan user:admin:create
+php artisan app:user:admin:create
 
 npm run dev
 
