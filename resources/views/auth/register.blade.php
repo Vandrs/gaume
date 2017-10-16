@@ -280,7 +280,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -291,22 +290,22 @@
 
 <!-- Terms Modal -->
 <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <img class="modal-logo" src="{{url('/images/logo.png')}}" title="Logo Monzy" alt="Logo Monzy">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <img class="modal-logo" src="{{url('/images/logo.png')}}" title="Logo Monzy" alt="Logo Monzy">
+                </div>
             </div>
-        </div>
-      </div>
-      <div class="modal-body">
-            @lang('site.terms.text')
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-      </div>
+          </div>
+          <div class="modal-body">
+                @include('partials.terms')
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
     </div>
   </div>
 </div>
