@@ -44,6 +44,7 @@ return [
 		'register' => 'CADASTRO',
 		'teacher' => 'TREINADOR',
 		'login'   => 'ENTRAR',
+		'terms'	  => 'TERMOS DE USO'
 	],
 	'remember_me' => 'Mantenha-me logado',
 	'registration' => [

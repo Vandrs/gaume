@@ -202,6 +202,7 @@
                     <li><a href="#about">@lang('site.menu.about')</a></li>
                     <li><a href="#we">@lang('site.menu.we')</a></li>
                     <li><a href="#contact">@lang('site.menu.contact')</a></li>
+                    <li><a href="{{url('/documentos/TERMOS E CONDIÇÕES DA MONZY OFICIAL.pdf')}}" target="_blank">@lang('site.menu.terms')</a></li>
                 </ul>
             </div>
         </div>
