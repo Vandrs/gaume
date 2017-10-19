@@ -21,5 +21,16 @@ return [
 						   Para realizar a avaliação acesse o link abaixo.
 						   <br/><br/><a href=':link'>:link</a><br/><br/>
 						   Lembramos que a sua avaliação é de extrema importância para que possamos oferecer sempre a melhor experiência em nossas aulas.",
+	],
+	'lesson_confirmation_mail' => [
+		'subject' => 'Aula de :game em :date',
+		'student_body' => "Olá <strong>:student</strong> obrigado por escolher a Monzy! <br/><br/>
+						   Este é um comprovante da sua aula com o treinador <strong>:teacher</strong>, referente ao jogo <strong>:game</strong> no dia :date com duração de <strong>:hours horas.</strong> <br/><br/>
+						   Caso você ainda não tenha avaliado, clique no link abaixo realizar a avaliação da aula <br/> <a href=':link'>:link</a> <br/></br>
+						   Lembramos que a sua avaliação é de extrema importância para que possamos oferecer sempre a melhor experiência em nossas aulas.",
+		'teacher_body' => "Olá <strong>:teacher</strong> obrigado por escolher a Monzy! <br/><br/> 
+						   Este é um comprovante da sua aula referente ao jogo <strong>:game</strong> com o aluno <strong>:student</strong> no dia :date com duração de <strong>:hours horas.</strong> <br/><br/>
+						   Caso você ainda não tenha avaliado, clique no link abaixo realizar a avaliação da aula <br/> <a href=':link'>:link</a> <br/></br>
+						   Lembramos que a sua avaliação é de extrema importância para que possamos oferecer sempre a melhor experiência em nossas aulas."
 	]
 ];

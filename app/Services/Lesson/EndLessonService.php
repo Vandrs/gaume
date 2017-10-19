@@ -12,6 +12,7 @@ use App\Services\Billing\GetBillingParamService;
 use App\Services\Billing\CalculateLessonBillingService;
 use App\Enums\EnumBillingParam;
 use App\Notifications\EvaluateClassNotification;
+use App\Mail\LessonConfirmationMail;
 
 class EndLessonService
 {
@@ -40,6 +41,7 @@ class EndLessonService
 		} else if ($status == EnumLessonStatus::FINISHED) {
 			$this->calculateBilling($lesson);
 			$this->dispatchNotifications($lesson);
+			$this->dispatchEndedLessonEmail($lesson);
 		}
 
 		return $lesson->save();
@@ -66,5 +68,16 @@ class EndLessonService
 		$notificationStudent = new EvaluateClassNotification($lesson, $lesson->student);
 		$notificationStudent->onQueue(EnumQueue::NOTIFICATION);
 		dispatch($notificationStudent);	
+	}
+
+	private function dispatchEndedLessonEmail(Lesson $lesson)
+	{
+		$lessonStudentMail = new LessonConfirmationMail($lesson->student, $lesson);
+		$lessonStudentMail->onQueue(EnumQueue::EMAIL);
+		dispatch($lessonStudentMail);	
+
+		$lessonTeacherMail = new LessonConfirmationMail($lesson->teacher, $lesson);
+		$lessonTeacherMail->onQueue(EnumQueue::EMAIL);
+		dispatch($lessonTeacherMail);
 	}
 }

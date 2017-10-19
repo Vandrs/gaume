@@ -11,7 +11,6 @@ use App\Enums\EnumQueue;
 use Carbon\Carbon;
 use Mail;
 use Config;
-use App\Mail\EvaluateLessonMail;
 
 class CreateLessonEvaluationService
 {
@@ -19,8 +18,6 @@ class CreateLessonEvaluationService
 	{
 		$teacherEvaluation = $this->createForTeacher($lesson, $lesson->teacher);
 		$studentEvaluation = $this->createForStudent($lesson, $lesson->student);
-		$this->createMail($teacherEvaluation);
-		$this->createMail($studentEvaluation);
 	}
 
 	private function createForTeacher(Lesson $lesson, User $teacher)
@@ -52,15 +49,4 @@ class CreateLessonEvaluationService
 		$now = Carbon::now();
 		return bcrypt($now->format('YmdHis').$phrase);
 	}
-
-	private function createMail(LessonEvaluation $evaluation)
-	{
-		$connection = Config::get('queue.default');
-		$job = new EvaluateLessonMail($evaluation);
-		$job->onConnection($connection)
-			->onQueue(EnumQueue::EMAIL)
-			->delay(Carbon::now()->addHours(1));
-		Mail::queue($job);
-	}
-
 }
