@@ -11,6 +11,7 @@ use App\Enums\EnumUserStatus;
 use App\Enums\EnumRole;
 use App\Services\Location\CreateAddressService;
 use App\Services\User\UserProfilePhotoService;
+use App\Services\User\SaveUserMediaService;
 use App\Services\BankAccount\SaveBankAccountService;
 use App\Services\TeacherGame\CreateTeacherGameService;
 use App\Services\Registration\GetPreRegistrationService;
@@ -55,6 +56,10 @@ class TeacherRegistrationService extends Service
 				$this->photoUploadService->uploadPhoto($user, $profileImage);
 			}
 
+			if ($data['media_type'] && $data['media_user']) {
+				$this->createTeacherMedia($user, $data);
+			}
+
 			return $user;
 			
 		} catch(ValidationException $e) {
@@ -82,13 +87,15 @@ class TeacherRegistrationService extends Service
 
 		return [
 			'cpf' 		 => 'required|cpf',
-			'name' 		 => 'required|string|max:255',
+			'name' 		 => 'required|string|max:255|full_name',
 			'nickname' 	 => 'required|max:20|unique:users',
             'email' 	 => 'required|email|max:255|unique:users',
             'birth_date' => 'required|date|dateBeforeOrEqual:'.$now->format('Y-m-d'),
             'password' 	 => 'required|min:8|confirmed',
             'role_id' 	 => 'required|integer|exists:roles,id',
-            'terms' 	 => 'required'
+            'terms' 	 => 'required',
+            'media_type' => 'required_with:media_user',
+            'media_user' => 'required_with:media_type' 
 		];
 	}
 
@@ -100,6 +107,7 @@ class TeacherRegistrationService extends Service
 			'name.required'  			      => __('validation.required', ['attribute' => __('site.registration.name')]),
 			'name.string' 	 			      => __('validation.string', ['attribute' => __('site.registration.name')]),
 			'name.max' 		 			      => __('validation.max.string', ['attribute' => __('site.registration.name'), 'max' => 255]),
+			'name.full_name'				  => __('validation.custom.full_name'),
 			'nickname.required' 		      => __('validation.required', ['attribute' => __('site.registration.nickname')]),
 			'nickname.max' 				      => __('validation.max.string', ['attribute' => __('site.registration.nickname'), 'max' => 20]),
 			'nickname.unique' 			      => __('validation.unique', ['attribute' => __('site.registration.nickname')]),
@@ -113,7 +121,9 @@ class TeacherRegistrationService extends Service
 			'password.required'			      => __('validation.required', ['attribute' => __('site.registration.password')]),
 			'password.min'				      => __('validation.min.string', ['attribute' => __('site.registration.password'), 'min' => 8]),
 			'password.confirmed'		      => __('validation.confirmed', ['attribute' => __('site.registration.password')]),
-			'terms.required' 				  => __('validation.custom.terms')
+			'terms.required' 				  => __('validation.custom.terms'),
+			'media_type.required_with'	      => __('validation.required', ['attribute' => __('site.registration.media_type')]),
+			'media_user.required_with'	      => __('validation.required', ['attribute' => __('site.registration.media_user')])
 		];
 	}
 
@@ -165,6 +175,12 @@ class TeacherRegistrationService extends Service
 			$this->validator->errors()->add('games', $msg);
 			throw $e;	
 		}
+	}
+
+	private function createTeacherMedia(User $user, array $data)
+	{
+		$saveMedia = new SaveUserMediaService();
+		return $saveMedia->save($user, $data['media_type'], $data['media_user']);
 	}
 
 	private function deletePreRegistrationByCode($code) 

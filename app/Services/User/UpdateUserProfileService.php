@@ -7,6 +7,7 @@ use App\Exceptions\ValidationException;
 use App\Services\Service;
 use App\Services\Location\UpdateAddressService;
 use App\Services\BankAccount\SaveBankAccountService;
+use App\Services\User\UpdateUserMediaService;
 use Illuminate\Validation\Rule;
 
 class UpdateUserProfileService extends Service
@@ -31,6 +32,9 @@ class UpdateUserProfileService extends Service
 			$addresService = new UpdateAddressService();
 			$addresService->update($user->address, $addressData);
 
+			$mediaData = isset($data['media']) ? $data['media'] : [];
+			$mediaService = new UpdateUserMediaService();
+			$mediaService->update($user, $mediaData);
 
 			if ($user->bankAccount) {
 				$bankAccountService = new SaveBankAccountService();
@@ -42,6 +46,9 @@ class UpdateUserProfileService extends Service
 			$this->validator->messages()->merge($addresService->getValidator()->messages());	
 			if (isset($bankAccountService)) {
 				$this->validator->messages()->merge($bankAccountService->getValidator()->messages());	
+			}
+			if (isset($mediaService)) {
+				$this->validator->messages()->merge($mediaService->getValidator()->messages());
 			}
 			throw $e;
 		}

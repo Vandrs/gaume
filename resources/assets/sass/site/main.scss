@@ -311,6 +311,11 @@ ul.footer-menu li a:active {
     border: solid 5px $monzyYellow;
 }
 
+#termsModal .modal-body {
+    overflow-y: auto;
+    max-height: 510px;
+}
+
 
 @media (max-width: 1600px) and (min-width:1400px) {
     .section-content {

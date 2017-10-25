@@ -97,8 +97,8 @@ return [
         'terms' => 'Você precisa aceitar os termos de usa para prosseguir',
         'min_age' => 'Você deve ser maior de :age anos para se registrar',
         'unauthorized' => 'Você não possui permissão para realizar a ação solicitada.',
-        'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.'        
+        'unexpected' => 'Ocorreu um erro ineperado tente novamente mais tarde e se o erro persistir contate o administrador do sistema.',
+        'full_name' => 'Informe o Nome completo'
     ],
-
     'dimension_min' => ':attribute deve ser no míminio :width de largura por :height de altura'
 ];

@@ -117,7 +117,9 @@ var Messages = {
 			bank: 'Banco',
 			agency: 'Agência',
 			account: 'Conta Corrente',
-			digit: 'Dígito',			
+			digit: 'Dígito',
+			media_type: 'Forma de contato',
+			media_user: 'Usuário',
 		},
 		game: {
 			title: 'Título',

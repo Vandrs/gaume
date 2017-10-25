@@ -25,6 +25,7 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 			],
 			'address' => $this->getAddress($user),
 			'bankAccount' => $this->getBankAccount($user),
+			'media' => $this->getMedia($user)
 		];
 	}
 
@@ -56,5 +57,17 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 			];
 		} 
 		return null;
+	}
+
+	private function getMedia(User $user)
+	{
+		if ($user->media) {
+			return [
+				'id' => $user->media->id,
+				'media' => $user->media->media,
+				'nickname' => $user->media->nickname
+			];
+		}
+		return new \StdClass;
 	}
 }

@@ -90,7 +90,13 @@ return [
 		'game_description' => 'Preencha  sua descrição de perfil para todos os jogos presentes no formulário',
 		'student_only' => 'Atenção esta é a pagina de cadastro para Alunos, caso deseje ser um treinador <a href=":link"><strong>clique aqui</strong></a>',
 		'page_title' => 'Cadastro de Alunos | Monzy',
-		'page_description' => 'Cadastre-se e venha treinar com o maios experts em games do Brazil'
+		'page_description' => 'Cadastre-se e venha treinar com o maios experts em games do Brazil',
+		'medias' => [
+			'SKYPE'   => 'Skype',
+			'DISCORD' => 'Discord'
+		],
+		'media_type' => 'Forma de contato',
+		'media_user' => 'Usuário',
 	],
 	'contact' => [
 		'page_title' => 'Cadastro-se para ser um de nossos treinadores | Monzy',

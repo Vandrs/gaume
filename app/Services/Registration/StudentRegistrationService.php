@@ -56,7 +56,7 @@ class StudentRegistrationService extends Service
 
 		return [
 			'cpf' 		 => 'required|cpf',
-			'name' 		 => 'required|string|max:255',
+			'name' 		 => 'required|string|max:255|full_name',
 			'nickname' 	 => 'required|max:20|unique:users',
             'email' 	 => 'required|email|max:255|unique:users',
             'birth_date' => 'required|date|dateBeforeOrEqual:'.$now->format('Y-m-d'),
@@ -74,6 +74,7 @@ class StudentRegistrationService extends Service
 			'name.required'  			      => __('validation.required', ['attribute' => __('site.registration.name')]),
 			'name.string' 	 			      => __('validation.string', ['attribute' => __('site.registration.name')]),
 			'name.max' 		 			      => __('validation.max.string', ['attribute' => __('site.registration.name'), 'max' => 255]),
+			'name.full_name'				  => __('validation.custom.full_name'),
 			'nickname.required' 		      => __('validation.required', ['attribute' => __('site.registration.nickname')]),
 			'nickname.max' 				      => __('validation.max.string', ['attribute' => __('site.registration.nickname'), 'max' => 20]),
 			'nickname.unique' 			      => __('validation.unique', ['attribute' => __('site.registration.nickname')]),

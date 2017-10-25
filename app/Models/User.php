@@ -12,6 +12,7 @@ use App\Models\BankAccount;
 use App\Models\UserEvaluation;
 use App\Models\TeacherGame;
 use App\Models\Wallet;
+use App\Models\UserMedia;
 use Storage;
 use Carbon\Carbon;
 use Cmgmyr\Messenger\Traits\Messagable;
@@ -80,9 +81,8 @@ class User extends Authenticatable
         return $this->hasOne(Wallet::class);
     }
 
-    public function getLessonsByPeriod(Carbon $dtIni, Carbon $dtEnd)
+    public function media()
     {
-        
+        return $this->hasOne(UserMedia::class);
     }
-
 }

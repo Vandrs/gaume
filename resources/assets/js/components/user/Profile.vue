@@ -9,7 +9,8 @@
 		data() {
 			return { 
 				user: {
-					address: {}
+					address: {},
+					media: {}
 				},
 				errors: {},
 				defaultError: null,
@@ -17,7 +18,12 @@
 					states: [],
 					cities: [],
 					neighborhoods: [],
-				}
+				},
+				medias: [
+					{type:'',label:'Selecione'},
+					{type:'DISCORD',label:'Discord'},
+					{type:'SKYPE',label:'Skype'}
+				]
 			}
 		},
 		mounted() {
@@ -198,6 +204,28 @@
 	                        </div>
 	                    </div>
 	                </div>
+	                <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group" v-bind:class="{'has-error' : errors.media_type}">
+                                <label for="media_type" class="control-label">{{$t('profile.media_type')}}</label>
+                                <select name="media_type" id="media_type" class="form-control" v-model="user.media.media">
+									<option v-for="media of medias" :value="media.type">{{media.label}}</option>
+                                </select>
+                                <span v-if="errors.media_type" class="help-block">
+                                    <strong>{{ errors.media_type[0] }}</strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group" v-bind:class="{'has-error' : errors.media_user}">
+                                <label for="media_user" class="control-label">{{$t('profile.media_user')}}</label>
+                                <input id="media_user" type="text" class="form-control" name="media_user" v-model="user.media.nickname">
+                                <span v-if="errors.media_user" class="help-block">
+                                    <strong>{{ errors.media_user[0] }}</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 	            </div>
 	        </div>
 

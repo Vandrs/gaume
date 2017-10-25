@@ -152,5 +152,10 @@ class ValidatorExtensionsUtil
         Validator::extend('cep', function($attribute, $value) {
             return preg_match('/^\d{2}\.?\d{3}-?\d{3}$/', $value) > 0;
         });
+
+        Validator::extend('full_name', function($attribute, $value, $parameters) {
+            $names = explode(" ",trim($value));
+            return count($names) > 1;
+        });
 	}
 }

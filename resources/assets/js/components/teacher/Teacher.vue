@@ -73,6 +73,11 @@
 					<h2>{{teacher.name}}</h2>
 				</div>
 			</div>
+			<div v-if="teacher.media.id" class="row">
+				<div class='col-xs-12'>
+					<h4>{{teacher.media.media+'('+teacher.media.nickname+')'}}</h4>
+				</div>
+			</div>
 			<div class="row" v-if="teacher.evaluation">
 				<div class='col-xs-12'>
 					<StarRating v-model="teacher.evaluation.note" :read-only="true" :star-size="25" :show-rating="false"></StarRating>

@@ -80,6 +80,34 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group{{ $errors->has('media_type') ? ' has-error' : '' }}">
+                                            <label for="media_type" class="control-label">@lang('site.registration.media_type')</label>
+                                            <select name="media_type" id="media_type" class="form-control">
+                                                <option value="">@lang('site.buttons.select')</option>
+                                                <option value="{{EnumMedia::DISCORD}}" {{EnumMedia::DISCORD == old('media_type') ? 'selected' : ''}}>@lang('site.registration.medias.DISCORD')</option>
+                                                <option value="{{EnumMedia::SKYPE}}" {{EnumMedia::SKYPE == old('media_type') ? 'selected' : ''}}>@lang('site.registration.medias.SKYPE')</option>
+                                            </select>
+                                            @if ($errors->has('media_type'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('media_type') }}</strong>
+                                            </span>    
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group{{ $errors->has('media_user') ? ' has-error' : '' }}">
+                                            <label for="media_user" class="control-label">@lang('site.registration.media_user')</label>
+                                            <input id="media_user" type="text" class="form-control" name="media_user" value="{{ old('media_user') }}"  autofocus>
+                                            @if ($errors->has('media_user'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('media_user') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -414,7 +442,7 @@
         <h4 class="modal-title" id="termsModalLabel">@lang('site.terms.title')</h4>
       </div>
       <div class="modal-body">
-            @lang('site.terms.text')
+            @include('partials.terms')
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>

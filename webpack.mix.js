@@ -16,3 +16,12 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/registration.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .sass('resources/assets/sass/site.scss', 'public/css');
+
+/*
+mix.js('resources/assets/js/app.js', 'compiled/js')
+   .js('resources/assets/js/site.js', 'compiled/js')
+   .js('resources/assets/js/registration.js', 'compiled/js')
+   .sass('resources/assets/sass/app.scss', 'compiled/css')
+   .sass('resources/assets/sass/site.scss', 'compiled/css');
+*/
+

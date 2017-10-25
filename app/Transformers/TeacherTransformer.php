@@ -27,7 +27,8 @@ class TeacherTransformer extends Fractal\TransformerAbstract
 			'status' 	 => $teacher->status,
 			'is_online'  => $teacher->is_online,
 			'games'  	 => $this->parseGames($teacher),
-			'evaluation' => $this->parseEvaluation($teacher)
+			'evaluation' => $this->parseEvaluation($teacher),
+			'media'		 => $this->parseMedia($teacher)
 		];
 	}
 
@@ -77,5 +78,17 @@ class TeacherTransformer extends Fractal\TransformerAbstract
 				'qtd_evaluations' => 0
 			]; 
 		}
+	}
+
+	public function parseMedia(User $teacher)
+	{
+		if ($teacher->media) {
+			return [
+				'id' => $teacher->media->id,
+				'media' => $teacher->media->media,
+				'nickname' => $teacher->media->nickname
+			];
+		}
+		return new \StdClass;
 	}
 }
