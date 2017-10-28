@@ -39,7 +39,7 @@ class CheckoutService
 						'group' => 'CREDIT_CARD,BOLETO'
 					]
 				]
-			],
+			]/*,
 			'paymentMethodConfigs' => [
 				[
 		            'paymentMethod' => [
@@ -52,7 +52,7 @@ class CheckoutService
 		                ]
 		            ]
 		        ]
-			]
+			]*/
 		];
 	}
 
