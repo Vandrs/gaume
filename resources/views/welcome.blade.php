@@ -83,8 +83,9 @@
                             <span>@lang('site.pages.home.body.games-text')</span>
                         </div>
                     </div>
-                    <div class="row margin-top-10">
-                        <div class="col-xs-12 col-md-4">
+                    <div class="row">
+                        {{-- 
+                        <div class="col-xs-12 col-md-4 margin-top-10">
                             <div class="game-bg dota">
                                 <div class="layer">
                                     <div class="game-content">
@@ -97,7 +98,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        --}}
+                        <div class="col-xs-12 col-md-4  margin-top-10">
                             <div class="game-bg lol">
                                 <div class="layer">
                                     <div class="game-content">
@@ -110,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-12 col-md-4  margin-top-10">
                             <div class="game-bg overwatch">
                                 <div class="layer">
                                     <div class="game-content">
@@ -123,6 +125,19 @@
                                             <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
                                         </span>
                                         <h2>Overwatch</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4  margin-top-10">
+                            <div class="game-bg cs-go">
+                                <div class="layer">
+                                    <div class="game-content">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x yellow-icon"></i>
+                                            <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                        <h2>CS GO</h2>
                                     </div>
                                 </div>
                             </div>
