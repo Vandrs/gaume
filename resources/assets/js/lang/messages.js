@@ -19,6 +19,7 @@ var Messages = {
 			select: "Selecione",
 			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente.",
 			games: 'Jogos',
+			users: 'Usuários',
 			game: 'Jogo',
 			created_at: 'Data de cadastro',
 			see_profile: 'Ver Perfil',
@@ -139,7 +140,9 @@ var Messages = {
 			platform: 'Plataforma',
 			generic_game_error: 'Verifique se você preencheu seu nickname e descrição para cada jogo presente no formulário',
 			pick_game: 'Escolha o Jogo',
-			select_game: 'Selecione o Jogo'
+			select_game: 'Selecione o Jogo',
+			add_new_game: 'Cadastrar Novo Jogo',
+			edit_game: 'Editar Jogo'
 		},
 		teacher_game: {
 			skill_descripion: 'Descreva seu estilo de jogo e principais habilidades',
@@ -152,7 +155,10 @@ var Messages = {
 			create_success: 'Pré cadastro criado com sucesso!',
 			update_success: 'Pré cadastro alterado com sucesso!',
 			mailed_at: 'E-mail de cadastro enviado em',
-			resend_email: 'Reenviar e-mail'
+			resend_email: 'Reenviar e-mail',
+			pre_registration: 'Treinadores pré cadastrados',
+			new_pre_registration: 'Cadastrar Novo Treinador',
+			edit_pre_registration: 'Editar Cadastro Treinador'
 		},
 		evaluation: {
 			message: 'Por favor, avalie esta aula para nos ajudar a oferecer sempre a melhor experiência para nossos usuários',
@@ -190,6 +196,13 @@ var Messages = {
 			message_read: 'Mensagens lidas',
 			message_not_read: 'Não lidas'
 		},
+		user_admin: {
+			name: 'Nome',
+			nickname: 'Nickname',
+			email: 'E-mail',
+			status: 'Status',
+			role: 'Perfil'
+		},
 		messages: {
 			title: 'Mensagens',
 			threads: 'Conversas',
@@ -210,7 +223,9 @@ var Messages = {
 			send: 'Enviar',
 			mark_as_read: 'Marcar como lido',
 			send_message: 'Enviar Mensagem',
-			actions: 'Ações'
+			actions: 'Ações',
+			add_new_teacher: 'Novo Professor',
+			add_new: 'Novo Jogo'
 		},
 	}
 }

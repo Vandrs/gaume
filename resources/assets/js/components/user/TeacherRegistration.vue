@@ -175,6 +175,17 @@
 <template>
 <div class="row">
 	<div class="col-xs-12 col-md-8 col-md-offset-2">
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x yellow-icon"></i>
+						<i class="fa fa fa-id-card fa-stack-1x fa-inverse"></i>
+				</span>
+			</div>
+			<div class="col-xs-12 text-center">
+				<h1>{{ id ? $t('pre_registration.edit_pre_registration') : $t('pre_registration.new_pre_registration') }}</h1>
+			</div>
+		</div>
 		<div class="row">	
 			<div class="col-xs-12 col-md-6 margin-top-10 control-group" v-bind:class="{'has-error':errors.name}">
 				<label>{{$t('profile.name')}}</label>

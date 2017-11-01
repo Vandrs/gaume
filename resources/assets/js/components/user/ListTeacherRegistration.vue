@@ -19,7 +19,8 @@
 				},
 
 				preRegistrations: [],
-				editLink: '/app/admin/usuarios/professor/pre-cadastro/'
+				editLink: '/app/admin/usuarios/professor/pre-cadastro/',
+				createLink: '/app/admin/usuarios/professor/pre-cadastro'
 			}
 		},
 		mounted() {
@@ -63,6 +64,22 @@
 <template>
 	<div>
 		<div class="row">
+			<div class="col-xs-12 text-center">
+				<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x yellow-icon"></i>
+						<i class="fa fa fa-id-card fa-stack-1x fa-inverse"></i>
+				</span>
+			</div>
+			<div class="col-xs-12 text-center">
+				<h1>{{ $t('pre_registration.pre_registration') }}</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-left">
+				<a class="btn btn-primary" :href="createLink"><i class="glyphicon glyphicon-plus-sign"></i> {{$t('buttons.add_new_teacher')}}</a>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-12 col-md-4 margin-top-10">
 				<label for="name">{{$t('profile.name')}}</label>
 				<input type="text" name="name" id="name" v-model="filter.name" class="form-control">
@@ -79,7 +96,7 @@
 		</div>
 		<div class="row margin-top-10">
 			<div class="col-xs-12 margin-top-10">
-				<table id="tablePreRegistration" class="table table-striped">
+				<table id="tablePreRegistration" class="table table-default table-bordered table-striped">
 					<thead>
 						<th>{{$t('profile.name')}}</th>
 						<th>{{$t('profile.email')}}</th>

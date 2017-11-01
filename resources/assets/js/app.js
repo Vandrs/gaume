@@ -63,6 +63,7 @@ Vue.component('notifications-dropdown', require('./components/notification/Notif
 Vue.component('contact', require('./components/faq/Contact'));
 Vue.component('contact-list', require('./components/faq/ContactList'));
 Vue.component('message-app', require('./components/message/MessageApp'));
+Vue.component('user-admin-list', require('./components/userAdmin/UserAdminList'));
 
 
 window.app = new Vue({

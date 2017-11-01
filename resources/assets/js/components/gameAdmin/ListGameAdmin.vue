@@ -22,6 +22,7 @@
 					linksRange: 5
 				},
 				editLink: '/app/admin/games/editar/',
+				createLink: '/app/admin/games/cadastro',
 				games: []
 			}
 		},
@@ -74,6 +75,22 @@
 	<div>
 		<delete-game-modal>
 		</delete-game-modal>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x yellow-icon"></i>
+						<i class="fa fa fa-gamepad fa-stack-1x fa-inverse"></i>
+				</span>
+			</div>
+			<div class="col-xs-12 text-center">
+				<h1>{{ $t('app.games') }}</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-left">
+				<a class="btn btn-primary" :href="createLink"><i class="glyphicon glyphicon-plus-sign"></i> {{$t('buttons.add_new')}}</a>
+			</div>
+		</div>
 		<div class='row margin-top-10'>
 			<div class='col-xs-12 col-md-4 margin-top-10'>
 				<label for="name">{{$t('game.title')}}</label>
@@ -94,7 +111,7 @@
 		</div>
 		<div class='row margin-top-10'>
 			<div class='col-xs-12 margin-top-10'>
-				<table class='table table-striped'>
+				<table class='table table-striped table-bordered table-default'>
 					<thead>
 						<tr>
 							<th>{{$t('game.title')}}</th>
