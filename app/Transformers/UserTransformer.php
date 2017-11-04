@@ -19,7 +19,8 @@ class UserTransformer extends Fractal\TransformerAbstract
 			'role' => [
 				'id'   => $user->role->id,
 				'name' => $user->role->role
-			]
+			],
+			'created_at' => $user->created_at->__toString()
 		];
 	}
 }

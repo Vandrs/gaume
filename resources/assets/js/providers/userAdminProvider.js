@@ -1,7 +1,9 @@
 var UserAdminProvider = {
-	get: function () {
-		return axios.get('/api/me');
+
+	getAll: function (data) {
+		return axios.get('/api/admin/users', {'params':data});
 	}
+	
 };
 
 export { UserAdminProvider };

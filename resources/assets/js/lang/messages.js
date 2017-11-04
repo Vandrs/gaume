@@ -85,6 +85,7 @@ var Messages = {
 		},
 		profile: {
 			name: 'Nome',
+			profile: 'Perfil',
 			email: 'E-mail',
 			password: 'Senha',
 			password_confirm: 'Confirmar senha',
@@ -121,6 +122,7 @@ var Messages = {
 			digit: 'Dígito',
 			media_type: 'Forma de contato',
 			media_user: 'Usuário',
+			status: 'Status'
 		},
 		game: {
 			title: 'Título',
@@ -201,7 +203,8 @@ var Messages = {
 			nickname: 'Nickname',
 			email: 'E-mail',
 			status: 'Status',
-			role: 'Perfil'
+			role: 'Perfil',
+			created_at: 'Data Cadastro'
 		},
 		messages: {
 			title: 'Mensagens',
@@ -227,6 +230,20 @@ var Messages = {
 			add_new_teacher: 'Novo Professor',
 			add_new: 'Novo Jogo'
 		},
+		roles: {
+			ADMIN: 'Administrador',
+			TEACHER: 'Treinador',
+			STUDENT: 'Professor'
+		},
+		roles_id: {
+			1: 'Administrador',
+			2: 'Treinador',
+			3: 'Professor'
+		},
+		status: {
+			1: 'Ativo',
+			0: 'Inativo'
+		}
 	}
 }
 

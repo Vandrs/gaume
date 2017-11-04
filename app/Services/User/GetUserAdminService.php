@@ -8,7 +8,7 @@ class GetUserAdminService
 {
 	public static function getAll(array $filters)
 	{
-		$query = User::query();
+		$query = User::query()->orderBy('name', 'ASC');
 		if (isset($filters['name']) && !empty($filters['name'])) {
 			$query->where('name', 'LIKE', '%'.$filters['name'].'%');
 		}

@@ -9,15 +9,20 @@ use App\Http\Controllers\Api\RestController;
 use App\Services\User\GetUserAdminService;
 use App\Transformers\UserTransformer;
 use App\Transformers\ApiItemSerializer;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class UserAdminController extends RestController
 {
 	public function list(Request $request)
 	{
 		try {
-			$users = GetUserAdminService::getAll($request->all());
-			
-
+			$usersPaginator = GetUserAdminService::getAll($request->all());
+			$fractal = new Fractal\Manager();
+			$items = new Fractal\Resource\Collection($usersPaginator->getCollection(), new UserTransformer());
+			$paginatorAdapter = new IlluminatePaginatorAdapter($usersPaginator);
+			$items->setPaginator($paginatorAdapter);
+			$data = $fractal->createData($items)->toArray();
+			return $this->success($data);
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());
