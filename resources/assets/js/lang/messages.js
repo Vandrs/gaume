@@ -233,12 +233,12 @@ var Messages = {
 		roles: {
 			ADMIN: 'Administrador',
 			TEACHER: 'Treinador',
-			STUDENT: 'Professor'
+			STUDENT: 'Aluno'
 		},
 		roles_id: {
 			1: 'Administrador',
 			2: 'Treinador',
-			3: 'Professor'
+			3: 'Aluno'
 		},
 		status: {
 			1: 'Ativo',
