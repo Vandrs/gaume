@@ -7,6 +7,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                    @if(session()->has('msg_error'))
+                    <div class="col-xs-12">
+                        <div class="alert {{session()->get('class_error')}}">
+                            {{session()->get('msg_error')}}
+                        </div>
+                    </div>
+                    @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

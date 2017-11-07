@@ -10,11 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/','Site\SiteController@index')->name('site.home');
 Route::get('/professor/contato','Site\SiteController@teacherContact')->name('site.teacher.contact');
-
-Auth::routes();
 
 Route::group(['middleware' => ['guest']], function(){
 	Route::get('/professor/cadastro','Auth\RegisterController@showTeacherRegistrationForm')->name('teacher.registration.form');	
@@ -26,7 +25,7 @@ Route::post('/pagseguro/notification', [
 	'as' => 'pagseguro.notification',
 ]);
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
+Route::group(['middleware' => ['auth','activeUserOnly'], 'prefix' => 'app'] , function() {
 	Route::get('/home', 'App\HomeController@index')->name('home');
 	Route::get('/treinadores','App\TeacherController@index')->name('teachers.list');
 	Route::get('/treinadores/{id}','App\TeacherController@show')->name('teachers.page');

@@ -15,7 +15,7 @@ class GetUserAdminService
 		if (isset($filters['nickname']) && !empty($filters['nickname'])) {
 			$query->where('nickname', 'LIKE', '%'.$filters['nickname'].'%');
 		}
-		if (isset($filters['status']) && !empty($filters['status'])) {
+		if (isset($filters['status'])) {
 			$query->where('status', '=', $filters['status']);
 		}
 		if (isset($filters['role_id']) && !empty($filters['role_id'])) {

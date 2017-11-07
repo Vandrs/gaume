@@ -228,7 +228,9 @@ var Messages = {
 			send_message: 'Enviar Mensagem',
 			actions: 'Ações',
 			add_new_teacher: 'Novo Professor',
-			add_new: 'Novo Jogo'
+			add_new: 'Novo Jogo',
+			inactivate: 'Inativar',
+			activate: 'Ativar'
 		},
 		roles: {
 			ADMIN: 'Administrador',
