@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth','activeUserOnly'], 'prefix' => 'app'] , fu
 		Route::get('/games/cadastro','App\GameAdminController@create')->name('game-admin.create');
 		Route::get('/games/editar/{id}','App\GameAdminController@update')->name('game-admin.update');
 		Route::get('/usuarios','App\UserAdminController@index')->name('user-admin.list');
+		Route::get('/usuarios/{id}','App\UserAdminController@view')->name('user-admin.view');
 		Route::get('/usuarios/professor/pre-cadastro','App\PreRegistrationController@create')->name('user-admin.create-teacher');
 		Route::get('/usuarios/professor/pre-cadastro/lista','App\PreRegistrationController@index')->name('user-admin.list-pre-registration');
 		Route::get('/usuarios/professor/pre-cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');

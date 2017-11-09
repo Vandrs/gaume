@@ -15,6 +15,7 @@ use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class UserAdminController extends RestController
 {
+
 	public function list(Request $request)
 	{
 		try {

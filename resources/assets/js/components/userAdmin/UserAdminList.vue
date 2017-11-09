@@ -24,8 +24,8 @@
 				active: 1,
 				inactive: 0,
 				users:[],
-				createLink: '/app/admin/usuarios/professor/pre-cadastro',
-				viewLink: ""
+				createLink: "/app/admin/usuarios/professor/pre-cadastro",
+				viewLink: "/app/admin/usuarios/"
 			}
 		},
 		mounted() {
@@ -175,11 +175,10 @@
 							<td>{{$t('roles.'+user.role.name)}}</td>
 							<td>{{$t('status.'+user.status)}}</td>
 							<td>{{formatDate(user.created_at)}}</td>
-							<td v-if="user.status">	
-								<button type="button" class='btn btn-danger' v-on:click="inactivate(user)" :title="$t('buttons.inactivate')"><i class="fa fa-ban"></i></button>
-							</td>
-							<td v-else>
-								<button  type="button" class='btn btn-primary' v-on:click="activate(user)" :title="$t('buttons.activate')"><i class="fa fa-thumbs-o-up"></i></button>
+							<td >	
+								<a :href="viewLink+user.id" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i></a>
+								<button v-if="user.status" type="button" class='btn btn-danger' v-on:click="inactivate(user)" :title="$t('buttons.inactivate')"><i class="fa fa-ban"></i></button>
+								<button v-else  type="button" class='btn btn-primary' v-on:click="activate(user)" :title="$t('buttons.activate')"><i class="fa fa-thumbs-o-up"></i></button>
 							</td>
 						</tr>
 					</tbody>

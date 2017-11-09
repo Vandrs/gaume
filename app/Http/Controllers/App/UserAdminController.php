@@ -12,4 +12,9 @@ class UserAdminController extends Controller
     {
         return view('app.user-admin.index');
     }
+
+    public function view(Request $request, $id)
+	{
+		return view('app.user-admin.teacher-view',['id' => $id]);	
+	}
 }

@@ -101,6 +101,7 @@ Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 
 		#Users
 		Route::get('/users','UserAdminController@list');
+		Route::get('/users/{id}','UserController@get');
 		Route::put('/users/{id}/activate','UserAdminController@activate');
 		Route::put('/users/{id}/inactivate','UserAdminController@inactivate');
 		

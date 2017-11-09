@@ -305,7 +305,7 @@
                 <div class="col-xs-12 col-md-4 col-md-offset-2">
                     <div class="form-group" v-bind:class="{'has-error' : errors.neighborhood}">
                         <label for="neighborhood" class="control-label">{{$t('profile.neighborhood')}}*</label>
-                        <input type="text" id="neighborhood" name="neighborhood" class="form-control" v-model="user.address.neighborhood" readonly="">
+                        <input type="text" id="neighborhood" name="neighborhood" class="form-control" v-model="user.address.neighborhood">
   						<span v-if="errors.neighborhood" class="help-block">
 	                        <strong>{{ errors.neighborhood[0] }}</strong>
 	                    </span>
