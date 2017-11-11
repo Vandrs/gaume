@@ -30,10 +30,8 @@ class GetLessonEvaluationService
 		} else if ($user->hasRole(EnumRole::STUDENT)) {
 			$query->where('lessons.student_id', '=', $user->id);
 		}
-
-		\Log::info($user->id);
-
-		return $query->paginate(20);
+		$query->orderBy('lessons.created_at','DESC');
+		return $query->paginate(10);
 	}
 
 }

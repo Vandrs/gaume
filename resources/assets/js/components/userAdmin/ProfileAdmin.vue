@@ -1,13 +1,14 @@
 <script>
-	import { Tabs,Tab } from 'uiv';
+	import { Tabs, Tab, Pagination } from 'uiv';
 	import { UserAdminProvider } from '../../providers/userAdminProvider';
 	import { TeacherGameProvider } from '../../providers/teacherGameProvider';
 	import { LessonEvaluationProvider } from '../../providers/lessonEvaluationProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	import { AppRoles } from '../../components/shared/AppRoles';
+	import StarRating from 'vue-star-rating';
 	export default {
 		props: ['id'],
-		components: { Tabs, Tab },
+		components: { Tabs, Tab, StarRating, Pagination },
 		data(){
 			return {
 				user: {
@@ -15,14 +16,24 @@
 					media: {},
 					role: {
 						name: null
-					}
+					},
+					evaluation: {}
 				},
 				medias: [
 					{type:'DISCORD',label:'Discord'},
 					{type:'SKYPE',label:'Skype'}
 				],
 				teacherGames: [],
-				roles: AppRoles
+				evaluations: [],
+				roles: AppRoles,
+				evaluationFilters: {
+					page: 1
+				},
+				evaluationPagination: {
+					currentPage: 1,
+					totalPages: 1,
+					linksRange: 5
+				}
 			}
 		},
 		mounted() {
@@ -75,9 +86,11 @@
 			},
 			getEvaluations: function () {
 				window.app.isLoading = true;
-				LessonEvaluationProvider.getNotes(this.user.id)
+				LessonEvaluationProvider.getNotes(this.user.id, this.evaluationFilters.page)
 								   .then((response) => {
-								   		console.log(response.data);
+								   		this.evaluations = response.data.data;
+								   		this.evaluationPagination.currentPage = response.data.meta.pagination.current_page;
+							  			this.evaluationPagination.totalPages = response.data.meta.pagination.total_pages;
 								   		window.app.isLoading = false;
 								   })
 								   .catch((error) => {
@@ -90,6 +103,15 @@
 								  		window.app.$emit('app:show-alert', errors, "danger");
 								  		window.scrollTo(0,0);	
 								   });
+			},
+			formatDate: function(strData) {
+				var arrData = strData.split(" ");
+				var date = arrData[0];
+				return date.split('-').reverse().join('/');
+			},
+			paginate: function(page) {
+				this.evaluationFilters.page = page;
+				this.getEvaluations();
 			}
 		}
 	}
@@ -111,7 +133,7 @@
 		</div>
         <div class="col-xs-12 col-md-8 col-md-offset-2 margin-top-20">
         	<tabs>
-			    <tab title="<i class='glyphicon glyphicon-user'></i>" :html-title="true">
+			    <tab :title="'<i class=\'glyphicon glyphicon-user\'></i> '+$t('app.user')" :html-title="true">
 			    	<div class="row margin-top-20">
 						<div class="col-xs-12">
 							<div class="row">
@@ -265,10 +287,56 @@
 				        </div>
 					</div>
 			    </tab>
-			    <tab title="<i class='fa fa-vcard-o'></i>" :html-title="true">
-			      	<p>Profile tab.</p>
+			    <tab :title="'<i class=\'fa fa-vcard-o\'></i> '+$t('evaluation.evaluations')" :html-title="true">
+			      	<div class="row  margin-top-10">
+			      		<div class="col-xs-12 col-md-4 margin-top-10">
+			      			<h4>{{$t('evaluation.n_evaluations')+": "+user.evaluation.qtd_evaluations}}</h4>
+			      		</div>
+			      		<div class="col-xs-12 col-md-4 margin-top-10">
+			      			<StarRating v-model="user.evaluation.note" :read-only="true" :star-size="35" :increment="0.01" :show-rating="true"></StarRating>
+			      		</div>
+			      	</div>
+			      	<div class="row">
+			      		<div class="col-xs-12">
+			      			<h2>{{$t('evaluation.evaluations')}}</h2>
+			      		</div>
+			      	</div>
+			      	<div class="row">
+			      		<div class="col-xs-12">
+			      			<table class="table table-bordered table-striped table-default">
+			      				<thead>
+			      					<tr>
+			      						<th>{{$t('app.user')}}</th>
+			      						<th>{{$t('evaluation.comment')}}</th>
+			      						<th>{{$t('evaluation.note')}}</th>
+			      						<th>{{$t('app.game')}}</th>
+			      						<th>{{$t('lesson.date')}}</th>
+			      					</tr>
+			      				</thead>
+			      				<tbody v-if="evaluations.length">
+			      					<tr v-for="evaluation in evaluations">
+			      						<td>{{evaluation.user_name}}</td>
+			      						<td>{{evaluation.comment}}</td>
+			      						<td>{{evaluation.note}}</td>
+			      						<td>{{evaluation.lesson.game}}</td>
+			      						<td>{{formatDate(evaluation.lesson.created_at)}}</td>
+			      					</tr>
+			      				</tbody>
+			      				<tbody v-else>
+									<tr>
+										<td colspan="5">{{$t('app.noRegisterFound')}}</td>
+									</tr>
+								</tbody>
+			      			</table>
+			      		</div>
+			      	</div>
+			      	<div class="row">
+			      		<div class='col-xs-12 text-center'>
+			      			<pagination v-model="evaluationPagination.currentPage" v-on:change="paginate" :total-page="evaluationPagination.totalPages" :max-size="evaluationPagination.linksRange" :boundary-links="true"></pagination>
+			      		</div>
+			      	</div>
 			    </tab>
-			    <tab :disabled="user.role.name != roles.TEACHER" title="<i class='fa fa-gamepad'></i>" :html-title="true">
+			    <tab :disabled="user.role.name != roles.TEACHER" :title="'<i class=\'fa fa-gamepad\'></i> '+$t('app.games')" :html-title="true">
 			    	<div class="row margin-top-20">
 						<div class="col-xs-12">
 							<div class="row margin-top-20">

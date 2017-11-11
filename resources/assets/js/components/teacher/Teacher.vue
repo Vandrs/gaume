@@ -80,7 +80,7 @@
 			</div>
 			<div class="row" v-if="teacher.evaluation">
 				<div class='col-xs-12'>
-					<StarRating v-model="teacher.evaluation.note" :read-only="true" :star-size="25" :show-rating="false"></StarRating>
+					<StarRating v-model="teacher.evaluation.note" :read-only="true" :star-size="25" :increment="0.01" :show-rating="false"></StarRating>
 				</div>
 				<div class='col-xs-12' v-if="teacher.evaluation.note == 0">
 					<span class="help-block">{{$t('evaluation.bee_first')}}</span>
