@@ -270,3 +270,10 @@ ul.inline-list,  ul.inline-list > li{
     color: $monyGreen;
 }
 
+ul.nav.nav-tabs li a {
+    color: $monyGreen;   
+}
+
+ul.nav.nav-tabs li.active a {
+    color: #555555;   
+}

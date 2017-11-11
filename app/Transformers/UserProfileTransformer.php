@@ -23,9 +23,10 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 				'id'   => $user->role->id,
 				'name' => $user->role->role
 			],
-			'address' => $this->getAddress($user),
+			'address'	  => $this->getAddress($user),
 			'bankAccount' => $this->getBankAccount($user),
-			'media' => $this->getMedia($user)
+			'media' 	  => $this->getMedia($user),
+			'evaluation'  => $this->parseEvaluation($user)
 		];
 	}
 
@@ -34,13 +35,14 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 		$address = $user->address;
 		if ($address) {
 			return [
-				'zipcode' => $address->zipcode,
+				'zipcode' 	   => $address->zipcode,
 				'neighborhood' => $address->neighborhood,
-				'city' 	 => $address->city,
-				'state'  => $address->state,
-				'street' => $address->street,
-				'number' => $address->number,
-				"complement" => $address->complement,
+				'city' 	 	   => $address->city,
+				'state'  	   => $address->state,
+				'street' 	   => $address->street,
+				'number' 	   => $address->number,
+				'complement'   => $address->complement,
+
 			];
 		}
 		return null;
@@ -69,5 +71,22 @@ class UserProfileTransformer extends Fractal\TransformerAbstract
 			];
 		}
 		return new \StdClass;
+	}
+
+	public function parseEvaluation(User $user)
+	{
+		if ($user->evaluation) {
+			return [
+				'id' 			  => $user->evaluation->id,
+				'note' 			  => $user->evaluation->note,
+				'qtd_evaluations' => $user->evaluation->qtd_evaluations
+			];
+		} else {
+			return [
+				'id' 			  => null,
+				'note' 			  => 0,
+				'qtd_evaluations' => 0
+			]; 
+		}
 	}
 }

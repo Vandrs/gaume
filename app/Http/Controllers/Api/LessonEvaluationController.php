@@ -7,12 +7,14 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use League\Fractal;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use App\Http\Controllers\Api\RestController;
 use App\Exceptions\AuthorizationException;
 use App\Exceptions\ValidationException;
 use App\Services\Lesson\GetLessonEvaluationService;
 use App\Services\Lesson\UpdateLessonEvaluationService;
 use App\Models\LessonEvaluation;
+use App\Models\User;
 use App\Transformers\ApiItemSerializer;
 use App\Transformers\LessonEvaluationTransformer;
 
@@ -31,6 +33,25 @@ class LessonEvaluationController extends RestController
 			return $this->notFound();
 		} catch (AuthorizationException $e) {
 			return $this->unauthorized();
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
+	public function getAll(Request $request, $id) {
+		try {
+			$user = User::findOrFail($id);
+			$paginator = GetLessonEvaluationService::getEvaluationNotes($user);
+			$paginatorAdapter = new IlluminatePaginatorAdapter($paginator);
+			$fractal = new Fractal\Manager();
+			$items = new Fractal\Resource\Collection($paginator->getCollection(), new LessonEvaluationTransformer());
+			$items->setPaginator($paginatorAdapter);
+			$data = $fractal->createData($items)->toArray();
+			return $this->success($data);
+		} catch (ModelNotFoundException $e) {
+			return $this->notFound();
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());

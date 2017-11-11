@@ -20,6 +20,7 @@ var Messages = {
 			defaultErrors: "Ocorreram alguns erros durante a requisição por favor revise os dados informados e envie novamente.",
 			games: 'Jogos',
 			users: 'Usuários',
+			user: 'Usuário',
 			game: 'Jogo',
 			created_at: 'Data de cadastro',
 			see_profile: 'Ver Perfil',
@@ -165,7 +166,9 @@ var Messages = {
 		evaluation: {
 			message: 'Por favor, avalie esta aula para nos ajudar a oferecer sempre a melhor experiência para nossos usuários',
 			evaluation: 'Avaliação',
+			evaluations: 'Avaliações',
 			evaluate: 'Avaliar',
+			n_evaluations: 'Nº de Avaliações',
 			note: 'Nota',
 			comment: 'Comentário',
 			teacher_type_message: 'Com base em sua experiência na aula, avalie o treinador.',
@@ -228,7 +231,9 @@ var Messages = {
 			send_message: 'Enviar Mensagem',
 			actions: 'Ações',
 			add_new_teacher: 'Novo Professor',
-			add_new: 'Novo Jogo'
+			add_new: 'Novo Jogo',
+			inactivate: 'Inativar',
+			activate: 'Ativar'
 		},
 		roles: {
 			ADMIN: 'Administrador',

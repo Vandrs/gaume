@@ -10,11 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/','Site\SiteController@index')->name('site.home');
 Route::get('/professor/contato','Site\SiteController@teacherContact')->name('site.teacher.contact');
-
-Auth::routes();
 
 Route::group(['middleware' => ['guest']], function(){
 	Route::get('/professor/cadastro','Auth\RegisterController@showTeacherRegistrationForm')->name('teacher.registration.form');	
@@ -26,7 +25,7 @@ Route::post('/pagseguro/notification', [
 	'as' => 'pagseguro.notification',
 ]);
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
+Route::group(['middleware' => ['auth','activeUserOnly'], 'prefix' => 'app'] , function() {
 	Route::get('/home', 'App\HomeController@index')->name('home');
 	Route::get('/treinadores','App\TeacherController@index')->name('teachers.list');
 	Route::get('/treinadores/{id}','App\TeacherController@show')->name('teachers.page');
@@ -49,6 +48,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'app'] , function() {
 		Route::get('/games/cadastro','App\GameAdminController@create')->name('game-admin.create');
 		Route::get('/games/editar/{id}','App\GameAdminController@update')->name('game-admin.update');
 		Route::get('/usuarios','App\UserAdminController@index')->name('user-admin.list');
+		Route::get('/usuarios/{id}','App\UserAdminController@view')->name('user-admin.view');
 		Route::get('/usuarios/professor/pre-cadastro','App\PreRegistrationController@create')->name('user-admin.create-teacher');
 		Route::get('/usuarios/professor/pre-cadastro/lista','App\PreRegistrationController@index')->name('user-admin.list-pre-registration');
 		Route::get('/usuarios/professor/pre-cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');

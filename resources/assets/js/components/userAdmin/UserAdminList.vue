@@ -21,9 +21,11 @@
 				},
 				roles: [1,2,3],
 				status: [1,0],
+				active: 1,
+				inactive: 0,
 				users:[],
-				createLink: '/app/admin/usuarios/professor/pre-cadastro',
-				viewLink: ""
+				createLink: "/app/admin/usuarios/professor/pre-cadastro",
+				viewLink: "/app/admin/usuarios/"
 			}
 		},
 		mounted() {
@@ -68,6 +70,38 @@
 			paginate: function(page) {
 				this.filters.page = page;
 				this.getUsers();
+			},
+			activate: function(user) {
+				window.app.isLoading = true;
+				UserAdminProvider.activate(user.id)
+								 .then((response) => {
+								 	window.app.isLoading = false;
+								 	user.status = this.active;
+								 })
+								 .catch((error) => {
+								 	var errors = AppErrorBag.parseErrors(
+									  				error.response.status,
+									  				error.response.data
+									  			);
+								  	window.app.$emit('app:show-alert', errors, "danger");
+								  	window.app.isLoading = false; 	
+								 });
+			},
+			inactivate: function(user) {
+				window.app.isLoading = true;
+				UserAdminProvider.inactivate(user.id)
+								 .then((response) => {
+								 	window.app.isLoading = false;
+								 	user.status = this.inactive;
+								 })
+								 .catch((error) => {
+								 	var errors = AppErrorBag.parseErrors(
+									  				error.response.status,
+									  				error.response.data
+									  			);
+								  	window.app.$emit('app:show-alert', errors, "danger");
+								  	window.app.isLoading = false; 	
+								 });
 			}
 		}
 	}
@@ -103,7 +137,7 @@
 			</div>
 			<div class="col-xs-12 col-md-3 margin-top-10">
 				<label class="control-label">{{$t('profile.status')}}</label>
-				<select class="form-control" v-model="filters.status" name="role">
+				<select class="form-control" v-model="filters.status" name="status">
 					<option value="">{{$t('app.select')}}</option>
 					<option v-for="stts in status" :value="stts">{{$t('status.'+stts)}}</option>
 				</select>
@@ -141,7 +175,11 @@
 							<td>{{$t('roles.'+user.role.name)}}</td>
 							<td>{{$t('status.'+user.status)}}</td>
 							<td>{{formatDate(user.created_at)}}</td>
-							<td>{{$t('buttons.actions')}}</td>
+							<td >	
+								<a :href="viewLink+user.id" class='btn btn-default'><i class="glyphicon glyphicon-eye-open"></i></a>
+								<button v-if="user.status" type="button" class='btn btn-danger' v-on:click="inactivate(user)" :title="$t('buttons.inactivate')"><i class="fa fa-ban"></i></button>
+								<button v-else  type="button" class='btn btn-primary' v-on:click="activate(user)" :title="$t('buttons.activate')"><i class="fa fa-thumbs-o-up"></i></button>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -36,6 +36,25 @@ class TeacherGameController extends RestController
 		}
 	}
 
+	public function getByTeacherId(Request $request, $id)
+	{
+		try {
+			$teacher = User::findOrFail($id);
+			$teacherGames = GetTeacherGameService::getAll($teacher);
+			$items = new Fractal\Resource\Collection($teacherGames->all(), new TeacherGameTransformer);
+			$fractal = new Fractal\Manager();
+			$fractal->setSerializer(new ApiItemSerializer);
+			$data = $fractal->createData($items)->toArray(); 
+			return $this->success($data);
+		} catch (ModelNotFoundException $e) {
+			return $this->notFound();
+		} catch (\Exception $e) {
+			Log::error($e->getMessage());
+			Log::error($e->getTraceAsString());
+			return $this->internalError();
+		}
+	}
+
 	public function getGamesForLesson(Request $request, $id)
 	{
 		try {

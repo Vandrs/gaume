@@ -9,7 +9,7 @@ class GetUserService
 	{
 		return User::with(['role','address'])
 				   ->where('id',$id)
-				   ->first();
+				   ->firstOrFail();
 	}
 
 	public static function getByEmail($email)

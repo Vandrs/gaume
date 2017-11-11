@@ -43,7 +43,6 @@ Vue.use(VueTimeago, {
   }
 })
 
-
 Vue.component('confirmation-start-modal', require('./components/lesson/ConfirmationStartModal'));
 Vue.component('app-alert', require('./components/app/AppAlert'));
 Vue.component('lesson', require('./components/lesson/Lesson'));
@@ -64,6 +63,7 @@ Vue.component('contact', require('./components/faq/Contact'));
 Vue.component('contact-list', require('./components/faq/ContactList'));
 Vue.component('message-app', require('./components/message/MessageApp'));
 Vue.component('user-admin-list', require('./components/userAdmin/UserAdminList'));
+Vue.component('profile-admin', require('./components/userAdmin/ProfileAdmin'));
 
 
 window.app = new Vue({

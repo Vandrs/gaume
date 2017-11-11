@@ -13,6 +13,7 @@ use App\Services\User\UserProfilePhotoService;
 use App\Transformers\ApiItemSerializer;
 use App\Transformers\UserProfileTransformer;
 use App\Exceptions\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends RestController
 {
@@ -24,6 +25,22 @@ class UserController extends RestController
 		$item = new Fractal\Resource\Item($user, new UserProfileTransformer);
 		$data = $fractal->createData($item)->toArray(); 
 		return $this->success($data);
+	}
+
+	public function get(Request $request, $id)
+	{
+		try {
+			$user = GetUserService::get($id);
+			$fractal = new Fractal\Manager();
+			$fractal->setSerializer(new ApiItemSerializer);
+			$item = new Fractal\Resource\Item($user, new UserProfileTransformer);
+			$data = $fractal->createData($item)->toArray(); 
+			return $this->success($data);
+		} catch (ModelNotFoundException $e) {
+			Log::info($e->getMessage());
+			Log::info($e->getTraceAsString());
+			return $this->notFound();
+		}
 	}
 
 	public function update(Request $request) 

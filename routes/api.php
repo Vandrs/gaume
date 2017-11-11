@@ -16,7 +16,7 @@ Route::get('notifications/last', 'NotificationController@last');
 Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
 Route::post('contact', 'ContactController@createGuestContact');
 
-Route::group(['middleware' => ['auth:api']] , function () {
+Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 
 	#users
 	Route::post('/users/{id}/online', 'UserOnlineController@online');
@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:api']] , function () {
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
 	Route::get('/teacher/games/{id}','TeacherGameController@getGamesForLesson');
+	Route::get('/teachers/{id}/games','TeacherGameController@getByTeacherId');
 
 	#Transactions
 	Route::get('/transactions','TransactionController@list');
@@ -101,6 +102,10 @@ Route::group(['middleware' => ['auth:api']] , function () {
 
 		#Users
 		Route::get('/users','UserAdminController@list');
+		Route::get('/users/{id}','UserController@get');
+		Route::put('/users/{id}/activate','UserAdminController@activate');
+		Route::put('/users/{id}/inactivate','UserAdminController@inactivate');
+		Route::get('/users/{id}/evaluations','LessonEvaluationController@getAll');
 		
 	});
 
