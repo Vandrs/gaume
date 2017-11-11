@@ -1,5 +1,8 @@
 var TeacherGameProvider = {
-	get: function (id) {
+	getById: function (id) {
+		return axios.get("api/teachers/"+id+"/games");
+	},
+	get: function () {
 		return axios.get('/api/me/games');
 	},
 	update: function (data){

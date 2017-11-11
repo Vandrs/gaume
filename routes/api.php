@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
 	Route::get('/teacher/games/{id}','TeacherGameController@getGamesForLesson');
+	Route::get('/teachers/{id}/games','TeacherGameController@getByTeacherId');
 
 	#Transactions
 	Route::get('/transactions','TransactionController@list');
@@ -104,6 +105,7 @@ Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 		Route::get('/users/{id}','UserController@get');
 		Route::put('/users/{id}/activate','UserAdminController@activate');
 		Route::put('/users/{id}/inactivate','UserAdminController@inactivate');
+		Route::get('/users/{id}/evaluations','LessonEvaluationController@getAll');
 		
 	});
 

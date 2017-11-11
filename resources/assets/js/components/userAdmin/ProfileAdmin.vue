@@ -1,20 +1,28 @@
 <script>
+	import { Tabs,Tab } from 'uiv';
 	import { UserAdminProvider } from '../../providers/userAdminProvider';
+	import { TeacherGameProvider } from '../../providers/teacherGameProvider';
+	import { LessonEvaluationProvider } from '../../providers/lessonEvaluationProvider';
 	import { AppErrorBag } from '../../components/app/AppErrorBag';
-	import { Tabs,Tab } from 'uiv'
+	import { AppRoles } from '../../components/shared/AppRoles';
 	export default {
 		props: ['id'],
 		components: { Tabs, Tab },
-		data() {
-			return { 
+		data(){
+			return {
 				user: {
 					address: {},
-					media: {}
+					media: {},
+					role: {
+						name: null
+					}
 				},
 				medias: [
 					{type:'DISCORD',label:'Discord'},
 					{type:'SKYPE',label:'Skype'}
-				]
+				],
+				teacherGames: [],
+				roles: AppRoles
 			}
 		},
 		mounted() {
@@ -43,7 +51,45 @@
 			getUser: function () {	
 				UserAdminProvider.get(this.id).then((userResponse) => {
 					this.user = userResponse.data;
+					this.getGames();
+					this.getEvaluations();
 				});	
+			},
+			getGames: function () {
+				window.app.isLoading = true;
+				TeacherGameProvider.getById(this.user.id)
+								   .then((response) => {
+								   		this.teacherGames = response.data;
+								   		window.app.isLoading = false;
+								   })
+								   .catch((error) => {
+								   		window.app.isLoading = false;
+										var response = error.response;
+								   		var errors = AppErrorBag.parseErrors(
+									  				response.status,
+									  				response.data
+									  			);
+								  		window.app.$emit('app:show-alert', errors, "danger");
+								  		window.scrollTo(0,0);	
+								   });
+			},
+			getEvaluations: function () {
+				window.app.isLoading = true;
+				LessonEvaluationProvider.getNotes(this.user.id)
+								   .then((response) => {
+								   		console.log(response.data);
+								   		window.app.isLoading = false;
+								   })
+								   .catch((error) => {
+								   		window.app.isLoading = false;
+										var response = error.response;
+								   		var errors = AppErrorBag.parseErrors(
+									  				response.status,
+									  				response.data
+									  			);
+								  		window.app.$emit('app:show-alert', errors, "danger");
+								  		window.scrollTo(0,0);	
+								   });
 			}
 		}
 	}
@@ -65,9 +111,9 @@
 		</div>
         <div class="col-xs-12 col-md-8 col-md-offset-2 margin-top-20">
         	<tabs>
-			    <tab :title="$t('app.profile')">
+			    <tab title="<i class='glyphicon glyphicon-user'></i>" :html-title="true">
 			    	<div class="row margin-top-20">
-			    		<div class="col-xs-12">
+						<div class="col-xs-12">
 							<div class="row">
 					            <div class="col-xs-12 col-md-3 margin-bottom-10">
 					                <div class="img-profile-content">
@@ -217,13 +263,43 @@
 					            </div>
 				            </div>
 				        </div>
-			    	</div>
+					</div>
 			    </tab>
-			    <tab title="<i class='glyphicon glyphicon-bell'></i> Alert!" :html-title="true">
-			      <p>This tab has HTML title and callback function!</p>
+			    <tab title="<i class='fa fa-vcard-o'></i>" :html-title="true">
+			      	<p>Profile tab.</p>
 			    </tab>
-			    <tab :title="$t('evaluation.evaluation')">
-			      <p>Profile tab.</p>
+			    <tab :disabled="user.role.name != roles.TEACHER" title="<i class='fa fa-gamepad'></i>" :html-title="true">
+			    	<div class="row margin-top-20">
+						<div class="col-xs-12">
+							<div class="row margin-top-20">
+								<div v-for="teacherGame of teacherGames" class="col-xs-12 col-md-6">
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											{{teacherGame.game}}
+										</div>
+										<div class="panel-body">
+											<div class="row margin-bottom-10">
+												<div class="col-xs-12">
+													<img class="game-img-container" :src="teacherGame.photo" :title="teacherGame.game" :alt="teacherGame.game" />
+												</div>
+											</div>
+											<div class="row">
+					                        	<div class='col-xs-12'>
+					                            	<p>{{teacherGame.description}}</p>
+					                        	</div>
+					                    	</div>
+					                    	<div class="row margin-top-10" v-for="platform of teacherGame.platforms">
+					                    		<div class="col-xs-12">
+					                    			<label class="control-label">{{$t('profile.nickname')}} {{platform.platform}}</label>
+					                    			<p>{{platform.nickname}}</p>
+					                    		</div>
+					                    	</div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
 			    </tab>
 			</tabs>
         </div>
