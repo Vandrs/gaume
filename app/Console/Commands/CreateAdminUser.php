@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Validator;
 use App\Models\User;
 use App\Enums\EnumRole;
+use Hash;
 
 class CreateAdminUser extends Command
 {
@@ -58,7 +59,7 @@ class CreateAdminUser extends Command
             $user = User::create([
                 'name'     => $data['name'],
                 'email'    => $data['email'],
-                'password' => bcrypt($data['password']),
+                'password' => Hash::make($data['password']),
                 'role_id'  => EnumRole::ADMIN_ID
             ]);
             $this->info('Usuário criado com sucesso ID: '.$user->id);
