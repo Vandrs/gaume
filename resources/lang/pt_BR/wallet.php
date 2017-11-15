@@ -10,5 +10,6 @@ return [
 	'point_description' => ':name :points Monzy Coins',
 	'html_point_description_with_bonus' => '<h2>:name :points Monzy Coins</h2><p> + bonus de :bonus coins</p>',
 	'html_point_description' => '<h2>:name :points Monzy Coins</h2>',
-	'no_credits' => 'Atenção, você não possui saldo suficiente em sua carteira para realizar esta aula.'
+	'no_credits' => 'Atenção, você não possui saldo suficiente em sua carteira para realizar esta aula.',
+	'class_cost' => 'Cada hora aula equivale a :points Monzy Coins. ',
 ];

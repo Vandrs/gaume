@@ -23,6 +23,9 @@ return [
 
     'google_analytics_id' =>  env('GOOGLE_ANALYTICS_ID', false),
 
+    'promo_date_limit' => env('PROMO_DATE_LIMIT', false),
+    'promo_monzy_points' => env('PROMO_MONZY_POINTS',0),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

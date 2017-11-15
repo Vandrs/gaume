@@ -41,6 +41,11 @@
 		<h2>@lang('wallet.packages')</h2>
 	</div>
 </div>
+<div class="row margin-bottom-10">
+	<div class="col-xs-12">
+		@lang('wallet.class_cost',['points' => '350,00'])
+	</div>
+</div>
 <div class="row">
 	@foreach($monzyPoints as $monzyPoint)
 		<div class="col-xs-12 col-sm-3">
