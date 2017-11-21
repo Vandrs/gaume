@@ -106,6 +106,9 @@ Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 		Route::put('/users/{id}/activate','UserAdminController@activate');
 		Route::put('/users/{id}/inactivate','UserAdminController@inactivate');
 		Route::get('/users/{id}/evaluations','LessonEvaluationController@getAll');
+
+		#Coupons
+		Route::post('coupons','CouponController@create');
 		
 	});
 
