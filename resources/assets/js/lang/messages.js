@@ -30,7 +30,8 @@ var Messages = {
 			billing: 'Pagamentos',
 			from: 'De',
 			to: 'Até',
-			write_here: 'Escreva aqui'
+			write_here: 'Escreva aqui',
+			coupon: 'Cupons de desconto'
 		},
 		notification: {
 			notifications: 'Notificações',
@@ -221,6 +222,14 @@ var Messages = {
 			see_last_messages: 'Ver mensagens anteriores',
 			talking_to: 'Conversando com',
 			no_thread_selected: 'Nenhuma conversa selecionada',
+		},
+		coupon: {
+			new: 'Gerar novo Cupon de Desconto',
+			list: 'Lista de Cupons de Desconto',
+			code: 'Código',
+			coins: 'Monzy Coins',
+			valid_until: 'Validade',
+			use_limit: 'Limite de uso'
 		},
 		buttons: {
 			edit: 'Editar',

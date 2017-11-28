@@ -54,5 +54,6 @@ Route::group(['middleware' => ['auth','activeUserOnly'], 'prefix' => 'app'] , fu
 		Route::get('/usuarios/professor/pre-cadastro/{id}','App\PreRegistrationController@show')->name('user-admin.edit-teacher-registration');
 		Route::get('/pagamentos','App\BillingController@index')->name('billing');
 		Route::get('/contatos','App\FaqController@contactList')->name('contact-list');
+		Route::get('/cupons','App\CouponController@index')->name('coupon');
 	});
 });
