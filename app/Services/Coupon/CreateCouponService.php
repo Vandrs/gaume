@@ -30,11 +30,11 @@ class CreateCouponService
 
 	public function validation()
 	{
-		$date = Caborn::now();
+		$date = Carbon::now();
 		$date->addDay();
 		$strDate = $date->format('Y-m-d H:i:s');
 		return [
-			'code' 		  => 'required|unique|max:255',
+			'code' 		  => 'required|unique:coupons|max:255',
 			'coins'		  => 'required|integer',
 			'use_limit'   => 'required|integer',
 			'valid_until' => 'date|dateAfterOrEqual:'.$strDate
@@ -47,12 +47,12 @@ class CreateCouponService
 			'code.required' 		 	  => __('validation.required', 				  ['attribute' => __('coupon.code')]),
 			'code.unique' 		 		  => __('validation.unique', 				  ['attribute' => __('coupon.code')]),
 			'code.max' 		 		  	  => __('validation.max.numeric', 			  ['attribute' => __('coupon.code'), 'max' => '255']),
-			'coins.required'  		      => __('validation.required', 				  ['attribute' => __('coupon.code')]),
+			'coins.required'  		      => __('validation.required', 				  ['attribute' => __('wallet.coins')]),
 			'coins.integer'  		      => __('valication.integer', 				  ['attribute' => __('wallet.coins')]),
 			'use_limit.required'  		  => __('validation.required', 				  ['attribute' => __('coupon.use_limit')]),
 			'use_limit.integer'  		  => __('validation.integer', 				  ['attribute' => __('coupon.use_limit')]),
-			'valid_unil.date' 			  => __('validation.date', 				      ['attribute' => __('coupon.valid_until')]),
-			'valid_unil.dateAfterOrEqual' => __('validation.custom.dateAfterOrEqual', ['attribute' => __('coupon.valid_until')]), 
+			'valid_until.date' 			  => __('validation.date', 				      ['attribute' => __('coupon.valid_until')]),
+			'valid_until.dateAfterOrEqual' => __('validation.custom.dateAfterOrEqual', ['attribute' => __('coupon.valid_until')]), 
 		];
 	}
 

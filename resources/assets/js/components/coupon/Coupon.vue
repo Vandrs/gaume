@@ -1,4 +1,6 @@
 <script>
+	import { CouponProvider } from '../../providers/couponProvider';
+	import { AppErrorBag } from '../../components/app/AppErrorBag';
 	export default {
 		data() {
 			return {
@@ -20,13 +22,36 @@
 		},
 		methods: {
 			submit: function() {
-				console.log(this.coupon);
+				CouponProvider.create(this.coupon)
+							  .then((response) => {
+							  		var locale = this.$i18n.locale;
+									var msg = this.$i18n.messages[locale].coupon.create_success;
+									window.app.$emit('app:show-alert', [msg], "success");
+									this.clear();
+							  })
+							  .catch((error) => {
+							  		var response = error.response;
+									if (response.status == 400) {
+										this.errors = response.data.errors;
+										var locale = this.$i18n.locale;
+										var msg = this.$i18n.messages[locale].app.defaultErrors;
+										window.app.$emit('app:show-alert', [msg], "danger");
+										window.scrollTo(0,0);
+									} else {
+										var errors = AppErrorBag.parseErrors(
+										  				response.status,
+										  				response.data
+										  			);
+									  	window.app.$emit('app:show-alert', errors, "danger");
+									  	window.scrollTo(0,0);
+									}
+							  });
 			},
 			clear: function() {
-				this.coupon.code;
-				this.coupon.coins;
-				this.coupon.valid_until;
-				this.coupon.use_limit;
+				this.coupon.code = null;
+				this.coupon.coins = null;
+				this.coupon.valid_until = null;
+				this.coupon.use_limit = null;
 			}
 		}
 	};

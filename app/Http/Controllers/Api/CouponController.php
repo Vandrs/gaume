@@ -10,7 +10,7 @@ use League\Fractal;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 
-class CounponController extends RestController 
+class CouponController extends RestController 
 {
 	public function create(Request $request)
 	{
@@ -21,7 +21,8 @@ class CounponController extends RestController
 		} catch (ValidationException $e) {
 			Log::info($e->getMessage());
 			Log::info($e->getTraceAsString());
-			return $this->badRequest($createService->getValidator()->errors()->all());
+			$errors = $createService->getValidator()->errors()->jsonSerialize();
+			return $this->badRequest($errors);
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			Log::error($e->getTraceAsString());

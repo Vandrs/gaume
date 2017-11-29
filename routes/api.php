@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 		Route::get('/users/{id}/evaluations','LessonEvaluationController@getAll');
 
 		#Coupons
-		Route::post('coupons','CouponController@create');
+		Route::post('/coupons','CouponController@create');
 		
 	});
 

@@ -229,7 +229,8 @@ var Messages = {
 			code: 'Código',
 			coins: 'Monzy Coins',
 			valid_until: 'Validade',
-			use_limit: 'Limite de uso'
+			use_limit: 'Limite de uso',
+			create_success: 'Cupon de desconto criado com sucesso'
 		},
 		buttons: {
 			edit: 'Editar',
