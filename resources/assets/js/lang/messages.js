@@ -88,8 +88,8 @@ var Messages = {
 			'your': 'SEU',
 			'credit': 'SALDO',
 			'coins': 'Monzy Coins',
-			'insert_here' : 'Digite aqui o código do cupon',
-			'insert': 'Inserir Cupon de Desconto',
+			'insert_here' : 'Digite aqui o código do cupom',
+			'insert': 'Inserir Cupom de Desconto',
 		},
 		profile: {
 			name: 'Nome',
