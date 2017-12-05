@@ -52,7 +52,7 @@ class CreateCouponService
 			'use_limit.required'  		  => __('validation.required', 				  ['attribute' => __('coupon.use_limit')]),
 			'use_limit.integer'  		  => __('validation.integer', 				  ['attribute' => __('coupon.use_limit')]),
 			'valid_until.date' 			  => __('validation.date', 				      ['attribute' => __('coupon.valid_until')]),
-			'valid_until.dateAfterOrEqual' => __('validation.custom.dateAfterOrEqual', ['attribute' => __('coupon.valid_until')]), 
+			'valid_until.dateAfterOrEqual' => 'A data deve ser maior que o dia de hoje', 
 		];
 	}
 

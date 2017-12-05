@@ -22,11 +22,13 @@
 		},
 		methods: {
 			submit: function() {
+				this.errors = {};
 				CouponProvider.create(this.coupon)
 							  .then((response) => {
 							  		var locale = this.$i18n.locale;
 									var msg = this.$i18n.messages[locale].coupon.create_success;
 									window.app.$emit('app:show-alert', [msg], "success");
+									window.app.$emit('coupon:created');
 									this.clear();
 							  })
 							  .catch((error) => {
@@ -110,11 +112,6 @@
 			<div class="row">
 				<div class="col-xs-12 margin-top-10">
 					<button type="button" class="btn btn-primary" v-on:click="submit"><i class="glyphicon glyphicon-floppy-disk"></i> {{$t('buttons.save')}}</button>
-				</div>
-			</div>
-			<div class="row margin-top-10">
-				<div class="col-xs-12">
-					<h4>{{$t('coupon.list')}}</h4>
 				</div>
 			</div>
 		</div>

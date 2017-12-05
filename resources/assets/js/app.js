@@ -65,6 +65,8 @@ Vue.component('message-app', require('./components/message/MessageApp'));
 Vue.component('user-admin-list', require('./components/userAdmin/UserAdminList'));
 Vue.component('profile-admin', require('./components/userAdmin/ProfileAdmin'));
 Vue.component('coupon', require('./components/coupon/Coupon'));
+Vue.component('coupon-list', require('./components/coupon/CouponList'));
+Vue.component('wallet', require('./components/wallet/Wallet'));
 
 
 window.app = new Vue({

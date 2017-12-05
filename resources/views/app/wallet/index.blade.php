@@ -13,29 +13,8 @@
 	</div>
 </div>
 @endif
-<div class="row">
-	<div class="col-xs-12 text-center">
-		<span class="fa-stack fa-lg">
-				<i class="fa fa-circle fa-stack-2x yellow-icon"></i>
-				<i class="fa fa-credit-card-alt fa-stack-1x fa-inverse"></i>
-		</span>
-	</div>
-	<div class="col-xs-12 text-center">
-		<h1>@lang('app.menu.wallet')</h1>
-	</div>
-</div>
-<div class="row">
-	<div class="col-xs-12">
-		<div class="pull-left">
-			<span class="img-coins">
-			</span>
-		</div>
-		<div class="pull-left">
-			<h4 class="credit-title">@lang('wallet.your_credit')</h4>
-			<strong>{{number_format($wallet->amount, '2', ',' ,'.')}}</strong> @lang('wallet.coins')
-		</div>
-	</div>
-</div>
+<wallet>
+</wallet>
 <div class="row">
 	<div class="col-xs-12">
 		<h2>@lang('wallet.packages')</h2>
