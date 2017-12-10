@@ -30,7 +30,8 @@ var Messages = {
 			billing: 'Pagamentos',
 			from: 'De',
 			to: 'Até',
-			write_here: 'Escreva aqui'
+			write_here: 'Escreva aqui',
+			coupon: 'Cupons de desconto'
 		},
 		notification: {
 			notifications: 'Notificações',
@@ -78,11 +79,17 @@ var Messages = {
 			date: 'Data'
 		},
 		wallet: {
+			'wallet': 'CARTEIRA',
 			'transaction_history': 'Histórico de transações',
 			'product': 'Produto',
 			'code': 'Código',
 			'status': 'Status',
-			'last_event': 'Última atualização'
+			'last_event': 'Última atualização',
+			'your': 'SEU',
+			'credit': 'SALDO',
+			'coins': 'Monzy Coins',
+			'insert_here' : 'Digite aqui o código do cupom',
+			'insert': 'Inserir Cupom de Desconto',
 		},
 		profile: {
 			name: 'Nome',
@@ -222,6 +229,17 @@ var Messages = {
 			talking_to: 'Conversando com',
 			no_thread_selected: 'Nenhuma conversa selecionada',
 		},
+		coupon: {
+			new: 'Gerar novo Cupon de Desconto',
+			list: 'Lista de Cupons de Desconto',
+			code: 'Código',
+			coins: 'Monzy Coins',
+			valid_until: 'Validade',
+			use_limit: 'Limite de uso',
+			used_times: 'QTD. Uso',
+			create_success: 'Cupon de desconto criado com sucesso',
+			insert_success: 'Monzy Coins adicionados a sua carteira com sucesso.'
+		},
 		buttons: {
 			edit: 'Editar',
 			save: 'Salvar',
@@ -233,7 +251,8 @@ var Messages = {
 			add_new_teacher: 'Novo Professor',
 			add_new: 'Novo Jogo',
 			inactivate: 'Inativar',
-			activate: 'Ativar'
+			activate: 'Ativar',
+			confirm: 'Confirmar'
 		},
 		roles: {
 			ADMIN: 'Administrador',

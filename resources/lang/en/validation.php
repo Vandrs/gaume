@@ -98,6 +98,7 @@ return [
     */
 
     'custom' => [
+        'dateAfterOrEqual' => ':attribute não é uma data inválida',
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],

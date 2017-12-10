@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use Validator;
+use Log;
 
 class ValidatorExtensionsUtil 
 {
@@ -10,6 +11,8 @@ class ValidatorExtensionsUtil
 	{
         Validator::extend('dateBeforeOrEqual', function($attribute, $value, $parameters) {
             try{
+                Log::info('Value:'.$value);
+                Log::info('Param:'.$parameters[0]);
                 return strtotime($value) <= strtotime($parameters[0]);
             } catch(\Exception $e){
                 return false;
@@ -18,6 +21,8 @@ class ValidatorExtensionsUtil
 
         Validator::extend('dateAfterOrEqual', function($attribute, $value, $parameters) {
             try{
+                Log::info('Value:'.$value);
+                Log::info('Param:'.$parameters[0]);
                 return strtotime($value) >= strtotime($parameters[0]);
             } catch(\Exception $e){
                 return false;

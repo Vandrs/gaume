@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 	Route::get('/me','UserController@getMe');
 	Route::get('/me/games','TeacherGameController@get');
 	Route::put('/me/games','TeacherGameController@update');
+	Route::get('/me/wallet','WalletController@get');
+	Route::put('/me/wallet/coupon','WalletController@addCoupon');
 	Route::post('/me','UserController@update');
 	Route::post('/me/photo','UserController@updatePhoto');
 	Route::get('/teacher/games/{id}','TeacherGameController@getGamesForLesson');
@@ -106,6 +108,10 @@ Route::group(['middleware' => ['auth:api','activeUserOnly']] , function () {
 		Route::put('/users/{id}/activate','UserAdminController@activate');
 		Route::put('/users/{id}/inactivate','UserAdminController@inactivate');
 		Route::get('/users/{id}/evaluations','LessonEvaluationController@getAll');
+
+		#Coupons
+		Route::post('/coupons','CouponController@create');
+		Route::get('/coupons','CouponController@getAll');
 		
 	});
 
