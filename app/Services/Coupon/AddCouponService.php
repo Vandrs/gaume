@@ -12,6 +12,7 @@ use App\Services\Wallet\WalletService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Carbon\Carbon;
 use Validator;
+use Log;
 
 class AddCouponService 
 {
@@ -50,10 +51,9 @@ class AddCouponService
 
 	private function validateExpired(Coupon $coupon)
 	{
-		$now = Carbon::now();
-		$now->addDay();
+		$now = Carbon::createFromFormat('Y-m-d', Carbon::now()->format('Y-m-d'));
 		if ($coupon->valid_until) {
-			$validUntil = Carbon::createFromTimestamp($coupon->valid_until->getTimestamp());
+			$validUntil = Carbon::createFromFormat('Y-m-d', $coupon->valid_until->format('Y-m-d'));
 			if ($now->greaterThan($validUntil)) {
 				$this->validator->errors()->add('code',__('coupon.expired'));
 				throw new ValidationException(__('coupon.expired'));		
