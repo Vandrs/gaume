@@ -16,14 +16,14 @@ use Validator;
 class AddCouponService 
 {
 
-	private $validator 
+	private $validator;
 
 	public function add(User $user, $code) 
 	{
 		$this->validator = Validator::make([],[],[]);
 		$coupon = $this->getCoupon($code);
 		$this->validateExpired($coupon);
-		$this->validateUse($coupon);
+		$this->validateUse($coupon, $user);
 
 		$userCoupon = UserCoupon::create([
 			'user_id'   => $user->id,

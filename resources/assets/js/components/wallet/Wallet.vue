@@ -126,7 +126,7 @@
 						</div>
 						<div class='col-xs-12 col-md-4'>
 							<label class='block-label'>&nbsp;</label>
-							<button class="btn btn-primary"><i class="fa fa-thumbs-up"></i> {{$t('buttons.confirm')}}</button>
+							<button class="btn btn-primary" v-on:click="sendCode"><i class="fa fa-thumbs-up"></i> {{$t('buttons.confirm')}}</button>
 						</div>
 					</div>
 				</div>

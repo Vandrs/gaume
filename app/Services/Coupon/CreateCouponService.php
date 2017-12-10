@@ -18,7 +18,14 @@ class CreateCouponService
 		if ($this->validator->fails()) {
 			throw new ValidationException('Parâmetros inválidos');
 		}
-		$validUntil = (isset($data['valid_until']) && !empty($data['valid_until'])) ? Carbon::createFromFormat('Y-m-d', $data['valid_until']) : null;
+
+		if (isset($data['valid_until']) && !empty($data['valid_until'])) {	
+			$format = str_contains($data['valid_until'],'/') ? 'd/m/Y' : 'Y-m-d';
+			$validUntil = Carbon::createFromFormat($format, $data['valid_until']);
+		} else {
+			$validUntil = null;
+		}
+
 		$coupon = Coupon::create([
 			'code' 		  => $data['code'],
 			'coins' 	  => $data['coins'],
@@ -31,8 +38,7 @@ class CreateCouponService
 	public function validation()
 	{
 		$date = Carbon::now();
-		$date->addDay();
-		$strDate = $date->format('Y-m-d H:i:s');
+		$strDate = $date->format('Y-m-d');
 		return [
 			'code' 		  => 'required|unique:coupons|max:255',
 			'coins'		  => 'required|integer',
