@@ -6,6 +6,12 @@ npm install
 
 chmod 777 -R storage
 
+'''
+Após instalar se der o erro: Class 'Cmgmyr\Messenger\MessengerServiceProvider' not found 
+Execitar: composer require cmgmyr/messenger
+Executar: php artisan vendor:publish --provider="Cmgmyr\Messenger\MessengerServiceProvider"
+'''
+
 php artisan migrate status
 
 php artisan migrate
