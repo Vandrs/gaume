@@ -1,4 +1,4 @@
-FROM php:7.1.2-fpm
+FROM php:7.1.5-fpm
 
 MAINTAINER Vanderson Nunes <vann.nunes@gmail.com>
 

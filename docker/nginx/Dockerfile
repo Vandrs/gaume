@@ -7,7 +7,7 @@ ADD sites/* /etc/nginx/conf.d/
 # ADD sites/* /etc/nginx/sites-available/
 # ADD sites/* /etc/nginx/sites-enabled/
 
-RUN echo "upstream php-upstream { server game-gym-php:9000; }" > /etc/nginx/conf.d/upstream.conf
+RUN echo "upstream php-upstream { server monzy-php:9000; }" > /etc/nginx/conf.d/upstream.conf
 
 RUN usermod -u 1000 www-data
 

@@ -1,0 +1,95 @@
+version: '2'
+
+#############
+# Services
+#############
+services:
+
+    # monzy-elk:
+    #     build: ./docker/elasticsearch
+    #     container_name: monzy-elk
+    #     volumes:
+    #         - ./docker/data:/var/lib/elasticsearch
+    #         - ./docker/log/elasticsearch:/var/log/elasticsearch
+    #     ports:
+    #         - "5601:5601"
+    #         - "9200:9200"
+    #         - "9300:9300"
+    #         - "5044:5044"
+    #         - "5000:5000"
+    #     networks:
+    #         gamegym_net:
+    #             ipv4_address: 172.25.0.2
+
+    monzy-mysql:
+        container_name: monzy-mysql
+        build: ./docker/mysql
+        expose:
+            - "3306"
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=gamegym123
+            - MYSQL_DATABASE=gamegym
+            - MYSQL_USER=gamegym
+            - MYSQL_PASSWORD=gamegym123
+        volumes:
+            - ./docker/data/mysql/mysql:/var/lib/mysql
+            - ./docker/data/mysql/data:/var/data
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.3
+
+    monzy-redis:
+        container_name: monzy-redis
+        build: ./docker/redis
+        expose:
+            - "6379"
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.4
+
+    monzy-php:
+        container_name: monzy-php
+        build: ./docker/php
+        volumes_from: 
+            - volume_www
+        expose: 
+            - "9000"
+        links:
+            - "monzy-redis"
+            - "monzy-mysql"
+            # - "monzy-elk"
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.5
+
+    monzy-nginx:
+        container_name: monzy-nginx
+        build: ./docker/nginx
+        volumes_from: 
+            - volume_www
+        volumes:
+            - ./docker/log/nginx:/var/log/nginx
+        expose: 
+            - "80"
+            - "443"
+        ports:
+            - "80:80"
+        links: 
+            - "monzy-php"
+        networks:
+            gamegym_net:
+                ipv4_address: 172.25.0.6
+
+    volume_www:
+        build: ./docker/volume
+        volumes: 
+            - ./:/var/www/gaume
+
+networks:
+    gamegym_net:
+        driver: bridge
+        ipam:
+          config:
+          - subnet: 172.25.0.0/24

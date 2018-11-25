@@ -131,7 +131,7 @@ class CreatePeriodService extends Service
 	{
 		try {
 			$user = $period->lesson->teacher;
-			$user->notify(new LessonStartNotification($period->lesson));
+			$user->notify(new LessonStartNotification($period->lesson, $user));
 			return true;
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
